@@ -1,0 +1,112 @@
+//! Font-Face
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff2 woff ttf) {
+  $src: null;
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
+  );
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype"
+  );
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+//! flexbox
+@mixin flex-box($display, $direction, $wrap, $justify, $align) {
+  display: $display;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+//! @media
+@mixin phone-320 {
+  @media (max-width: #{$_320}) {
+    @content;
+  }
+}
+
+@mixin phone-668 {
+  @media (max-width: #{$_668}) {
+    @content;
+  }
+}
+
+@mixin tab-768 {
+  @media (max-width: #{$_768}) {
+    @content;
+  }
+}
+
+@mixin tab-1024 {
+  @media (max-width: #{$_1024}) {
+    @content;
+  }
+}
+
+@mixin desk-1366 {
+  @media (max-width: #{$_1366}) {
+    @content;
+  }
+}
+
+@mixin desk-1536 {
+  @media (max-width: #{$_1536}) {
+    @content;
+  }
+}
+
+@mixin desk-1920 {
+  @media (max-width: #{$_1920}) {
+    @content;
+  }
+}
+
+//! device specific media
+@mixin iphone-5($orientation) {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: $orientation) {
+    @content;
+  }
+}
+
+@mixin iphone-6-8($orientation) {
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: $orientation) {
+    @content;
+  }
+}
+
+@mixin iphone-plus($orientation) {
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: $orientation) {
+    @content;
+  }
+}
+
+@mixin iphone-x($orientation) {
+  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: $orientation) {
+    @content;
+  }
+}
+
+@mixin ipad($orientation) {
+  @media (min-device-width: $ipad-width) and (max-device-width: $ipad-pro-width) and (orientation: $orientation) and (-webkit-min-device-pixel-ratio: 2) {
+    @content;
+  }
+}
+
+@mixin ipad-pro($orientation) {
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1366px) and (orientation: $orientation) and (-webkit-min-device-pixel-ratio: 2) {
+    @content;
+  }
+}

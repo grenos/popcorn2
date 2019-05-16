@@ -1,0 +1,11 @@
+@import-normalize;
+
+// helpers
+@import "./styles/functions/functions";
+@import "./styles/mixins/mixins";
+@import "./styles/variables/variables";
+
+@import "./components/App/app.scss";
+
+// @import "styles/_colors.scss"; // assuming a styles directory under src/
+// @import "~nprogress/nprogress"; // importing a css file from the nprogress node module

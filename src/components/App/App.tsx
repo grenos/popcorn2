@@ -1,10 +1,10 @@
 import * as React from 'react';
-
+import Nav from '../Nav/Nav'
 
 function App() {
   return (
     <>
-      <h1>POPCORN STYLE</h1>
+      <Nav />
     </>
   );
 }
