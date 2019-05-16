@@ -1,0 +1,7 @@
+body {
+  background: pink;
+  @include flex-box(null, null, center, center);
+  @include tab-768 {
+    background: teal;
+  }
+}

@@ -23,8 +23,8 @@
 }
 
 //! flexbox
-@mixin flex-box($display, $direction, $wrap, $justify, $align) {
-  display: $display;
+@mixin flex-box($direction, $wrap, $justify, $align) {
+  display: flex;
   flex-direction: $direction;
   flex-wrap: $wrap;
   justify-content: $justify;
