@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import logo from '../../media/img/logo.png'
 import { useSpring, animated } from 'react-spring'
+import SearchInput from '../SearchInput/SearchImput'
 
 interface animateImg {
   width: number | string,
@@ -51,10 +52,19 @@ const Nav: React.FC = () => {
 
   return (
     <animated.div className="nav" style={animateHeader} data-testid="first-child">
-      <animated.img
-        src={logo} alt="logo"
-        className="nav__img"
-        style={animateImg} />
+      <div className="nav__type-toggle">
+        <h3>placeholder</h3>
+      </div>
+      <div className="nav__logo">
+        <animated.img
+          src={logo} alt="logo"
+          className="nav__img"
+          style={animateImg} />
+      </div>
+
+      <div className="nav__search-inp">
+        <SearchInput />
+      </div>
     </animated.div>
   )
 }

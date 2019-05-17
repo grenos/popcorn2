@@ -15,3 +15,19 @@
   width: 320px;
   margin-top: 100px;
 }
+
+.nav__type-toggle {
+  flex-basis: 33.3%;
+  @include flex-box(null, null, flex-start, center);
+  color: aliceblue;
+}
+
+.nav__logo {
+  flex-basis: 33.3%;
+  @include flex-box(null, null, center, center);
+}
+
+.nav__search-inp {
+  flex-basis: 33.3%;
+  @include flex-box(null, null, flex-end, center);
+}

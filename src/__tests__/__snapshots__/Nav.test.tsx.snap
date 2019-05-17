@@ -14,18 +14,3 @@ exports[`<Nav> test dom elements 1`] = `
   />
 </div>
 `;
-
-exports[`<Nav> test dom elements exist 1`] = `
-<div
-  class="nav"
-  data-testid="first-child"
-  style="height: 90px; background: rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 10px 20px rgba(0, 0, 0, 0.4);"
->
-  <img
-    alt="logo"
-    class="nav__img"
-    src="logo.png"
-    style="width: 320px; margin-top: 100px; transform: rotate(15deg); opacity: 0.4;"
-  />
-</div>
-`;
