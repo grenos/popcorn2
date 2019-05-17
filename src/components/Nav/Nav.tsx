@@ -5,10 +5,13 @@ import { useSpring, animated } from 'react-spring'
 interface animateImg {
   width: number | string,
   marginTop: number | string,
-  transform: number | string
+  transform: number | string,
+  opacity: number
 }
 interface animateHeader {
-  height: number | string
+  height: number | string,
+  background: number | string,
+  boxShadow: number | string
 }
 
 
@@ -24,22 +27,30 @@ const Nav: React.FC = () => {
   });
 
   const listenToScroll = () => {
-    const scrolled: number = document.body.scrollTop || document.documentElement.scrollTop
+    const scrolled: number = document.body.scrollTop ||
+      document.documentElement.scrollTop
     setScrolled(scrolled)
   }
 
   const animateHeader = useSpring<animateHeader>({
     height: scrolled > 20 ? `50px` : `90px`,
+    background: scrolled > 20
+      ? 'rgba(0, 0, 0, 0.6)'
+      : 'rgba(0, 0, 0, .4)',
+    boxShadow: scrolled > 20
+      ? '0px 0px 10px 20px rgba(0, 0, 0, 0.6)'
+      : '0px 0px 10px 20px rgba(0, 0, 0, 0.4)'
   })
 
   const animateImg = useSpring<animateImg>({
     width: scrolled > 20 ? `240px` : `320px`,
     marginTop: scrolled > 20 ? `30px` : `100px`,
     transform: scrolled > 20 ? 'rotate(0deg)' : 'rotate(15deg)',
+    opacity: scrolled > 20 ? .6 : .4
   })
 
   return (
-    <animated.div className="nav" style={animateHeader}>
+    <animated.div className="nav" style={animateHeader} data-testid="first-child">
       <animated.img
         src={logo} alt="logo"
         className="nav__img"
