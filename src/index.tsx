@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './components/App/App';
@@ -10,3 +10,11 @@ ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+
+
+
+
+
+
