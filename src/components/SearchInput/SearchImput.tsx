@@ -19,8 +19,10 @@ interface IProps {
   getUserInputRequest: any
 }
 
+type InputVal = React.FormEvent<HTMLInputElement>
 
-const SearchInput: React.FC<IProps> = ({ scrolled, getUserInputRequest }) => {
+
+const SearchInput: React.FC<IProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
@@ -39,7 +41,7 @@ const SearchInput: React.FC<IProps> = ({ scrolled, getUserInputRequest }) => {
     pointerEvents: scrolled > 20 ? 'all' : 'none'
   })
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+  const handleChange = (e: InputVal): void => {
     setChange(e.currentTarget.value)
   }
 

@@ -1,6 +1,6 @@
 
 interface IApiState {
-  searchMovies: Array<{}>
+  searchMovies: Array<{}>,
 }
 
 const API_STATE: IApiState = {

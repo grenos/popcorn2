@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Nav from '../Nav/Nav'
 
-function App() {
+function App(): JSX.Element {
   return (
     <>
       <Nav />

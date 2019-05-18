@@ -5,4 +5,8 @@ general react typescript
 https://medium.freecodecamp.org/effective-use-of-typescript-with-react-3a1389b6072a
 https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
 https://github.com/typescript-cheatsheets/react-typescript-cheatsheet/blob/master/README.md
+
+
+redux typescript
+https://github.com/Lemoncode/redux-sagas-typescript-by-example/tree/master/01_hello_saga
 https://github.com/piotrwitek/react-redux-typescript-guide#--fc-counter

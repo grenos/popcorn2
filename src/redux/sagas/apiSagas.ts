@@ -9,6 +9,11 @@ interface IProps {
 }
 
 
+
+function* watchGetUsersRequest() {
+  yield takeEvery(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
+}
+
 function* getUserInput({ payload: value }: IProps) {
   try {
     const result = yield call(api.getUserInput, value)
@@ -20,10 +25,6 @@ function* getUserInput({ payload: value }: IProps) {
 
   }
 }
-function* watchGetUsersRequest() {
-  yield takeEvery(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
-}
-
 
 
 

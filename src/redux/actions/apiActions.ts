@@ -1,5 +1,4 @@
 
-
 export const Types: any = {
   GET_USER_INPUT_REQUEST: 'users/get_user_input_request',
   GET_USER_INPUT_SUCCESS: 'users/get_user_input_success'

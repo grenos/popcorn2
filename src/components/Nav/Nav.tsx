@@ -16,7 +16,7 @@ interface IAnimateHeader {
 }
 
 
-const Nav: React.FC = () => {
+const Nav: React.FC = (): JSX.Element => {
 
   const [scrolled, setScrolled] = useState<number>(0);
 
