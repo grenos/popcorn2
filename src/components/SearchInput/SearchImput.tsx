@@ -3,26 +3,12 @@ import { connect } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import search from '../../media/img/search.png'
 import { getUserInputRequest } from '../../redux/actions/apiActions'
+import * as INT from '../../helpers/interfaces'
 
-
-interface IInputContainer {
-  opacity: number,
-}
-
-interface IInput {
-  width: string,
-  pointerEvents: string
-}
-
-interface IProps {
-  scrolled: number,
-  getUserInputRequest: any
-}
 
 type InputVal = React.FormEvent<HTMLInputElement>
 
-
-const SearchInput: React.FC<IProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
+const SearchInput: React.FC<INT.IProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
@@ -32,11 +18,11 @@ const SearchInput: React.FC<IProps> = ({ scrolled, getUserInputRequest }): JSX.E
     }
   }, [scrolled])
 
-  const animateInputContainer = useSpring<IInputContainer>({
+  const animateInputContainer = useSpring<INT.IInputContainer>({
     opacity: scrolled > 20 ? 1 : .1,
   })
 
-  const animateInput = useSpring<IInput>({
+  const animateInput = useSpring<INT.IInput>({
     width: scrolled > 20 ? '190px' : '21px',
     pointerEvents: scrolled > 20 ? 'all' : 'none'
   })

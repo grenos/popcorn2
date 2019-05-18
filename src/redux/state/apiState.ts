@@ -1,25 +1,7 @@
-export interface IMovie {
-  vote_count: number
-  id: number
-  video: boolean
-  vote_average: number
-  title: string
-  popularity: number
-  poster_path: string
-  original_language: string
-  original_title: string
-  genre_ids: number[]
-  backdrop_path: string
-  adult: boolean
-  overview: string
-  release_date: string
-}
+import * as INT from '../../helpers/interfaces'
 
-interface IApiState {
-  searchMovies: Array<IMovie>,
-}
 
-export const API_STATE: IApiState = {
+export const API_STATE: INT.IApiState = {
   searchMovies: [],
 }
 

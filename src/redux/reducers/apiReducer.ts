@@ -1,12 +1,11 @@
 import { Types } from '../actions/apiActions'
-import { IMovie, API_STATE } from '../state/apiState'
+import { API_STATE } from '../state/apiState'
+import * as INT from '../../helpers/interfaces'
 
-interface IActions {
-  type: string,
-  payload: Array<IMovie>,
-}
 
-export default function apiReducer(state = API_STATE, action: IActions) {
+
+
+export default function apiReducer(state = API_STATE, action: INT.IActions) {
   switch (action.type) {
     case Types.GET_USER_INPUT_SUCCESS: {
       return {

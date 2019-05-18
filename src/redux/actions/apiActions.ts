@@ -1,4 +1,4 @@
-import { IMovie } from '../state/apiState'
+import * as INT from '../../helpers/interfaces'
 
 
 export const Types: any = {
@@ -6,16 +6,14 @@ export const Types: any = {
   GET_USER_INPUT_SUCCESS: 'action/get_user_input_success'
 }
 
-interface ISearchMovies {
-  result: Array<IMovie>,
-}
+
 
 export const getUserInputRequest = (inputValue: string) => ({
   type: Types.GET_USER_INPUT_REQUEST,
   payload: inputValue
 })
 
-export const getUserInputSuccess = ({ result }: ISearchMovies) => ({
+export const getUserInputSuccess = ({ result }: INT.ISearchMovies) => ({
   type: Types.GET_USER_INPUT_SUCCESS,
   payload: result
 })

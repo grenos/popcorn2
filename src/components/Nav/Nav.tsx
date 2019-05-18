@@ -2,18 +2,7 @@ import React, { useState, useEffect } from 'react'
 import logo from '../../media/img/logo.png'
 import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchImput'
-
-interface IAnimateImg {
-  width: number | string,
-  marginTop: number | string,
-  transform: number | string,
-  opacity: number
-}
-interface IAnimateHeader {
-  height: number | string,
-  background: number | string,
-  boxShadow: number | string
-}
+import * as INT from '../../helpers/interfaces'
 
 
 const Nav: React.FC = (): JSX.Element => {
@@ -33,7 +22,7 @@ const Nav: React.FC = (): JSX.Element => {
     setScrolled(scrolled)
   }
 
-  const animateHeader = useSpring<IAnimateHeader>({
+  const animateHeader = useSpring<INT.IAnimateHeader>({
     height: scrolled > 20 ? `50px` : `90px`,
     background: scrolled > 20
       ? 'rgba(0, 0, 0, 0.6)'
@@ -43,7 +32,7 @@ const Nav: React.FC = (): JSX.Element => {
       : '0px 0px 10px 20px rgba(0, 0, 0, 0.2)'
   })
 
-  const animateImg = useSpring<IAnimateImg>({
+  const animateImg = useSpring<INT.IAnimateImg>({
     width: scrolled > 20 ? `240px` : `320px`,
     marginTop: scrolled > 20 ? `30px` : `100px`,
     transform: scrolled > 20 ? 'rotate(0deg)' : 'rotate(15deg)',
