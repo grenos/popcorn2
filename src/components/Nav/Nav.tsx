@@ -37,10 +37,10 @@ const Nav: React.FC = () => {
     height: scrolled > 20 ? `50px` : `90px`,
     background: scrolled > 20
       ? 'rgba(0, 0, 0, 0.6)'
-      : 'rgba(0, 0, 0, .4)',
+      : 'rgba(0, 0, 0, .2)',
     boxShadow: scrolled > 20
       ? '0px 0px 10px 20px rgba(0, 0, 0, 0.6)'
-      : '0px 0px 10px 20px rgba(0, 0, 0, 0.4)'
+      : '0px 0px 10px 20px rgba(0, 0, 0, 0.2)'
   })
 
   const animateImg = useSpring<animateImg>({
@@ -63,7 +63,7 @@ const Nav: React.FC = () => {
       </div>
 
       <div className="nav__search-inp">
-        <SearchInput />
+        <SearchInput scrolled={scrolled} />
       </div>
     </animated.div>
   )

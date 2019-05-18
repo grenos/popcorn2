@@ -30,4 +30,5 @@
 .nav__search-inp {
   flex-basis: 33.3%;
   @include flex-box(null, null, flex-end, center);
+  height: 100%;
 }
