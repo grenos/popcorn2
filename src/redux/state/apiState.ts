@@ -1,13 +1,29 @@
-
-interface IApiState {
-  searchMovies: Array<{}>,
+export interface IMovie {
+  vote_count: number
+  id: number
+  video: boolean
+  vote_average: number
+  title: string
+  popularity: number
+  poster_path: string
+  original_language: string
+  original_title: string
+  genre_ids: number[]
+  backdrop_path: string
+  adult: boolean
+  overview: string
+  release_date: string
 }
 
-const API_STATE: IApiState = {
+interface IApiState {
+  searchMovies: Array<IMovie>,
+}
+
+export const API_STATE: IApiState = {
   searchMovies: [],
 }
 
-export default API_STATE
+
 
 
 

@@ -1,11 +1,13 @@
+import { IMovie } from '../state/apiState'
+
 
 export const Types: any = {
-  GET_USER_INPUT_REQUEST: 'users/get_user_input_request',
-  GET_USER_INPUT_SUCCESS: 'users/get_user_input_success'
+  GET_USER_INPUT_REQUEST: 'action/get_user_input_request',
+  GET_USER_INPUT_SUCCESS: 'action/get_user_input_success'
 }
 
 interface ISearchMovies {
-  result: Array<{}>
+  result: Array<IMovie>,
 }
 
 export const getUserInputRequest = (inputValue: string) => ({
