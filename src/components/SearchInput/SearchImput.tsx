@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import search from '../../media/img/search.png'
+import { getUserInputRequest } from '../../redux/actions/apiActions'
 
 
 interface inputContainer {
@@ -12,8 +14,13 @@ interface input {
   pointerEvents: string
 }
 
+interface props {
+  scrolled: number,
+  getUserInputRequest: any
+}
 
-const SearchInput: React.FC<{ scrolled: number }> = ({ scrolled }) => {
+
+const SearchInput: React.FC<props> = ({ scrolled, getUserInputRequest }) => {
 
   const [change, setChange] = useState<string>('')
 
@@ -32,6 +39,14 @@ const SearchInput: React.FC<{ scrolled: number }> = ({ scrolled }) => {
     pointerEvents: scrolled > 20 ? 'all' : 'none'
   })
 
+  const handleChange = (e: any) => {
+    setChange(e.target.value)
+  }
+
+  const handleKeyUp = () => {
+    getUserInputRequest(change)
+  }
+
 
   return (
     <animated.div
@@ -43,7 +58,8 @@ const SearchInput: React.FC<{ scrolled: number }> = ({ scrolled }) => {
         name="search"
         className="search-input__inp"
         style={animateInput}
-        onChange={(e) => setChange(e.target.value)}
+        onChange={(e) => handleChange(e)}
+        onKeyUp={() => handleKeyUp()}
         value={change}
       />
       <img
@@ -55,4 +71,7 @@ const SearchInput: React.FC<{ scrolled: number }> = ({ scrolled }) => {
 }
 
 
-export default SearchInput
+// pass null for mapStateToProps
+export default connect(null, {
+  getUserInputRequest
+})(SearchInput);
