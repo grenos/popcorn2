@@ -1,3 +1,23 @@
+/**
+|--------------------------------------------------
+  //! nav
+  IAnimateImg 
+  IAnimateHeader
+  //! nav-input
+  IInputContainer
+  IInput
+  IProps
+  //! apiACtions
+  ISearchMovies
+  //! apiREducer
+  IActions
+  //! apiState
+  IApiState
+  //! apiSags
+  ISagaProps
+|--------------------------------------------------
+*/
+
 
 export interface IAnimateImg {
   width: number | string,
@@ -31,6 +51,7 @@ export interface ISearchMovies {
 
 export interface IActions {
   type: string,
+  // use | <type of other payloads>
   payload: Array<IMovie>,
 }
 
@@ -56,7 +77,7 @@ export interface IApiState {
 }
 
 
-export interface IActionProps {
+export interface ISagaProps {
   payload: string
 }
 

@@ -1,5 +1,5 @@
 
-import { takeEvery, takeLatest, call, fork, put, take } from 'redux-saga/effects'
+import { takeLatest, call, fork, put } from 'redux-saga/effects'
 import * as actions from '../actions/apiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
@@ -8,10 +8,10 @@ import * as INT from '../../helpers/interfaces'
 
 
 function* watchGetUsersRequest() {
-  yield takeEvery(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
+  yield takeLatest(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
 }
 
-function* getUserInput({ payload: value }: INT.IActionProps) {
+function* getUserInput({ payload: value }: INT.ISagaProps) {
   try {
     const result = yield call(api.getUserInput, value)
 
