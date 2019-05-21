@@ -4,17 +4,17 @@
   IAnimateImg 
   IAnimateHeader
   //! nav-input
-  IInputContainer
-  IInput
-  IProps
+  IAnimateInputContainer
+  IAnimateInput
+  IInputProps
   //! apiACtions
   ISearchMovies
   //! apiREducer
-  IActions
+  IReducerActions
   //! apiState
   IApiState
   //! apiSags
-  ISagaProps
+  IInputSagaProps
 |--------------------------------------------------
 */
 
@@ -31,16 +31,16 @@ export interface IAnimateHeader {
   boxShadow: number | string
 }
 
-export interface IInputContainer {
+export interface IAnimateInputContainer {
   opacity: number,
 }
 
-export interface IInput {
+export interface IAnimateInput {
   width: string,
   pointerEvents: string
 }
 
-export interface IProps {
+export interface IInputProps {
   scrolled: number,
   getUserInputRequest: any
 }
@@ -49,7 +49,7 @@ export interface ISearchMovies {
   result: Array<IMovie>,
 }
 
-export interface IActions {
+export interface IReducerActions {
   type: string,
   // use | <type of other payloads>
   payload: Array<IMovie>,
@@ -77,7 +77,7 @@ export interface IApiState {
 }
 
 
-export interface ISagaProps {
+export interface IInputSagaProps {
   payload: string
 }
 

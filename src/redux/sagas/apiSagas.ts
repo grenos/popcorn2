@@ -11,7 +11,7 @@ function* watchGetUsersRequest() {
   yield takeLatest(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
 }
 
-function* getUserInput({ payload: value }: INT.ISagaProps) {
+function* getUserInput({ payload: value }: INT.IInputSagaProps) {
   try {
     const result = yield call(api.getUserInput, value)
 

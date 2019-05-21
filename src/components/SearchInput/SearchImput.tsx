@@ -8,7 +8,7 @@ import * as INT from '../../helpers/interfaces'
 
 type InputVal = React.FormEvent<HTMLInputElement>
 
-const SearchInput: React.FC<INT.IProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
+const SearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
@@ -18,11 +18,11 @@ const SearchInput: React.FC<INT.IProps> = ({ scrolled, getUserInputRequest }): J
     }
   }, [scrolled])
 
-  const animateInputContainer = useSpring<INT.IInputContainer>({
+  const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
     opacity: scrolled > 20 ? 1 : .1,
   })
 
-  const animateInput = useSpring<INT.IInput>({
+  const animateInput = useSpring<INT.IAnimateInput>({
     width: scrolled > 20 ? '190px' : '21px',
     pointerEvents: scrolled > 20 ? 'all' : 'none'
   })
