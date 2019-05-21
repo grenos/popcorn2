@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../redux/reducers/indexReducers'
 import { middleware } from '../redux/store/store'
+import * as INT from '../helpers/interfaces'
 
 
 /**
@@ -10,9 +11,9 @@ import { middleware } from '../redux/store/store'
  * @function storeFactory
  * @returns {Store} - Redux store
  */
-export const storeFactory = (API_STATE: any) => {
+export const storeFactory = (initState: any) => {
   const createStoreWithMiddlware = applyMiddleware(...middleware)(createStore)
-  return createStoreWithMiddlware(rootReducer, API_STATE)
+  return createStoreWithMiddlware(rootReducer, initState)
 }
 
 
