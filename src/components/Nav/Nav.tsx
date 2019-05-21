@@ -40,7 +40,7 @@ const Nav: React.FC = (): JSX.Element => {
   })
 
   return (
-    <animated.div className="nav" style={animateHeader} data-testid="first-child">
+    <animated.div className="nav" style={animateHeader} data-test="component-nav">
       <div className="nav__type-toggle">
         <h3>placeholder</h3>
       </div>
