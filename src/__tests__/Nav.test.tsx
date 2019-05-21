@@ -26,6 +26,7 @@ test('should render nav component', () => {
 describe('CSS props before and after scroll animation', () => {
   let wrapper: any
 
+  // this needs to be an interface
   const initStyleNav = {
     height: '90px',
     background: 'rgba(0, 0, 0, 0.2)',
@@ -40,14 +41,17 @@ describe('CSS props before and after scroll animation', () => {
   test('nav should change css on scroll', () => {
     const component = findByTestAttr(wrapper, 'component-nav')
 
-    // mock original css before anim set by js
-    expect(component.prop('style')).toEqual(initStyleNav)
+    // save original css before anim set by js
+    const initStyleNav = component.prop('style')
 
     // simulate window scroll
 
 
+    // save animated CSS values after scroll simulation
+    const newStyleNav = component.prop('style')
+
     // expect old css NOT to be equal to new css
-    // expect(component.prop('style')).not.toEqual(initStyleNav)
+    // expect(initStyleNav).not.toEqual(newStyleNav)
   })
 })
 
