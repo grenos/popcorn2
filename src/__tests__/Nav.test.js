@@ -1,9 +1,8 @@
 import React from 'react'
-import Enzyme, { shallow, mount } from 'enzyme'
+import Enzyme, { shallow } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import { Provider } from 'react-redux'
 import 'jest-dom/extend-expect'
-import { findByTestAttr, storeFactory } from '../helpers/testUtils'
+import { findByTestAttr } from '../helpers/testUtils'
 import Nav from '../components/Nav/Nav'
 
 
