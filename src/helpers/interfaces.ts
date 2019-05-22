@@ -3,6 +3,7 @@
   //! nav
   IAnimateImg 
   IAnimateHeader
+  IScrollProps
   //! nav-input
   IAnimateInputContainer
   IAnimateInput
@@ -18,6 +19,9 @@
 |--------------------------------------------------
 */
 
+export interface IScrollProps {
+  scrolled: number
+}
 
 export interface IAnimateImg {
   width: number | string,

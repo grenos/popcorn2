@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import logo from '../../media/img/logo.png'
 import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchImput'
 import * as INT from '../../helpers/interfaces'
 
 
-const Nav: React.FC = (): JSX.Element => {
 
-  const [scrolled, setScrolled] = useState<number>(0);
 
-  useEffect(() => {
-    window.addEventListener('scroll', listenToScroll)
-    return function cleanup(): void {
-      window.removeEventListener('scroll', listenToScroll)
-    };
-  });
-
-  const listenToScroll = (): void => {
-    const scrolled: number = document.body.scrollTop ||
-      document.documentElement.scrollTop
-    setScrolled(scrolled)
-  }
+const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
 
   const animateHeader = useSpring<INT.IAnimateHeader>({
     height: scrolled > 20 ? `50px` : `90px`,
@@ -46,6 +33,7 @@ const Nav: React.FC = (): JSX.Element => {
       </div>
       <div className="nav__logo">
         <animated.img
+          data-test="nav-logo"
           src={logo} alt="logo"
           className="nav__img"
           style={animateImg} />

@@ -1,19 +1,18 @@
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../redux/reducers/indexReducers'
 import { middleware } from '../redux/store/store'
-import * as INT from '../helpers/interfaces'
 
 
 /**
- * Create a testing Store with imported reducers, middleware and initial state.
+ * Create a testing Store with imported reducers, middleware and fake initial state.
  * globals: rootReducer, middlewares
  * @param {object} initialState - initial state for store.
  * @function storeFactory
  * @returns {Store} - Redux store
  */
-export const storeFactory = (initState: any) => {
+export const storeFactory = (initialState: any) => {
   const createStoreWithMiddlware = applyMiddleware(...middleware)(createStore)
-  return createStoreWithMiddlware(rootReducer, initState)
+  return createStoreWithMiddlware(rootReducer, initialState)
 }
 
 
