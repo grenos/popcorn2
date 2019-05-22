@@ -24,8 +24,6 @@ export interface IScrollProps {
 }
 
 export interface IAnimateImg {
-  width: number | string,
-  marginTop: number | string,
   transform: number | string,
   opacity: number
 }

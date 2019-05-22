@@ -20,9 +20,7 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
   })
 
   const animateImg = useSpring<INT.IAnimateImg>({
-    width: scrolled > 20 ? `240px` : `320px`,
-    marginTop: scrolled > 20 ? `30px` : `100px`,
-    transform: scrolled > 20 ? 'rotate(0deg)' : 'rotate(15deg)',
+    transform: scrolled > 20 ? 'scale(0.7)' : 'scale(1)',
     opacity: scrolled > 20 ? .6 : .4
   })
 
@@ -31,18 +29,17 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
       <div className="nav__type-toggle">
         <h3>placeholder</h3>
       </div>
-      <div className="nav__logo">
-        <animated.img
-          data-test="nav-logo"
+      <animated.div className="nav__logo" style={animateImg} data-test="nav-logo">
+        <img
           src={logo} alt="logo"
           className="nav__img"
-          style={animateImg} />
-      </div>
+        />
+      </animated.div>
 
       <div className="nav__search-inp">
         <SearchInput scrolled={scrolled} />
       </div>
-    </animated.div>
+    </animated.div >
   )
 }
 

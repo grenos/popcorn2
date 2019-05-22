@@ -36,10 +36,8 @@ describe('CSS props before and after scroll animation', () => {
     height: "50px"
   }
   const imgCSSprops = {
-    marginTop: "30px",
-    opacity: '0.6',
-    transform: "rotate(0deg)",
-    width: "240px"
+    opacity: 0.6,
+    transform: "scale(0.7)"
   }
 
   beforeEach(() => {
@@ -54,8 +52,8 @@ describe('CSS props before and after scroll animation', () => {
   })
   test('logo element to animate css if props > 20', () => {
     const component = findByTestAttr(wrapper, 'nav-logo')
-    const animStyleNav = component.prop('style')
-    expect(animStyleNav).toEqual(imgCSSprops)
+    const animStyleLogo = component.dive().prop('style')
+    expect(animStyleLogo).toEqual(imgCSSprops)
   })
   test('categories elements to animate css if props > 20', () => {
 
