@@ -1,11 +1,9 @@
 import React from 'react'
 import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchImput'
+import NavToggle from '../NavToggle/NavToggle'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
-import tele from '../../media/img/television.png'
-import film from '../../media/img/film.png'
-
 
 
 const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
@@ -25,26 +23,16 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
     opacity: scrolled > 20 ? .6 : .4
   })
 
-  const animateToggle = useSpring<INT.IAnimateToggle>({
-    transform: scrolled > 20
-      ? 'scale(1) translateX(15%)'
-      : 'scale(0.8) translateX(-100%)',
-  })
-
   return (
     <animated.div
       className="nav"
       style={animateHeader}
       data-test="component-nav"
     >
-      <animated.div
-        className="nav__type-toggle"
-        data-test="nav-toggle"
-        style={animateToggle}
-      >
-        <img src={film} alt="movies" className="toggle__img--film" />
-        <img src={tele} alt="series" className="toggle__img--tele" />
-      </animated.div>
+      <div className="nav__type-toggle-container" >
+        <NavToggle scrolled={scrolled} />
+      </div>
+
       <animated.div className="nav__logo" style={animateImg} data-test="nav-logo">
         <img
           src={logo} alt="logo"

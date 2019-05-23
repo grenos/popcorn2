@@ -52,6 +52,10 @@ export interface IInputProps {
   getUserInputRequest: any
 }
 
+export interface IToggleProps {
+  scrolled: number,
+}
+
 export interface ISearchMovies {
   result: Array<IMovie>,
 }
