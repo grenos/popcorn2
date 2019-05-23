@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSpring, animated } from 'react-spring'
-import SearchInput from '../SearchInput/SearchImput'
+import SearchInput from '../SearchInput/SearchInput'
 import NavToggle from '../NavToggle/NavToggle'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'

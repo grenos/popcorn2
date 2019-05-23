@@ -31,10 +31,17 @@ describe('should render components', () => {
     const component = findByTestAttr(wrapper, 'nav-logo')
     expect(component.length).toBe(1)
   })
-  test('should render toggle component', () => {
-    const component = findByTestAttr(wrapper, 'nav-toggle')
+
+  test('should render NavToggle component', () => {
+    const component = wrapper.find('NavToggle')
     expect(component.length).toBe(1)
   })
+
+  test('should render SearchInput component', () => {
+    const component = wrapper.find('ConnectFunction')
+    expect(component.length).toBe(1)
+  })
+
 })
 
 
@@ -54,10 +61,6 @@ describe('CSS props before and after scroll animation', () => {
     transform: "scale(0.7)"
   }
 
-  const toggleCSSprops = {
-    transform: "scale(1) translateX(15%)"
-  }
-
   beforeEach(() => {
     wrapper = setup({ defaultProps })
   })
@@ -73,9 +76,5 @@ describe('CSS props before and after scroll animation', () => {
     const animStyleLogo = component.dive().prop('style')
     expect(animStyleLogo).toEqual(logoCSSprops)
   })
-  test('categories elements to animate css if props > 20', () => {
-    const component = findByTestAttr(wrapper, 'nav-toggle')
-    const animStyleToggle = component.dive().prop('style')
-    expect(animStyleToggle).toEqual(toggleCSSprops)
-  })
+
 })
