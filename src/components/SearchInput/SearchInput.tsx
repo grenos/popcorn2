@@ -8,7 +8,7 @@ import * as INT from '../../helpers/interfaces'
 
 type InputVal = React.FormEvent<HTMLInputElement>
 
-const SearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
+export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
@@ -17,6 +17,7 @@ const SearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest 
       setChange('')
     }
   }, [scrolled])
+
 
   const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
     opacity: scrolled > 20 ? 1 : .1,
@@ -38,13 +39,14 @@ const SearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest 
   return (
     <animated.div
       className="search-input"
-      data-testid="first-child"
+      data-test="component-search-input"
       style={animateInputContainer}>
 
       <animated.input
         type="text"
         name="search"
         className="search-input__inp"
+        data-test="search-input"
         style={animateInput}
         onChange={(e) => handleChange(e)}
         onKeyUp={() => handleKeyUp()}
@@ -60,6 +62,4 @@ const SearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest 
 }
 
 
-export default connect(null, {
-  getUserInputRequest
-})(SearchInput);
+export default connect(null, { getUserInputRequest })(UnconnectedSearchInput);

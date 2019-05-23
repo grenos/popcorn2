@@ -17,35 +17,21 @@ const setup = (props = {}) => {
   return wrapper
 }
 
-describe('should render components', () => {
-  let wrapper
-  beforeEach(() => {
-    wrapper = setup()
-  })
 
-  test('should render toggle component', () => {
-    const component = findByTestAttr(wrapper, 'nav-toggle')
-    expect(component.length).toBe(1)
-  })
-
+test('should render toggle component', () => {
+  const wrapper = setup()
+  const component = findByTestAttr(wrapper, 'nav-toggle')
+  expect(component.length).toBe(1)
 })
 
 
-
-describe('CSS props before and after scroll animation', () => {
-  let wrapper
-
-  const toggleCSSprops = {
-    transform: "scale(1) translateX(70%)"
-  }
-
-  beforeEach(() => {
-    wrapper = setup({ defaultProps })
-  })
-
-  test('categories elements to animate css if props > 20', () => {
-    const component = findByTestAttr(wrapper, 'nav-toggle')
-    const animStyleToggle = component.prop('style')
-    expect(animStyleToggle).toEqual(toggleCSSprops)
-  })
+const toggleCSSprops = {
+  transform: "scale(1) translateX(70%)"
+}
+test('categories elements to animate css if props > 20', () => {
+  const wrapper = setup({ defaultProps })
+  const component = findByTestAttr(wrapper, 'nav-toggle')
+  const animStyleToggle = component.prop('style')
+  expect(animStyleToggle).toEqual(toggleCSSprops)
 })
+
