@@ -1,9 +1,10 @@
 import React from 'react'
-import logo from '../../media/img/logo.png'
 import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchImput'
 import * as INT from '../../helpers/interfaces'
-
+import logo from '../../media/img/logo.png'
+import tele from '../../media/img/television.png'
+import film from '../../media/img/film.png'
 
 
 
@@ -19,16 +20,31 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
       : '0px 0px 10px 20px rgba(0, 0, 0, 0.2)'
   })
 
-  const animateImg = useSpring<INT.IAnimateImg>({
+  const animateImg = useSpring<INT.IAnimateLogo>({
     transform: scrolled > 20 ? 'scale(0.7)' : 'scale(1)',
     opacity: scrolled > 20 ? .6 : .4
   })
 
+  const animateToggle = useSpring<INT.IAnimateToggle>({
+    transform: scrolled > 20
+      ? 'scale(1) translateX(15%)'
+      : 'scale(0.8) translateX(-100%)',
+  })
+
   return (
-    <animated.div className="nav" style={animateHeader} data-test="component-nav">
-      <div className="nav__type-toggle">
-        <h3>placeholder</h3>
-      </div>
+    <animated.div
+      className="nav"
+      style={animateHeader}
+      data-test="component-nav"
+    >
+      <animated.div
+        className="nav__type-toggle"
+        data-test="nav-toggle"
+        style={animateToggle}
+      >
+        <img src={film} alt="movies" className="toggle__img--film" />
+        <img src={tele} alt="series" className="toggle__img--tele" />
+      </animated.div>
       <animated.div className="nav__logo" style={animateImg} data-test="nav-logo">
         <img
           src={logo} alt="logo"

@@ -23,9 +23,14 @@ export interface IScrollProps {
   scrolled: number
 }
 
-export interface IAnimateImg {
+export interface IAnimateLogo {
   transform: number | string,
   opacity: number
+}
+
+export interface IAnimateToggle {
+  transform: number | string,
+  opacity?: number
 }
 export interface IAnimateHeader {
   height: number | string,

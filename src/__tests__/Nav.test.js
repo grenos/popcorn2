@@ -17,13 +17,28 @@ const setup = (props = {}) => {
   return wrapper
 }
 
+describe('should render components', () => {
+  let wrapper
+  beforeEach(() => {
+    wrapper = setup()
+  })
 
-
-test('should render nav component', () => {
-  const wrapper = setup()
-  const component = findByTestAttr(wrapper, 'component-nav')
-  expect(component.length).toBe(1)
+  test('should render nav component', () => {
+    const component = findByTestAttr(wrapper, 'component-nav')
+    expect(component.length).toBe(1)
+  })
+  test('should render logo component', () => {
+    const component = findByTestAttr(wrapper, 'nav-logo')
+    expect(component.length).toBe(1)
+  })
+  test('should render toggle component', () => {
+    const component = findByTestAttr(wrapper, 'nav-toggle')
+    expect(component.length).toBe(1)
+  })
 })
+
+
+
 
 
 describe('CSS props before and after scroll animation', () => {
@@ -34,9 +49,13 @@ describe('CSS props before and after scroll animation', () => {
     boxShadow: "0px 0px 10px 20px rgba(0, 0, 0, 0.6)",
     height: "50px"
   }
-  const imgCSSprops = {
+  const logoCSSprops = {
     opacity: 0.6,
     transform: "scale(0.7)"
+  }
+
+  const toggleCSSprops = {
+    transform: "scale(1) translateX(15%)"
   }
 
   beforeEach(() => {
@@ -52,19 +71,11 @@ describe('CSS props before and after scroll animation', () => {
   test('logo element to animate css if props > 20', () => {
     const component = findByTestAttr(wrapper, 'nav-logo')
     const animStyleLogo = component.dive().prop('style')
-    expect(animStyleLogo).toEqual(imgCSSprops)
+    expect(animStyleLogo).toEqual(logoCSSprops)
   })
   test('categories elements to animate css if props > 20', () => {
-
+    const component = findByTestAttr(wrapper, 'nav-toggle')
+    const animStyleToggle = component.dive().prop('style')
+    expect(animStyleToggle).toEqual(toggleCSSprops)
   })
-
 })
-
-
-
-
-// wrapper = setup({ scrolled: 19 })
-// const newStyleNav = component.prop('style')
-
-// // expect old css NOT to be equal to new css
-// expect(initStyleNav).not.toEqual(newStyleNav)
