@@ -45,20 +45,15 @@ describe('guessWord action creator call', () => {
       getUserInputRequest: getUserInputRequestMock
     }
 
-    wrapper = shallow(<UnconnectedSearchInput {...props} />)
+    wrapper = shallow(<UnconnectedSearchInput {...props} />).dive()
 
-    const input = findByTestAttr(wrapper, 'search-input')
-    expect(input.name()).to.equal('input')
+    const component = findByTestAttr(wrapper, 'search-input')
+    const input = component.dive()
+    expect(input.name()).toBe('input')
 
-    input.prop('onChange')({ currentTarget: { value: userInput } })
-    // expect(input.prop('value')).toBe(userInput);
+    // input.simulate({ currentTarget: { value: userInput } })
+    // expect(input.dive().prop('value')).toBe(userInput);
 
-
-    // wrapper.instance().inputBox.current = { value: userInput }
-
-    // simulate click
-    // const submitButton = findByTestAttr(wrapper, 'input-button')
-    // submitButton.simulate('click', { preventDefault() { } })
   })
 
 
