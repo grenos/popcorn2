@@ -18,7 +18,7 @@ const setup = (props = {}) => {
 }
 
 describe('should render components', () => {
-  let wrapper
+  let wrapper: any
   beforeEach(() => {
     wrapper = setup()
   })
@@ -49,7 +49,7 @@ describe('should render components', () => {
 
 
 describe('CSS props before and after scroll animation', () => {
-  let wrapper
+  let wrapper: any
 
   const navCSSprops = {
     background: "rgba(0, 0, 0, 0.6)",
