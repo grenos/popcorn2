@@ -41,9 +41,11 @@ describe('guessWord action creator call', () => {
 
   beforeEach(() => {
     getUserInputRequestMock = jest.fn()
+
     const props = {
-      getUserInputRequest: getUserInputRequestMock
+      onChange: getUserInputRequestMock
     }
+
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />).dive()
 
@@ -51,8 +53,21 @@ describe('guessWord action creator call', () => {
     const input = component.dive()
     expect(input.name()).toBe('input')
 
-    // input.simulate({ currentTarget: { value: userInput } })
-    // expect(input.dive().prop('value')).toBe(userInput);
+    console.log(input.debug());
+
+
+    input.simulate('change', { currentTarget: { name: 'search', value: userInput } })
+    // input.props().onChange({ currentTarget: { name: 'search', value: userInput } })
+
+    // expect(getUserInputRequestMock).toHaveBeenCalled();
+
+    // const MockFn = getUserInputRequestMock.mock.calls.length
+    // expect(MockFn).toBe(1)
+
+    // expect(getUserInputRequestMock.mock.calls[0][0]).toBe(userInput);
+    // expect(input.prop('value')).toBe(userInput);
+
+
 
   })
 

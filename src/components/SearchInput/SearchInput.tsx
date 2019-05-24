@@ -48,8 +48,8 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, ge
         className="search-input__inp"
         data-test="search-input"
         style={animateInput}
-        onChange={(e) => handleChange(e)}
-        onKeyUp={() => handleKeyUp()}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
         value={change}
       />
 
