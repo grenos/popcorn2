@@ -8,7 +8,9 @@ import * as INT from '../../helpers/interfaces'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
-export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
+export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ 
+  scrolled, getUserInputRequest 
+}): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 

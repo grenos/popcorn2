@@ -2,6 +2,7 @@ import React from 'react'
 import Enzyme, { shallow, mount } from 'enzyme'
 import { act } from 'react-dom/test-utils';
 import EnzymeAdapter from 'enzyme-adapter-react-16'
+import sinon from 'sinon'
 import SearchInput, { UnconnectedSearchInput } from '../components/SearchInput/SearchInput'
 import { findByTestAttr, storeFactory } from '../helpers/testUtils'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
@@ -34,20 +35,15 @@ describe('should render components', () => {
 
 
 
-
-
-
-
-
 describe('test input and dispatch action', () => {
-  let getUserInputRequestMock
+  let changeValueMock
   let wrapper
   const userInput = 'matrix'
 
   beforeEach(() => {
-    getUserInputRequestMock = jest.fn()
+    changeValueMock = jest.fn()
     const props = {
-      handleChange: getUserInputRequestMock
+      handleChange: changeValueMock
     }
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />).dive()
@@ -56,10 +52,11 @@ describe('test input and dispatch action', () => {
 
   test('should update input value', () => {
     const input = findByTestAttr(wrapper, 'search-input').dive()
-    // const component = findByTestAttr(wrapper, 'search-input').last()
+    // const input = findByTestAttr(wrapper, 'search-input').last()
 
     expect(input.name()).toBe('input')
-    expect(getUserInputRequestMock).not.toHaveBeenCalled()
+    expect(changeValueMock).not.toHaveBeenCalled()
+    expect(input.props().value).toBe('')
 
     input.props().onChange({ target: { value: userInput } })
     // input.simulate('change', { target: { value: userInput } })
@@ -70,8 +67,8 @@ describe('test input and dispatch action', () => {
     // })
     // wrapper.update()
 
-    expect(getUserInputRequestMock).toBeCalledTimes(1)
+    // expect(changeValueMock).toBeCalledTimes(1)
 
-    // expect(input.prop('value')).toBe(userInput);
+    expect(input.prop('value')).toBe(userInput);
   })
 })
