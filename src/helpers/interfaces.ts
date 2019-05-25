@@ -1,5 +1,3 @@
-import { Function } from "@babel/types";
-
 /**
 |--------------------------------------------------
   //! nav
@@ -51,11 +49,7 @@ export interface IAnimateInput {
 
 export interface IInputProps {
   scrolled: number,
-  getUserInputRequest?: any
-  handleChange?: any
-  handleKeyUp?: any,
-  change?: string
-  setChange?: any
+  getUserInputRequest: any
 }
 
 export interface IToggleProps {
