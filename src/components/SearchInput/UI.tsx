@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import search from '../../media/img/search.png'
-import { getUserInputRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 
 
-type InputVal = React.ChangeEvent<HTMLInputElement>
-
-export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ 
-  scrolled, getUserInputRequest 
+export const UI: React.FC<INT.IInputProps> = ({
+  scrolled,
+  handleChange,
+  handleKeyUp,
+  change,
+  setChange
 }): JSX.Element => {
-
-  const [change, setChange] = useState<string>('')
 
   useEffect((): void => {
     if (scrolled < 20) {
       setChange('')
     }
-  }, [scrolled])
+  }, [scrolled, setChange])
 
 
   const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
@@ -29,14 +27,6 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
     width: scrolled > 20 ? '190px' : '21px',
     pointerEvents: scrolled > 20 ? 'all' : 'none'
   })
-
-  const handleChange = (e: InputVal): void => {
-    setChange(e.target.value)
-  }
-
-  const handleKeyUp = (): void => {
-    getUserInputRequest(change)
-  }
 
   return (
     <animated.div
@@ -64,4 +54,4 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 }
 
 
-export default connect(null, { getUserInputRequest })(UnconnectedSearchInput);
+export default UI
