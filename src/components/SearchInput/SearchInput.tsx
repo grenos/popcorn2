@@ -6,7 +6,7 @@ import { getUserInputRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 
 
-type InputVal = React.FormEvent<HTMLInputElement>
+type InputVal = React.ChangeEvent<HTMLInputElement>
 
 export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
 
@@ -29,7 +29,7 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, ge
   })
 
   const handleChange = (e: InputVal): void => {
-    setChange(e.currentTarget.value)
+    setChange(e.target.value)
   }
 
   const handleKeyUp = (): void => {
@@ -48,8 +48,8 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, ge
         className="search-input__inp"
         data-test="search-input"
         style={animateInput}
-        onChange={(e) => handleChange(e)}
-        onKeyUp={() => handleKeyUp()}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
         value={change}
       />
 
