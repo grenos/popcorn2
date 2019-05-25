@@ -17,8 +17,8 @@ const setup = (initialState = {}, props = {}) => {
 
 
 describe('should render components', () => {
-  let wrapper
-  let input
+  let wrapper: any
+  let input: any
   beforeEach(() => {
     wrapper = setup()
     input = findByTestAttr(wrapper, 'search-input')

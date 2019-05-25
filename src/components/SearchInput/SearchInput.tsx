@@ -35,7 +35,7 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   }
 
   const handleKeyUp = (): void => {
-    getUserInputRequest(change)
+    change.length > 1 && getUserInputRequest(change)
   }
 
   return (

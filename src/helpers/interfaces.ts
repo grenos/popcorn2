@@ -49,7 +49,8 @@ export interface IAnimateInput {
 
 export interface IInputProps {
   scrolled: number,
-  getUserInputRequest: any
+  getUserInputRequest: Function,
+  store?: any
 }
 
 export interface IToggleProps {
