@@ -1,8 +1,6 @@
 import React from 'react'
-import Enzyme, { shallow, mount } from 'enzyme'
-import { act } from 'react-dom/test-utils';
+import Enzyme, { shallow } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import sinon from 'sinon'
 import SearchInput, { UnconnectedSearchInput } from '../components/SearchInput/SearchInput'
 import { findByTestAttr, storeFactory } from '../helpers/testUtils'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
@@ -17,28 +15,30 @@ const setup = (initialState = {}, props = {}) => {
   return wrapper
 }
 
+
 describe('should render components', () => {
   let wrapper
+  let input
   beforeEach(() => {
     wrapper = setup()
+    input = findByTestAttr(wrapper, 'search-input')
   })
 
   test('shoud render input component', () => {
     const component = findByTestAttr(wrapper, 'component-search-input')
     expect(component.length).toBe(1)
   })
+
   test('shoud render input', () => {
-    const input = findByTestAttr(wrapper, 'search-input')
     expect(input.length).toBe(1)
   })
 
   test('should update input value', () => {
-    const input = findByTestAttr(wrapper, 'search-input').dive()
-    expect(input.props().value).toEqual('');
-    input.props().onChange({ target: { value: 'test' } });
-    expect(input.props().value).toEqual('test');
+    expect(input.dive().props().value).toEqual('')
+    input.dive().props().onChange({ target: { value: '_test_' } })
+    expect(findByTestAttr(wrapper, 'search-input')
+      .dive().props().value).toEqual('_test_')
   })
-
 })
 
 
