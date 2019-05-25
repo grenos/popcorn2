@@ -18,10 +18,8 @@ const setup = (initialState = {}, props = {}) => {
 
 describe('should render components', () => {
   let wrapper: any
-  let input: any
   beforeEach(() => {
     wrapper = setup()
-    input = findByTestAttr(wrapper, 'search-input')
   })
 
   test('shoud render input component', () => {
@@ -30,15 +28,19 @@ describe('should render components', () => {
   })
 
   test('shoud render input', () => {
+    const input = findByTestAttr(wrapper, 'search-input')
     expect(input.length).toBe(1)
   })
+})
 
-  test('should update input value', () => {
-    expect(input.dive().props().value).toEqual('')
-    input.dive().props().onChange({ target: { value: '_test_' } })
-    expect(findByTestAttr(wrapper, 'search-input')
-      .dive().props().value).toEqual('_test_')
-  })
+
+
+test('should update input value', () => {
+  const wrapper = setup()
+  const input = findByTestAttr(wrapper, 'search-input')
+  expect(input.dive().props().value).toEqual('')
+  input.dive().props().onChange({ target: { value: '_test_' } })
+  expect(findByTestAttr(wrapper, 'search-input').dive().props().value).toEqual('_test_')
 })
 
 
