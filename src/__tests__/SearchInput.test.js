@@ -39,7 +39,7 @@ describe('should render components', () => {
 
 
 
-describe('guessWord action creator call', () => {
+describe('test input and dispatch action', () => {
   let getUserInputRequestMock
   let wrapper
   const userInput = 'matrix'
@@ -51,38 +51,27 @@ describe('guessWord action creator call', () => {
     }
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />).dive()
+    // wrapper = mount(<UnconnectedSearchInput {...props} />)
+  })
 
+  test('should update input value', () => {
     const input = findByTestAttr(wrapper, 'search-input').dive()
     // const component = findByTestAttr(wrapper, 'search-input').last()
-    // console.log(input.debug());
-    expect(input.name()).toBe('input')
 
+    expect(input.name()).toBe('input')
     expect(getUserInputRequestMock).not.toHaveBeenCalled()
 
-    // input.simulate('change', { target: { value: userInput } })
     input.props().onChange({ target: { value: userInput } })
+    // input.simulate('change', { target: { value: userInput } })
 
-
+    // used with mount
     // act(() => {
     //   input.props().onChange({ currentTarget: { value: userInput } })
     // })
-
     // wrapper.update()
+
     expect(getUserInputRequestMock).toBeCalledTimes(1)
+
     // expect(input.prop('value')).toBe(userInput);
-
   })
-
-
-
-  test('should call guessWord with input value as argument', () => {
-    // console.log(getUserInputRequestMock.mock.calls);
-    // const guessWordArg = getUserInputRequestMock.mock.calls[0][0]
-    // expect(guessWordArg).toBe(userInput)
-  })
-
-  test('should clear inout value on submit', () => {
-    // expect(wrapper.instance().inputBox.current.value).toBe('')
-  })
-
 })
