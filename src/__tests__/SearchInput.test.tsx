@@ -43,7 +43,7 @@ test('should update input value', () => {
 
 
 describe('guessWord action creator call', () => {
-  let getUserInputRequestMock: Function
+  let getUserInputRequestMock: any
   let wrapper: any
   const userInput = 'matrix'
 
@@ -51,32 +51,42 @@ describe('guessWord action creator call', () => {
     getUserInputRequestMock = jest.fn()
 
     const props = {
-      scrolled: 21,
+      scrolled: 19,
       getUserInputRequest: getUserInputRequestMock
     }
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />)
     findByTestAttr(wrapper, 'search-input')
-      .dive().props().onChange({ target: { value: '_test_' } })
+      .dive().props().onChange({ target: { value: userInput } })
   })
 
-  test('should call guesseWord action when button is clicked', () => {
-    // check to see if mock ran
-    const mockedEvent = { target: { key: 'A' } };
-    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(mockedEvent)
-    expect(getUserInputRequestMock).toHaveBeenCalledTimes(1);
-    // expect(getUserInputRequestMock).toHaveBeenCalledWith(mockedEvent);
-
+  test('should call getUserInputRequest action onKeyUp with userInput value', () => {
+    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
+    expect(getUserInputRequestMock).toHaveBeenCalledTimes(1)
+    expect(getUserInputRequestMock).toHaveBeenCalledWith(userInput)
   })
+})
 
-  test('should call guessWord with input value as argument', () => {
-    // console.log(guessWordMock.mock.calls);
-    // const guessWordArg = guessWordMock.mock.calls[0][0]
-    // expect(guessWordArg).toBe(guessedWord)
-  })
 
-  test('should clear inout value on submit', () => {
-    // expect(wrapper.instance().inputBox.current.value).toBe('')
-  })
 
+
+const inputContainerCSSprops = {
+  opacity: 1
+}
+test('input container element to animate css if props > 20', () => {
+  const wrapper = setup()
+  const component = findByTestAttr(wrapper, 'component-search-input').dive()
+  const animStyleInput = component.prop('style')
+  expect(animStyleInput).toEqual(inputContainerCSSprops)
+})
+
+const inputCSSprops = {
+  pointerEvents: 'all',
+  width: '190px'
+}
+test('input element to animate css if props > 20', () => {
+  const wrapper = setup()
+  const component = findByTestAttr(wrapper, 'search-input').dive()
+  const animStyleInput = component.prop('style')
+  expect(animStyleInput).toEqual(inputCSSprops)
 })
