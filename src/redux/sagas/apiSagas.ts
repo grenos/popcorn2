@@ -29,8 +29,6 @@ function* watchGetToggleMoviesRequest() {
 function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
   try {
     const result = yield call(api.getToggleMovies, page)
-    console.log(result);
-
     yield put(actions.getToggleMoviesSuccess({
       result: result.data.results
     }))
@@ -42,8 +40,26 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
 
 
 
+
+function* watchGetToggleSeiresRequest() {
+  yield takeEvery(actions.Types.GET_TOGGLE_SERIES_REQUEST, getToggleSeries)
+}
+function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
+  try {
+    const result = yield call(api.getToggleSeries, page)
+    yield put(actions.getToggleSeriesSuccess({
+      result: result.data.results
+    }))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
 const apiSagas = [
   fork(watchGetUsersMoviesRequest),
-  fork(watchGetToggleMoviesRequest)
+  fork(watchGetToggleMoviesRequest),
+  fork(watchGetToggleSeiresRequest),
 ]
 export default apiSagas

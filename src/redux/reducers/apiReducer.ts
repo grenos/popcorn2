@@ -19,6 +19,12 @@ export default function apiReducer(state = API_STATE, action: INT.IReducerAction
         topMovies: action.payload
       }
     }
+    case Types.GET_TOGGLE_SERIES_SUCCESS: {
+      return {
+        ...state,
+        topSeries: action.payload
+      }
+    }
     default: {
       return state
     }
