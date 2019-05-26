@@ -15,3 +15,4 @@ export const getToggleMovies = async (page: number): Promise<{}> => {
   return res
 }
 
+

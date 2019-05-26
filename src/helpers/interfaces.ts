@@ -16,6 +16,7 @@
   IApiState
   //! apiSags
   IInputSagaProps
+  IToggleSagaProps
 |--------------------------------------------------
 */
 
@@ -55,6 +56,7 @@ export interface IInputProps {
 
 export interface IToggleProps {
   scrolled: number,
+  getToggleMoviesRequest: Function
 }
 
 export interface ISearchMovies {
@@ -86,10 +88,16 @@ export interface IMovie {
 
 export interface IApiState {
   searchMovies: Array<IMovie>,
+  topMovies: Array<IMovie>,
 }
 
 
 export interface IInputSagaProps {
   payload: string
 }
+
+export interface IToggleSagaProps {
+  payload: number
+}
+
 
