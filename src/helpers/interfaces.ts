@@ -57,6 +57,7 @@ export interface IInputProps {
 export interface IToggleProps {
   scrolled: number,
   getToggleMoviesRequest: Function
+  store?: any
 }
 
 export interface ISearchMovies {

@@ -32,16 +32,10 @@ describe('should render components', () => {
     expect(component.length).toBe(1)
   })
 
-  test('should render NavToggle component', () => {
-    const component = wrapper.find('NavToggle')
-    expect(component.length).toBe(1)
-  })
-
-  test('should render SearchInput component', () => {
+  test('should render NavToggle and SearchInput component as ConnectFunction ', () => {
     const component = wrapper.find('ConnectFunction')
-    expect(component.length).toBe(1)
+    expect(component.length).toBe(2)
   })
-
 })
 
 
