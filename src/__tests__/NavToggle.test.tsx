@@ -6,10 +6,9 @@ import { findByTestAttr } from '../helpers/testUtils'
 import NavToggle from '../components/NavToggle/NavToggle'
 
 
-
 Enzyme.configure({ adapter: new EnzymeAdapter() })
-
 const defaultProps = { scrolled: 21 }
+
 
 const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props }
@@ -35,3 +34,29 @@ test('categories elements to animate css if props > 20', () => {
   expect(animStyleToggle).toEqual(toggleCSSprops)
 })
 
+
+
+// describe('getUserInputRequest action creator call', () => {
+//   let getUserInputRequestMock: any
+//   let wrapper: any
+//   const userInput = 'matrix'
+
+//   beforeEach(() => {
+//     getUserInputRequestMock = jest.fn()
+
+//     const props = {
+//       scrolled: 19,
+//       getUserInputRequest: getUserInputRequestMock
+//     }
+
+//     wrapper = shallow(<UnconnectedNavToggle {...props} />)
+//     findByTestAttr(wrapper, 'search-input')
+//       .dive().props().onChange({ target: { value: userInput } })
+//   })
+
+//   test('should call getUserInputRequest action onKeyUp with userInput value', () => {
+//     findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
+//     expect(getUserInputRequestMock).toHaveBeenCalledTimes(1)
+//     expect(getUserInputRequestMock).toHaveBeenCalledWith(userInput)
+//   })
+// })

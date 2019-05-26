@@ -49,7 +49,7 @@ export interface IAnimateInput {
 
 export interface IInputProps {
   scrolled: number,
-  getUserInputRequest: Function,
+  getUserInputMoviesRequest: Function,
   store?: any
 }
 

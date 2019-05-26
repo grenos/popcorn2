@@ -42,7 +42,7 @@ test('should update input value', () => {
 })
 
 
-describe('guessWord action creator call', () => {
+describe('getUserInputRequest action creator call', () => {
   let getUserInputRequestMock: any
   let wrapper: any
   const userInput = 'matrix'
@@ -52,7 +52,7 @@ describe('guessWord action creator call', () => {
 
     const props = {
       scrolled: 19,
-      getUserInputRequest: getUserInputRequestMock
+      getUserInputMoviesRequest: getUserInputRequestMock
     }
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />)

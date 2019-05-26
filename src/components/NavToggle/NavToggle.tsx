@@ -4,7 +4,7 @@ import * as INT from '../../helpers/interfaces'
 import tele from '../../media/img/television.png'
 import film from '../../media/img/film.png'
 
-const NavToggle: React.FC<INT.IToggleProps> = ({ scrolled }): JSX.Element => {
+export const NavToggle: React.FC<INT.IToggleProps> = ({ scrolled }): JSX.Element => {
 
   const animateToggle = useSpring<INT.IAnimateToggle>({
     transform: scrolled > 20
@@ -26,3 +26,4 @@ const NavToggle: React.FC<INT.IToggleProps> = ({ scrolled }): JSX.Element => {
 }
 
 export default NavToggle
+

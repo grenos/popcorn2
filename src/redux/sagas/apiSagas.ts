@@ -7,15 +7,15 @@ import * as INT from '../../helpers/interfaces'
 
 
 
-function* watchGetUsersRequest() {
-  yield takeLatest(actions.Types.GET_USER_INPUT_REQUEST, getUserInput)
+function* watchGetUsersMoviesRequest() {
+  yield takeLatest(actions.Types.GET_USER_INPUT_MOVIES_REQUEST, getUserInputMovies)
 }
 
-function* getUserInput({ payload: value }: INT.IInputSagaProps) {
+function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
   try {
-    const result = yield call(api.getUserInput, value)
+    const result = yield call(api.getUserInputMovies, value)
 
-    yield put(actions.getUserInputSuccess({
+    yield put(actions.getUserInputMoviesSuccess({
       result: result.data.results
     }))
   } catch (e) {
@@ -27,6 +27,6 @@ function* getUserInput({ payload: value }: INT.IInputSagaProps) {
 
 
 const apiSagas = [
-  fork(watchGetUsersRequest),
+  fork(watchGetUsersMoviesRequest),
 ]
 export default apiSagas
