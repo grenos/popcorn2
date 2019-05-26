@@ -7,7 +7,6 @@ Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 
 const defaultProps = { scrolled: 21 }
-
 const setup = (initialState = {}, props = {}) => {
   const setupProps = { ...defaultProps, ...props }
   const store = storeFactory(initialState)
@@ -34,57 +33,50 @@ describe('should render components', () => {
 })
 
 
-
 test('should update input value', () => {
   const wrapper = setup()
-  const input = findByTestAttr(wrapper, 'search-input')
-  expect(input.dive().props().value).toEqual('')
-  input.dive().props().onChange({ target: { value: '_test_' } })
+  const input = findByTestAttr(wrapper, 'search-input').dive()
+  expect(input.props().value).toEqual('')
+  input.props().onChange({ target: { value: '_test_' } })
   expect(findByTestAttr(wrapper, 'search-input').dive().props().value).toEqual('_test_')
 })
 
 
-
-describe('test input and dispatch action', () => {
-  // let changeValueMock
-  // let wrapper
-  // const userInput = 'matrix'
-  // changeValueMock = jest.fn()
-
+describe('guessWord action creator call', () => {
+  let getUserInputRequestMock: Function
+  let wrapper: any
+  const userInput = 'matrix'
 
   beforeEach(() => {
-    // const props = {
-    //   handleChange: changeValueMock
-    // }
+    getUserInputRequestMock = jest.fn()
 
-    // wrapper = shallow(<UnconnectedSearchInput {...props} />).dive()
-    // wrapper = mount(<UnconnectedSearchInput {...props} />)
+    const props = {
+      scrolled: 21,
+      getUserInputRequest: getUserInputRequestMock
+    }
+
+    wrapper = shallow(<UnconnectedSearchInput {...props} />)
+    findByTestAttr(wrapper, 'search-input')
+      .dive().props().onChange({ target: { value: '_test_' } })
   })
 
-  test('should update input value', () => {
-    // const input = findByTestAttr(wrapper, 'search-input').dive()
-    // const input = findByTestAttr(wrapper, 'search-input').last()
+  test('should call guesseWord action when button is clicked', () => {
+    // check to see if mock ran
+    const mockedEvent = { target: { key: 'A' } };
+    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(mockedEvent)
+    expect(getUserInputRequestMock).toHaveBeenCalledTimes(1);
+    // expect(getUserInputRequestMock).toHaveBeenCalledWith(mockedEvent);
 
-    // expect(input.name()).toBe('input')
-    // expect(changeValueMock).not.toHaveBeenCalled()
-    // expect(input.props().value).toBe('')
-
-    // input.props().onChange({ target: { value: userInput } })
-    // input.simulate('change', { target: { value: userInput } })
-
-    // used with mount
-    // act(() => {
-    //   input.props().onChange({ currentTarget: { value: userInput } })
-    // })
-    // wrapper.update()
-
-    // expect(changeValueMock).toBeCalledTimes(1)
-
-    // expect(input.prop('value')).toBe(userInput);
-
-    // const input = findByTestAttr(wrapper, 'search-input').dive()
-    // expect(input.props().value).toEqual('');
-    // input.props().onChange({ target: { value: userInput } });
-    // expect(input.props().value).toEqual(userInput);
   })
+
+  test('should call guessWord with input value as argument', () => {
+    // console.log(guessWordMock.mock.calls);
+    // const guessWordArg = guessWordMock.mock.calls[0][0]
+    // expect(guessWordArg).toBe(guessedWord)
+  })
+
+  test('should clear inout value on submit', () => {
+    // expect(wrapper.instance().inputBox.current.value).toBe('')
+  })
+
 })

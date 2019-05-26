@@ -64,6 +64,6 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 }
 
 
-export default connect(null, { getUserInputRequest })(UnconnectedSearchInput);
+export default connect(null, { getUserInputRequest })(UnconnectedSearchInput)
 
 
