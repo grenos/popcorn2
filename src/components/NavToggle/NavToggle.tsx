@@ -37,6 +37,7 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({ scrolled, get
       />
       <img src={tele}
         alt="series"
+        data-test='toggle-serie'
         className="toggle__img--tele"
         onClick={handleSeriesToggle}
       />

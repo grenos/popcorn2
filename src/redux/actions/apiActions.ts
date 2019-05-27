@@ -32,6 +32,7 @@ export const getToggleMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
 })
 
 
+
 export const getToggleSeriesRequest = (page: number) => ({
   type: Types.GET_TOGGLE_SERIES_REQUEST,
   payload: page

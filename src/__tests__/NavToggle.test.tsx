@@ -51,8 +51,11 @@ describe('should call action creators', () => {
       scrolled: 21
     }
     wrapper = shallow(<UnconnectedNavToggle {...props} />)
+
     const toggleFilms = findByTestAttr(wrapper, 'toggle-film')
     toggleFilms.simulate('click')
+    const toggleSeries = findByTestAttr(wrapper, 'toggle-serie')
+    toggleSeries.simulate('click')
   })
 
   test('should call getToggleMoviesRequest action', () => {
