@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import search from '../../media/img/search.png'
-import { getUserInputMoviesRequest } from '../../redux/actions/apiActions'
+import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
 export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
-  scrolled, getUserInputMoviesRequest
+  scrolled, getUserInputMoviesRequest, getUserInputSeriesRequest
 }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
@@ -35,7 +35,10 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   }
 
   const handleKeyUp = (): void => {
-    change.length > 1 && getUserInputMoviesRequest(change)
+    // change.length > 1 && getUserInputMoviesRequest(change)
+
+    getUserInputSeriesRequest(change)
+    getUserInputMoviesRequest(change)
   }
 
   return (
@@ -64,6 +67,9 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 }
 
 
-export default connect(null, { getUserInputMoviesRequest })(UnconnectedSearchInput)
+export default connect(null, {
+  getUserInputMoviesRequest,
+  getUserInputSeriesRequest
+})(UnconnectedSearchInput)
 
 

@@ -42,17 +42,20 @@ test('should update input value', () => {
 })
 
 
-describe('getUserInputRequest action creator call', () => {
-  let getUserInputRequestMock: any
+describe('should call actions on user input', () => {
+  let getUserInputMovieRequestMock: any
+  let getUserInputSerieRequestMock: any
   let wrapper: any
   const userInput = 'matrix'
 
   beforeEach(() => {
-    getUserInputRequestMock = jest.fn()
+    getUserInputMovieRequestMock = jest.fn()
+    getUserInputSerieRequestMock = jest.fn()
 
     const props = {
       scrolled: 19,
-      getUserInputMoviesRequest: getUserInputRequestMock
+      getUserInputMoviesRequest: getUserInputMovieRequestMock,
+      getUserInputSeriesRequest: getUserInputSerieRequestMock
     }
 
     wrapper = shallow(<UnconnectedSearchInput {...props} />)
@@ -60,10 +63,16 @@ describe('getUserInputRequest action creator call', () => {
       .dive().props().onChange({ target: { value: userInput } })
   })
 
-  test('should call getUserInputRequest action onKeyUp with userInput value', () => {
+  test('should call getUserInputMoviesRequest action onKeyUp with userInput value', () => {
     findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
-    expect(getUserInputRequestMock).toHaveBeenCalledTimes(1)
-    expect(getUserInputRequestMock).toHaveBeenCalledWith(userInput)
+    expect(getUserInputMovieRequestMock).toHaveBeenCalledTimes(1)
+    expect(getUserInputMovieRequestMock).toHaveBeenCalledWith(userInput)
+  })
+
+  test('should call getUserInputSeriesRequest action onKeyUp with userInput value', () => {
+    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
+    expect(getUserInputSerieRequestMock).toHaveBeenCalledTimes(1)
+    expect(getUserInputSerieRequestMock).toHaveBeenCalledWith(userInput)
   })
 })
 

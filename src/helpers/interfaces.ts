@@ -54,6 +54,7 @@ export interface IAnimateInput {
 export interface IInputProps {
   scrolled: number,
   getUserInputMoviesRequest: Function,
+  getUserInputSeriesRequest: Function,
   store?: any
 }
 
@@ -125,7 +126,8 @@ export interface IMoviesState {
 }
 
 export interface ISeriesState {
-  topSeries: Array<ISerie>,
+  searchSeries: Array<ISerie>,
+  topSeries: Array<ISerie>
 }
 
 

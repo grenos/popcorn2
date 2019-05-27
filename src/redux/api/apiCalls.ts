@@ -10,6 +10,11 @@ export const getUserInputMovies = async (value: string): Promise<{}> => {
   return res
 }
 
+export const getUserInputSeries = async (value: string): Promise<{}> => {
+  const res = await axios.get(`/search/serie?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&query=${value}`)
+  return res
+}
+
 
 
 export const getToggleMovies = async (page: number): Promise<{}> => {

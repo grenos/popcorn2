@@ -22,6 +22,23 @@ function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
   }
 }
 
+function* watchGetUsersSeriesRequest() {
+  yield takeLatest(actions.Types.GET_USER_INPUT_SERIES_REQUEST, getUserInputSeries)
+}
+function* getUserInputSeries({ payload: value }: INT.IInputSagaProps) {
+  try {
+    const result = yield call(api.getUserInputSeries, value)
+
+    yield put(actions.getUserInputSeriesSuccess({
+      result: result.data.results
+    } as INT.ISearchSeries))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
 
 function* watchGetToggleMoviesRequest() {
   yield takeEvery(actions.Types.GET_TOGGLE_MOVIES_REQUEST, getToggleMovies)
@@ -36,8 +53,6 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
     console.log(e);
   }
 }
-
-
 
 function* watchGetToggleSeiresRequest() {
   yield takeEvery(actions.Types.GET_TOGGLE_SERIES_REQUEST, getToggleSeries)
@@ -59,5 +74,6 @@ const apiSagas = [
   fork(watchGetUsersMoviesRequest),
   fork(watchGetToggleMoviesRequest),
   fork(watchGetToggleSeiresRequest),
+  fork(watchGetUsersSeriesRequest)
 ]
 export default apiSagas
