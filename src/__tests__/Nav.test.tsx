@@ -18,7 +18,7 @@ const setup = (props = {}) => {
 }
 
 describe('should render components', () => {
-  let wrapper
+  let wrapper: any
   beforeEach(() => {
     wrapper = setup()
   })
@@ -32,16 +32,10 @@ describe('should render components', () => {
     expect(component.length).toBe(1)
   })
 
-  test('should render NavToggle component', () => {
-    const component = wrapper.find('NavToggle')
-    expect(component.length).toBe(1)
-  })
-
-  test('should render SearchInput component', () => {
+  test('should render NavToggle and SearchInput component as ConnectFunction ', () => {
     const component = wrapper.find('ConnectFunction')
-    expect(component.length).toBe(1)
+    expect(component.length).toBe(2)
   })
-
 })
 
 
@@ -49,7 +43,7 @@ describe('should render components', () => {
 
 
 describe('CSS props before and after scroll animation', () => {
-  let wrapper
+  let wrapper: any
 
   const navCSSprops = {
     background: "rgba(0, 0, 0, 0.6)",

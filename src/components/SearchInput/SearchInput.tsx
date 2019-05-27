@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import search from '../../media/img/search.png'
-import { getUserInputRequest } from '../../redux/actions/apiActions'
+import { getUserInputMoviesRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 
 
-type InputVal = React.FormEvent<HTMLInputElement>
+type InputVal = React.ChangeEvent<HTMLInputElement>
 
-export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, getUserInputRequest }): JSX.Element => {
+export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
+  scrolled, getUserInputMoviesRequest
+}): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
@@ -29,11 +31,11 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, ge
   })
 
   const handleChange = (e: InputVal): void => {
-    setChange(e.currentTarget.value)
+    setChange(e.target.value)
   }
 
   const handleKeyUp = (): void => {
-    getUserInputRequest(change)
+    change.length > 1 && getUserInputMoviesRequest(change)
   }
 
   return (
@@ -62,4 +64,6 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({ scrolled, ge
 }
 
 
-export default connect(null, { getUserInputRequest })(UnconnectedSearchInput);
+export default connect(null, { getUserInputMoviesRequest })(UnconnectedSearchInput)
+
+

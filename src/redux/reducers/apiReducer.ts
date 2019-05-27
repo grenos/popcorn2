@@ -7,10 +7,22 @@ import * as INT from '../../helpers/interfaces'
 
 export default function apiReducer(state = API_STATE, action: INT.IReducerActions) {
   switch (action.type) {
-    case Types.GET_USER_INPUT_SUCCESS: {
+    case Types.GET_USER_INPUT_MOVIES_SUCCESS: {
       return {
         ...state,
         searchMovies: action.payload
+      }
+    }
+    case Types.GET_TOGGLE_MOVIES_SUCCESS: {
+      return {
+        ...state,
+        topMovies: action.payload
+      }
+    }
+    case Types.GET_TOGGLE_SERIES_SUCCESS: {
+      return {
+        ...state,
+        topSeries: action.payload
       }
     }
     default: {

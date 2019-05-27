@@ -10,12 +10,14 @@
   IInputProps
   //! apiACtions
   ISearchMovies
+  ISearchSeries
   //! apiREducer
   IReducerActions
   //! apiState
   IApiState
   //! apiSags
   IInputSagaProps
+  IToggleSagaProps
 |--------------------------------------------------
 */
 
@@ -49,22 +51,32 @@ export interface IAnimateInput {
 
 export interface IInputProps {
   scrolled: number,
-  getUserInputRequest: any
+  getUserInputMoviesRequest: Function,
+  store?: any
 }
 
 export interface IToggleProps {
   scrolled: number,
+  getToggleMoviesRequest: Function,
+  getToggleSeriesRequest: Function,
+  store?: any
 }
 
 export interface ISearchMovies {
   result: Array<IMovie>,
 }
 
+export interface ISearchSeries {
+  result: Array<ISerie>,
+}
+
 export interface IReducerActions {
   type: string,
   // use | <type of other payloads>
-  payload: Array<IMovie>,
+  payload: any
+  // Array<IMovie> | Array<ISerie>
 }
+
 
 export interface IMovie {
   vote_count: number
@@ -83,12 +95,35 @@ export interface IMovie {
   release_date: string
 }
 
+export interface ISerie {
+  original_name: string,
+  id: number,
+  name: string,
+  popularity: number,
+  vote_count: number,
+  vote_average: number,
+  first_air_date: string,
+  poster_path: string,
+  genre_ids: number[],
+  original_language: string,
+  backdrop_path: string,
+  overview: string,
+  origin_country: string[]
+}
+
 export interface IApiState {
   searchMovies: Array<IMovie>,
+  topMovies: Array<IMovie>,
+  topSeries: Array<ISerie>,
 }
 
 
 export interface IInputSagaProps {
   payload: string
 }
+
+export interface IToggleSagaProps {
+  payload: number
+}
+
 

@@ -10,7 +10,7 @@ function App(): JSX.Element {
     return function cleanup(): void {
       window.removeEventListener('scroll', listenToScroll)
     };
-  });
+  }, []);
 
   const listenToScroll = (): void => {
     const scrolled: number = window.pageYOffset
