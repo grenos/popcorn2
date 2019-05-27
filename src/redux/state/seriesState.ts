@@ -1,0 +1,13 @@
+import * as INT from '../../helpers/interfaces'
+
+
+export const SERIES_STATE: INT.ISeriesState = {
+  topSeries: []
+}
+
+
+
+
+
+
+

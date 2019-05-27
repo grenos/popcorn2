@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import apiReducer from './apiReducer'
+import moviesReducer from './moviesReducer'
+import seriesReducer from './seriesReducer'
 
 export default combineReducers({
-  apiReducer: apiReducer
+  moviesReducer: moviesReducer,
+  seriesReducer: seriesReducer
 })

@@ -1,10 +1,9 @@
 import * as INT from '../../helpers/interfaces'
 
 
-export const API_STATE: INT.IApiState = {
+export const MOVIE_STATE: INT.IMoviesState = {
   searchMovies: [],
   topMovies: [],
-  topSeries: []
 }
 
 

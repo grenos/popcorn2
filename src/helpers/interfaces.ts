@@ -8,13 +8,15 @@
   IAnimateInputContainer
   IAnimateInput
   IInputProps
-  //! apiACtions
+  //! apiActions recieved from sagas
   ISearchMovies
   ISearchSeries
   //! apiREducer
-  IReducerActions
+  IMoviesReducer
+  ISeriesReducer
   //! apiState
-  IApiState
+  IMoviesState
+  ISeriesState
   //! apiSags
   IInputSagaProps
   IToggleSagaProps
@@ -63,18 +65,24 @@ export interface IToggleProps {
 }
 
 export interface ISearchMovies {
+  type: string,
   result: Array<IMovie>,
 }
 
 export interface ISearchSeries {
+  type: string,
   result: Array<ISerie>,
 }
 
-export interface IReducerActions {
+
+export interface ISeriesReducer {
   type: string,
-  // use | <type of other payloads>
-  payload: any
-  // Array<IMovie> | Array<ISerie>
+  payload: | Array<ISerie>
+}
+
+export interface IMoviesReducer {
+  type: string,
+  payload: Array<IMovie>
 }
 
 
@@ -111,9 +119,12 @@ export interface ISerie {
   origin_country: string[]
 }
 
-export interface IApiState {
+export interface IMoviesState {
   searchMovies: Array<IMovie>,
   topMovies: Array<IMovie>,
+}
+
+export interface ISeriesState {
   topSeries: Array<ISerie>,
 }
 
