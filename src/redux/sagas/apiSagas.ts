@@ -14,9 +14,9 @@ function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
   try {
     const result = yield call(api.getUserInputMovies, value)
 
-    yield put(actions.getUserInputMoviesSuccess(<INT.ISearchMovies>{
+    yield put(actions.getUserInputMoviesSuccess({
       result: result.data.results
-    }))
+    } as INT.ISearchMovies))
   } catch (e) {
     console.log(e);
   }
@@ -29,9 +29,9 @@ function* watchGetToggleMoviesRequest() {
 function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
   try {
     const result = yield call(api.getToggleMovies, page)
-    yield put(actions.getToggleMoviesSuccess(<INT.ISearchMovies>{
+    yield put(actions.getToggleMoviesSuccess({
       result: result.data.results
-    }))
+    } as INT.ISearchMovies))
   } catch (e) {
     console.log(e);
   }
@@ -45,9 +45,9 @@ function* watchGetToggleSeiresRequest() {
 function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
   try {
     const result = yield call(api.getToggleSeries, page)
-    yield put(actions.getToggleSeriesSuccess(<INT.ISearchSeries>{
+    yield put(actions.getToggleSeriesSuccess({
       result: result.data.results
-    }))
+    } as INT.ISearchSeries))
   } catch (e) {
     console.log(e);
   }
