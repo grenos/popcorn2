@@ -3,14 +3,33 @@ import Enzyme, { shallow } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import SearchInput, { UnconnectedSearchInput } from '../components/SearchInput/SearchInput'
 import { findByTestAttr, storeFactory } from '../helpers/testUtils'
+import * as INT from '../helpers/interfaces'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 
+const defaultMovieProp = [{
+  vote_count: 2,
+  id: 12,
+  video: true,
+  vote_average: 34,
+  title: 'test',
+  popularity: 654,
+  poster_path: 'test',
+  original_language: 'test',
+  original_title: 'test',
+  genre_ids: [12],
+  backdrop_path: 'test',
+  adult: false,
+  overview: 'test',
+  release_date: 'test'
+}]
 const defaultProps = { scrolled: 21 }
+
+
 const setup = (initialState = {}, props = {}) => {
   const setupProps = { ...defaultProps, ...props }
   const store = storeFactory(initialState)
-  const wrapper = shallow(<SearchInput store={store} {...setupProps} />).dive()
+  const wrapper = shallow(<SearchInput store={store} {...setupProps} />).dive().dive()
   return wrapper
 }
 
@@ -42,39 +61,43 @@ test('should update input value', () => {
 })
 
 
-describe('should call actions on user input', () => {
-  let getUserInputMovieRequestMock: any
-  let getUserInputSerieRequestMock: any
-  let wrapper: any
+
+test('should call getUserInputMoviesRequest action onKeyUp with userInput value when topMovies has length bigger than 0', () => {
+  const getUserInputMovieRequestMock = jest.fn()
+  const props = {
+    scrolled: 19,
+    getUserInputMoviesRequest: getUserInputMovieRequestMock,
+    topMovies: defaultMovieProp as INT.IMovie[]
+  }
   const userInput = 'matrix'
+  const wrapper = shallow(<UnconnectedSearchInput {...props} />)
 
-  beforeEach(() => {
-    getUserInputMovieRequestMock = jest.fn()
-    getUserInputSerieRequestMock = jest.fn()
+  findByTestAttr(wrapper, 'search-input')
+    .dive().props().onChange({ target: { value: userInput } })
 
-    const props = {
-      scrolled: 19,
-      getUserInputMoviesRequest: getUserInputMovieRequestMock,
-      getUserInputSeriesRequest: getUserInputSerieRequestMock
-    }
-
-    wrapper = shallow(<UnconnectedSearchInput {...props} />)
-    findByTestAttr(wrapper, 'search-input')
-      .dive().props().onChange({ target: { value: userInput } })
-  })
-
-  test('should call getUserInputMoviesRequest action onKeyUp with userInput value', () => {
-    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
-    expect(getUserInputMovieRequestMock).toHaveBeenCalledTimes(1)
-    expect(getUserInputMovieRequestMock).toHaveBeenCalledWith(userInput)
-  })
-
-  test('should call getUserInputSeriesRequest action onKeyUp with userInput value', () => {
-    findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
-    expect(getUserInputSerieRequestMock).toHaveBeenCalledTimes(1)
-    expect(getUserInputSerieRequestMock).toHaveBeenCalledWith(userInput)
-  })
+  findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
+  expect(getUserInputMovieRequestMock).toHaveBeenCalledTimes(1)
+  expect(getUserInputMovieRequestMock).toHaveBeenCalledWith(userInput)
 })
+
+test('should call getUserInputSeriesRequest action onKeyUp with userInput value when topMovies is empty', () => {
+  const getUserInputSerieRequestMock = jest.fn()
+  const props = {
+    scrolled: 19,
+    getUserInputSeriesRequest: getUserInputSerieRequestMock,
+    topMovies: []
+  }
+  const userInput = 'matrix'
+  const wrapper = shallow(<UnconnectedSearchInput {...props} />)
+
+  findByTestAttr(wrapper, 'search-input')
+    .dive().props().onChange({ target: { value: userInput } })
+
+  findByTestAttr(wrapper, 'search-input').dive().props().onKeyUp(userInput)
+  expect(getUserInputSerieRequestMock).toHaveBeenCalledTimes(1)
+  expect(getUserInputSerieRequestMock).toHaveBeenCalledWith(userInput)
+})
+
 
 
 

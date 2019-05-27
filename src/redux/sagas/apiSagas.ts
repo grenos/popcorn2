@@ -13,7 +13,6 @@ function* watchGetUsersMoviesRequest() {
 function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
   try {
     const result = yield call(api.getUserInputMovies, value)
-
     yield put(actions.getUserInputMoviesSuccess({
       result: result.data.results
     } as INT.ISearchMovies))
@@ -28,6 +27,7 @@ function* watchGetUsersSeriesRequest() {
 function* getUserInputSeries({ payload: value }: INT.IInputSagaProps) {
   try {
     const result = yield call(api.getUserInputSeries, value)
+    console.log(result);
 
     yield put(actions.getUserInputSeriesSuccess({
       result: result.data.results

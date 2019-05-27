@@ -9,7 +9,10 @@ import * as INT from '../../helpers/interfaces'
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
 export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
-  scrolled, getUserInputMoviesRequest, getUserInputSeriesRequest
+  scrolled,
+  getUserInputMoviesRequest,
+  getUserInputSeriesRequest,
+  topMovies
 }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
@@ -35,10 +38,11 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   }
 
   const handleKeyUp = (): void => {
-    // change.length > 1 && getUserInputMoviesRequest(change)
-
-    getUserInputSeriesRequest(change)
-    getUserInputMoviesRequest(change)
+    if (topMovies.length < 1 && change.length > 1) {
+      getUserInputSeriesRequest(change)
+    } else {
+      getUserInputMoviesRequest(change)
+    }
   }
 
   return (
@@ -67,9 +71,19 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 }
 
 
-export default connect(null, {
-  getUserInputMoviesRequest,
-  getUserInputSeriesRequest
-})(UnconnectedSearchInput)
+const mapStateToProps = (state: any) => {
+  return {
+    topMovies: state.moviesReducer.topMovies,
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+  {
+    getUserInputMoviesRequest,
+    getUserInputSeriesRequest
+  }
+)(UnconnectedSearchInput)
 
 

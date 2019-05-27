@@ -53,8 +53,9 @@ export interface IAnimateInput {
 
 export interface IInputProps {
   scrolled: number,
-  getUserInputMoviesRequest: Function,
-  getUserInputSeriesRequest: Function,
+  getUserInputMoviesRequest?: any,
+  getUserInputSeriesRequest?: any,
+  topMovies: Array<IMovie>,
   store?: any
 }
 
