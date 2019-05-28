@@ -1,15 +1,16 @@
 .menu-button {
   appearance: none;
   background: transparent;
-  padding: 10px 10px 10px 7px;
+  padding: 15px;
   position: fixed;
-  left: 0;
+  left: 0.5%;
   top: 20%;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 30px;
   border-color: rgba(0, 0, 0, 0.8);
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 103;
   outline: none;
+  cursor: pointer;
 }
 
 .menu-button img {

@@ -1,8 +1,8 @@
 body {
   height: 2000px;
   background: rgb(19, 19, 19);
-  -ms-overflow-style: none; // IE 10+
-  scrollbar-width: none; // Firefox
+  //   -ms-overflow-style: none; // IE 10+
+  //   scrollbar-width: none; // Firefox
 }
 
 * {
@@ -10,9 +10,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-  -ms-overflow-style: none; // IE 10+
-  scrollbar-width: none; // Firefox
-}
+// ::-webkit-scrollbar {
+//   width: 0px; /* Remove scrollbar space */
+//   background: transparent; /* Optional: just make scrollbar invisible */
+//   -ms-overflow-style: none; // IE 10+
+//   scrollbar-width: none; // Firefox
+// }
