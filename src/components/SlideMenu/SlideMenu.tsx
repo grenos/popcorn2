@@ -22,7 +22,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
 
   return (
     <a.div className="nav-wrapper" style={menuAnimation}>
-      <a.div className="nav-list-wrapper">
+      <div className="nav-list-wrapper">
         <Scrollbars className="nav-list">
           <a href="#">Home</a>
           <a href="#">About</a>
@@ -49,7 +49,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
           <a href="#">Store</a>
           <a href="#">Tutorials</a>
         </Scrollbars>
-      </a.div>
+      </div>
     </a.div>
   )
 }
