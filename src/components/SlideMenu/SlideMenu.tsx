@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring';
-import CustomScrollbar from './CustomScrollbar'
+import Scrollbars from 'react-custom-scrollbars';
 
 export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
 
@@ -23,7 +23,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
   return (
     <a.div className="nav-wrapper" style={menuAnimation}>
       <a.div className="nav-list-wrapper">
-        <CustomScrollbar>
+        <Scrollbars className="nav-list">
           <a href="#">Home</a>
           <a href="#">About</a>
           <a href="#">Store</a>
@@ -48,7 +48,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
           <a href="#">About</a>
           <a href="#">Store</a>
           <a href="#">Tutorials</a>
-        </CustomScrollbar>
+        </Scrollbars>
       </a.div>
     </a.div>
   )
