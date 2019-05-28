@@ -7,17 +7,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.menu-button {
-  appearance: none;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  background: transparent;
-  /* padding: 10px 20px; */
-  width: 100px;
-  position: fixed;
-  left: 0;
-  top: 20%;
-  z-index: 333;
-}

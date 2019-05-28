@@ -1,0 +1,18 @@
+.menu-button {
+  appearance: none;
+  background: transparent;
+  padding: 10px 10px 10px 7px;
+  position: fixed;
+  left: 0;
+  top: 20%;
+  border-radius: 0px 5px 5px 0px;
+  border-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 103;
+  outline: none;
+}
+
+.menu-button img {
+  width: 20px;
+  transform: rotate(180deg);
+}
