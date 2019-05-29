@@ -1,7 +1,7 @@
 
 import { takeEvery, put, fork } from 'redux-saga/effects'
 import * as actions from '../actions/uiActions'
-// import * as INT from '../../helpers/interfaces'
+import * as INT from '../../helpers/interfaces'
 
 
 
@@ -9,9 +9,9 @@ import * as actions from '../actions/uiActions'
 function* watchGetToggleMenuRequest() {
   yield takeEvery(actions.Types.GET_MENU_TOGGLE_REQUEST, getToggleMEnu)
 }
-function* getToggleMEnu({ payload: isMenuOpen }: any) {
+function* getToggleMEnu({ payload: isMenuOpen }: INT.IMenuSlideAction) {
   try {
-    yield put(actions.getToggleMenuSuccess(isMenuOpen))    
+    yield put(actions.getToggleMenuSuccess(isMenuOpen) as INT.IMenuSlideAction)
   } catch (e) {
     console.log(e);
   }

@@ -8,16 +8,18 @@
   IAnimateInputContainer
   IAnimateInput
   IInputProps
-  //! apiActions recieved from sagas
+  //! nav-input
+  IToggleSagaProps
+  //! Actions recieved from sagas
   ISearchMovies
   ISearchSeries
-  //! apiREducer
+  //! REducer
   IMoviesReducer
   ISeriesReducer
-  //! apiState
+  //! State
   IMoviesState
   ISeriesState
-  //! apiSags
+  //! Sagas
   IInputSagaProps
   IToggleSagaProps
 |--------------------------------------------------
@@ -36,6 +38,11 @@ export interface IAnimateToggle {
   transform: number | string,
   opacity?: number
 }
+
+export interface IAnimateMenu {
+  transform: number | string,
+}
+
 export interface IAnimateHeader {
   height: number | string,
   background: number | string,
@@ -131,6 +138,10 @@ export interface ISeriesState {
   topSeries: Array<ISerie>
 }
 
+export interface IUiState {
+  isMenuOpen: boolean
+}
+
 
 export interface IInputSagaProps {
   payload: string
@@ -138,6 +149,15 @@ export interface IInputSagaProps {
 
 export interface IToggleSagaProps {
   payload: number
+}
+
+export interface IMenuProps {
+  isMenuOpen: boolean
+}
+
+export interface IMenuSlideAction {
+  type: 'string',
+  payload: boolean
 }
 
 

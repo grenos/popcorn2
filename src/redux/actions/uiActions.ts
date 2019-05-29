@@ -10,11 +10,11 @@ export const Types: any = {
 export const getToggleMenuRequest = (isMenuOpen: boolean) => ({
   type: Types.GET_MENU_TOGGLE_REQUEST,
   payload: isMenuOpen
-})
+} as INT.IMenuSlideAction)
 
 export const getToggleMenuSuccess = (isMenuOpen: boolean) => ({
-   type: Types.GET_MENU_TOGGLE_SUCCESS,
-   payload: isMenuOpen
- })
+  type: Types.GET_MENU_TOGGLE_SUCCESS,
+  payload: isMenuOpen
+} as INT.IMenuSlideAction)
 
 

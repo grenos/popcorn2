@@ -1,7 +1,7 @@
-// import * as INT from '../../helpers/interfaces'
+import * as INT from '../../helpers/interfaces'
 
 
-export const UI_STATE: any = {
+export const UI_STATE: INT.IUiState = {
   isMenuOpen: false
 }
 
