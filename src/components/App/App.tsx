@@ -2,7 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
-import { useTransition, animated as a } from 'react-spring'
+import { useTransition } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
