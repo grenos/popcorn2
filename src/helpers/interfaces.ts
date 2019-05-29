@@ -155,6 +155,11 @@ export interface IMenuProps {
   isMenuOpen: boolean
 }
 
+export interface ISlideMenuProps {
+  props: any,
+  key: string
+}
+
 export interface IMenuSlideAction {
   type: 'string',
   payload: boolean

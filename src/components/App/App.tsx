@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
+import { useTransition, animated as a } from 'react-spring'
 // import SlideMenu from 'components/SlideMenu/SlideMenu';
 import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
@@ -18,6 +19,20 @@ const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMenuOpen]);
+
+  const transition = useTransition(isMenuOpen, null, {
+    from: { transform: `translate3d(-100%,0,0)` },
+    enter: { transform: `translate3d(0%,0,0)` },
+    leave: { transform: `translate3d(-100%,0,0)` }
+  })
+
   const listenToScroll = (): void => {
     const scrolled: number = window.pageYOffset
     setScrolled(scrolled)
@@ -32,7 +47,13 @@ const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
         <Nav scrolled={scrolled} />
         <MenuToggle />
         <Suspense fallback={() => loader()}>
-          <SlideMenu />
+          {transition.map(
+            ({ item, key, props }) => (
+              item
+                ? <SlideMenu key={key} props={props} />
+                : null
+            )
+          )}
         </Suspense>
       </div>
     )
@@ -40,6 +61,7 @@ const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
   return (
     <div className="wrapper">
       <Nav scrolled={scrolled} />
+
       <MenuToggle />
     </div>
   )
