@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
 import { useTransition, animated as a } from 'react-spring'
-// import SlideMenu from 'components/SlideMenu/SlideMenu';
 import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
@@ -27,6 +26,7 @@ const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
     }
   }, [isMenuOpen]);
 
+
   const transition = useTransition(isMenuOpen, null, {
     from: { transform: `translate3d(-100%,0,0)` },
     enter: { transform: `translate3d(0%,0,0)` },
@@ -38,29 +38,22 @@ const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
     setScrolled(scrolled)
   }
 
+
   // test loader for now
   const loader = () => <div className="loader">loading</div>
 
-  if (isMenuOpen) {
-    return (
-      <div className="wrapper">
-        <Nav scrolled={scrolled} />
-        <MenuToggle />
-        <Suspense fallback={() => loader()}>
-          {transition.map(
-            ({ item, key, props }) => (
-              item
-                ? <SlideMenu key={key} props={props} />
-                : null
-            )
-          )}
-        </Suspense>
-      </div>
-    )
-  }
   return (
     <div className="wrapper">
       <Nav scrolled={scrolled} />
+
+      {transition.map(
+        ({ item, key, props }) => (
+          item &&
+          <Suspense fallback={() => loader()}>
+            <SlideMenu key={key} props={props} />
+          </Suspense>
+        )
+      )}
 
       <MenuToggle />
     </div>
