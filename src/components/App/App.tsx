@@ -1,9 +1,13 @@
-import React, { useState, useEffect, } from 'react';
-import Nav from '../Nav/Nav'
-import SlideMenu from 'components/SlideMenu/SlideMenu';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
+import Nav from '../Nav/Nav'
+// import SlideMenu from 'components/SlideMenu/SlideMenu';
+import * as INT from '../../helpers/interfaces'
+const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
-function App(): JSX.Element {
+
+const App: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
 
   const [scrolled, setScrolled] = useState<number>(0);
 
@@ -19,13 +23,35 @@ function App(): JSX.Element {
     setScrolled(scrolled)
   }
 
+  // test loader for now
+  const loader = () => <div className="loader">loading</div>
+
+  if (isMenuOpen) {
+    return (
+      <div className="wrapper">
+        <Nav scrolled={scrolled} />
+        <MenuToggle />
+        <Suspense fallback={() => loader()}>
+          <SlideMenu />
+        </Suspense>
+      </div>
+    )
+  }
   return (
     <div className="wrapper">
       <Nav scrolled={scrolled} />
       <MenuToggle />
-      <SlideMenu />
     </div>
-  );
+  )
 }
 
-export default App;
+
+const mapStateToProps = (state: any) => {
+  return {
+    isMenuOpen: state.uiReducer.isMenuOpen,
+  };
+};
+
+export default connect(mapStateToProps, null)(App)
+
+
