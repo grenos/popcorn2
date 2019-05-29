@@ -10,7 +10,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
       console.log(`menu ${isMenuOpen}`)
       document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = 'initial'
+      document.body.style.overflow = 'visible'
     }
   }, [isMenuOpen]);
 
@@ -24,30 +24,7 @@ export const UnconnectedSlideMenu = ({ isMenuOpen }: any) => {
     <a.div className="nav-wrapper" style={menuAnimation}>
       <div className="nav-list-wrapper">
         <Scrollbars className="nav-list">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Store</a>
-          <a href="#">Tutorials</a>
+        <h3>test</h3>
         </Scrollbars>
       </div>
     </a.div>
