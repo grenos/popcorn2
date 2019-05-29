@@ -2,7 +2,6 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
-import { useTransition } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
@@ -26,18 +25,10 @@ export const UnconnectedApp: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.El
     }
   }, [isMenuOpen]);
 
-
-  const transition = useTransition(isMenuOpen, null, {
-    from: { transform: `translate3d(-100%,0,0)` },
-    enter: { transform: `translate3d(0%,0,0)` },
-    leave: { transform: `translate3d(-100%,0,0)` }
-  })
-
   const listenToScroll = (): void => {
     const scrolled: number = window.pageYOffset
     setScrolled(scrolled)
   }
-
 
   // test loader for now
   const loader = () => <div className="loader">loading</div>
@@ -46,14 +37,9 @@ export const UnconnectedApp: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.El
     <div className="wrapper">
       <Nav scrolled={scrolled} />
 
-      {transition.map(
-        ({ item, key, props }) => (
-          item &&
-          <Suspense fallback={() => loader()}>
-            <SlideMenu key={key} props={props} />
-          </Suspense>
-        )
-      )}
+      <Suspense fallback={() => loader()}>
+        <SlideMenu />
+      </Suspense>
 
       <MenuToggle />
     </div>

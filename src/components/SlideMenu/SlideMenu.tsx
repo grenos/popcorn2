@@ -1,26 +1,51 @@
 import React from 'react'
-import { animated } from 'react-spring'
+import { connect } from 'react-redux'
 import Scrollbars from 'react-custom-scrollbars'
 import * as INT from '../../helpers/interfaces'
+import { useTransition, animated as a } from 'react-spring'
 
 
-const SlideMenu: React.FC<INT.ISlideMenuProps> = ({
-  props, key }): JSX.Element => {
+export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
+
+  const transition = useTransition(isMenuOpen, null, {
+    from: { transform: `translate3d(-100%,0,0)` },
+    enter: { transform: `translate3d(0%,0,0)` },
+    leave: { transform: `translate3d(-100%,0,0)` }
+  })
 
   return (
-    <animated.div className="nav-wrapper"
-      style={props}
-      key={key}>
-      <div className="nav-list-wrapper">
-        <Scrollbars className="nav-list">
-          <h3>test</h3>
-        </Scrollbars>
-      </div>
-    </animated.div >
+    <>
+      {
+        transition.map(
+          ({ item, key, props }) => (
+            item &&
+            <a.div className="nav-wrapper"
+              style={props}
+              key={key}>
+              <div className="nav-list-wrapper">
+                <Scrollbars className="nav-list">
+                  <h3>test</h3>
+                </Scrollbars>
+              </div>
+            </a.div >
+          )
+        )
+      }
+    </>
   )
 }
 
-export default SlideMenu
+
+const mapStateToProps = (state: any) => {
+  return {
+    isMenuOpen: state.uiReducer.isMenuOpen,
+  };
+};
+
+export default connect(mapStateToProps, null)(UnconnectedSlideMenu)
+
+
+
 
 
 
