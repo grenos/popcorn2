@@ -22,7 +22,7 @@ const setup = (initialState = {}, props = {}) => {
 
 
 describe('should render components', () => {
-  let wrapper
+  let wrapper: any
   beforeEach(() => {
     wrapper = setup()
   })

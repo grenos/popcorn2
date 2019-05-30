@@ -152,7 +152,8 @@ export interface IToggleSagaProps {
 }
 
 export interface IMenuProps {
-  isMenuOpen: boolean
+  isMenuOpen: boolean,
+  store?: any
 }
 
 // export interface ISlideMenuProps {
