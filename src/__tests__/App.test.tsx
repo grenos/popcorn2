@@ -33,7 +33,7 @@ describe('should render components', () => {
   })
 
   test('should render slide menu', () => {
-    //  lazy loaded not fully supported yet
+    //  lazy loaded components not fully supported yet
   })
 
   test('should render menu toggle', () => {

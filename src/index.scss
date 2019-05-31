@@ -15,3 +15,23 @@
 
 // @import "styles/_colors.scss"; // assuming a styles directory under src/
 // @import "~nprogress/nprogress"; // importing a css file from the nprogress node module
+
+body {
+  background: rgb(19, 19, 19);
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+  -ms-overflow-style: none; // IE 10+
+  scrollbar-width: none; // Firefox
+}
+
+input,
+button {
+  outline: none;
+}
