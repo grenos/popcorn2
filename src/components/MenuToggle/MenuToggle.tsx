@@ -3,25 +3,27 @@ import { useSpring, animated as a } from 'react-spring';
 import { connect } from 'react-redux'
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
 import chevron from '../../media/img/chevron.png'
+import * as INT from '../../helpers/interfaces'
 
 
-export const UnconnectedMenuToggle = ({ getToggleMenuRequest }: any) => {
+export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
+  getToggleMenuRequest }): JSX.Element => {
 
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const btnAnimation = useSpring({
+  const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
       ? `translate3d(300px,0,0)`
       : `translate3d(0px,0,0)`
   });
 
-  const imgAnimation = useSpring({
+  const imgAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
       ? `rotate(0deg)`
-      : `rotate(1980deg)`
+      : `rotate(540deg)`
   });
 
-  const makeBoolGlobal = () => {
+  const makeBoolGlobal = (): void => {
     setMenuOpen(isMenuOpen => !isMenuOpen)
     // Hack!?!? maybe 
     getToggleMenuRequest(!isMenuOpen)

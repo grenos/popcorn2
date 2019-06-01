@@ -20,34 +20,30 @@ test('should render button component', () => {
 
 
 test('should animate button on click', () => {
-  const defaultProps = { transform: "translate3d(0px,0,0)" }
-  const wrapper = setup().dive()
-  const button = findByTestAttr(wrapper, 'button-toggle')
+  // const defaultProps = { transform: "translate3d(0px,0,0)" }
+  // const wrapper = setup()
+  // const button = findByTestAttr(wrapper, 'button-toggle').dive()
 
-  const buttonNotClicked = button.prop('style')
-  expect(buttonNotClicked).toEqual(defaultProps)
+  // const buttonNotClicked = button.prop('style')
+  // expect(buttonNotClicked).toEqual(defaultProps)
 
-  button.simulate('click')
-  console.log(findByTestAttr(wrapper, 'button-toggle').prop('style'));
-
-  // const buttonClicked = findByTestAttr(wrapper, 'button-toggle').prop('style')
-
-  // expect(findByTestAttr(wrapper, 'button-toggle').prop('style')).toEqual(0)
+  // findByTestAttr(wrapper, 'button-toggle').dive().props().onClick()
+  // expect(findByTestAttr(wrapper, 'button-toggle').dive().prop('style')).toEqual(0)
 })
 
 
-// test('should animate img on click', () => {
-//   const wrapper = setup().dive()
-//   const button = findByTestAttr(wrapper, 'button-toggle')
-//   const img = findByTestAttr(wrapper, 'img-toggle')
+test('should animate img on click', () => {
+  //   const wrapper = setup().dive()
+  //   const button = findByTestAttr(wrapper, 'button-toggle')
+  //   const img = findByTestAttr(wrapper, 'img-toggle')
 
-//   const imgNotClicked = button.style
-//   expect(imgNotClicked).toEqual(img.props.style)
+  //   const imgNotClicked = button.style
+  //   expect(imgNotClicked).toEqual(img.props.style)
 
-//   button.simulate('click')
-//   const imgClicked = findByTestAttr(wrapper, 'button-toggle')
-//   const toggleCSSprops = imgClicked.props.style
+  //   button.simulate('click')
+  //   const imgClicked = findByTestAttr(wrapper, 'button-toggle')
+  //   const toggleCSSprops = imgClicked.props.style
 
-//   expect(toggleCSSprops).toEqual(imgClicked.props.style)
-// })
+  //   expect(toggleCSSprops).toEqual(imgClicked.props.style)
+})
 

@@ -73,6 +73,11 @@ export interface IToggleProps {
   store?: any
 }
 
+export interface IToggleMenuProps {
+  getToggleMenuRequest: Function,
+  store?: any
+}
+
 export interface ISearchMovies {
   type: string,
   result: Array<IMovie>,
