@@ -34,7 +34,7 @@ export const UnconnectedApp: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.El
   const loader = () => <div className="loader">loading</div>
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" onClick={listenToScroll}>
       <Nav scrolled={scrolled} />
 
       <Suspense fallback={() => loader()}>

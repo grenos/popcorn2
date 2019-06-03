@@ -35,6 +35,7 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
       className="menu-button"
       onClick={makeBoolGlobal}
       style={btnAnimation}
+      type="button"
     >
       <a.img src={chevron}
         data-test="img-toggle"

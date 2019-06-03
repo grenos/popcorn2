@@ -20,15 +20,19 @@ test('should render button component', () => {
 
 
 test('should animate button on click', () => {
-  // const defaultProps = { transform: "translate3d(0px,0,0)" }
-  // const wrapper = setup()
-  // const button = findByTestAttr(wrapper, 'button-toggle').dive()
+  const oldCSSProps = { transform: "translate3d(0px,0,0)" }
+  const newCSSProps = { transform: "translate3d(300px,0,0)" }
 
-  // const buttonNotClicked = button.prop('style')
-  // expect(buttonNotClicked).toEqual(defaultProps)
+  const wrapper = setup()
+  const button = findByTestAttr(wrapper, 'button-toggle').dive()
 
-  // findByTestAttr(wrapper, 'button-toggle').dive().props().onClick()
-  // expect(findByTestAttr(wrapper, 'button-toggle').dive().prop('style')).toEqual(0)
+  const buttonNotClicked = button.prop('style')
+  expect(buttonNotClicked).toEqual(oldCSSProps)
+
+  findByTestAttr(wrapper, 'button-toggle').dive().simulate('click')
+  const buttonClicked = findByTestAttr(wrapper, 'button-toggle').dive()
+
+  expect(buttonClicked.prop('style')).toEqual(newCSSProps)
 })
 
 
