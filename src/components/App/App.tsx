@@ -31,13 +31,13 @@ export const UnconnectedApp: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.El
   }
 
   // test loader for now
-  const loader = () => <div className="loader">loading</div>
+  const Loader = () => <div className="loader">loading</div>
 
   return (
-    <div className="wrapper" onClick={listenToScroll}>
+    <div className="wrapper">
       <Nav scrolled={scrolled} />
 
-      <Suspense fallback={() => loader()}>
+      <Suspense fallback={<Loader />}>
         <SlideMenu />
       </Suspense>
 

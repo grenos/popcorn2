@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpring, animated as a } from 'react-spring';
 import { connect } from 'react-redux'
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
@@ -25,9 +25,11 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
   const makeBoolGlobal = (): void => {
     setMenuOpen(isMenuOpen => !isMenuOpen)
-    // Hack!?!? maybe 
-    getToggleMenuRequest(!isMenuOpen)
   }
+
+  useEffect(() => {
+    getToggleMenuRequest(isMenuOpen)
+  })
 
   return (
     <a.button
