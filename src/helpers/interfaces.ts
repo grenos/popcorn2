@@ -98,7 +98,8 @@ export interface IGenresAction {
 
 export interface IGenresResult {
   id: number,
-  name: string
+  name: string,
+  opacity?: number
 }[]
 
 

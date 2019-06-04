@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Scrollbars from 'react-custom-scrollbars'
 import * as INT from '../../helpers/interfaces'
-import { useTransition, useTrail, animated as a } from 'react-spring'
+import { useTransition, animated as a } from 'react-spring'
+import { Trail } from 'react-spring/renderprops';
 
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
@@ -16,21 +17,21 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     leave: { transform: `translate3d(-100%,0,0)` }
   })
 
-  // const trail = useTrail(movieGenres.length, {
-  //   opacity: 1,
-  //   transform: 'translateX(0px)'
-  // })
 
   const renderMovieGenres = () => {
     return (
       <div className="movie-genres-wrapper">
         <ul>
           {
-            movieGenres.map(genre => (
-              <a.li className="movie-genre" key={genre.id}>
-                {genre.name}
-              </a.li>
-            ))
+            <Trail
+              items={movieGenres}
+              keys={movieGenres => movieGenres.id}
+              config={{ tension: 340, friction: 20 }}
+              from={{ opacity: 0 }}
+              to={{ opacity: 1 }}
+            >
+              {movieGenres => props => <a.li style={props} className="movie-genre">{movieGenres.name}</a.li>}
+            </Trail>
           }
         </ul>
       </div >
@@ -71,3 +72,8 @@ export default connect(mapStateToProps, null)(UnconnectedSlideMenu)
 
 
 
+// {movieGenres.map(genre => (
+//   <a.li className="movie-genre" key={genre.id}>
+//     {genre.name}
+//   </a.li>
+// ))}
