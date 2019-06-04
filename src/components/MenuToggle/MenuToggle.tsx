@@ -11,6 +11,10 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    getToggleMenuRequest(isMenuOpen)
+  }, [getToggleMenuRequest, isMenuOpen])
+
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
       ? `translate3d(300px,0,0)`
@@ -26,10 +30,6 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   const makeBoolGlobal = (): void => {
     setMenuOpen(isMenuOpen => !isMenuOpen)
   }
-
-  useEffect(() => {
-    getToggleMenuRequest(isMenuOpen)
-  }, [getToggleMenuRequest, isMenuOpen])
 
   return (
     <a.button
