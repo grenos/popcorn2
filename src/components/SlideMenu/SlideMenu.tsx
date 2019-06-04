@@ -5,7 +5,10 @@ import * as INT from '../../helpers/interfaces'
 import { useTransition, animated as a } from 'react-spring'
 
 
-export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
+export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
+  isMenuOpen,
+  movieGenres,
+  serieGenres }): JSX.Element => {
 
   const transition = useTransition(isMenuOpen, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -15,20 +18,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({ isMenuOpen }): 
 
   return (
     <>
-      {
-        transition.map(
-          ({ item, key, props }) => (
-            item &&
-            <a.div className="nav-wrapper" style={props} key={key}>
-              <div className="nav-list-wrapper">
-                <Scrollbars className="nav-list">
-                  <h3>test</h3>
-                </Scrollbars>
-              </div>
-            </a.div >
-          )
+      {transition.map(
+        ({ item, key, props }) => (
+          item &&
+          <a.div className="nav-wrapper" style={props} key={key}>
+            <div className="nav-list-wrapper">
+              <Scrollbars className="nav-list">
+                <h3>test</h3>
+              </Scrollbars>
+            </div>
+          </a.div >
         )
-      }
+      )}
     </>
   )
 }
@@ -37,6 +38,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({ isMenuOpen }): 
 const mapStateToProps = (state: any) => {
   return {
     isMenuOpen: state.uiReducer.isMenuOpen,
+    movieGenres: state.moviesReducer.movieGenres,
+    serieGenres: state.seriesReducer.serieGenres
   };
 };
 

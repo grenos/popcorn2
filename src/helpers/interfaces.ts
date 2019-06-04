@@ -91,13 +91,15 @@ export interface ISearchSeries {
   result: Array<ISerie>,
 }
 
-export interface IGenres {
+export interface IGenresAction {
   type: string,
-  result: {
-    id: number,
-    name: string
-  }[]
+  result: IGenresResult
 }
+
+export interface IGenresResult {
+  id: number,
+  name: string
+}[]
 
 
 export interface ISeriesReducer {
@@ -147,19 +149,15 @@ export interface ISerie {
 export interface IMoviesState {
   searchMovies: Array<IMovie>,
   topMovies: Array<IMovie>,
-  movieGenres: {
-    id: number,
-    name: string
-  }[]
+  movieGenres: IGenresResult[]
 }
+
+
 
 export interface ISeriesState {
   searchSeries: Array<ISerie>,
   topSeries: Array<ISerie>,
-  serieGenres: {
-    id: number,
-    name: string
-  }[]
+  serieGenres: IGenresResult[]
 }
 
 export interface IUiState {
@@ -178,13 +176,13 @@ export interface IToggleSagaProps {
 export interface IMenuProps {
   isMenuOpen: boolean,
   store?: any
+  movieGenres: IGenresResult
+  serieGenres: IGenresResult
 }
 
-// export interface ISlideMenuProps {
-//   props: any,
-//   key: string,
-//   isMenuOpen: boolean
-// }
+export interface IMenuPropSingle {
+  isMenuOpen: boolean,
+}
 
 export interface IMenuSlideAction {
   type: 'string',

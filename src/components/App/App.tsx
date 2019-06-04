@@ -6,7 +6,7 @@ import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
 
-export const UnconnectedApp: React.FC<INT.IMenuProps> = ({ isMenuOpen }): JSX.Element => {
+export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpen }): JSX.Element => {
 
   const [scrolled, setScrolled] = useState<number>(0);
 

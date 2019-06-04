@@ -62,7 +62,7 @@ export const getToggleSeriesSuccess = ({ result }: INT.ISearchSeries) => ({
 export const getMovieGenresRequest = () => ({
   type: Types.GET_MOVIE_GENRES_REQUEST
 })
-export const getMovieGenresSuccess = ({ result }: INT.IGenres) => ({
+export const getMovieGenresSuccess = ({ result }: INT.IGenresAction) => ({
   type: Types.GET_MOVIE_GENRES_SUCCESS,
   payload: result
 })
@@ -71,7 +71,7 @@ export const getMovieGenresSuccess = ({ result }: INT.IGenres) => ({
 export const getSerieGenresRequest = () => ({
   type: Types.GET_SERIE_GENRES_REQUEST
 })
-export const getSerieGenresSuccess = ({ result }: INT.IGenres) => ({
+export const getSerieGenresSuccess = ({ result }: INT.IGenresAction) => ({
   type: Types.GET_SERIE_GENRES_SUCCESS,
   payload: result
 })

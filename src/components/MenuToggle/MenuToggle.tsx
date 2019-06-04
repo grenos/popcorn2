@@ -17,9 +17,13 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
   useEffect(() => {
     getToggleMenuRequest(isMenuOpen)
+  }, [getToggleMenuRequest, isMenuOpen])
+
+  useEffect(() => {
+    // once on mount
     getMovieGenresRequest()
     getSerieGenresRequest()
-  }, [getToggleMenuRequest, isMenuOpen, getMovieGenresRequest])
+  }, [getMovieGenresRequest, getSerieGenresRequest])
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen

@@ -78,7 +78,7 @@ function* getMovieGenres() {
     const result = yield call(api.getMovieGenres)
     yield put(actions.getMovieGenresSuccess({
       result: result.data.genres
-    } as INT.IGenres))
+    } as INT.IGenresAction))
     console.log(result);
   } catch (e) {
     console.log(e)
@@ -93,7 +93,7 @@ function* getSerieGenres() {
     const result = yield call(api.getSerieGenres)
     yield put(actions.getSerieGenresSuccess({
       result: result.data.genres
-    } as INT.IGenres))
+    } as INT.IGenresAction))
   } catch (e) {
     console.log(e)
   }
