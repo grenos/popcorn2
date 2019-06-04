@@ -175,9 +175,9 @@ export interface IToggleSagaProps {
 
 export interface IMenuProps {
   isMenuOpen: boolean,
-  store?: any
-  movieGenres: IGenresResult
-  serieGenres: IGenresResult
+  store?: any,
+  movieGenres: IGenresResult[],
+  serieGenres: IGenresResult[]
 }
 
 export interface IMenuPropSingle {
