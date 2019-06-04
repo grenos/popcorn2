@@ -10,9 +10,10 @@
   IInputProps
   //! nav-input
   IToggleSagaProps
-  //! Actions recieved from sagas
+  //! Actions 
   ISearchMovies
   ISearchSeries
+  IGenres
   //! REducer
   IMoviesReducer
   ISeriesReducer
@@ -75,6 +76,8 @@ export interface IToggleProps {
 
 export interface IToggleMenuProps {
   getToggleMenuRequest: Function,
+  getMovieGenresRequest: Function,
+  getSerieGenresRequest: Function
   store?: any
 }
 
@@ -86,6 +89,14 @@ export interface ISearchMovies {
 export interface ISearchSeries {
   type: string,
   result: Array<ISerie>,
+}
+
+export interface IGenres {
+  type: string,
+  result: {
+    id: number,
+    name: string
+  }[]
 }
 
 
@@ -136,11 +147,19 @@ export interface ISerie {
 export interface IMoviesState {
   searchMovies: Array<IMovie>,
   topMovies: Array<IMovie>,
+  movieGenres: {
+    id: number,
+    name: string
+  }[]
 }
 
 export interface ISeriesState {
   searchSeries: Array<ISerie>,
-  topSeries: Array<ISerie>
+  topSeries: Array<ISerie>,
+  serieGenres: {
+    id: number,
+    name: string
+  }[]
 }
 
 export interface IUiState {

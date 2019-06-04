@@ -9,7 +9,11 @@ export const Types: any = {
   GET_TOGGLE_SERIES_REQUEST: 'GET_TOGGLE_SERIES_REQUEST',
   GET_TOGGLE_SERIES_SUCCESS: 'GET_TOGGLE_SERIES_SUCCESS',
   GET_USER_INPUT_SERIES_REQUEST: 'GET_USER_INPUT_SERIES_REQUEST',
-  GET_USER_INPUT_SERIES_SUCCESS: 'GET_USER_INPUT_SERIES_SUCCESS'
+  GET_USER_INPUT_SERIES_SUCCESS: 'GET_USER_INPUT_SERIES_SUCCESS',
+  GET_MOVIE_GENRES_REQUEST: 'GET_MOVIE_GENRES_REQUEST',
+  GET_MOVIE_GENRES_SUCCESS: 'GET_MOVIE_GENRES_SUCCESS',
+  GET_SERIE_GENRES_REQUEST: 'GET_SERIE_GENRES_REQUEST',
+  GET_SERIE_GENRES_SUCCESS: 'GET_SERIE_GENRES_SUCCESS'
 }
 
 
@@ -55,3 +59,19 @@ export const getToggleSeriesSuccess = ({ result }: INT.ISearchSeries) => ({
 
 
 
+export const getMovieGenresRequest = () => ({
+  type: Types.GET_MOVIE_GENRES_REQUEST
+})
+export const getMovieGenresSuccess = ({ result }: INT.IGenres) => ({
+  type: Types.GET_MOVIE_GENRES_SUCCESS,
+  payload: result
+})
+
+
+export const getSerieGenresRequest = () => ({
+  type: Types.GET_SERIE_GENRES_REQUEST
+})
+export const getSerieGenresSuccess = ({ result }: INT.IGenres) => ({
+  type: Types.GET_SERIE_GENRES_SUCCESS,
+  payload: result
+})

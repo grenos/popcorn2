@@ -70,10 +70,42 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
 
 
 
+function* watchgetMovieGenresRequest() {
+  yield takeLatest(actions.Types.GET_MOVIE_GENRES_REQUEST, getMovieGenres)
+}
+function* getMovieGenres() {
+  try {
+    const result = yield call(api.getMovieGenres)
+    yield put(actions.getMovieGenresSuccess({
+      result: result.data.genres
+    } as INT.IGenres))
+    console.log(result);
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+function* watchgetSerieGenresRequest() {
+  yield takeLatest(actions.Types.GET_SERIE_GENRES_REQUEST, getSerieGenres)
+}
+function* getSerieGenres() {
+  try {
+    const result = yield call(api.getSerieGenres)
+    yield put(actions.getSerieGenresSuccess({
+      result: result.data.genres
+    } as INT.IGenres))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
 const apiSagas = [
   fork(watchGetUsersMoviesRequest),
   fork(watchGetToggleMoviesRequest),
   fork(watchGetToggleSeiresRequest),
-  fork(watchGetUsersSeriesRequest)
+  fork(watchGetUsersSeriesRequest),
+  fork(watchgetMovieGenresRequest),
+  fork(watchgetSerieGenresRequest)
 ]
 export default apiSagas

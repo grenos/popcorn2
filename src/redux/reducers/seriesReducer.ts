@@ -1,11 +1,11 @@
 import { Types } from '../actions/apiActions'
 import { SERIES_STATE } from '../state/seriesState'
-import * as INT from '../../helpers/interfaces'
+// import * as INT from '../../helpers/interfaces'
 
 
 
 
-export default function seriesReducer(state = SERIES_STATE, action: INT.ISeriesReducer) {
+export default function seriesReducer(state = SERIES_STATE, action: any) {
   switch (action.type) {
     case Types.GET_USER_INPUT_SERIES_SUCCESS: {
       return {
@@ -17,6 +17,12 @@ export default function seriesReducer(state = SERIES_STATE, action: INT.ISeriesR
       return {
         ...state,
         topSeries: action.payload
+      }
+    }
+    case Types.GET_SERIE_GENRES_SUCCESS: {
+      return {
+        ...state,
+        serieGenres: action.payload
       }
     }
     default: {

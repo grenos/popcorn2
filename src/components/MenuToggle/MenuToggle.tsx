@@ -2,18 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useSpring, animated as a } from 'react-spring';
 import { connect } from 'react-redux'
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { getMovieGenresRequest, getSerieGenresRequest } from '../../redux/actions/apiActions'
 import chevron from '../../media/img/chevron.png'
 import * as INT from '../../helpers/interfaces'
 
 
 export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
-  getToggleMenuRequest }): JSX.Element => {
+  getToggleMenuRequest,
+  getMovieGenresRequest,
+  getSerieGenresRequest
+}): JSX.Element => {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getToggleMenuRequest(isMenuOpen)
-  }, [getToggleMenuRequest, isMenuOpen])
+    getMovieGenresRequest()
+    getSerieGenresRequest()
+  }, [getToggleMenuRequest, isMenuOpen, getMovieGenresRequest])
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
@@ -50,6 +56,8 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
 export default connect(null, {
   getToggleMenuRequest,
+  getMovieGenresRequest,
+  getSerieGenresRequest
 })(UnconnectedMenuToggle)
 
 

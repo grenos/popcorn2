@@ -19,9 +19,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({ isMenuOpen }): 
         transition.map(
           ({ item, key, props }) => (
             item &&
-            <a.div className="nav-wrapper"
-              style={props}
-              key={key}>
+            <a.div className="nav-wrapper" style={props} key={key}>
               <div className="nav-list-wrapper">
                 <Scrollbars className="nav-list">
                   <h3>test</h3>

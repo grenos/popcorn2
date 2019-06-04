@@ -27,3 +27,14 @@ export const getToggleSeries = async (page: number): Promise<{}> => {
   const res = await axios.get(`/discover/tv?api_key=${apikey}&language=en-US&sort_by=popularity.desc&page=${page}`)
   return res
 }
+
+
+export const getMovieGenres = async (): Promise<{}> => {
+  const res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apikey}&language=en-US`)
+  return res
+}
+
+export const getSerieGenres = async (): Promise<{}> => {
+  const res = await axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${apikey}&language=en-US`)
+  return res
+}
