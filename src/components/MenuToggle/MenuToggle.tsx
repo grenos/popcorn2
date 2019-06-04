@@ -29,7 +29,7 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
   useEffect(() => {
     getToggleMenuRequest(isMenuOpen)
-  })
+  }, [getToggleMenuRequest, isMenuOpen])
 
   return (
     <a.button
