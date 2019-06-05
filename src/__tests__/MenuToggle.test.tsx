@@ -13,10 +13,54 @@ const setup = (initialState = {}) => {
 }
 
 test('should render button component', () => {
-  const wrapper = setup()
+  const wrapper = setup().dive()
   const button = findByTestAttr(wrapper, 'button-toggle')
   expect(button.length).toBe(1)
 })
+
+
+describe('should call action creators based on prps', () => {
+  let wrapper: any
+  let getToggleMenuRequestMock: any
+  let getMovieGenresRequestMock: any
+  let getSerieGenresRequestMock: any
+
+  beforeEach(() => {
+    getToggleMenuRequestMock = jest.fn()
+    getMovieGenresRequestMock = jest.fn()
+    getSerieGenresRequestMock = jest.fn()
+
+    const userProps = {
+      isMovieCatSelected: true
+    }
+    const Mockprops = {
+      getToggleMenuRequest: getToggleMenuRequestMock,
+      getMovieGenresRequest: getMovieGenresRequestMock,
+      getSerieGenresRequest: getSerieGenresRequestMock,
+    }
+    const props = { ...Mockprops, ...userProps }
+    wrapper = shallow(<UnconnectedMenuToggle {...props} />).dive()
+
+    // const button = findByTestAttr(wrapper, 'button-toggle')
+    // button.props().onClick()
+  })
+
+  test('should call getToggleMenuRequest action', () => {
+    // const getToggleMenuRequest = getToggleMenuRequestMock.mock.calls.length
+    // expect(getToggleMenuRequest).toBe(1)
+  })
+
+  test('should call getMovieGenresRequest action', () => {
+    // const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
+    // expect(getMovieGenresRequest).toBe(1)
+  })
+
+  test('should call getSerieGenresRequest action', () => {
+    // const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
+    // expect(getSerieGenresRequest).toBe(1)
+  })
+})
+
 
 
 test('should animate button on click', () => {
