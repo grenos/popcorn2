@@ -4,12 +4,13 @@ import Scrollbars from 'react-custom-scrollbars'
 import * as INT from '../../helpers/interfaces'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops';
-
+import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   isMenuOpen,
   movieGenres,
-  serieGenres }): JSX.Element => {
+  serieGenres,
+  isMovieCatSelected }): JSX.Element => {
 
   const transition = useTransition(isMenuOpen, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -20,17 +21,22 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   const renderMovieGenres = () => {
     return (
-      <div className="movie-genres-wrapper">
-        <ul>
+      <div className="genres-wrapper">
+        <ul className="genres-list">
           {
             <Trail
               items={movieGenres}
               keys={movieGenres => movieGenres.id}
-              config={{ tension: 340, friction: 20 }}
-              from={{ opacity: 0 }}
-              to={{ opacity: 1 }}
+              config={{ tension: 215, mass: 0.5, friction: 16 }}
+              from={{ opacity: 0, transform: 'translate3d(-100px, 0, 0)' }}
+              to={{ opacity: 1, transform: 'translate3d(0px, 0, 0)' }}
             >
-              {movieGenres => props => <a.li style={props} className="movie-genre">{movieGenres.name}</a.li>}
+              {movieGenres => props =>
+                <a.li
+                  style={props}
+                  className="genres">
+                  {movieGenres.name}
+                </a.li>}
             </Trail>
           }
         </ul>
@@ -38,15 +44,45 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     )
   }
 
+  const renderSerieGenres = () => {
+    return (
+      <div className="genres-wrapper">
+        <ul className="genres-list">
+          {
+            <Trail
+              items={serieGenres}
+              keys={serieGenres => serieGenres.id}
+              config={{ tension: 215, mass: 0.5, friction: 16 }}
+              from={{ opacity: 0, transform: 'translate3d(-100px, 0, 0)' }}
+              to={{ opacity: 1, transform: 'translate3d(0px, 0, 0)' }}
+            >
+              {serieGenres => props =>
+                <a.li
+                  style={props}
+                  className="genres">
+                  {serieGenres.name}
+                </a.li>}
+            </Trail>
+          }
+        </ul>
+      </div >
+    )
+  }
+
+  const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
+
   return (
     <>
       {transition.map(
         ({ item, key, props }) => (
           item &&
           <a.div className="nav-wrapper" style={props} key={key}>
+            <div className="menu-logo">
+              <img src={popcorn} alt="logo" />
+            </div>
             <div className="nav-list-wrapper">
-              <Scrollbars>
-                {renderMovieGenres()}
+              <Scrollbars className="scrollbar">
+                {renderList}
               </Scrollbars>
             </div>
           </a.div >
@@ -61,19 +97,10 @@ const mapStateToProps = (state: any) => {
   return {
     isMenuOpen: state.uiReducer.isMenuOpen,
     movieGenres: state.moviesReducer.movieGenres,
-    serieGenres: state.seriesReducer.serieGenres
+    serieGenres: state.seriesReducer.serieGenres,
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected
   };
 };
 
 export default connect(mapStateToProps, null)(UnconnectedSlideMenu)
 
-
-
-
-
-
-// {movieGenres.map(genre => (
-//   <a.li className="movie-genre" key={genre.id}>
-//     {genre.name}
-//   </a.li>
-// ))}

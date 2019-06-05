@@ -21,13 +21,14 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 
   useEffect(() => {
     // once on mount
+    // use conditional to see which one to call
     getMovieGenresRequest()
     getSerieGenresRequest()
   }, [getMovieGenresRequest, getSerieGenresRequest])
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
-      ? `translate3d(300px,0,0)`
+      ? `translate3d(200px,0,0)`
       : `translate3d(0px,0,0)`
   });
 

@@ -23,6 +23,8 @@
   //! Sagas
   IInputSagaProps
   IToggleSagaProps
+  IToggleMovieCat
+  IToggleSerieCat
 |--------------------------------------------------
 */
 
@@ -91,6 +93,11 @@ export interface ISearchSeries {
   result: Array<ISerie>,
 }
 
+export interface IToggleCat {
+  type: string,
+  payload: boolean
+}
+
 export interface IGenresAction {
   type: string,
   result: IGenresResult
@@ -100,7 +107,7 @@ export interface IGenresResult {
   id: number,
   name: string,
   opacity?: number
-}[]
+}
 
 
 export interface ISeriesReducer {
@@ -162,7 +169,9 @@ export interface ISeriesState {
 }
 
 export interface IUiState {
-  isMenuOpen: boolean
+  isMenuOpen: boolean,
+  isMovieCatSelected: boolean,
+  isSerieCatSelected: boolean
 }
 
 
@@ -178,7 +187,8 @@ export interface IMenuProps {
   isMenuOpen: boolean,
   store?: any,
   movieGenres: IGenresResult[],
-  serieGenres: IGenresResult[]
+  serieGenres: IGenresResult[],
+  isMovieCatSelected: boolean
 }
 
 export interface IMenuPropSingle {
@@ -186,7 +196,7 @@ export interface IMenuPropSingle {
 }
 
 export interface IMenuSlideAction {
-  type: 'string',
+  type: string,
   payload: boolean
 }
 

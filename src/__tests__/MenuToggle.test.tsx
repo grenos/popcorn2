@@ -21,7 +21,7 @@ test('should render button component', () => {
 
 test('should animate button on click', () => {
   // const oldCSSProps = { transform: "translate3d(0px,0,0)" }
-  // const newCSSProps = { transform: "translate3d(300px,0,0)" }
+  // const newCSSProps = { transform: "translate3d(200px,0,0)" }
 
   // const wrapper = setup()
   // const button = findByTestAttr(wrapper, 'button-toggle').dive()

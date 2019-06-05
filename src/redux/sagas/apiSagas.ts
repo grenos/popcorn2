@@ -1,6 +1,7 @@
 
 import { takeLatest, call, fork, put, takeEvery } from 'redux-saga/effects'
 import * as actions from '../actions/apiActions'
+import * as actionsUI from '../actions/uiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
 
@@ -49,6 +50,13 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
     yield put(actions.getToggleMoviesSuccess({
       result: result.data.results
     } as INT.ISearchMovies))
+
+    yield put(actionsUI.getToggleMovieCatSuccess({
+      payload: true
+    } as INT.IToggleCat))
+    yield put(actionsUI.getToggleSerieCatSuccess({
+      payload: false
+    } as INT.IToggleCat))
   } catch (e) {
     console.log(e);
   }
@@ -63,6 +71,13 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
     yield put(actions.getToggleSeriesSuccess({
       result: result.data.results
     } as INT.ISearchSeries))
+
+    yield put(actionsUI.getToggleSerieCatSuccess({
+      payload: true
+    } as INT.IToggleCat))
+    yield put(actionsUI.getToggleMovieCatSuccess({
+      payload: false
+    } as INT.IToggleCat))
   } catch (e) {
     console.log(e);
   }

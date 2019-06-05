@@ -13,6 +13,18 @@ export default function uiReducer(state = UI_STATE, action: INT.IMenuSlideAction
         isMenuOpen: action.payload
       }
     }
+    case Types.GET_TOGGLE_MOVIE_CAT_SUCCESS: {
+      return {
+        ...state,
+        isMovieCatSelected: action.payload
+      }
+    }
+    case Types.GET_TOGGLE_SERIE_CAT_SUCCESS: {
+      return {
+        ...state,
+        isSerieCatSelected: action.payload
+      }
+    }
     default: {
       return state
     }
