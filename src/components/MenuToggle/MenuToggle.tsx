@@ -10,7 +10,8 @@ import * as INT from '../../helpers/interfaces'
 export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   getToggleMenuRequest,
   getMovieGenresRequest,
-  getSerieGenresRequest
+  getSerieGenresRequest,
+  isMovieCatSelected
 }): JSX.Element => {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
@@ -20,11 +21,10 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   }, [getToggleMenuRequest, isMenuOpen])
 
   useEffect(() => {
-    // once on mount
-    // use conditional to see which one to call
-    getMovieGenresRequest()
-    getSerieGenresRequest()
-  }, [getMovieGenresRequest, getSerieGenresRequest])
+    isMovieCatSelected
+      ? getMovieGenresRequest()
+      : getSerieGenresRequest()
+  })
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
@@ -59,7 +59,13 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   )
 }
 
-export default connect(null, {
+const mapStateToProps = (state: any) => {
+  return {
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected
+  }
+}
+
+export default connect(mapStateToProps, {
   getToggleMenuRequest,
   getMovieGenresRequest,
   getSerieGenresRequest

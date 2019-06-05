@@ -7,7 +7,10 @@ import tele from '../../media/img/television.png'
 import film from '../../media/img/film.png'
 
 
-export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({ scrolled, getToggleMoviesRequest, getToggleSeriesRequest }): JSX.Element => {
+export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
+  scrolled,
+  getToggleMoviesRequest,
+  getToggleSeriesRequest }): JSX.Element => {
 
   const animateToggle = useSpring<INT.IAnimateToggle>({
     transform: scrolled > 20

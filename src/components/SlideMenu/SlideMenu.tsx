@@ -99,8 +99,8 @@ const mapStateToProps = (state: any) => {
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected
-  };
-};
+  }
+}
 
 export default connect(mapStateToProps, null)(UnconnectedSlideMenu)
 
