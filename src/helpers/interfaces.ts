@@ -95,7 +95,7 @@ export interface ISearchSeries {
 }
 
 export interface IToggleCat {
-  type: string,
+  type?: string,
   payload: boolean
 }
 

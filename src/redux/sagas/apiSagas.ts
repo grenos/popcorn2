@@ -54,6 +54,7 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
     yield put(actionsUI.getToggleMovieCatSuccess({
       payload: true
     } as INT.IToggleCat))
+
     yield put(actionsUI.getToggleSerieCatSuccess({
       payload: false
     } as INT.IToggleCat))
@@ -75,6 +76,7 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
     yield put(actionsUI.getToggleSerieCatSuccess({
       payload: true
     } as INT.IToggleCat))
+
     yield put(actionsUI.getToggleMovieCatSuccess({
       payload: false
     } as INT.IToggleCat))

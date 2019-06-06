@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
@@ -17,6 +17,10 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
       ? 'scale(1) translateX(70%)'
       : 'scale(0.8) translateX(-120%)',
   })
+
+  useEffect(() => {
+    getToggleMoviesRequest(1)
+  }, [getToggleMoviesRequest])
 
   const handleMoviesToggle = (): void => {
     getToggleMoviesRequest(1)

@@ -18,8 +18,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     leave: { transform: `translate3d(-100%,0,0)` }
   })
 
-
-  const renderMovieGenres = () => {
+  const renderMovieGenres = ():JSX.Element => {
     return (
       <div className="genres-wrapper">
         <ul className="genres-list">
@@ -34,7 +33,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
               {movieGenres => props =>
                 <a.li
                   style={props}
-                  className="genres">
+                  className="genres"
+                  onClick={() => console.log('movie cat called')}
+                  >
                   {movieGenres.name}
                 </a.li>}
             </Trail>
@@ -44,7 +45,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     )
   }
 
-  const renderSerieGenres = () => {
+  const renderSerieGenres = ():JSX.Element => {
     return (
       <div className="genres-wrapper">
         <ul className="genres-list">
@@ -59,7 +60,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
               {serieGenres => props =>
                 <a.li
                   style={props}
-                  className="genres">
+                  className="genres"
+                  onClick={() => console.log('serie cat called')}
+                  >
                   {serieGenres.name}
                 </a.li>}
             </Trail>
