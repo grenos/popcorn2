@@ -15,3 +15,13 @@ test('should render component', () => {
 })
 
 
+describe('<UnconnectedSlideMenu />', () => {
+  //  test if isMenuOpen prop makes animation work
+  // test if isMovieCatSelected prop renders and uses correct props from movieGenres
+  // test if isMovieCatSelected prop renders and uses correct props from serieGenres
+  // test if getMoviesByGenreRequest gets called
+  // test if getSeriesByGenreRequest gets called
+
+})
+
+
