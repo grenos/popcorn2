@@ -25,6 +25,12 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
         serieGenres: action.payload
       }
     }
+    case Types.GET_SERIE_BY_GENRE_SUCCESS: {
+      return {
+        ...state,
+        seriesByGenre: action.payload
+      }
+    }
     default: {
       return state
     }

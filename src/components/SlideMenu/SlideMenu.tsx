@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Scrollbars from 'react-custom-scrollbars'
 import * as INT from '../../helpers/interfaces'
+import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops';
 import popcorn from '../../media/img/popcorn.png'
@@ -10,7 +11,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   isMenuOpen,
   movieGenres,
   serieGenres,
-  isMovieCatSelected }): JSX.Element => {
+  isMovieCatSelected,
+  getMoviesByGenreRequest,
+  getSeriesByGenreRequest }): JSX.Element => {
 
   const transition = useTransition(isMenuOpen, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -18,7 +21,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     leave: { transform: `translate3d(-100%,0,0)` }
   })
 
-  const renderMovieGenres = ():JSX.Element => {
+  const renderMovieGenres = (): JSX.Element => {
     return (
       <div className="genres-wrapper">
         <ul className="genres-list">
@@ -34,8 +37,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                 <a.li
                   style={props}
                   className="genres"
-                  onClick={() => console.log('movie cat called')}
-                  >
+                  onClick={() => getMoviesByGenreRequest(
+                    movieGenres.id, 1
+                  )}
+                >
                   {movieGenres.name}
                 </a.li>}
             </Trail>
@@ -45,7 +50,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     )
   }
 
-  const renderSerieGenres = ():JSX.Element => {
+  const renderSerieGenres = (): JSX.Element => {
     return (
       <div className="genres-wrapper">
         <ul className="genres-list">
@@ -61,8 +66,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                 <a.li
                   style={props}
                   className="genres"
-                  onClick={() => console.log('serie cat called')}
-                  >
+                  onClick={() => getSeriesByGenreRequest(
+                    serieGenres.id, 1
+                  )}
+                >
                   {serieGenres.name}
                 </a.li>}
             </Trail>
@@ -105,5 +112,10 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default connect(mapStateToProps, null)(UnconnectedSlideMenu)
+export default connect(mapStateToProps,
+  {
+    getMoviesByGenreRequest,
+    getSeriesByGenreRequest
+  }
+)(UnconnectedSlideMenu)
 

@@ -3,8 +3,6 @@ import { MOVIE_STATE } from '../state/moviesState'
 // import * as INT from '../../helpers/interfaces'
 
 
-
-
 export default function moviesReducer(state = MOVIE_STATE, action: any) {
   switch (action.type) {
     case Types.GET_USER_INPUT_MOVIES_SUCCESS: {
@@ -23,6 +21,12 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
       return {
         ...state,
         movieGenres: action.payload
+      }
+    }
+    case Types.GET_MOVIE_BY_GENRE_SUCCESS: {
+      return {
+        ...state,
+        moviesByGenre: action.payload
       }
     }
     default: {

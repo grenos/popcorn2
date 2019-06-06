@@ -28,7 +28,6 @@ function* watchGetUsersSeriesRequest() {
 function* getUserInputSeries({ payload: value }: INT.IInputSagaProps) {
   try {
     const result = yield call(api.getUserInputSeries, value)
-    console.log(result);
 
     yield put(actions.getUserInputSeriesSuccess({
       result: result.data.results
@@ -117,12 +116,48 @@ function* getSerieGenres() {
 }
 
 
+
+function* watchGetMoviesByGenreRequest() {
+  yield takeEvery(actions.Types.GET_MOVIE_BY_GENRE_REQUEST, getMoviesByGenre)
+}
+function* getMoviesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
+  try {
+    const result = yield call(api.getMoviesByGenre, id, page)
+    yield put(actions.getMoviesByGenreSuccess({
+      result: result.data.results
+    } as INT.ISearchMovies))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
+
+
+function* watchGetSeriesByGenreRequest() {
+  yield takeLatest(actions.Types.GET_SERIE_BY_GENRE_REQUEST, getSeriesByGenre)
+}
+function* getSeriesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
+  try {
+    const result = yield call(api.getSeriesByGenre, id, page)
+    yield put(actions.getSeriesByGenreSuccess({
+      result: result.data.results
+    } as INT.ISearchSeries))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
+
 const apiSagas = [
   fork(watchGetUsersMoviesRequest),
   fork(watchGetToggleMoviesRequest),
   fork(watchGetToggleSeiresRequest),
   fork(watchGetUsersSeriesRequest),
   fork(watchgetMovieGenresRequest),
-  fork(watchgetSerieGenresRequest)
+  fork(watchgetSerieGenresRequest),
+  fork(watchGetMoviesByGenreRequest),
+  fork(watchGetSeriesByGenreRequest)
 ]
 export default apiSagas

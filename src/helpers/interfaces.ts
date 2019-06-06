@@ -25,6 +25,7 @@
   IToggleSagaProps
   IToggleMovieCat
   IToggleSerieCat
+  IMoviesByGenreSagaProps
 |--------------------------------------------------
 */
 
@@ -159,6 +160,7 @@ export interface IMoviesState {
   searchMovies: Array<IMovie>,
   topMovies: Array<IMovie>,
   movieGenres: IGenresResult[]
+  moviesByGenre: Array<IMovie>,
 }
 
 
@@ -166,7 +168,8 @@ export interface IMoviesState {
 export interface ISeriesState {
   searchSeries: Array<ISerie>,
   topSeries: Array<ISerie>,
-  serieGenres: IGenresResult[]
+  serieGenres: IGenresResult[],
+  seriesByGenre: Array<ISerie>
 }
 
 export interface IUiState {
@@ -184,11 +187,19 @@ export interface IToggleSagaProps {
   payload: number
 }
 
+export interface IGetByGenreSagaProps {
+  type: string
+  id: number
+  page: number
+}
+
 export interface IMenuProps {
   isMenuOpen: boolean,
   store?: any,
   movieGenres: IGenresResult[],
   serieGenres: IGenresResult[],
+  getMoviesByGenreRequest: Function
+  getSeriesByGenreRequest: Function
   isMovieCatSelected: boolean
 }
 
