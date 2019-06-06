@@ -86,7 +86,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       {transition.map(
         ({ item, key, props }) => (
           item &&
-          <a.div className="nav-wrapper" style={props} key={key}>
+          <a.div className="nav-wrapper" data-test="slide-menu" style={props} key={key}>
             <div className="menu-logo">
               <img src={popcorn} alt="logo" />
             </div>
