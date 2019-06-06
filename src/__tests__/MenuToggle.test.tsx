@@ -1,6 +1,7 @@
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
+import { act } from 'react-dom/test-utils';
 import { findByTestAttr, storeFactory } from '../helpers/testUtils'
 import MenuToggle, { UnconnectedMenuToggle } from '../components/MenuToggle/MenuToggle'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
@@ -39,44 +40,53 @@ describe('should call action creators based on prps', () => {
       getSerieGenresRequest: getSerieGenresRequestMock,
     }
     const props = { ...Mockprops, ...userProps }
-    wrapper = shallow(<UnconnectedMenuToggle {...props} />).dive()
-
-    // const button = findByTestAttr(wrapper, 'button-toggle')
-    // button.props().onClick()
+    wrapper = mount(<UnconnectedMenuToggle {...props} />)
   })
 
   test('should call getToggleMenuRequest action', () => {
-    // const getToggleMenuRequest = getToggleMenuRequestMock.mock.calls.length
-    // expect(getToggleMenuRequest).toBe(1)
+    const getToggleMenuRequest = getToggleMenuRequestMock.mock.calls.length
+    expect(getToggleMenuRequest).toBe(1)
   })
 
   test('should call getMovieGenresRequest action', () => {
-    // const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
-    // expect(getMovieGenresRequest).toBe(1)
+    const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
+    expect(getMovieGenresRequest).toBe(1)
   })
 
   test('should call getSerieGenresRequest action', () => {
-    // const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
-    // expect(getSerieGenresRequest).toBe(1)
+    const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
+    expect(getSerieGenresRequest).not.toBe(1)
   })
 })
 
 
 
 test('should animate button on click', () => {
-  // const oldCSSProps = { transform: "translate3d(0px,0,0)" }
-  // const newCSSProps = { transform: "translate3d(200px,0,0)" }
+  const oldCSSProps = { transform: "translate3d(0px,0,0)" }
+  const newCSSProps = { transform: "translate3d(200px,0,0)" }
 
-  // const wrapper = setup()
-  // const button = findByTestAttr(wrapper, 'button-toggle').dive()
+  const userProps = {
+    isMovieCatSelected: true
+  }
+  const Mockprops = {
+    getToggleMenuRequest: () => null,
+    getMovieGenresRequest: () => null,
+    getSerieGenresRequest: () => null,
+  }
+  const props = { ...Mockprops, ...userProps }
 
-  // const buttonNotClicked = button.prop('style')
-  // expect(buttonNotClicked).toEqual(oldCSSProps)
+  const wrapper = mount(<UnconnectedMenuToggle {...props} />)
+  const button = findByTestAttr(wrapper, 'button-toggle').last()
 
-  // findByTestAttr(wrapper, 'button-toggle').dive().props().onClick()
-  // const buttonClicked = findByTestAttr(wrapper, 'button-toggle').dive()
+  const buttonNotClicked = button.prop('style')
+  expect(buttonNotClicked).toEqual(oldCSSProps)
 
-  // expect(buttonClicked.prop('style')).toEqual(newCSSProps)
+  act(() => {
+    findByTestAttr(wrapper, 'button-toggle').last().simulate('click')
+  })
+
+  const buttonClicked = findByTestAttr(wrapper, 'button-toggle').last()
+  expect(buttonClicked.prop('style')).toEqual(newCSSProps)
 })
 
 
