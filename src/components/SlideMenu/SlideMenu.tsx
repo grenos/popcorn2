@@ -4,7 +4,7 @@ import Scrollbars from 'react-custom-scrollbars'
 import * as INT from '../../helpers/interfaces'
 import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
 import { useTransition, animated as a } from 'react-spring'
-import { Trail } from 'react-spring/renderprops';
+import { Trail } from 'react-spring/renderprops.cjs';
 import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
@@ -82,11 +82,11 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
 
   return (
-    <>
+    <div data-test="slide-menu">
       {transition.map(
         ({ item, key, props }) => (
           item &&
-          <a.div className="nav-wrapper" data-test="slide-menu" style={props} key={key}>
+          <a.div className="nav-wrapper"  style={props} key={key}>
             <div className="menu-logo">
               <img src={popcorn} alt="logo" />
             </div>
@@ -98,7 +98,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
           </a.div >
         )
       )}
-    </>
+    </div>
   )
 }
 

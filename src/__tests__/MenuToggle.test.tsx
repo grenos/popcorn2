@@ -1,7 +1,6 @@
 import React from 'react'
 import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-// import { act } from 'react-dom/test-utils';
 import { findByTestAttr, storeFactory } from '../helpers/testUtils'
 import MenuToggle, { UnconnectedMenuToggle } from '../components/MenuToggle/MenuToggle'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
