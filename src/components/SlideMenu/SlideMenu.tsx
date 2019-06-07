@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Scrollbars from 'react-custom-scrollbars'
+import Scrollbar from "react-scrollbars-custom";
 import * as INT from '../../helpers/interfaces'
 import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
 import { useTransition, animated as a } from 'react-spring'
@@ -86,14 +86,14 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       {transition.map(
         ({ item, key, props }) => (
           item &&
-          <a.div className="nav-wrapper"  style={props} key={key}>
+          <a.div className="nav-wrapper" style={props} key={key}>
             <div className="menu-logo">
               <img src={popcorn} alt="logo" />
             </div>
             <div className="nav-list-wrapper">
-              <Scrollbars className="scrollbar">
+              <Scrollbar noDefaultStyles>
                 {renderList}
-              </Scrollbars>
+              </Scrollbar>
             </div>
           </a.div >
         )
