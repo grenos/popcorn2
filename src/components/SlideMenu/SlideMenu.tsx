@@ -23,7 +23,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   const renderMovieGenres = (): JSX.Element => {
     return (
-      <div className="genres-wrapper">
+      <div className="genres-wrapper" id="movie-genres">
         <ul className="genres-list">
           {
             <Trail
@@ -37,6 +37,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                 <a.li
                   style={props}
                   className="genres"
+                  data-test="movie-genres-list-items"
                   onClick={() => getMoviesByGenreRequest(
                     movieGenres.id, 1
                   )}
@@ -52,7 +53,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   const renderSerieGenres = (): JSX.Element => {
     return (
-      <div className="genres-wrapper">
+      <div className="genres-wrapper" id="serie-genres">
         <ul className="genres-list">
           {
             <Trail
@@ -66,6 +67,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                 <a.li
                   style={props}
                   className="genres"
+                  data-test="serie-genres-list-items"
                   onClick={() => getSeriesByGenreRequest(
                     serieGenres.id, 1
                   )}

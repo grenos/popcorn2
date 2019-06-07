@@ -107,8 +107,7 @@ export interface IGenresAction {
 
 export interface IGenresResult {
   id: number,
-  name: string,
-  opacity?: number
+  name: string
 }
 
 
