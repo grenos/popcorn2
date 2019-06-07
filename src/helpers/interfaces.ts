@@ -83,7 +83,6 @@ export interface IToggleMenuProps {
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
   isMovieCatSelected: boolean
-  isMenuOpenProp: boolean
   store?: any
 }
 

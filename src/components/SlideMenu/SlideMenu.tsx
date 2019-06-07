@@ -79,12 +79,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   const handleMovieGenreClick = (id: number, page: number): void => {
     getMoviesByGenreRequest(id, page)
-    getToggleMenuRequest(false)
+    // getToggleMenuRequest(false)
   }
 
   const handleSerieGenreClick = (id: number, page: number): void => {
     getSeriesByGenreRequest(id, page)
-    getToggleMenuRequest(false)
+    // getToggleMenuRequest(false)
 
   }
 

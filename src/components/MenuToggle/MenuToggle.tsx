@@ -12,7 +12,6 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   getMovieGenresRequest,
   getSerieGenresRequest,
   isMovieCatSelected,
-  isMenuOpenProp
 }): JSX.Element => {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
@@ -28,13 +27,13 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   })
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
-    transform: isMenuOpenProp
+    transform: isMenuOpen
       ? `translate3d(200px,0,0)`
       : `translate3d(0px,0,0)`
   });
 
   const imgAnimation = useSpring<INT.IAnimateToggle>({
-    transform: isMenuOpenProp
+    transform: isMenuOpen
       ? `rotate(0deg)`
       : `rotate(540deg)`
   });
@@ -63,7 +62,6 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    isMenuOpenProp: state.uiReducer.isMenuOpenProp
   }
 }
 
