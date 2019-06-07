@@ -66,7 +66,8 @@ export interface IInputProps {
   scrolled: number
   getUserInputMoviesRequest?: any,
   getUserInputSeriesRequest?: any,
-  topMovies: Array<IMovie>,
+  isMovieCatSelected: boolean,
+  isSerieCatSelected: boolean
   store?: any
 }
 

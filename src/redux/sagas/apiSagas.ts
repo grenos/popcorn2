@@ -95,7 +95,6 @@ function* getMovieGenres() {
     yield put(actions.getMovieGenresSuccess({
       result: result.data.genres
     } as INT.IGenresAction))
-    console.log(result);
   } catch (e) {
     console.log(e)
   }

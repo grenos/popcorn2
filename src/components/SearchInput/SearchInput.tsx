@@ -12,7 +12,8 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   scrolled,
   getUserInputMoviesRequest,
   getUserInputSeriesRequest,
-  topMovies
+  isMovieCatSelected,
+  isSerieCatSelected
 }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
@@ -20,8 +21,12 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   useEffect((): void => {
     if (scrolled < 20) {
       setChange('')
+    } else if (isMovieCatSelected) {
+      setChange('')
+    } else if (isSerieCatSelected) {
+      setChange('')
     }
-  }, [scrolled])
+  }, [scrolled, isMovieCatSelected, isSerieCatSelected])
 
 
   const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
@@ -38,10 +43,10 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   }
 
   const handleKeyUp = (): void => {
-    if (topMovies.length < 1 && change.length > 1) {
-      getUserInputSeriesRequest(change)
-    } else {
+    if (isMovieCatSelected && change.length > 1) {
       getUserInputMoviesRequest(change)
+    } else {
+      getUserInputSeriesRequest(change)
     }
   }
 
@@ -73,7 +78,8 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    topMovies: state.moviesReducer.topMovies,
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
+    isSerieCatSelected: state.uiReducer.isSerieCatSelected
   };
 };
 

@@ -65,9 +65,10 @@ test('should update input value', () => {
 test('should call getUserInputMoviesRequest action onKeyUp with userInput value when topMovies has length bigger than 0', () => {
   const getUserInputMovieRequestMock = jest.fn()
   const props = {
-    scrolled: 19,
     getUserInputMoviesRequest: getUserInputMovieRequestMock,
-    topMovies: defaultMovieProp as INT.IMovie[]
+    isMovieCatSelected: true,
+    isSerieCatSelected: false,
+    scrolled: 21
   }
   const userInput = 'matrix'
   const wrapper = shallow(<UnconnectedSearchInput {...props} />)
@@ -80,12 +81,15 @@ test('should call getUserInputMoviesRequest action onKeyUp with userInput value 
   expect(getUserInputMovieRequestMock).toHaveBeenCalledWith(userInput)
 })
 
+
+
 test('should call getUserInputSeriesRequest action onKeyUp with userInput value when topMovies is empty', () => {
   const getUserInputSerieRequestMock = jest.fn()
   const props = {
-    scrolled: 19,
     getUserInputSeriesRequest: getUserInputSerieRequestMock,
-    topMovies: []
+    isMovieCatSelected: false,
+    isSerieCatSelected: true,
+    scrolled: 21
   }
   const userInput = 'matrix'
   const wrapper = shallow(<UnconnectedSearchInput {...props} />)
@@ -101,22 +105,22 @@ test('should call getUserInputSeriesRequest action onKeyUp with userInput value 
 
 
 
-
-const inputContainerCSSprops = {
-  opacity: 1
-}
 test('input container element to animate css if props > 20', () => {
+  const inputContainerCSSprops = {
+    opacity: 1
+  }
   const wrapper = setup()
   const component = findByTestAttr(wrapper, 'component-search-input').dive()
   const animStyleInput = component.prop('style')
   expect(animStyleInput).toEqual(inputContainerCSSprops)
 })
 
-const inputCSSprops = {
-  pointerEvents: 'all',
-  width: '190px'
-}
+
 test('input element to animate css if props > 20', () => {
+  const inputCSSprops = {
+    pointerEvents: 'all',
+    width: '190px'
+  }
   const wrapper = setup()
   const component = findByTestAttr(wrapper, 'search-input').dive()
   const animStyleInput = component.prop('style')
