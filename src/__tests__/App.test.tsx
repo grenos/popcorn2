@@ -10,7 +10,7 @@ import App, { UnconnectedApp } from '../components/App/App'
 
 
 Enzyme.configure({ adapter: new EnzymeAdapter() })
-const defaultProps = { isMenuOpen: false }
+const defaultProps = { isMenuOpenProp: false }
 
 
 const setup = (initialState = {}, props = {}) => {

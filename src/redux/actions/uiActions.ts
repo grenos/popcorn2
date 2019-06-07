@@ -9,14 +9,14 @@ export const Types: any = {
 }
 
 
-export const getToggleMenuRequest = (isMenuOpen: boolean) => ({
+export const getToggleMenuRequest = (isMenuOpenProp: boolean) => ({
   type: Types.GET_MENU_TOGGLE_REQUEST,
-  payload: isMenuOpen
+  payload: isMenuOpenProp
 } as INT.IMenuSlideAction)
 
-export const getToggleMenuSuccess = (isMenuOpen: boolean) => ({
+export const getToggleMenuSuccess = (isMenuOpenProp: boolean) => ({
   type: Types.GET_MENU_TOGGLE_SUCCESS,
-  payload: isMenuOpen
+  payload: isMenuOpenProp
 } as INT.IMenuSlideAction)
 
 

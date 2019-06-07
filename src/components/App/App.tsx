@@ -6,7 +6,7 @@ import * as INT from '../../helpers/interfaces'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
 
 
-export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpen }): JSX.Element => {
+export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpenProp }): JSX.Element => {
 
   const [scrolled, setScrolled] = useState<number>(0);
 
@@ -18,12 +18,12 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpen }): J
   }, []);
 
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isMenuOpenProp) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'visible'
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpenProp]);
 
   const listenToScroll = (): void => {
     const scrolled: number = window.pageYOffset
@@ -49,7 +49,7 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpen }): J
 
 const mapStateToProps = (state: any) => {
   return {
-    isMenuOpen: state.uiReducer.isMenuOpen,
+    isMenuOpenProp: state.uiReducer.isMenuOpenProp,
   };
 };
 

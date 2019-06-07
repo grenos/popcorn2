@@ -28,7 +28,7 @@ describe('<UnconnectedSlideMenu />', () => {
 
     setup = (testProps: any = {}) => {
       const userProps = {
-        isMenuOpen: false,
+        isMenuOpenProp: false,
         movieGenres: { id: 28, name: 'Action' },
         serieGenres: { id: 10759, name: '"Action & Adventure"' },
         isMovieCatSelected: false
@@ -46,22 +46,22 @@ describe('<UnconnectedSlideMenu />', () => {
   })
 
   test('should test if isMenuOpen prop open menu', () => {
-    const wrapper = setup({ isMenuOpen: true })
+    const wrapper = setup({ isMenuOpenProp: true })
     expect(wrapper.find('.nav-wrapper').first().length).toBe(1)
   })
 
   test('should test if isMovieCatSelected prop renders MovieGenres', () => {
-    const wrapper = setup({ isMovieCatSelected: true, isMenuOpen: true })
+    const wrapper = setup({ isMovieCatSelected: true, isMenuOpenProp: true })
     expect(wrapper.find('#movie-genres').length).toBe(1)
   })
 
   test('should test if not isSerieCatSelected prop renders SerieGenres', () => {
-    const wrapper = setup({ isMenuOpen: true })
+    const wrapper = setup({ isMenuOpenProp: true })
     expect(wrapper.find('#serie-genres').length).toBe(1)
   })
 
   test('should test if getMoviesByGenreRequest gets called', () => {
-    const wrapper = setup({ isMenuOpen: true, isMovieCatSelected: true })
+    const wrapper = setup({ isMenuOpenProp: true, isMovieCatSelected: true })
     const list = findByTestAttr(wrapper, 'movie-genres-list-items').last()
 
     list.simulate('click')
@@ -70,7 +70,7 @@ describe('<UnconnectedSlideMenu />', () => {
   })
 
   test('should test if getSeriesByGenreRequest gets called', () => {
-    const wrapper = setup({ isMenuOpen: true })
+    const wrapper = setup({ isMenuOpenProp: true })
     const list = findByTestAttr(wrapper, 'serie-genres-list-items').last()
 
     list.simulate('click')

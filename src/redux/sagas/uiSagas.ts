@@ -9,9 +9,9 @@ import * as INT from '../../helpers/interfaces'
 function* watchGetToggleMenuRequest() {
   yield takeEvery(actions.Types.GET_MENU_TOGGLE_REQUEST, getToggleMEnu)
 }
-function* getToggleMEnu({ payload: isMenuOpen }: INT.IMenuSlideAction) {
+function* getToggleMEnu({ payload: isMenuOpenProp }: INT.IMenuSlideAction) {
   try {
-    yield put(actions.getToggleMenuSuccess(isMenuOpen) as INT.IMenuSlideAction)
+    yield put(actions.getToggleMenuSuccess(isMenuOpenProp) as INT.IMenuSlideAction)
   } catch (e) {
     console.log(e);
   }

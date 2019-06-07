@@ -10,7 +10,7 @@ export default function uiReducer(state = UI_STATE, action: INT.IMenuSlideAction
     case Types.GET_MENU_TOGGLE_SUCCESS: {
       return {
         ...state,
-        isMenuOpen: action.payload
+        isMenuOpenProp: action.payload
       }
     }
     case Types.GET_TOGGLE_MOVIE_CAT_SUCCESS: {
