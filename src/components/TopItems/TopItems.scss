@@ -1,0 +1,29 @@
+.locandine-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 75px;
+}
+
+.locandina-outer {
+  display: flex;
+  flex-basis: 12.5%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  img {
+    width: 12.5vw;
+  }
+
+  h3 {
+    position: absolute;
+  }
+
+  p {
+    position: absolute;
+  }
+}

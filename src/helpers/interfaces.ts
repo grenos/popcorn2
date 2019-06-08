@@ -204,6 +204,13 @@ export interface IMenuProps {
   getToggleMenuRequest: Function
 }
 
+export interface ITopResultsProps {
+  isMovieCatSelected: boolean
+  store?: any
+  topMovies: Array<IMovie>
+  topSeries: Array<ISerie>
+}
+
 export interface IMenuPropSingle {
   isMenuOpenProp: boolean
 }

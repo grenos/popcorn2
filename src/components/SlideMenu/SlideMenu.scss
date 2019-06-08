@@ -25,6 +25,7 @@
   align-items: center;
   z-index: 103;
   box-shadow: 3px 0 10px rgba(0, 0, 0, 1);
+
   img {
     width: 70%;
     padding: 30px;
@@ -44,12 +45,12 @@
 
 .genres {
   color: #fff;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 10px;
   font-size: 1.2rem;
   display: inline-flex;
   position: relative;
   cursor: pointer;
+
   &:before {
     content: "";
     position: absolute;
@@ -64,6 +65,7 @@
     transform-origin: left;
     transition: all 0.3s ease-in-out 0s;
   }
+
   &:hover:before {
     visibility: visible;
     transform: scaleX(1);
