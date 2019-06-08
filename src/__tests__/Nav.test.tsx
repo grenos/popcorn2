@@ -46,8 +46,8 @@ describe('CSS props before and after scroll animation', () => {
   let wrapper: any
 
   const navCSSprops = {
-    background: "rgba(0, 0, 0, 0.6)",
-    boxShadow: "0px 0px 10px 20px rgba(0, 0, 0, 0.6)",
+    background: "rgba(0, 0, 0, 0.8)",
+    boxShadow: "0px 0px 10px 20px rgba(0, 0, 0, 0.8)",
     height: "50px"
   }
   const logoCSSprops = {

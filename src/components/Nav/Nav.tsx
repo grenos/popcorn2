@@ -11,10 +11,10 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
   const animateHeader = useSpring<INT.IAnimateHeader>({
     height: scrolled > 20 ? `50px` : `90px`,
     background: scrolled > 20
-      ? 'rgba(0, 0, 0, 0.6)'
+      ? 'rgba(0, 0, 0, 0.8)'
       : 'rgba(0, 0, 0, .2)',
     boxShadow: scrolled > 20
-      ? '0px 0px 10px 20px rgba(0, 0, 0, 0.6)'
+      ? '0px 0px 10px 20px rgba(0, 0, 0, 0.8)'
       : '0px 0px 10px 20px rgba(0, 0, 0, 0.2)'
   })
 

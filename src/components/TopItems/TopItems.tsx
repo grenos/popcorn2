@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-// import get from 'lodash.get';
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -20,9 +19,11 @@ const TopItems: React.FC<INT.ITopResultsProps> = ({
       topMovies.map(({ id, title, poster_path, vote_average }) => {
         return (
           <div key={id} className="locandina-outer">
-            <h3 style={{ color: 'white' }}>{title}</h3>
-            <p>{vote_average}</p>
             <img src={URL + poster_path} alt="img" />
+            <div className="overlay-gallery">
+              <h3 style={{ color: 'white' }}>{title}</h3>
+              <p>{vote_average}</p>
+            </div>
           </div>
         )
       })
@@ -35,9 +36,11 @@ const TopItems: React.FC<INT.ITopResultsProps> = ({
       topSeries.map(({ id, name, poster_path, vote_average }) => {
         return (
           <div key={id} className="locandina-outer">
-            <h3 style={{ color: 'white' }}>{name}</h3>
-            <p>{vote_average}</p>
             <img src={URL + poster_path} alt="img" />
+            <div className="overlay-gallery">
+              <h3 style={{ color: 'white' }}>{name}</h3>
+              <p>{vote_average}</p>
+            </div>
           </div>
         )
       })
