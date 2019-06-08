@@ -19,11 +19,9 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   const [change, setChange] = useState<string>('')
 
   useEffect((): void => {
-    if (scrolled < 20) {
+    if (isMovieCatSelected && scrolled < 20) {
       setChange('')
-    } else if (isMovieCatSelected) {
-      setChange('')
-    } else if (isSerieCatSelected) {
+    } else if (isSerieCatSelected && scrolled < 20) {
       setChange('')
     }
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])
