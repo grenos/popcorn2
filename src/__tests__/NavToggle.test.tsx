@@ -38,16 +38,16 @@ test('categories elements to animate css if props > 20', () => {
 
 
 describe('should call action creators', () => {
-  let getToggleMoviesRequestMock: any
-  let getToggleSeriesRequestMock: any
+  let getToggleMovieCatRequestMock: any
+  let getToggleSerieCatRequestMock: any
   let wrapper: any
 
   beforeEach(() => {
-    getToggleMoviesRequestMock = jest.fn()
-    getToggleSeriesRequestMock = jest.fn()
+    getToggleMovieCatRequestMock = jest.fn()
+    getToggleSerieCatRequestMock = jest.fn()
     const props = {
-      getToggleMoviesRequest: getToggleMoviesRequestMock,
-      getToggleSeriesRequest: getToggleSeriesRequestMock,
+      getToggleMovieCatRequest: getToggleMovieCatRequestMock,
+      getToggleSerieCatRequest: getToggleSerieCatRequestMock,
       scrolled: 21
     }
     wrapper = shallow(<UnconnectedNavToggle {...props} />)
@@ -59,13 +59,17 @@ describe('should call action creators', () => {
   })
 
   test('should call getToggleMoviesRequest action', () => {
-    const movieToggleCallCount = getToggleMoviesRequestMock.mock.calls.length
-    expect(movieToggleCallCount).toBe(1)
+    const movieToggleCallCount = getToggleMovieCatRequestMock.mock.calls.length
+    expect(movieToggleCallCount).toBe(2)
+    expect(getToggleMovieCatRequestMock).toHaveBeenCalledWith(true)
+    expect(getToggleMovieCatRequestMock).toHaveBeenCalledWith(false)
   })
 
   test('should call getToggleSeriesRequest action', () => {
-    const serieToggleCallCount = getToggleSeriesRequestMock.mock.calls.length
-    expect(serieToggleCallCount).toBe(1)
+    const serieToggleCallCount = getToggleSerieCatRequestMock.mock.calls.length
+    expect(serieToggleCallCount).toBe(2)
+    expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(true)
+    expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(false)
   })
 
 });

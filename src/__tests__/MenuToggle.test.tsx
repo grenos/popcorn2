@@ -22,54 +22,45 @@ test('should render button component', () => {
 describe('should call action creators based on prps', () => {
   let wrapper: any
   let getToggleMenuRequestMock: any
-  let getMovieGenresRequestMock: any
-  let getSerieGenresRequestMock: any
 
   beforeEach(() => {
     getToggleMenuRequestMock = jest.fn()
-    getMovieGenresRequestMock = jest.fn()
-    getSerieGenresRequestMock = jest.fn()
 
-    const userProps = {
-      isMovieCatSelected: true
-    }
     const Mockprops = {
       getToggleMenuRequest: getToggleMenuRequestMock,
-      getMovieGenresRequest: getMovieGenresRequestMock,
-      getSerieGenresRequest: getSerieGenresRequestMock,
     }
-    const props = { ...Mockprops, ...userProps }
-    wrapper = mount(<UnconnectedMenuToggle {...props} />)
+    wrapper = mount(<UnconnectedMenuToggle {...Mockprops} />)
   })
 
   test('should call getToggleMenuRequest action', () => {
     const getToggleMenuRequest = getToggleMenuRequestMock.mock.calls.length
     expect(getToggleMenuRequest).toBe(1)
+    expect(getToggleMenuRequestMock).toHaveBeenCalledWith(false)
   })
 
-  test('should call getMovieGenresRequest action', () => {
-    const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
-    expect(getMovieGenresRequest).toBe(1)
-  })
+  // test('should call getMovieGenresRequest action', () => {
+  //   const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
+  //   expect(getMovieGenresRequest).toBe(1)
+  // })
 
-  test('should call getSerieGenresRequest action', () => {
-    const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
-    expect(getSerieGenresRequest).not.toBe(1)
+  // test('should call getSerieGenresRequest action', () => {
+  //   const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
+  //   expect(getSerieGenresRequest).not.toBe(1)
 
-    const userProps = {
-      isMovieCatSelected: false
-    }
-    const Mockprops = {
-      getToggleMenuRequest: getToggleMenuRequestMock,
-      getMovieGenresRequest: getMovieGenresRequestMock,
-      getSerieGenresRequest: getSerieGenresRequestMock,
-    }
-    const props = { ...Mockprops, ...userProps }
-    wrapper = mount(<UnconnectedMenuToggle {...props} />)
+  //   const userProps = {
+  //     isMovieCatSelected: false
+  //   }
+  //   const Mockprops = {
+  //     getToggleMenuRequest: getToggleMenuRequestMock,
+  //     getMovieGenresRequest: getMovieGenresRequestMock,
+  //     getSerieGenresRequest: getSerieGenresRequestMock,
+  //   }
+  //   const props = { ...Mockprops, ...userProps }
+  //   wrapper = mount(<UnconnectedMenuToggle {...props} />)
 
-    const getSerieGenresRequest2 = getSerieGenresRequestMock.mock.calls.length
-    expect(getSerieGenresRequest2).toBe(1)
-  })
+  //   const getSerieGenresRequest2 = getSerieGenresRequestMock.mock.calls.length
+  //   expect(getSerieGenresRequest2).toBe(1)
+  // })
 })
 
 

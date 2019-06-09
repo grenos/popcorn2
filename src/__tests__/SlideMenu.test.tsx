@@ -19,12 +19,15 @@ describe('<UnconnectedSlideMenu />', () => {
   let wrapper: any
   let getMoviesByGenreRequestMock: any
   let getSeriesByGenreRequestMock: any
+  let getMovieGenresRequestMock: any
+  let getSerieGenresRequestMock: any
   let setup: any
 
   beforeEach(() => {
     getMoviesByGenreRequestMock = jest.fn()
     getSeriesByGenreRequestMock = jest.fn()
-
+    getMovieGenresRequestMock = jest.fn()
+    getSerieGenresRequestMock = jest.fn()
 
     setup = (testProps: any = {}) => {
       const userProps = {
@@ -37,6 +40,8 @@ describe('<UnconnectedSlideMenu />', () => {
       const Mocks = {
         getMoviesByGenreRequest: getMoviesByGenreRequestMock,
         getSeriesByGenreRequest: getSeriesByGenreRequestMock,
+        getMovieGenresRequest: getMovieGenresRequestMock,
+        getSerieGenresRequest: getSerieGenresRequestMock
       }
       const props = { ...Mocks, ...userProps, ...testProps }
 
@@ -67,6 +72,7 @@ describe('<UnconnectedSlideMenu />', () => {
     list.simulate('click')
     const getMoviesByGenreRequest = getMoviesByGenreRequestMock.mock.calls.length
     expect(getMoviesByGenreRequest).toBe(1)
+    expect(getMoviesByGenreRequestMock).toHaveBeenCalledWith(28, 1)
   })
 
   test('should test if getSeriesByGenreRequest gets called', () => {
@@ -76,8 +82,14 @@ describe('<UnconnectedSlideMenu />', () => {
     list.simulate('click')
     const getSeriesByGenreRequest = getSeriesByGenreRequestMock.mock.calls.length
     expect(getSeriesByGenreRequest).toBe(1)
+    expect(getSeriesByGenreRequestMock).toHaveBeenCalledWith(10759, 1)
   })
 
+  test('should call getMovieGenresRequest', () => {
+    setup({ isMovieCatSelected: true })
+    const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
+    expect(getMovieGenresRequest).toBe(1)
+  })
 })
 
 
