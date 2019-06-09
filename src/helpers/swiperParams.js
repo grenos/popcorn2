@@ -1,11 +1,17 @@
-import { Pagination, Navigation } from 'swiper/dist/js/swiper.esm'
+import { Pagination, Navigation } from 'react-id-swiper/lib/ReactIdSwiper.full'
 
 export const params = {
   modules: [Pagination, Navigation],
+  spaceBetween: 30,
+  loop: true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false
+  },
   pagination: {
     el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true
+    clickable: true,
   },
   navigation: {
     nextEl: '.swiper-button-next',
