@@ -7,7 +7,7 @@ import popcorn from '../../media/img/popcorn.png'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
-const TopItems: React.FC<INT.ITopResultsProps> = ({
+export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
   isMovieCatSelected,
   topMovies,
   topSeries,
@@ -15,17 +15,17 @@ const TopItems: React.FC<INT.ITopResultsProps> = ({
   getToggleSeriesRequest
 }): JSX.Element => {
 
-  const [movieCounter, setMovieCounter] = useState(1)
-  const [serieCounter, setSerieCounter] = useState(1)
+  const [movieCounter, setMovieCounter] = useState<number>(1)
+  const [serieCounter, setSerieCounter] = useState<number>(1)
 
-  const renderMovies = () => {
+  const renderMovies = (): JSX.Element[] => {
     return (
       topMovies.map(movie => {
         return (
           <div key={movie.id} className="locandina-outer" >
             <img src={URL + movie.poster_path} alt="img" />
             <div className="overlay-gallery">
-              <h3 style={{ color: 'white' }}>{movie.title}</h3>
+              <h3>{movie.title}</h3>
               <div className="ratings">
                 <p>{movie.vote_average}</p>
                 <img src={popcorn} alt="logo" />
@@ -37,14 +37,14 @@ const TopItems: React.FC<INT.ITopResultsProps> = ({
     )
   }
 
-  const renderSeries = () => {
+  const renderSeries = (): JSX.Element[] => {
     return (
       topSeries.map(serie => {
         return (
           <div key={serie.id} className="locandina-outer" >
             <img src={URL + serie.poster_path} alt="img" />
             <div className="overlay-gallery">
-              <h3 style={{ color: 'white' }}>{serie.name}</h3>
+              <h3>{serie.name}</h3>
               <div className="ratings">
                 <p>{serie.vote_average}</p>
                 <img src={popcorn} alt="logo" />
@@ -56,7 +56,7 @@ const TopItems: React.FC<INT.ITopResultsProps> = ({
     )
   }
 
-  const handlePagination = () => {
+  const handlePagination = (): void => {
     if (isMovieCatSelected) {
       setMovieCounter(movieCounter => movieCounter + 1)
       getToggleMoviesRequest(movieCounter)
@@ -88,5 +88,5 @@ const mapStateToProps = (state: any) => {
 export default connect(mapStateToProps, {
   getToggleMoviesRequest,
   getToggleSeriesRequest
-})(TopItems)
+})(UnconnectedTopItems)
 
