@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring';
+import { getToggleMenuRequest } from '../../redux/actions/uiActions'
 import chevron from '../../media/img/chevron.png'
 import * as INT from '../../helpers/interfaces'
 
 
-export const MenuToggle: React.FC = (): JSX.Element => {
+export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
+  getToggleMenuRequest }): JSX.Element => {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    getToggleMenuRequest(isMenuOpen)
+  }, [getToggleMenuRequest, isMenuOpen])
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
       ? `translate3d(200px,0,0)`
       : `translate3d(0px,0,0)`
-  });
+  })
 
   const imgAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
       ? `rotate(0deg)`
       : `rotate(540deg)`
-  });
+  })
 
   const makeBoolGlobal = (): void => {
     setMenuOpen(isMenuOpen => !isMenuOpen)
@@ -42,4 +49,6 @@ export const MenuToggle: React.FC = (): JSX.Element => {
 }
 
 
-export default MenuToggle
+export default connect(null, {
+  getToggleMenuRequest,
+})(UnconnectedMenuToggle)

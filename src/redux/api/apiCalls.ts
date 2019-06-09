@@ -44,3 +44,5 @@ export const getSeriesByGenre = async (id: number, page: number): Promise<{}> =>
   const res = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${apikey}&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${id}`)
   return res
 }
+
+
