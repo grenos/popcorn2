@@ -22,7 +22,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
     return (
       topMovies.map(movie => {
         return (
-          <div key={movie.id} className="locandina-outer" >
+          <div key={movie.id} className="locandina-outer" data-test="locandina-movie" >
             <img src={URL + movie.poster_path} alt="img" />
             <div className="overlay-gallery">
               <h3>{movie.title}</h3>
@@ -41,7 +41,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
     return (
       topSeries.map(serie => {
         return (
-          <div key={serie.id} className="locandina-outer" >
+          <div key={serie.id} className="locandina-outer" data-test="locandina-serie" >
             <img src={URL + serie.poster_path} alt="img" />
             <div className="overlay-gallery">
               <h3>{serie.name}</h3>
@@ -69,9 +69,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
   const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
 
   return (
-    <div className="locandine-wrapper">
+    <div className="locandine-wrapper" data-test="component-locandine">
       {renderTitles}
-      <Waypoint onEnter={handlePagination} />
+      <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} />
     </div>
   )
 }

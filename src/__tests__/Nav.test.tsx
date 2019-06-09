@@ -38,10 +38,6 @@ describe('should render components', () => {
   })
 })
 
-
-
-
-
 describe('CSS props before and after scroll animation', () => {
   let wrapper: any
 
