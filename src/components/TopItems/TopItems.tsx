@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
-import Swiper from 'react-id-swiper/lib/ReactIdSwiper.full';
 import popcorn from '../../media/img/popcorn.png'
-import { params } from '../../helpers/swiperParams'
+import VisoreSlider from '../VisoreSlider/VisoreSlider'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -73,9 +72,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-      <Swiper {...params} >
-        {renderTitles}
-      </Swiper>
+      {/* <VisoreSlider /> */}
       {renderTitles}
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} />
     </div>
