@@ -1,30 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSpring, animated as a } from 'react-spring';
-import { connect } from 'react-redux'
-import { getToggleMenuRequest } from '../../redux/actions/uiActions'
-import { getMovieGenresRequest, getSerieGenresRequest } from '../../redux/actions/apiActions'
 import chevron from '../../media/img/chevron.png'
 import * as INT from '../../helpers/interfaces'
 
 
-export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
-  getToggleMenuRequest,
-  getMovieGenresRequest,
-  getSerieGenresRequest,
-  isMovieCatSelected,
-}): JSX.Element => {
+export const MenuToggle: React.FC = (): JSX.Element => {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    getToggleMenuRequest(isMenuOpen)
-  }, [getToggleMenuRequest, isMenuOpen])
-
-  useEffect(() => {
-    isMovieCatSelected
-      ? getMovieGenresRequest()
-      : getSerieGenresRequest()
-  })
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpen
@@ -59,16 +41,5 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   )
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-  }
-}
 
-export default connect(mapStateToProps, {
-  getToggleMenuRequest,
-  getMovieGenresRequest,
-  getSerieGenresRequest
-})(UnconnectedMenuToggle)
-
-
+export default MenuToggle

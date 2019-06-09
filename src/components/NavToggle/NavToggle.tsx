@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSpring, animated } from 'react-spring'
 import { connect } from 'react-redux'
-import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
+import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import tele from '../../media/img/television.png'
 import film from '../../media/img/film.png'
@@ -9,8 +9,9 @@ import film from '../../media/img/film.png'
 
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
   scrolled,
-  getToggleMoviesRequest,
-  getToggleSeriesRequest }): JSX.Element => {
+  getToggleMovieCatRequest,
+  getToggleSerieCatRequest
+}): JSX.Element => {
 
   const animateToggle = useSpring<INT.IAnimateToggle>({
     transform: scrolled > 20
@@ -18,16 +19,14 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
       : 'scale(0.8) translateX(-120%)',
   })
 
-  useEffect(() => {
-    getToggleMoviesRequest(1)
-  }, [getToggleMoviesRequest])
-
   const handleMoviesToggle = (): void => {
-    getToggleMoviesRequest(1)
+    getToggleMovieCatRequest(true)
+    getToggleSerieCatRequest(false)
   }
 
   const handleSeriesToggle = (): void => {
-    getToggleSeriesRequest(1)
+    getToggleSerieCatRequest(true)
+    getToggleMovieCatRequest(false)
   }
 
   return (
@@ -54,7 +53,7 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
 }
 
 export default connect(null, {
-  getToggleMoviesRequest,
-  getToggleSeriesRequest
+  getToggleMovieCatRequest,
+  getToggleSerieCatRequest
 })(UnconnectedNavToggle)
 

@@ -14,7 +14,7 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
     case Types.GET_TOGGLE_MOVIES_SUCCESS: {
       return {
         ...state,
-        topMovies: action.payload
+        topMovies: [...state.topMovies, ...action.payload]
       }
     }
     case Types.GET_MOVIE_GENRES_SUCCESS: {

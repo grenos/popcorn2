@@ -73,8 +73,8 @@ export interface IInputProps {
 
 export interface IToggleProps {
   scrolled: number
-  getToggleMoviesRequest: Function
-  getToggleSeriesRequest: Function
+  getToggleMovieCatRequest: Function
+  getToggleSerieCatRequest: Function
   store?: any
 }
 
@@ -202,6 +202,8 @@ export interface IMenuProps {
   getSeriesByGenreRequest: Function
   isMovieCatSelected: boolean
   getToggleMenuRequest: Function
+  getMovieGenresRequest: Function
+  getSerieGenresRequest: Function
 }
 
 export interface ITopResultsProps {
@@ -209,6 +211,8 @@ export interface ITopResultsProps {
   store?: any
   topMovies: Array<IMovie>
   topSeries: Array<ISerie>
+  getToggleMoviesRequest: Function
+  getToggleSeriesRequest: Function
 }
 
 export interface IMenuPropSingle {

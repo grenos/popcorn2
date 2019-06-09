@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Scrollbar from "react-scrollbars-custom";
 import * as INT from '../../helpers/interfaces'
-import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
+import {
+  getMoviesByGenreRequest,
+  getSeriesByGenreRequest,
+  getMovieGenresRequest,
+  getSerieGenresRequest
+} from '../../redux/actions/apiActions'
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
@@ -10,18 +15,25 @@ import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   isMenuOpenProp,
+  getMovieGenresRequest,
+  getSerieGenresRequest,
   movieGenres,
   serieGenres,
   isMovieCatSelected,
   getMoviesByGenreRequest,
-  getSeriesByGenreRequest,
-  getToggleMenuRequest }): JSX.Element => {
+  getSeriesByGenreRequest, }): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
     from: { transform: `translate3d(-100%,0,0)` },
     enter: { transform: `translate3d(0%,0,0)` },
     leave: { transform: `translate3d(-100%,0,0)` }
   })
+
+  useEffect(() => {
+    isMovieCatSelected
+      ? getMovieGenresRequest()
+      : getSerieGenresRequest()
+  }, [isMovieCatSelected, getMovieGenresRequest, getSerieGenresRequest])
 
   const renderMovieGenres = (): JSX.Element => {
     return (
@@ -79,13 +91,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   const handleMovieGenreClick = (id: number, page: number): void => {
     getMoviesByGenreRequest(id, page)
-    // getToggleMenuRequest(false)
   }
 
   const handleSerieGenreClick = (id: number, page: number): void => {
     getSeriesByGenreRequest(id, page)
-    // getToggleMenuRequest(false)
-
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
@@ -125,7 +134,9 @@ export default connect(mapStateToProps,
   {
     getMoviesByGenreRequest,
     getSeriesByGenreRequest,
-    getToggleMenuRequest
+    getToggleMenuRequest,
+    getMovieGenresRequest,
+    getSerieGenresRequest,
   }
 )(UnconnectedSlideMenu)
 
