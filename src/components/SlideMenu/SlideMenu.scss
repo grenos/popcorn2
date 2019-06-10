@@ -43,13 +43,14 @@
   max-width: 100px;
 }
 
-.genres {
+.genres a {
   color: #fff;
   margin: 10px;
   font-size: 1.2rem;
   display: inline-flex;
   position: relative;
   cursor: pointer;
+  text-decoration: none;
 
   &:before {
     content: "";

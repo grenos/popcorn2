@@ -198,7 +198,6 @@ export interface IMenuProps {
   getMoviesByGenreRequest: Function
   getSeriesByGenreRequest: Function
   isMovieCatSelected: boolean
-  getToggleMenuRequest: Function
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
 }

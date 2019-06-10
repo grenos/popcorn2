@@ -8,16 +8,14 @@ import SearchResultsPage from './pages/SearchResultsPage'
 
 const Router = () => {
   return (
-    <>
-      <App />
-      <BrowserRouter>
-        <div>
-          <Route exact path="/" component={TopItemsPage} />
-          <Route path="/genres" component={GenreItemsPage} />
-          <Route path="/results" component={SearchResultsPage} />
-        </div>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <>
+        <App />
+        <Route exact path="/" component={TopItemsPage} />
+        <Route path="/genres" component={GenreItemsPage} />
+        <Route path="/results" component={SearchResultsPage} />
+      </>
+    </BrowserRouter>
   )
 }
 

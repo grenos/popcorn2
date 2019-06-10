@@ -4,7 +4,7 @@ import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/acti
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import popcorn from '../../media/img/popcorn.png'
-import VisoreSlider from '../VisoreSlider/VisoreSlider'
+// import VisoreSlider from '../VisoreSlider/VisoreSlider'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 

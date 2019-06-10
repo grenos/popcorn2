@@ -1,15 +1,37 @@
 import React from 'react'
 import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import { findByTestAttr, storeFactory } from '../helpers/testUtils'
-import SlideMenu, { UnconnectedSlideMenu } from '../components/SlideMenu/SlideMenu'
+import { findByTestAttr } from '../helpers/testUtils'
+import { UnconnectedSlideMenu } from '../components/SlideMenu/SlideMenu'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
+
+import { MemoryRouter as Router } from 'react-router-dom';
+const mountWithRouter = (UnconnectedSlideMenu: any) =>
+  mount(<Router>{UnconnectedSlideMenu}</Router>);
 
 
 test('should render component', () => {
-  const initialState = {}
-  const store = storeFactory(initialState)
-  const wrapper = shallow(<SlideMenu store={store} />).dive().dive()
+  const getMoviesByGenreRequestMock = jest.fn()
+  const getSeriesByGenreRequestMock = jest.fn()
+  const getMovieGenresRequestMock = jest.fn()
+  const getSerieGenresRequestMock = jest.fn()
+
+  const userProps = {
+    isMenuOpenProp: false,
+    movieGenres: [{ id: 28, name: 'Action' }],
+    serieGenres: [{ id: 10759, name: '"Action & Adventure"' }],
+    isMovieCatSelected: false,
+  }
+
+  const Mocks = {
+    getMoviesByGenreRequest: getMoviesByGenreRequestMock,
+    getSeriesByGenreRequest: getSeriesByGenreRequestMock,
+    getMovieGenresRequest: getMovieGenresRequestMock,
+    getSerieGenresRequest: getSerieGenresRequestMock
+  }
+  const props = { ...Mocks, ...userProps }
+
+  const wrapper = shallow(<UnconnectedSlideMenu {...props} />)
   const component = findByTestAttr(wrapper, 'slide-menu')
   expect(component.length).toBe(1)
 })
@@ -45,7 +67,7 @@ describe('<UnconnectedSlideMenu />', () => {
       }
       const props = { ...Mocks, ...userProps, ...testProps }
 
-      wrapper = mount(<UnconnectedSlideMenu {...props} />)
+      wrapper = mountWithRouter(<UnconnectedSlideMenu {...props} />)
       return wrapper
     }
   })

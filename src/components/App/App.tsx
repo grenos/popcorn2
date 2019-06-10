@@ -34,15 +34,13 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpenProp }
   const Loader = () => <div className="loader">loading</div>
 
   return (
-    <div className="wrapper">
+    <>
       <Nav scrolled={scrolled} />
-
       <Suspense fallback={<Loader />}>
         <SlideMenu />
       </Suspense>
-
       <MenuToggle />
-    </div>
+    </>
   )
 }
 

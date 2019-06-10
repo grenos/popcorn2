@@ -5,7 +5,8 @@ import rootSaga from '../sagas/indexSagas'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export const middleware = [sagaMiddleware]
+
+export const middleware = [sagaMiddleware,]
 
 export const store: any = createStore(
   indexReducers,

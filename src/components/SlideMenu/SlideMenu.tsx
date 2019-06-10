@@ -8,9 +8,10 @@ import {
   getMovieGenresRequest,
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
-import { getToggleMenuRequest } from '../../redux/actions/uiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
+import { Link, withRouter } from "react-router-dom"
+// import { RouteComponentProps } from "react-router"
 import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
@@ -21,7 +22,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   serieGenres,
   isMovieCatSelected,
   getMoviesByGenreRequest,
-  getSeriesByGenreRequest, }): JSX.Element => {
+  getSeriesByGenreRequest,
+}): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -40,9 +42,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       <div className="genres-wrapper" id="movie-genres">
         <ul className="genres-list">
           {
-            <Trail
+            <Trail native
               items={movieGenres}
-              keys={movieGenres => movieGenres.id}
+              keys={({ id }) => id}
               config={{ tension: 215, mass: 0.5, friction: 16 }}
               from={{ opacity: 0, transform: 'translate3d(-100px, 0, 0)' }}
               to={{ opacity: 1, transform: 'translate3d(0px, 0, 0)' }}
@@ -53,7 +55,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   className="genres"
                   data-test="movie-genres-list-items"
                   onClick={() => handleMovieGenreClick(id, 1)}>
-                  {name}
+                  <Link to={`/genres/${name}`}>
+                    {name}
+                  </Link>
                 </a.li>}
             </Trail>
           }
@@ -67,9 +71,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       <div className="genres-wrapper" id="serie-genres">
         <ul className="genres-list">
           {
-            <Trail
+            <Trail native
               items={serieGenres}
-              keys={serieGenres => serieGenres.id}
+              keys={({ id }) => id}
               config={{ tension: 215, mass: 0.5, friction: 16 }}
               from={{ opacity: 0, transform: 'translate3d(-100px, 0, 0)' }}
               to={{ opacity: 1, transform: 'translate3d(0px, 0, 0)' }}
@@ -80,7 +84,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   className="genres"
                   data-test="serie-genres-list-items"
                   onClick={() => handleSerieGenreClick(id, 1)}>
-                  {name}
+                  <Link to={`/genres/${name}`}>
+                    {name}
+                  </Link>
                 </a.li>}
             </Trail>
           }
@@ -121,22 +127,22 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 }
 
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: any, props: any) => {
   return {
     isMenuOpenProp: state.uiReducer.isMenuOpenProp,
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
-    isMovieCatSelected: state.uiReducer.isMovieCatSelected
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
+    match: props.match
   }
 }
 
-export default connect(mapStateToProps,
+export default withRouter(connect(mapStateToProps,
   {
     getMoviesByGenreRequest,
     getSeriesByGenreRequest,
-    getToggleMenuRequest,
     getMovieGenresRequest,
     getSerieGenresRequest,
   }
-)(UnconnectedSlideMenu)
+)(UnconnectedSlideMenu))
 
