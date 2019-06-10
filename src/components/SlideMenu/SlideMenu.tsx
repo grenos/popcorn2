@@ -42,7 +42,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       <div className="genres-wrapper" id="movie-genres">
         <ul className="genres-list">
           {
-            <Trail native
+            <Trail
               items={movieGenres}
               keys={({ id }) => id}
               config={{ tension: 215, mass: 0.5, friction: 16 }}
@@ -71,7 +71,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
       <div className="genres-wrapper" id="serie-genres">
         <ul className="genres-list">
           {
-            <Trail native
+            <Trail
               items={serieGenres}
               keys={({ id }) => id}
               config={{ tension: 215, mass: 0.5, friction: 16 }}
@@ -107,21 +107,22 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
 
   return (
     <div data-test="slide-menu">
-      {transition.map(
-        ({ item, key, props }) => (
-          item &&
-          <a.div className="nav-wrapper" style={props} key={key}>
-            <div className="menu-logo">
-              <img src={popcorn} alt="logo" />
-            </div>
-            <div className="nav-list-wrapper">
-              <Scrollbar noDefaultStyles>
-                {renderList}
-              </Scrollbar>
-            </div>
-          </a.div >
+      {
+        transition.map(
+          ({ item, key, props }) => (item &&
+            <a.div className="nav-wrapper" style={props} key={key}>
+              <div className="menu-logo">
+                <img src={popcorn} alt="logo" />
+              </div>
+              <div className="nav-list-wrapper">
+                <Scrollbar noDefaultStyles>
+                  {renderList}
+                </Scrollbar>
+              </div>
+            </a.div>
+          )
         )
-      )}
+      }
     </div>
   )
 }
