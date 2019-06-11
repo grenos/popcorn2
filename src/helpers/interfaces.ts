@@ -205,6 +205,15 @@ export interface IMenuProps {
 export interface ITopResultsProps {
   isMovieCatSelected: boolean
   store?: any
+  movies: Array<IMovie>
+  series: Array<ISerie>
+  getMovies: Function
+  getSeries: Function
+}
+
+export interface ITopResultsPage {
+  isMovieCatSelected: boolean
+  store?: any
   topMovies: Array<IMovie>
   topSeries: Array<ISerie>
   getToggleMoviesRequest: Function

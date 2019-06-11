@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
+import { RouteComponentProps } from "react-router";
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
-export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
+export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps> = ({
   isMovieCatSelected,
-  topMovies,
-  topSeries,
-  getToggleMoviesRequest,
-  getToggleSeriesRequest
+  movies,
+  series,
+  getMovies,
+  getSeries
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -22,7 +21,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      topMovies.map(({ id, poster_path, title, vote_average }) => {
+      movies.map(({ id, poster_path, title, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-movie" >
             <Link to={`/title/${id}`}>
@@ -43,7 +42,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      topSeries.map(({ id, poster_path, name, vote_average }) => {
+      series.map(({ id, poster_path, name, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-serie" >
             <Link to={`/title/${id}`}>
@@ -65,10 +64,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
       setMovieCounter(movieCounter => movieCounter + 1)
-      getToggleMoviesRequest(movieCounter)
+      getMovies(movieCounter)
     } else {
       setSerieCounter(serieCounter => serieCounter + 1)
-      getToggleSeriesRequest(serieCounter)
+      getSeries(serieCounter)
     }
   }
 
@@ -83,17 +82,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 }
 
 
-const mapStateToProps = (state: any, props: any) => {
-  return {
-    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    topMovies: state.moviesReducer.topMovies,
-    topSeries: state.seriesReducer.topSeries,
-    // match: props.match
-  }
-}
 
-export default withRouter(connect(mapStateToProps, {
-  getToggleMoviesRequest,
-  getToggleSeriesRequest
-})(UnconnectedTopItems))
+export default withRouter(UnconnectedTopItems)
 

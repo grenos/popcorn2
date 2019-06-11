@@ -1,44 +1,44 @@
 import React from 'react'
 import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import { findByTestAttr, storeFactory } from '../helpers/testUtils'
-import TopItems, { UnconnectedTopItems } from '../components/TopItems/TopItems'
+import { findByTestAttr } from '../helpers/testUtils'
+import { UnconnectedTopItems } from '../components/TopItems/TopItems'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
-
-test('should render component', () => {
-  const initialState = {}
-  const store = storeFactory(initialState)
-  const wrapper = shallow(<TopItems store={store} />).dive().dive()
-  const component = findByTestAttr(wrapper, 'component-locandine')
-  expect(component.length).toBe(1)
-})
+import { MemoryRouter as Router } from 'react-router-dom';
+const mountWithRouter = (UnconnectedTopItems: any) =>
+  mount(<Router>{UnconnectedTopItems}</Router>);
 
 
 describe('<UnconnectedToItems />', () => {
   let wrapper: any
   let setup: any
-  let getToggleMoviesRequestMock: any
+  let handlePaginationMock: any
 
   beforeEach(() => {
-    getToggleMoviesRequestMock = jest.fn()
+    handlePaginationMock = jest.fn()
 
     setup = (testProps: any = {}) => {
       const userProps = {
-        isMenuOpenProp: false,
-        topMovies: [{ id: 1, title: 'matrix', poster_path: "sgsdgdsgg.jpg" }],
-        topSeries: [{ id: 2, title: 'GOT', poster_path: "gdfgdfgdfg.jpg" }],
+        movies: [{ id: 1, title: 'matrix', poster_path: "sgsdgdsgg.jpg" }],
+        series: [{ id: 2, title: 'GOT', poster_path: "gdfgdfgdfg.jpg" }],
         isMovieCatSelected: true
       }
 
       const mocks = {
-        getToggleMoviesRequest: getToggleMoviesRequestMock
+        handlePagination: handlePaginationMock
       }
 
       const props = { ...mocks, ...userProps, ...testProps }
-      wrapper = mount(<UnconnectedTopItems {...props} />)
+      wrapper = mountWithRouter(<UnconnectedTopItems {...props} />)
       return wrapper
     }
+  })
+
+  test('should render component', () => {
+    setup()
+    const component = findByTestAttr(wrapper, 'component-locandine')
+    expect(component.length).toBe(1)
   })
 
   test('should render renderMovies locandine', () => {
@@ -53,8 +53,6 @@ describe('<UnconnectedToItems />', () => {
     expect(component.length).toBe(1)
   });
 
-
-  // test if onClick on category list item work for movies and series
 
   test('should waypoint', () => {
   })
