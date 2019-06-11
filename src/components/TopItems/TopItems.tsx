@@ -17,12 +17,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
   getToggleSeriesRequest
 }): JSX.Element => {
 
-
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
-
-
-
 
   const renderMovies = (): JSX.Element[] => {
     return (
