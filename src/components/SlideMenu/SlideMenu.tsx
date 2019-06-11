@@ -11,7 +11,6 @@ import {
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { Link, withRouter } from "react-router-dom"
-// import { RouteComponentProps } from "react-router"
 import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({

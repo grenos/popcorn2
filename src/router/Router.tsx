@@ -4,6 +4,7 @@ import App from '../components/App/App'
 import TopItemsPage from './pages/TopItemsPage'
 import GenreItemsPage from './pages/GenreItemsPage'
 import SearchResultsPage from './pages/SearchResultsPage'
+import TitlePage from './pages/TitlePage'
 
 
 const Router = () => {
@@ -14,6 +15,7 @@ const Router = () => {
         <Route exact path="/" component={TopItemsPage} />
         <Route path="/genres" component={GenreItemsPage} />
         <Route path="/results" component={SearchResultsPage} />
+        <Route path="/title" component={TitlePage} />
       </>
     </BrowserRouter>
   )

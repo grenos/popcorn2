@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
+import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
-// import VisoreSlider from '../VisoreSlider/VisoreSlider'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -22,17 +22,19 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      topMovies.map(movie => {
+      topMovies.map(({ id, poster_path, title, vote_average }) => {
         return (
-          <div key={movie.id} className="locandina-outer" data-test="locandina-movie" >
-            <img src={URL + movie.poster_path} alt="img" />
-            <div className="overlay-gallery">
-              <h3>{movie.title}</h3>
-              <div className="ratings">
-                <p>{movie.vote_average}</p>
-                <img src={popcorn} alt="logo" />
+          <div key={id} className="locandina-outer" data-test="locandina-movie" >
+            <Link to={`/title/${id}`}>
+              <img src={URL + poster_path} alt="img" />
+              <div className="overlay-gallery">
+                <h3>{title}</h3>
+                <div className="ratings">
+                  <p>{vote_average}</p>
+                  <img src={popcorn} alt="logo" />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         )
       })
@@ -41,17 +43,19 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      topSeries.map(serie => {
+      topSeries.map(({ id, poster_path, name, vote_average }) => {
         return (
-          <div key={serie.id} className="locandina-outer" data-test="locandina-serie" >
-            <img src={URL + serie.poster_path} alt="img" />
-            <div className="overlay-gallery">
-              <h3>{serie.name}</h3>
-              <div className="ratings">
-                <p>{serie.vote_average}</p>
-                <img src={popcorn} alt="logo" />
+          <div key={id} className="locandina-outer" data-test="locandina-serie" >
+            <Link to={`/title/${id}`}>
+              <img src={URL + poster_path} alt="img" />
+              <div className="overlay-gallery">
+                <h3>{name}</h3>
+                <div className="ratings">
+                  <p>{vote_average}</p>
+                  <img src={popcorn} alt="logo" />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         )
       })
@@ -72,7 +76,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-      {/* <VisoreSlider /> */}
       {renderTitles}
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} />
     </div>
@@ -80,16 +83,17 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
 }
 
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: any, props: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     topMovies: state.moviesReducer.topMovies,
-    topSeries: state.seriesReducer.topSeries
+    topSeries: state.seriesReducer.topSeries,
+    match: props.match
   }
 }
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   getToggleMoviesRequest,
   getToggleSeriesRequest
-})(UnconnectedTopItems)
+})(UnconnectedTopItems))
 
