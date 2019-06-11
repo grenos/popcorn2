@@ -5,6 +5,7 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
+import { filterNoImg } from '../../helpers/helperFunctions'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -20,13 +21,16 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
 
+
+
+
   const renderMovies = (): JSX.Element[] => {
     return (
       topMovies.map(({ id, poster_path, title, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-movie" >
             <Link to={`/title/${id}`}>
-              <img src={URL + poster_path} alt="img" />
+              <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${title}`} />
               <div className="overlay-gallery">
                 <h3>{title}</h3>
                 <div className="ratings">
@@ -47,7 +51,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps> = ({
         return (
           <div key={id} className="locandina-outer" data-test="locandina-serie" >
             <Link to={`/title/${id}`}>
-              <img src={URL + poster_path} alt="img" />
+              <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${name}`} />
               <div className="overlay-gallery">
                 <h3>{name}</h3>
                 <div className="ratings">
@@ -88,7 +92,7 @@ const mapStateToProps = (state: any, props: any) => {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     topMovies: state.moviesReducer.topMovies,
     topSeries: state.seriesReducer.topSeries,
-    match: props.match
+    // match: props.match
   }
 }
 
