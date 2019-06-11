@@ -12,7 +12,7 @@ const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
   getToggleSeriesRequest }) => {
 
   return (
-    <div style={{ color: 'white', fontSize: '40px' }} >
+    <div>
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
         movies={topMovies}

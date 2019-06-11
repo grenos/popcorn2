@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { Link, withRouter } from "react-router-dom"
@@ -18,6 +18,20 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.setItem('abc123', JSON.stringify(movieCounter))
+      sessionStorage.setItem('qwerty', JSON.stringify(serieCounter))
+    };
+  }, [movieCounter, serieCounter])
+
+  useEffect(() => {
+    const rehydrate1 = JSON.parse(sessionStorage.getItem('abc123') || '{}')
+    const rehydrate2 = JSON.parse(sessionStorage.getItem('qwerty') || '{}')
+    setMovieCounter(rehydrate1)
+    setMovieCounter(rehydrate2)
+  }, [])
 
   const renderMovies = (): JSX.Element[] => {
     return (
@@ -60,6 +74,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       })
     )
   }
+
 
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
