@@ -6,12 +6,6 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store/store'
 import Router from './router/Router'
 
-if (process.env.NODE_ENV !== 'production') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js');
-  whyDidYouRender(React);
-}
-
-
 ReactDOM.render(
   <Provider store={store}>
     <Router />

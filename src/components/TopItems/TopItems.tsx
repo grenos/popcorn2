@@ -5,7 +5,6 @@ import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router";
-// import whyDidYouRender from "@welldone-software/why-did-you-render";
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -19,22 +18,20 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
-  console.log(movieCounter + ' state');
 
   useEffect(() => {
     return () => {
       sessionStorage.setItem('abc123', JSON.stringify(movieCounter))
       sessionStorage.setItem('qwerty', JSON.stringify(serieCounter))
-      console.log(movieCounter + ' on out');
     }
   }, [movieCounter, serieCounter])
 
   useEffect(() => {
-    const rehydrate1 = parseInt(sessionStorage.getItem('abc123') || '1')
-    const rehydrate2 = parseInt(sessionStorage.getItem('qwerty') || '1')
+    const rehydrate1 = parseInt(sessionStorage.getItem('abc123') || `1`)
+    const rehydrate2 = parseInt(sessionStorage.getItem('qwerty') || `1`)
     setMovieCounter(rehydrate1)
-    setMovieCounter(rehydrate2)
-    console.log(rehydrate1 + ' on in');
+    setSerieCounter(rehydrate2)
+
   }, [])
 
 
@@ -100,9 +97,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     </div>
   )
 }
-
-// UnconnectedTopItems.whyDidYouRender = true
-
 
 export default withRouter(UnconnectedTopItems)
 
