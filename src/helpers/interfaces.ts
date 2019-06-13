@@ -68,6 +68,7 @@ export interface IInputProps {
   getUserInputSeriesRequest?: any
   isMovieCatSelected: boolean
   isSerieCatSelected: boolean
+  userHasTypedRequest: Function
   store?: any
 }
 
@@ -173,6 +174,7 @@ export interface IUiState {
   isMenuOpenProp: boolean
   isMovieCatSelected: boolean
   isSerieCatSelected: boolean
+  userHasTyped: ''
 }
 
 
@@ -210,6 +212,7 @@ export interface ITopResultsProps {
   series: Array<ISerie>
   getMovies: Function
   getSeries: Function
+  userHasTyped?: string
 }
 
 export interface ITopResultsPage {
@@ -228,6 +231,7 @@ export interface ITopSearchResultsPage {
   searchSeries: Array<ISerie>
   getUserInputMoviesRequest: Function
   getUserInputSeriesRequest: Function
+  userHasTyped: string
 }
 
 export interface IMenuPropSingle {

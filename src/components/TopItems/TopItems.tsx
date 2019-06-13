@@ -14,24 +14,36 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   series,
   getMovies,
   getSeries,
+  match,
+  userHasTyped
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
 
+  const [InputmovieCounter, setInputMovieCounter] = useState<number>(1)
+  const [InputserieCounter, setInputSerieCounter] = useState<number>(1)
+
   useEffect(() => {
     return () => {
-      sessionStorage.setItem('abc123', JSON.stringify(movieCounter))
-      sessionStorage.setItem('qwerty', JSON.stringify(serieCounter))
+      if (match.url === '/') {
+        sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
+        sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
+      } else if (match.url === '/results') {
+        sessionStorage.setItem('search_movies', JSON.stringify(InputmovieCounter))
+        sessionStorage.setItem('search_series', JSON.stringify(InputserieCounter))
+      }
     }
-  }, [movieCounter, serieCounter])
+  }, [movieCounter, serieCounter, match.url, InputmovieCounter, InputserieCounter])
 
   useEffect(() => {
-    const rehydrate1 = parseInt(sessionStorage.getItem('abc123') || `1`)
-    const rehydrate2 = parseInt(sessionStorage.getItem('qwerty') || `1`)
-    setMovieCounter(rehydrate1)
-    setSerieCounter(rehydrate2)
-
+    if (match.url === '/') {
+      setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
+      setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
+    } else if (match.url === '/results') {
+      setInputMovieCounter(parseInt(sessionStorage.getItem('search_movies') || `1`))
+      setInputSerieCounter(parseInt(sessionStorage.getItem('search_series') || `1`))
+    }
   }, [])
 
 
@@ -80,11 +92,21 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
-      setMovieCounter(movieCounter => movieCounter + 1)
-      getMovies(movieCounter)
+      if (match.url === '/') {
+        setMovieCounter(movieCounter => movieCounter + 1)
+        getMovies(movieCounter)
+      } else if (match.url === '/results') {
+        setInputMovieCounter(InputmovieCounter => InputmovieCounter + 1)
+        getMovies(userHasTyped, movieCounter) // here add change from store
+      }
     } else {
-      setSerieCounter(serieCounter => serieCounter + 1)
-      getSeries(serieCounter)
+      if (match.url === '/') {
+        setSerieCounter(serieCounter => serieCounter + 1)
+        getSeries(serieCounter)
+      } else if (match.url === '/results') {
+        setInputSerieCounter(InputserieCounter => InputserieCounter + 1)
+        getMovies(userHasTyped, movieCounter) // here add change from store
+      }
     }
   }
 

@@ -7,7 +7,9 @@ export const Types: any = {
   GET_TOGGLE_MOVIE_CAT_SUCCESS: 'GET_TOGGLE_MOVIE_CAT_SUCCESS',
   GET_TOGGLE_MOVIE_CAT_REQUEST: 'GET_TOGGLE_MOVIE_CAT_REQUEST',
   GET_TOGGLE_SERIE_CAT_SUCCESS: 'GET_TOGGLE_SERIE_CAT_SUCCESS',
-  GET_TOGGLE_SERIE_CAT_REQUEST: 'GET_TOGGLE_SERIE_CAT_REQUEST'
+  GET_TOGGLE_SERIE_CAT_REQUEST: 'GET_TOGGLE_SERIE_CAT_REQUEST',
+  USER_HAS_TYPED_REQUEST: 'USER_HAS_TYPED_REQUEST',
+  USER_HAS_TYPED_SUCCESS: 'USER_HAS_TYPED_SUCCESS'
 }
 
 
@@ -38,5 +40,15 @@ export const getToggleSerieCatRequest = (payload: boolean): INT.IToggleCat => ({
 })
 export const getToggleSerieCatSuccess = ({ payload }: INT.IToggleCat) => ({
   type: Types.GET_TOGGLE_SERIE_CAT_SUCCESS,
+  payload
+})
+
+
+export const userHasTypedRequest = (input: string) => ({
+  type: Types.USER_HAS_TYPED_REQUEST,
+  input,
+})
+export const userHasTypedSuccess = ({ payload }: any) => ({
+  type: Types.USER_HAS_TYPED_SUCCESS,
   payload
 })

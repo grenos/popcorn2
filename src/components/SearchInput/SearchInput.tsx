@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
+import { withRouter } from "react-router-dom"
 import search from '../../media/img/search.png'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
+import { userHasTypedRequest } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
-
+import { RouteComponentProps } from "react-router";
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
-export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
+export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentProps> = ({
   scrolled,
   getUserInputMoviesRequest,
   getUserInputSeriesRequest,
   isMovieCatSelected,
-  isSerieCatSelected
+  isSerieCatSelected,
+  history,
+  userHasTypedRequest
 }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
@@ -43,8 +47,12 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
   const handleKeyUp = (): void => {
     if (isMovieCatSelected && change.length > 1) {
       getUserInputMoviesRequest(change, 1)
+      history.push('/results')
+      userHasTypedRequest(change)
     } else {
       getUserInputSeriesRequest(change, 1)
+      history.push('/results')
+      userHasTypedRequest(change)
     }
   }
 
@@ -82,12 +90,13 @@ const mapStateToProps = (state: any) => {
 };
 
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {
     getUserInputMoviesRequest,
-    getUserInputSeriesRequest
+    getUserInputSeriesRequest,
+    userHasTypedRequest
   }
-)(UnconnectedSearchInput)
+)(UnconnectedSearchInput))
 
 

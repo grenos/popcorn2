@@ -140,6 +140,7 @@ const apiSagas = [
   fork(watchgetMovieGenresRequest),
   fork(watchgetSerieGenresRequest),
   fork(watchGetMoviesByGenreRequest),
-  fork(watchGetSeriesByGenreRequest)
+  fork(watchGetSeriesByGenreRequest),
+
 ]
 export default apiSagas
