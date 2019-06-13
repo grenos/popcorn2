@@ -10,9 +10,9 @@ import * as INT from '../../helpers/interfaces'
 function* watchGetUsersMoviesRequest() {
   yield takeLatest(actions.Types.GET_USER_INPUT_MOVIES_REQUEST, getUserInputMovies)
 }
-function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
+function* getUserInputMovies({ inputValue, page }: INT.IInputSagaProps) {
   try {
-    const result = yield call(api.getUserInputMovies, value)
+    const result = yield call(api.getUserInputMovies, inputValue, page)
     yield put(actions.getUserInputMoviesSuccess({
       result: result.data.results
     } as INT.ISearchMovies))
@@ -24,9 +24,9 @@ function* getUserInputMovies({ payload: value }: INT.IInputSagaProps) {
 function* watchGetUsersSeriesRequest() {
   yield takeLatest(actions.Types.GET_USER_INPUT_SERIES_REQUEST, getUserInputSeries)
 }
-function* getUserInputSeries({ payload: value }: INT.IInputSagaProps) {
+function* getUserInputSeries({ inputValue, page }: INT.IInputSagaProps) {
   try {
-    const result = yield call(api.getUserInputSeries, value)
+    const result = yield call(api.getUserInputSeries, inputValue, page)
 
     yield put(actions.getUserInputSeriesSuccess({
       result: result.data.results

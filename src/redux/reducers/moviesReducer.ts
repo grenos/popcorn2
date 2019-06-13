@@ -8,7 +8,7 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
     case Types.GET_USER_INPUT_MOVIES_SUCCESS: {
       return {
         ...state,
-        searchMovies: action.payload
+        searchMovies: [...state.searchMovies, ...action.payload]
       }
     }
     case Types.GET_TOGGLE_MOVIES_SUCCESS: {

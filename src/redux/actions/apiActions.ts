@@ -22,9 +22,10 @@ export const Types: any = {
 
 
 
-export const getUserInputMoviesRequest = (inputValue: string) => ({
+export const getUserInputMoviesRequest = (inputValue: string, page: number) => ({
   type: Types.GET_USER_INPUT_MOVIES_REQUEST,
-  payload: inputValue
+  inputValue,
+  page
 })
 export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
   type: Types.GET_USER_INPUT_MOVIES_SUCCESS,
@@ -33,9 +34,10 @@ export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
 
 
 
-export const getUserInputSeriesRequest = (inputValue: string) => ({
+export const getUserInputSeriesRequest = (inputValue: string, page: number) => ({
   type: Types.GET_USER_INPUT_SERIES_REQUEST,
-  payload: inputValue
+  inputValue,
+  page
 })
 export const getUserInputSeriesSuccess = ({ result }: INT.ISearchSeries) => ({
   type: Types.GET_USER_INPUT_SERIES_SUCCESS,

@@ -42,9 +42,9 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 
   const handleKeyUp = (): void => {
     if (isMovieCatSelected && change.length > 1) {
-      getUserInputMoviesRequest(change)
+      getUserInputMoviesRequest(change, 1)
     } else {
-      getUserInputSeriesRequest(change)
+      getUserInputSeriesRequest(change, 1)
     }
   }
 

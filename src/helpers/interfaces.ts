@@ -177,7 +177,8 @@ export interface IUiState {
 
 
 export interface IInputSagaProps {
-  payload: string
+  inputValue: string
+  page: number
 }
 
 export interface IToggleSagaProps {
@@ -218,6 +219,15 @@ export interface ITopResultsPage {
   topSeries: Array<ISerie>
   getToggleMoviesRequest: Function
   getToggleSeriesRequest: Function
+}
+
+export interface ITopSearchResultsPage {
+  isMovieCatSelected: boolean
+  store?: any
+  searchMovies: Array<IMovie>
+  searchSeries: Array<ISerie>
+  getUserInputMoviesRequest: Function
+  getUserInputSeriesRequest: Function
 }
 
 export interface IMenuPropSingle {

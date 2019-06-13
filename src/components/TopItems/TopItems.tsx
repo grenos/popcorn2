@@ -13,7 +13,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   movies,
   series,
   getMovies,
-  getSeries
+  getSeries,
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
