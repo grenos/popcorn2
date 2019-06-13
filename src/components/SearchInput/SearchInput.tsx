@@ -46,12 +46,12 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
 
   const handleKeyUp = (): void => {
     if (isMovieCatSelected && change.length > 1) {
-      getUserInputMoviesRequest(change, 1)
       history.push('/results')
+      getUserInputMoviesRequest(change, 1)
       userHasTypedRequest(change)
     } else {
-      getUserInputSeriesRequest(change, 1)
       history.push('/results')
+      getUserInputSeriesRequest(change, 1)
       userHasTypedRequest(change)
     }
   }
