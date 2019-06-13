@@ -10,7 +10,7 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
     case Types.GET_USER_INPUT_SERIES_SUCCESS: {
       return {
         ...state,
-        searchSeries: [...state.searchSeries, ...action.payload]
+        searchSeries: action.payload
       }
     }
     case Types.GET_TOGGLE_SERIES_SUCCESS: {

@@ -180,7 +180,6 @@ export interface IUiState {
 
 export interface IInputSagaProps {
   inputValue: string
-  page: number
 }
 
 export interface IToggleSagaProps {

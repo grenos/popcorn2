@@ -9,8 +9,7 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
   searchMovies,
   searchSeries,
   getUserInputMoviesRequest,
-  getUserInputSeriesRequest,
-  userHasTyped }) => {
+  getUserInputSeriesRequest, }) => {
 
   return (
     <div>
@@ -20,7 +19,6 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
         series={searchSeries}
         getMovies={getUserInputMoviesRequest}
         getSeries={getUserInputSeriesRequest}
-        userHasTyped={userHasTyped}
       />
     </div >
   )
@@ -31,7 +29,6 @@ const mapStateToProps = (state: any) => {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     searchMovies: state.moviesReducer.searchMovies,
     searchSeries: state.seriesReducer.searchSeries,
-    userHasTyped: state.uiReducer.userHasTyped
   }
 }
 

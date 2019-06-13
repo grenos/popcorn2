@@ -31,14 +31,14 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])
 
 
-  const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
-    opacity: scrolled > 20 ? 1 : .1,
-  })
+  // const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
+  //   opacity: scrolled > 20 ? 1 : .1,
+  // })
 
-  const animateInput = useSpring<INT.IAnimateInput>({
-    width: scrolled > 20 ? '190px' : '21px',
-    pointerEvents: scrolled > 20 ? 'all' : 'none'
-  })
+  // const animateInput = useSpring<INT.IAnimateInput>({
+  //   width: scrolled > 20 ? '190px' : '21px',
+  //   pointerEvents: scrolled > 20 ? 'all' : 'none'
+  // })
 
   const handleChange = (e: InputVal): void => {
     setChange(e.target.value)
@@ -47,11 +47,11 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   const handleKeyUp = (): void => {
     if (isMovieCatSelected && change.length > 1) {
       history.push('/results')
-      getUserInputMoviesRequest(change, 1)
+      getUserInputMoviesRequest(change)
       userHasTypedRequest(change)
-    } else {
+    } else if (!isMovieCatSelected && change.length > 1) {
       history.push('/results')
-      getUserInputSeriesRequest(change, 1)
+      getUserInputSeriesRequest(change)
       userHasTypedRequest(change)
     }
   }
@@ -60,14 +60,15 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
     <animated.div
       className="search-input"
       data-test="component-search-input"
-      style={animateInputContainer}>
+    // style={animateInputContainer}
+    >
 
       <animated.input
         type="text"
         name="search"
         className="search-input__inp"
         data-test="search-input"
-        style={animateInput}
+        // style={animateInput}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         value={change}
