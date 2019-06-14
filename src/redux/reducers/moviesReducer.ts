@@ -39,6 +39,12 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         }
       }
     }
+    case Types.CLEAR_MOVIES_BY_GENRES_STATE: {
+      return {
+        ...state,
+        moviesByGenre: []
+      }
+    }
     default: {
       return state
     }

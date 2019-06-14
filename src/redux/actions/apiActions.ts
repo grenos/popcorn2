@@ -18,6 +18,8 @@ export const Types: any = {
   GET_MOVIE_BY_GENRE_SUCCESS: 'GET_MOVIE_BY_GENRE_SUCCESS',
   GET_SERIE_BY_GENRE_REQUEST: 'GET_SERIE_BY_GENRE_REQUEST',
   GET_SERIE_BY_GENRE_SUCCESS: 'GET_SERIE_BY_GENRE_SUCCESS',
+  CLEAR_MOVIES_BY_GENRES_STATE: 'CLEAR_MOVIES_BY_GENRES_STATE',
+  CLEAR_SERIES_BY_GENRES_STATE: 'CLEAR_SERIES_BY_GENRES_STATE'
 }
 
 
@@ -109,3 +111,14 @@ export const getSeriesByGenreSuccess = ({ result, id }: INT.ISearchSeries) => ({
   payload: result,
   id
 })
+
+
+
+
+export const clearMoviesByGenreState = () => ({
+  type: Types.CLEAR_MOVIES_BY_GENRES_STATE
+})
+export const clearSeriesByGenreState = () => ({
+  type: Types.CLEAR_SERIES_BY_GENRES_STATE
+})
+

@@ -3,6 +3,7 @@ import { useSpring, animated } from 'react-spring'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
+import { clearMoviesByGenreState, clearSeriesByGenreState } from '../../redux/actions/apiActions'
 import { RouteComponentProps } from "react-router";
 import * as INT from '../../helpers/interfaces'
 import tele from '../../media/img/television.png'
@@ -13,6 +14,8 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   scrolled,
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
+  clearMoviesByGenreState,
+  clearSeriesByGenreState,
   history
 }): JSX.Element => {
 
@@ -25,12 +28,14 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   const handleMoviesToggle = (): void => {
     getToggleMovieCatRequest(true)
     getToggleSerieCatRequest(false)
+    clearSeriesByGenreState()
     history.push('/')
   }
 
   const handleSeriesToggle = (): void => {
     getToggleSerieCatRequest(true)
     getToggleMovieCatRequest(false)
+    clearMoviesByGenreState()
     history.push('/')
   }
 
@@ -59,6 +64,8 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
 
 export default withRouter(connect(null, {
   getToggleMovieCatRequest,
-  getToggleSerieCatRequest
+  getToggleSerieCatRequest,
+  clearMoviesByGenreState,
+  clearSeriesByGenreState
 })(UnconnectedNavToggle))
 

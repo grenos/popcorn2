@@ -40,6 +40,12 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
         }
       }
     }
+    case Types.CLEAR_SERIES_BY_GENRES_STATE: {
+      return {
+        ...state,
+        seriesByGenre: []
+      }
+    }
     default: {
       return state
     }

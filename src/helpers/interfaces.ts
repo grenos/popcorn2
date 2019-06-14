@@ -76,6 +76,8 @@ export interface IToggleProps {
   scrolled: number
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
+  clearMoviesByGenreState: Function
+  clearSeriesByGenreState: Function
   store?: any
 }
 
