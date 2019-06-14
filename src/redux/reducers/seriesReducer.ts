@@ -26,9 +26,18 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
       }
     }
     case Types.GET_SERIE_BY_GENRE_SUCCESS: {
-      return {
-        ...state,
-        seriesByGenre: action.payload
+      if (state.serieCategoryId === action.id) {
+        return {
+          ...state,
+          seriesByGenre: [...state.seriesByGenre, ...action.payload],
+          serieCategoryId: action.id
+        }
+      } else {
+        return {
+          ...state,
+          seriesByGenre: action.payload,
+          serieCategoryId: action.id
+        }
       }
     }
     default: {

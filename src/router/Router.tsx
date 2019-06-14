@@ -13,7 +13,7 @@ const Router = () => {
       <>
         <App />
         <Route exact path="/" component={TopItemsPage} />
-        <Route path="/genres" component={GenreItemsPage} />
+        <Route path="/genres/:id" component={GenreItemsPage} />
         <Route path="/results" component={SearchResultsPage} />
         <Route path="/title" component={TitlePage} />
       </>

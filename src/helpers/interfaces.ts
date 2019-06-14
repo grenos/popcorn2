@@ -87,11 +87,13 @@ export interface IToggleMenuProps {
 export interface ISearchMovies {
   type: string
   result: Array<IMovie>
+  id: number
 }
 
 export interface ISearchSeries {
   type: string
   result: Array<ISerie>
+  id: number
 }
 
 export interface IToggleCat {
@@ -159,6 +161,7 @@ export interface IMoviesState {
   topMovies: Array<IMovie>
   movieGenres: IGenresResult[]
   moviesByGenre: Array<IMovie>
+  movieCategoryId: number
 }
 
 
@@ -168,6 +171,7 @@ export interface ISeriesState {
   topSeries: Array<ISerie>
   serieGenres: IGenresResult[]
   seriesByGenre: Array<ISerie>
+  serieCategoryId: number
 }
 
 export interface IUiState {
@@ -212,6 +216,8 @@ export interface ITopResultsProps {
   getMovies: Function
   getSeries: Function
   userHasTyped?: string
+  moviesId?: number
+  seriesId?: number
 }
 
 export interface ITopResultsPage {
@@ -221,6 +227,17 @@ export interface ITopResultsPage {
   topSeries: Array<ISerie>
   getToggleMoviesRequest: Function
   getToggleSeriesRequest: Function
+}
+
+export interface IGenreResultsPage {
+  isMovieCatSelected: boolean
+  store?: any
+  moviesByGenre: Array<IMovie>
+  seriesByGenre: Array<ISerie>
+  getMoviesByGenreRequest: Function
+  getSeriesByGenreRequest: Function
+  movieCategoryId: number
+  serieCategoryId: number
 }
 
 export interface ITopSearchResultsPage {

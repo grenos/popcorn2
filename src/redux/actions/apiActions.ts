@@ -91,9 +91,10 @@ export const getMoviesByGenreRequest = (id: number, page: number): INT.IGetByGen
   id,
   page
 })
-export const getMoviesByGenreSuccess = ({ result }: INT.ISearchMovies) => ({
+export const getMoviesByGenreSuccess = ({ result, id }: INT.ISearchMovies) => ({
   type: Types.GET_MOVIE_BY_GENRE_SUCCESS,
-  payload: result
+  payload: result,
+  id
 })
 
 
@@ -103,7 +104,8 @@ export const getSeriesByGenreRequest = (id: number, page: number): INT.IGetByGen
   id,
   page
 })
-export const getSeriesByGenreSuccess = ({ result }: INT.ISearchSeries) => ({
+export const getSeriesByGenreSuccess = ({ result, id }: INT.ISearchSeries) => ({
   type: Types.GET_SERIE_BY_GENRE_SUCCESS,
-  payload: result
+  payload: result,
+  id
 })

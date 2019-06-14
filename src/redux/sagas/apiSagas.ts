@@ -106,7 +106,8 @@ function* getMoviesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
   try {
     const result = yield call(api.getMoviesByGenre, id, page)
     yield put(actions.getMoviesByGenreSuccess({
-      result: result.data.results
+      result: result.data.results,
+      id
     } as INT.ISearchMovies))
   } catch (e) {
     console.log(e)
@@ -123,7 +124,8 @@ function* getSeriesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
   try {
     const result = yield call(api.getSeriesByGenre, id, page)
     yield put(actions.getSeriesByGenreSuccess({
-      result: result.data.results
+      result: result.data.results,
+      id
     } as INT.ISearchSeries))
   } catch (e) {
     console.log(e)

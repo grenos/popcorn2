@@ -4,30 +4,38 @@ import { Waypoint } from 'react-waypoint';
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from "react-router"
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
+interface RouteParams { id: string, param2?: string }
 
-export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps> = ({
+export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = ({
   isMovieCatSelected,
   movies,
   series,
   getMovies,
   getSeries,
   match,
+  moviesId,
+  seriesId,
+  location,
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
 
-  // const [InputmovieCounter, setInputMovieCounter] = useState<number>(1)
-  // const [InputserieCounter, setInputSerieCounter] = useState<number>(1)
+  const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
+  const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
 
   useEffect(() => {
     return () => {
       if (match.url === '/') {
         sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
         sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
+      } else if (match.url === `/genres/${match.params.id}`) {
+        console.log('im here fuck');
+        sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
+        sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
       } else if (match.url === '/results') {
         return
       }
@@ -38,6 +46,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     if (match.url === '/') {
       setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
       setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
+    } else if (match.url === `/genres/${match.params.id}`) {
+      setGenreMovieCounter(parseInt(sessionStorage.getItem('genre_movies') || `1`))
+      setGenreSerieCounter(parseInt(sessionStorage.getItem('genre_series') || `1`))
     } else if (match.url === '/results') {
       return
     }
@@ -88,22 +99,55 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
 
   const handlePagination = (): void => {
+
     if (isMovieCatSelected) {
+
       if (match.url === '/') {
         setMovieCounter(movieCounter => movieCounter + 1)
         getMovies(movieCounter)
-      } else if (match.url === '/results') {
-        // setInputMovieCounter(InputmovieCounter => InputmovieCounter + 1)
-        // getMovies(userHasTyped, movieCounter)
+
+      } else if (match.url === `/genres/${match.params.id}`) {
+        console.log(match.url + ' * * + ' + `/genres/${match.params.id}`);
+
+        if (location.pathname === location.state.from) {
+          console.log(location.pathname + ' - - - - ' + location.state.from);
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          getMovies(moviesId, genreMovieCounter)
+          console.log('called from same');
+
+        } else {
+
+          setGenreMovieCounter(0)
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          getMovies(moviesId, genreMovieCounter)
+          console.log('im called from not same');
+          console.log(moviesId);
+          console.log(genreMovieCounter);
+
+
+        }
+
+
+      } else if (match.url === 'results') {
         return
       }
+
     } else {
+
       if (match.url === '/') {
         setSerieCounter(serieCounter => serieCounter + 1)
         getSeries(serieCounter)
-      } else if (match.url === '/results') {
-        // setInputSerieCounter(InputserieCounter => InputserieCounter + 1)
-        // getSeries(userHasTyped, movieCounter)
+      } else if (match.url === `/genres/${match.params.id}`) {
+
+        if (location.pathname !== location.state.from) {
+          setGenreSerieCounter(0)
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+        } else {
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+        }
+        getSeries(seriesId, genreSerieCounter)
+
+      } else if (match.url === 'results') {
         return
       }
     }

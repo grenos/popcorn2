@@ -11,9 +11,11 @@ import {
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { Link, withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router";
+
 import popcorn from '../../media/img/popcorn.png'
 
-export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
+export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
   getMovieGenresRequest,
   getSerieGenresRequest,
@@ -22,6 +24,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   isMovieCatSelected,
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
+  location
 }): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
@@ -54,7 +57,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   className="genres"
                   data-test="movie-genres-list-items"
                   onClick={() => handleMovieGenreClick(id, 1)}>
-                  <Link to={`/genres/${name}`}>
+                  <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}>
                     {name}
                   </Link>
                 </a.li>}
@@ -83,7 +86,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   className="genres"
                   data-test="serie-genres-list-items"
                   onClick={() => handleSerieGenreClick(id, 1)}>
-                  <Link to={`/genres/${name}`}>
+                  <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}>
                     {name}
                   </Link>
                 </a.li>}
