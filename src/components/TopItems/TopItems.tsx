@@ -19,6 +19,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   moviesId,
   seriesId,
   location,
+  history
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -39,7 +40,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         return
       }
     }
-  }, [movieCounter, serieCounter, match.url])
+  }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
 
   useEffect(() => {
     if (match.url === '/') {
@@ -104,49 +105,34 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       if (match.url === '/') {
         setMovieCounter(movieCounter => movieCounter + 1)
         getMovies(movieCounter)
-
       } else if (match.url === `/genres/${match.params.id}`) {
-        // i know im at genres page
-        console.log(match.url + ' * * + ' + `/genres/${match.params.id}`);
-
         if (location.pathname === location.state.from) {
-          console.log(location.pathname + ' - - - - ' + location.state.from + ' equal');
-          // setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          // getMovies(moviesId, genreMovieCounter)
-          // console.log('called from same');
-
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          getMovies(moviesId, genreMovieCounter)
         } else {
-          console.log(location.pathname + ' - - - - ' + location.state.from + ' not equal');
-
-          // setGenreMovieCounter(0)
-          // setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          // getMovies(moviesId, genreMovieCounter)
-          // console.log('im called from not same');
-          // console.log(moviesId);
-          // console.log(genreMovieCounter);
-
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreMovieCounter(1)
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
         }
-
-
       } else if (match.url === 'results') {
         return
       }
-
     } else {
 
       if (match.url === '/') {
         setSerieCounter(serieCounter => serieCounter + 1)
         getSeries(serieCounter)
       } else if (match.url === `/genres/${match.params.id}`) {
-
-        if (location.pathname !== location.state.from) {
-          setGenreSerieCounter(0)
+        if (location.pathname === location.state.from) {
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+          getSeries(seriesId, genreSerieCounter)
         } else {
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreSerieCounter(1)
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
         }
-        getSeries(seriesId, genreSerieCounter)
-
       } else if (match.url === 'results') {
         return
       }
