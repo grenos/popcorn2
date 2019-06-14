@@ -33,7 +33,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
         sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
       } else if (match.url === `/genres/${match.params.id}`) {
-        console.log('im here fuck');
         sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
         sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
       } else if (match.url === '/results') {
@@ -107,23 +106,24 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         getMovies(movieCounter)
 
       } else if (match.url === `/genres/${match.params.id}`) {
+        // i know im at genres page
         console.log(match.url + ' * * + ' + `/genres/${match.params.id}`);
 
         if (location.pathname === location.state.from) {
-          console.log(location.pathname + ' - - - - ' + location.state.from);
-          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          getMovies(moviesId, genreMovieCounter)
-          console.log('called from same');
+          console.log(location.pathname + ' - - - - ' + location.state.from + ' equal');
+          // setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          // getMovies(moviesId, genreMovieCounter)
+          // console.log('called from same');
 
         } else {
+          console.log(location.pathname + ' - - - - ' + location.state.from + ' not equal');
 
-          setGenreMovieCounter(0)
-          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          getMovies(moviesId, genreMovieCounter)
-          console.log('im called from not same');
-          console.log(moviesId);
-          console.log(genreMovieCounter);
-
+          // setGenreMovieCounter(0)
+          // setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          // getMovies(moviesId, genreMovieCounter)
+          // console.log('im called from not same');
+          // console.log(moviesId);
+          // console.log(genreMovieCounter);
 
         }
 
