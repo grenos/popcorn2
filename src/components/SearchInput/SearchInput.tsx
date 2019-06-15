@@ -30,16 +30,6 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
     }
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])
 
-
-  // const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
-  //   opacity: scrolled > 20 ? 1 : .1,
-  // })
-
-  // const animateInput = useSpring<INT.IAnimateInput>({
-  //   width: scrolled > 20 ? '190px' : '21px',
-  //   pointerEvents: scrolled > 20 ? 'all' : 'none'
-  // })
-
   const handleChange = (e: InputVal): void => {
     setChange(e.target.value)
   }
@@ -60,20 +50,16 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
     <animated.div
       className="search-input"
       data-test="component-search-input"
-    // style={animateInputContainer}
     >
-
       <animated.input
         type="text"
         name="search"
         className="search-input__inp"
         data-test="search-input"
-        // style={animateInput}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         value={change}
       />
-
       <img
         src={search}
         alt="search"

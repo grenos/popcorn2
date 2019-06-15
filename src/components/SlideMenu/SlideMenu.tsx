@@ -136,7 +136,6 @@ const mapStateToProps = (state: any, props: any) => {
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    // match: props.match
   }
 }
 

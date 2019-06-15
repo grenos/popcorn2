@@ -8,34 +8,27 @@ import logo from '../../media/img/logo.png'
 
 const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
 
-  // const animateHeader = useSpring<INT.IAnimateHeader>({
-  //   height: scrolled > 20 ? `50px` : `90px`,
-  //   background: scrolled > 20
-  //     ? 'rgba(0, 0, 0, 0.8)'
-  //     : 'rgba(0, 0, 0, .2)',
-  //   boxShadow: scrolled > 20
-  //     ? '0px 0px 10px 20px rgba(0, 0, 0, 0.8)'
-  //     : '0px 0px 10px 20px rgba(0, 0, 0, 0.2)'
-  // })
-
-  // const animateImg = useSpring<INT.IAnimateLogo>({
-  //   transform: scrolled > 20 ? 'scale(0.7)' : 'scale(1)',
-  //   opacity: scrolled > 20 ? .6 : .4
-  // })
+  const animateHeader = useSpring<INT.IAnimateHeader>({
+    background: scrolled > 30
+      ? 'rgba(0, 0, 0, 1)'
+      : 'rgba(0, 0, 0, 0.5)',
+    boxShadow: scrolled > 30
+      ? '0px 0px 10px 20px rgba(0, 0, 0, 1)'
+      : '0px 0px 10px 20px rgba(0, 0, 0, 0.5)'
+  })
 
   return (
     <animated.div
       className="nav"
-      // style={animateHeader}
+      style={animateHeader}
       data-test="component-nav"
     >
       <div className="nav__type-toggle-container" >
-        <NavToggle scrolled={scrolled} />
+        <NavToggle />
       </div>
 
       <animated.div
         className="nav__logo"
-        // style={animateImg}
         data-test="nav-logo">
         <img
           src={logo} alt="logo"

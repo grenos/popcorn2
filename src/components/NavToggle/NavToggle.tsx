@@ -11,19 +11,12 @@ import film from '../../media/img/film.png'
 
 
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
-  scrolled,
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   clearMoviesByGenreState,
   clearSeriesByGenreState,
   history
 }): JSX.Element => {
-
-  // const animateToggle = useSpring<INT.IAnimateToggle>({
-  //   transform: scrolled > 20
-  //     ? 'scale(1) translateX(70%)'
-  //     : 'scale(0.8) translateX(-120%)',
-  // })
 
   const handleMoviesToggle = (): void => {
     getToggleMovieCatRequest(true)
@@ -43,7 +36,6 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
     <animated.div
       className="nav__type-toggle"
       data-test="nav-toggle"
-    // style={animateToggle}
     >
       <img src={film}
         alt="movies"

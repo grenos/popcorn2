@@ -36,31 +36,12 @@ describe('should call action creators based on prps', () => {
     const getToggleMenuRequest = getToggleMenuRequestMock.mock.calls.length
     expect(getToggleMenuRequest).toBe(1)
     expect(getToggleMenuRequestMock).toHaveBeenCalledWith(false)
+
+    // const btn = findByTestAttr(wrapper, 'button-toggle').last()
+    // btn.simulate('click')
+    // expect(getToggleMenuRequestMock.mock.calls.length).toBe(1)
+    // expect(getToggleMenuRequestMock).toHaveBeenCalledWith(true)
   })
-
-  // test('should call getMovieGenresRequest action', () => {
-  //   const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
-  //   expect(getMovieGenresRequest).toBe(1)
-  // })
-
-  // test('should call getSerieGenresRequest action', () => {
-  //   const getSerieGenresRequest = getSerieGenresRequestMock.mock.calls.length
-  //   expect(getSerieGenresRequest).not.toBe(1)
-
-  //   const userProps = {
-  //     isMovieCatSelected: false
-  //   }
-  //   const Mockprops = {
-  //     getToggleMenuRequest: getToggleMenuRequestMock,
-  //     getMovieGenresRequest: getMovieGenresRequestMock,
-  //     getSerieGenresRequest: getSerieGenresRequestMock,
-  //   }
-  //   const props = { ...Mockprops, ...userProps }
-  //   wrapper = mount(<UnconnectedMenuToggle {...props} />)
-
-  //   const getSerieGenresRequest2 = getSerieGenresRequestMock.mock.calls.length
-  //   expect(getSerieGenresRequest2).toBe(1)
-  // })
 })
 
 

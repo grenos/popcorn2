@@ -48,7 +48,6 @@ export interface IAnimateMenu {
 }
 
 export interface IAnimateHeader {
-  height: number | string
   background: number | string
   boxShadow: number | string
 }
@@ -73,7 +72,6 @@ export interface IInputProps {
 }
 
 export interface IToggleProps {
-  scrolled: number
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
   clearMoviesByGenreState: Function
@@ -254,6 +252,7 @@ export interface ITopSearchResultsPage {
 
 export interface IMenuPropSingle {
   isMenuOpenProp: boolean
+  store?: any
 }
 
 export interface IMenuSlideAction {
