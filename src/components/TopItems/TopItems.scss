@@ -1,21 +1,27 @@
 .locandine-wrapper {
-  @include flex-box(row, wrap, flex-start, center);
-  padding-top: 70px;
+  // hack for waypoints to call api
+  padding: 1% 0;
+
+  .render-locandine-inner {
+    @include flex-box(row, wrap, flex-start, center);
+    margin-top: -11%;
+  }
 
   .locandina-outer {
     @include flex-box(column, null, center, center);
-    flex-basis: calc(14.28% - 2px);
-    width: calc(14.28vw - 2px);
-    height: 40vh;
-    padding: 1px;
+    flex-basis: calc(14.28% - 20px);
+    width: calc(14.28vw - 20px);
+    height: 35vh;
+    margin: 10px;
     position: relative;
     z-index: 0;
     transition: all 0.3s;
     transition-property: box-shadow;
     cursor: pointer;
+    border-radius: 5px;
 
     a {
-      height: 40vh;
+      height: 35vh;
       text-decoration: none;
       font-weight: 600;
       line-height: 1.2rem;
@@ -33,6 +39,7 @@
     img {
       width: 100%;
       height: 100%;
+      border-radius: 5px;
     }
 
     .overlay-gallery {
@@ -52,6 +59,7 @@
       text-align: center;
       transition: opacity 0.3s;
       color: #fff;
+      border-radius: 5px;
 
       &:hover {
         opacity: 1;

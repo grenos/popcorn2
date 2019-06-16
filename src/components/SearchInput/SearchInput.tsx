@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { useSpring, animated } from 'react-spring'
 import { withRouter } from "react-router-dom"
 import search from '../../media/img/search.png'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
@@ -47,11 +46,11 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   }
 
   return (
-    <animated.div
+    <div
       className="search-input"
       data-test="component-search-input"
     >
-      <animated.input
+      <input
         type="text"
         name="search"
         className="search-input__inp"
@@ -64,7 +63,7 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
         src={search}
         alt="search"
         className="search-input__img" />
-    </animated.div>
+    </div>
   )
 }
 

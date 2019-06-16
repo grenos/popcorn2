@@ -2,6 +2,7 @@ import React from 'react'
 import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
+import VisoreSlider from '../../components/VisoreSlider/VisoreSlider'
 import * as INT from '../../helpers/interfaces'
 
 const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
@@ -13,6 +14,7 @@ const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
 
   return (
     <div>
+      <VisoreSlider />
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
         movies={topMovies}

@@ -6,6 +6,7 @@ import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
 
+
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams { id: string, param2?: string }
 
@@ -29,20 +30,22 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
 
   useEffect(() => {
-    return () => {
-      if (match.url === '/') {
-        sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
-        sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
-      } else if (match.url === `/genres/${match.params.id}`) {
-        sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
-        sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
-      } else if (match.url === '/results') {
-        return
-      }
+    // return () => {
+    if (match.url === '/') {
+      sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
+      sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
+    } else if (match.url === `/genres/${match.params.id}`) {
+      sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
+      sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
+    } else if (match.url === '/results') {
+      return
     }
+    // }
   }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
 
   useEffect(() => {
+    // getMovies(movieCounter)
+
     if (match.url === '/') {
       setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
       setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
@@ -142,8 +145,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-      {renderTitles}
-      <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} />
+
+      <div className="render-locandine-inner">
+        {renderTitles}
+      </div>
+      <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
     </div>
   )
 }

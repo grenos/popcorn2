@@ -1,32 +1,65 @@
-import React from 'react'
-import Swiper from 'react-id-swiper/lib/ReactIdSwiper.full';
-import { params } from '../../helpers/swiperParams'
+import React, { useEffect } from 'react'
+import Carousel from 'nuka-carousel';
 import { connect } from 'react-redux'
+// import remove from 'lodash.remove';
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
+const params = {
+  autoplay: true,
+  autoplayInterval: 6000,
+  dragging: false,
+  slideWidth: 1,
+  speed: 1000,
+  swiping: false,
+  width: '100%',
+  height: '100%',
+  wrapAround: true,
+  pauseOnHover: false
+}
+
 const VisoreSlider = ({ isMovieCatSelected, topMovies, topSeries }) => {
+
+  console.log(topMovies);
+  // original_language = ja
+
   return (
-    <Swiper {...params} >
+    <Carousel {...params}
+      renderCenterLeftControls={() => (
+        null
+      )}
+      renderCenterRightControls={() => (
+        null
+      )}
+    >
       {
-        topMovies.map(movie => {
+        topMovies.slice(0, 7).map(movie => {
           return (
             <div
               key={movie.id}
               className="slide-outer"
-              style={{ background: `url(${URL + movie.backdrop_path})` }}
+              style={{ backgroundImage: `url(${URL + movie.backdrop_path})` }}
             >
-              <div className="overlay-gallery">
-                {/* <h3>{movie.title}</h3> */}
-                <div className="ratings">
-                  <p>{movie.info}</p>
+              <div className="overlay-gallery-1">
+                <div className="overlay-gallery-2">
+                  <div className="info-wrapper">
+                    <h3>{movie.title}</h3>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro adipisci fugiat dolorum maiores non qui sequi aliquid aspernatur, rerum neque dolores iusto excepturi nesciunt possimus nemo quidem velit dignissimos reprehenderit?
+                    </p>
+                    <div className="cta">
+                      <button onClick={() => console.log('clicked')}>
+                        Details
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           )
         })
       }
-    </Swiper>
+    </Carousel>
   )
 }
 

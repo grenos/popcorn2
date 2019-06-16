@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSpring, animated } from 'react-spring'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
@@ -33,7 +32,7 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   }
 
   return (
-    <animated.div
+    <div
       className="nav__type-toggle"
       data-test="nav-toggle"
     >
@@ -49,7 +48,7 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
         className="toggle__img--tele"
         onClick={handleSeriesToggle}
       />
-    </animated.div>
+    </div>
 
   )
 }
