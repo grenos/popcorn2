@@ -15,11 +15,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   series,
   getMovies,
   getSeries,
-  match,
   moviesId,
   seriesId,
   location,
-  history
+  history,
+  match,
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -53,6 +53,47 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       return
     }
   }, [])
+
+
+  const handlePagination = (): void => {
+    if (isMovieCatSelected) {
+
+      if (match.url === '/') {
+        setMovieCounter(movieCounter => movieCounter + 1)
+        getMovies(movieCounter)
+      } else if (match.url === `/genres/${match.params.id}`) {
+        if (location.pathname === location.state.from) {
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          getMovies(moviesId, genreMovieCounter)
+        } else {
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreMovieCounter(1)
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+        }
+      } else if (match.url === 'results') {
+        return
+      }
+    } else {
+
+      if (match.url === '/') {
+        setSerieCounter(serieCounter => serieCounter + 1)
+        getSeries(serieCounter)
+      } else if (match.url === `/genres/${match.params.id}`) {
+        if (location.pathname === location.state.from) {
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+          getSeries(seriesId, genreSerieCounter)
+        } else {
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreSerieCounter(1)
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+        }
+      } else if (match.url === 'results') {
+        return
+      }
+    }
+  }
 
 
   const renderMovies = (): JSX.Element[] => {
@@ -95,48 +136,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         )
       })
     )
-  }
-
-
-  const handlePagination = (): void => {
-
-    if (isMovieCatSelected) {
-
-      if (match.url === '/') {
-        setMovieCounter(movieCounter => movieCounter + 1)
-        getMovies(movieCounter)
-      } else if (match.url === `/genres/${match.params.id}`) {
-        if (location.pathname === location.state.from) {
-          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          getMovies(moviesId, genreMovieCounter)
-        } else {
-          // resets parameters on category change
-          history.push({ state: { from: location.pathname } })
-          setGenreMovieCounter(1)
-          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-        }
-      } else if (match.url === 'results') {
-        return
-      }
-    } else {
-
-      if (match.url === '/') {
-        setSerieCounter(serieCounter => serieCounter + 1)
-        getSeries(serieCounter)
-      } else if (match.url === `/genres/${match.params.id}`) {
-        if (location.pathname === location.state.from) {
-          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
-          getSeries(seriesId, genreSerieCounter)
-        } else {
-          // resets parameters on category change
-          history.push({ state: { from: location.pathname } })
-          setGenreSerieCounter(1)
-          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
-        }
-      } else if (match.url === 'results') {
-        return
-      }
-    }
   }
 
   const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
