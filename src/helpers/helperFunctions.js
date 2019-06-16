@@ -7,3 +7,12 @@ export const filterNoImg = (baseUrl, poster, placeholder) => {
   }
 }
 
+
+export const makeDashesUrl = str => {
+  if (str) {
+    return str.replace(/\s+/g, '_')
+  } else {
+    return
+  }
+}
+

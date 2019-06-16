@@ -3,7 +3,7 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
-import { filterNoImg } from '../../helpers/helperFunctions'
+import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
 
 
@@ -104,7 +104,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       movies.map(({ id, poster_path, title, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-movie" >
-            <Link to={`/title/${id}`}>
+            <Link to={`/title/${makeDashesUrl(title)}`}>
               <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${title}`} />
               <div className="overlay-gallery">
                 <h3>{title}</h3>
@@ -125,7 +125,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       series.map(({ id, poster_path, name, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-serie" >
-            <Link to={`/title/${id}`}>
+            <Link to={`/title/${makeDashesUrl(name)}`}>
               <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${name}`} />
               <div className="overlay-gallery">
                 <h3>{name}</h3>

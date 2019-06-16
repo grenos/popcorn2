@@ -64,7 +64,7 @@ describe('<UnconnectedSearchInput>', () => {
       userHasTypedRequest: userHasTypedRequestMock,
       isMovieCatSelected: true,
       isSerieCatSelected: false,
-      scrolled: 21,
+      scrolled: 31,
       history: history
     }
     userInput = 'matrix'
@@ -85,7 +85,7 @@ describe('<UnconnectedSearchInput>', () => {
     const userProps = {
       isMovieCatSelected: false,
       isSerieCatSelected: true,
-      scrolled: 21,
+      scrolled: 31,
       getUserInputMoviesRequest: getUserInputMovieRequestMock,
       getUserInputSeriesRequest: getUserInputSeriesRequestMock,
       userHasTypedRequest: userHasTypedRequestMock,
@@ -117,6 +117,10 @@ describe('<UnconnectedSearchInput>', () => {
     expect(findByTestAttr(wrapper, 'search-input').last().props().value).toEqual('_test_')
   })
 
+  test('should animate border width', () => {
+    const input = findByTestAttr(wrapper, 'search-input').dive()
+    expect(input.prop('style')).toEqual({ 'borderWidth': 1 })
+  })
 })
 
 

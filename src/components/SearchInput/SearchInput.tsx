@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useSpring, animated as a } from 'react-spring'
 import { withRouter } from "react-router-dom"
 import search from '../../media/img/search.png'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
@@ -22,9 +23,9 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   const [change, setChange] = useState<string>('')
 
   useEffect((): void => {
-    if (isMovieCatSelected && scrolled < 20) {
+    if (isMovieCatSelected && scrolled < 30) {
       setChange('')
-    } else if (isSerieCatSelected && scrolled < 20) {
+    } else if (isSerieCatSelected && scrolled < 30) {
       setChange('')
     }
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])
@@ -45,16 +46,22 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
     }
   }
 
+  const animateBorder = useSpring<INT.IAnimateInput>({
+    borderWidth: scrolled > 30 ? 1 : 0
+  })
+
+
   return (
     <div
       className="search-input"
       data-test="component-search-input"
     >
-      <input
+      <a.input
         type="text"
         name="search"
         className="search-input__inp"
         data-test="search-input"
+        style={animateBorder}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         value={change}

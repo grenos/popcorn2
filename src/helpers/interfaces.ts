@@ -57,8 +57,7 @@ export interface IAnimateInputContainer {
 }
 
 export interface IAnimateInput {
-  width: string
-  pointerEvents: string
+  borderWidth: number
 }
 
 export interface IInputProps {
@@ -218,6 +217,13 @@ export interface ITopResultsProps {
   userHasTyped?: string
   moviesId?: number
   seriesId?: number
+}
+
+export interface IVisoreProps {
+  isMovieCatSelected: boolean
+  store?: any
+  topMovies: Array<IMovie>
+  topSeries: Array<ISerie>
 }
 
 export interface ITopResultsPage {
