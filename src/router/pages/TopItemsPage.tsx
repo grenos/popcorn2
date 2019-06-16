@@ -12,13 +12,15 @@ const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
   getToggleMoviesRequest,
   getToggleSeriesRequest }) => {
 
+
+
   return (
     <div>
       <VisoreSlider />
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
-        movies={topMovies}
-        series={topSeries}
+        movies={topMovies.slice(7)}
+        series={topSeries.slice(7)}
         getMovies={getToggleMoviesRequest}
         getSeries={getToggleSeriesRequest}
       />
