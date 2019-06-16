@@ -26,7 +26,7 @@ const VisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
   topMovies,
   topSeries,
   history
-}) => {
+}): JSX.Element => {
 
 
   const handleGoToMovie = (title: string, id: number): void => {
