@@ -208,6 +208,7 @@ export interface IMenuProps {
   isMovieCatSelected: boolean
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
+
 }
 
 export interface ITopResultsProps {
@@ -220,6 +221,9 @@ export interface ITopResultsProps {
   userHasTyped?: string
   moviesId?: number
   seriesId?: number
+  TopItemsActive: boolean
+  SearchItemsActive: boolean
+  genreItemsActive: boolean
 }
 
 export interface IVisoreProps {

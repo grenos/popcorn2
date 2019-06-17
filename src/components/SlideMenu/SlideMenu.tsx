@@ -24,7 +24,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   isMovieCatSelected,
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
-  location
+  location,
+  history
 }): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
@@ -34,6 +35,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   })
 
   useEffect(() => {
+    history.push({ state: { from: '' } })
+
     isMovieCatSelected
       ? getMovieGenresRequest()
       : getSerieGenresRequest()
@@ -56,10 +59,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
                   style={{ opacity, transform }}
                   className="genres"
                   data-test="movie-genres-list-items"
-                  onClick={() => handleMovieGenreClick(id, 1)}>
-                  <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}>
-                    {name}
-                  </Link>
+                  onClick={() => handleMovieGenreClick(id, 1, name)}>
+                  {/* <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}> */}
+                  {name}
+                  {/* </Link> */}
                 </a.li>}
             </Trail>
           }
@@ -85,10 +88,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
                   style={{ opacity, transform }}
                   className="genres"
                   data-test="serie-genres-list-items"
-                  onClick={() => handleSerieGenreClick(id, 1)}>
-                  <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}>
-                    {name}
-                  </Link>
+                  onClick={() => handleSerieGenreClick(id, 1, name)}>
+                  {/* <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}> */}
+                  {name}
+                  {/* </Link> */}
                 </a.li>}
             </Trail>
           }
@@ -97,12 +100,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     )
   }
 
-  const handleMovieGenreClick = (id: number, page: number): void => {
-    getMoviesByGenreRequest(id, page)
+  const handleMovieGenreClick = (id: number, page: number, name: string): void => {
+    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    if (location.pathname !== location.state.from) {
+      getMoviesByGenreRequest(id, page)
+    }
   }
 
-  const handleSerieGenreClick = (id: number, page: number): void => {
-    getSeriesByGenreRequest(id, page)
+  const handleSerieGenreClick = (id: number, page: number, name: string): void => {
+    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    if (location.pathname !== location.state.from) {
+      getSeriesByGenreRequest(id, page)
+    }
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()

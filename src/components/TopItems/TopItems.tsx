@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
+import { connect } from 'react-redux'
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
@@ -21,6 +22,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   location,
   history,
   match,
+  TopItemsActive,
+  SearchItemsActive,
+  genreItemsActive
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -44,8 +48,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
 
   useEffect(() => {
-    // getMovies(movieCounter)
-
     if (match.url === '/') {
       setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
       setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
@@ -145,7 +147,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-      <div className="render-locandine-inner">
+      <div className="render-locandine-inner" style={{ marginTop: TopItemsActive ? '-11%' : 0 }}>
         {renderTitles}
       </div>
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
@@ -153,5 +155,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   )
 }
 
-export default withRouter(UnconnectedTopItems)
+const mapStateToProps = (state: any) => {
+  return {
+    TopItemsActive: state.uiReducer.TopItemsActive,
+    SearchItemsActive: state.uiReducer.SearchItemsActive,
+    genreItemsActive: state.uiReducer.genreItemsActive
+  }
+}
+
+export default withRouter(connect(mapStateToProps, null)(UnconnectedTopItems))
 
