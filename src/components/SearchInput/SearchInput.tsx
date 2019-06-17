@@ -61,6 +61,7 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
         name="search"
         className="search-input__inp"
         data-test="search-input"
+        placeholder="Search"
         style={animateBorder}
         onChange={handleChange}
         onKeyUp={handleKeyUp}

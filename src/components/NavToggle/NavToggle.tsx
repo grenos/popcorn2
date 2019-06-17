@@ -5,8 +5,8 @@ import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/
 import { clearMoviesByGenreState, clearSeriesByGenreState } from '../../redux/actions/apiActions'
 import { RouteComponentProps } from "react-router";
 import * as INT from '../../helpers/interfaces'
-import tele from '../../media/img/television.png'
-import film from '../../media/img/film.png'
+// import tele from '../../media/img/television.png'
+// import film from '../../media/img/film.png'
 
 
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
@@ -36,18 +36,21 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
       className="nav__type-toggle"
       data-test="nav-toggle"
     >
-      <img src={film}
-        alt="movies"
+      <div
         data-test='toggle-film'
         className="toggle__img--film"
         onClick={handleMoviesToggle}
-      />
-      <img src={tele}
-        alt="series"
+      >
+        <p>Movies</p>
+      </div>
+
+      <div
         data-test='toggle-serie'
         className="toggle__img--tele"
         onClick={handleSeriesToggle}
-      />
+      >
+        <p>Series</p>
+      </div>
     </div>
 
   )
