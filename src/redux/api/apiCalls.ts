@@ -7,11 +7,11 @@ const apikey: string = 'fdde855cd4b047fb1a0ea24a7ec58362';
 
 
 export const getUserInputMovies = async (value: string): Promise<{}> => {
-  const res = await axios.get(`/search/movie?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&query=${value}`)
+  const res = await axios.get(`/search/movie?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&query=${value}`)
   return res
 }
 export const getUserInputSeries = async (value: string): Promise<{}> => {
-  const res = await axios.get(`/search/tv?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&query=${value}&page=$`)
+  const res = await axios.get(`/search/tv?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&query=${value}&page=$`)
   return res
 }
 

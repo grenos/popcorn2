@@ -10,7 +10,7 @@ import {
 } from '../../redux/actions/apiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
-import { Link, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router";
 
 import popcorn from '../../media/img/popcorn.png'
@@ -60,9 +60,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
                   className="genres"
                   data-test="movie-genres-list-items"
                   onClick={() => handleMovieGenreClick(id, 1, name)}>
-                  {/* <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}> */}
                   {name}
-                  {/* </Link> */}
                 </a.li>}
             </Trail>
           }
@@ -89,9 +87,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
                   className="genres"
                   data-test="serie-genres-list-items"
                   onClick={() => handleSerieGenreClick(id, 1, name)}>
-                  {/* <Link to={{ pathname: `/genres/${name}`, state: { from: location.pathname } }}> */}
                   {name}
-                  {/* </Link> */}
                 </a.li>}
             </Trail>
           }

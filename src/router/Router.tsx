@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from '../components/App/App'
 import TopItemsPage from './pages/TopItemsPage'

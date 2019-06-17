@@ -60,6 +60,14 @@ export interface IAnimateInput {
   borderWidth: number
 }
 
+export interface IAnimateChevron {
+  transform: string
+}
+
+export interface IAnimateHighlight {
+  height: string
+}
+
 export interface IInputProps {
   scrolled: number
   getUserInputMoviesRequest?: any
@@ -231,6 +239,13 @@ export interface IVisoreProps {
   store?: any
   topMovies: Array<IMovie>
   topSeries: Array<ISerie>
+}
+
+export interface IHighlightProps {
+  isMovieCatSelected: boolean
+  store?: any
+  searchMovies: Array<IMovie>
+  searchSeries: Array<ISerie>
 }
 
 export interface ITopResultsPage {

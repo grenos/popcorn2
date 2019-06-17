@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
 import { SearchItemsActive } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
+import ItemHighlight from '../../components/ItemHighLight/ItemHighlight'
 
 const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
   isMovieCatSelected,
@@ -24,10 +25,11 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
 
   return (
     <div>
+      <ItemHighlight />
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
-        movies={searchMovies}
-        series={searchSeries}
+        movies={searchMovies.slice(1)}
+        series={searchSeries.slice(1)}
         getMovies={getUserInputMoviesRequest}
         getSeries={getUserInputSeriesRequest}
       />
