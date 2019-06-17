@@ -21,7 +21,7 @@ const params = {
   pauseOnHover: false,
 }
 
-const VisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
+export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
   isMovieCatSelected,
   topMovies,
   topSeries,
@@ -43,6 +43,7 @@ const VisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
       transitionMode="fade"
       renderCenterLeftControls={() => null}
       renderCenterRightControls={() => null}
+      data-test="visore-component"
     >
       {
         isMovieCatSelected ?
@@ -51,6 +52,7 @@ const VisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
               <div
                 key={id}
                 className="slide-outer"
+                data-test="movie-slide"
                 style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="overlay-gallery-1">
@@ -78,6 +80,7 @@ const VisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
               <div
                 key={id}
                 className="slide-outer"
+                data-test="serie-slide"
                 style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="overlay-gallery-1">
@@ -113,6 +116,6 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(VisoreSlider))
+export default withRouter(connect(mapStateToProps, null)(UnconnectedVisoreSlider))
 
 
