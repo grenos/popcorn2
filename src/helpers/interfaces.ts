@@ -178,6 +178,9 @@ export interface IUiState {
   isMovieCatSelected: boolean
   isSerieCatSelected: boolean
   userHasTyped: ''
+  TopItemsActive: boolean
+  SearchItemsActive: boolean
+  genreItemsActive: boolean
 }
 
 
@@ -233,6 +236,7 @@ export interface ITopResultsPage {
   topSeries: Array<ISerie>
   getToggleMoviesRequest: Function
   getToggleSeriesRequest: Function
+  TopItemsActive: Function
 }
 
 export interface IGenreResultsPage {
@@ -244,6 +248,7 @@ export interface IGenreResultsPage {
   getSeriesByGenreRequest: Function
   movieCategoryId: number
   serieCategoryId: number
+  genreItemsActive: Function
 }
 
 export interface ITopSearchResultsPage {
@@ -254,6 +259,7 @@ export interface ITopSearchResultsPage {
   getUserInputMoviesRequest: Function
   getUserInputSeriesRequest: Function
   userHasTyped: string
+  SearchItemsActive: Function
 }
 
 export interface IMenuPropSingle {

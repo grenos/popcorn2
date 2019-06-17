@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
+import { SearchItemsActive } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 
 const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
@@ -9,7 +10,17 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
   searchMovies,
   searchSeries,
   getUserInputMoviesRequest,
-  getUserInputSeriesRequest, }) => {
+  getUserInputSeriesRequest,
+  SearchItemsActive
+}) => {
+
+  useEffect(() => {
+    SearchItemsActive(true)
+    return () => {
+      SearchItemsActive(false)
+    }
+  })
+
 
   return (
     <div>
@@ -34,6 +45,7 @@ const mapStateToProps = (state: any) => {
 
 export default connect(mapStateToProps, {
   getUserInputMoviesRequest,
-  getUserInputSeriesRequest
+  getUserInputSeriesRequest,
+  SearchItemsActive
 })(SearchResultsPage)
 

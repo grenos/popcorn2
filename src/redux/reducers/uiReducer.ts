@@ -30,6 +30,24 @@ export default function uiReducer(state = UI_STATE, action: any) {
         userHasTyped: action.payload
       }
     }
+    case Types.TOP_ITEMS_ACTIVE_ACTION: {
+      return {
+        ...state,
+        TopItemsActive: action.toggle
+      }
+    }
+    case Types.SEARCH_ITEMS_ACTIVE_ACTION: {
+      return {
+        ...state,
+        SearchItemsActive: action.toggle
+      }
+    }
+    case Types.GENRE_ITEMS_ACTIVE_ACTION: {
+      return {
+        ...state,
+        genreItemsActive: action.toggle
+      }
+    }
     default: {
       return state
     }

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
 import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
+import { genreItemsActive } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 
 const GenreItemsPage: React.FC<INT.IGenreResultsPage> = ({
@@ -11,7 +12,17 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage> = ({
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
   movieCategoryId,
-  serieCategoryId }) => {
+  serieCategoryId,
+  genreItemsActive
+}) => {
+
+  useEffect(() => {
+    genreItemsActive(true)
+    return () => {
+      genreItemsActive(false)
+    }
+  })
+
 
   return (
     <div>
@@ -41,6 +52,7 @@ const mapStateToProps = (state: any) => {
 
 export default connect(mapStateToProps, {
   getMoviesByGenreRequest,
-  getSeriesByGenreRequest
+  getSeriesByGenreRequest,
+  genreItemsActive
 })(GenreItemsPage)
 

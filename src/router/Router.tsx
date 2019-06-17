@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from '../components/App/App'
 import TopItemsPage from './pages/TopItemsPage'
@@ -8,6 +8,7 @@ import TitlePage from './pages/TitlePage'
 
 
 const Router = () => {
+
   return (
     <BrowserRouter>
       <>

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
+import { TopItemsActive } from '../../redux/actions/uiActions'
 import VisoreSlider from '../../components/VisoreSlider/VisoreSlider'
 import * as INT from '../../helpers/interfaces'
 
@@ -10,9 +11,16 @@ const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
   topMovies,
   topSeries,
   getToggleMoviesRequest,
-  getToggleSeriesRequest }) => {
+  getToggleSeriesRequest,
+  TopItemsActive
+}) => {
 
-
+  useEffect(() => {
+    TopItemsActive(true)
+    return () => {
+      TopItemsActive(false)
+    }
+  })
 
   return (
     <div>
@@ -39,6 +47,7 @@ const mapStateToProps = (state: any) => {
 
 export default connect(mapStateToProps, {
   getToggleMoviesRequest,
-  getToggleSeriesRequest
+  getToggleSeriesRequest,
+  TopItemsActive
 })(TopItemsPage)
 

@@ -145,7 +145,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-
       <div className="render-locandine-inner">
         {renderTitles}
       </div>

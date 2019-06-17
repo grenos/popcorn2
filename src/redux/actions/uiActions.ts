@@ -9,7 +9,10 @@ export const Types: any = {
   GET_TOGGLE_SERIE_CAT_SUCCESS: 'GET_TOGGLE_SERIE_CAT_SUCCESS',
   GET_TOGGLE_SERIE_CAT_REQUEST: 'GET_TOGGLE_SERIE_CAT_REQUEST',
   USER_HAS_TYPED_REQUEST: 'USER_HAS_TYPED_REQUEST',
-  USER_HAS_TYPED_SUCCESS: 'USER_HAS_TYPED_SUCCESS'
+  USER_HAS_TYPED_SUCCESS: 'USER_HAS_TYPED_SUCCESS',
+  TOP_ITEMS_ACTIVE_ACTION: 'TOP_ITEMS_ACTIVE_ACTION',
+  SEARCH_ITEMS_ACTIVE_ACTION: 'SEARCH_ITEMS_ACTIVE_ACTION',
+  GENRE_ITEMS_ACTIVE_ACTION: 'GENRE_ITEMS_ACTIVE_ACTION'
 }
 
 
@@ -51,4 +54,18 @@ export const userHasTypedRequest = (input: string) => ({
 export const userHasTypedSuccess = ({ payload }: any) => ({
   type: Types.USER_HAS_TYPED_SUCCESS,
   payload
+})
+
+
+export const TopItemsActive = (toggle: boolean) => ({
+  type: Types.TOP_ITEMS_ACTIVE_ACTION,
+  toggle
+})
+export const SearchItemsActive = (toggle: boolean) => ({
+  type: Types.SEARCH_ITEMS_ACTIVE_ACTION,
+  toggle
+})
+export const genreItemsActive = (toggle: boolean) => ({
+  type: Types.GENRE_ITEMS_ACTIVE_ACTION,
+  toggle
 })
