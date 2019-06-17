@@ -5,13 +5,20 @@
 }
 
 .toggle__img--film {
-  margin: 0 30px 0 0;
+  margin: 0 20px 0 0;
   cursor: pointer;
   color: #fff;
   font-size: 18px;
 }
 
 .toggle__img--tele {
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.favorites-button {
+  margin: 0 0 0 60px;
   color: #fff;
   cursor: pointer;
   font-size: 18px;

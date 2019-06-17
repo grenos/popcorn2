@@ -31,6 +31,10 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
     history.push('/')
   }
 
+  const handleMyFavorites = (): void => {
+    console.log('favorites');
+  }
+
   return (
     <div
       className="nav__type-toggle"
@@ -50,6 +54,14 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
         onClick={handleSeriesToggle}
       >
         <p>Series</p>
+      </div>
+
+      <div
+        data-test='favorites-button'
+        className="favorites-button"
+        onClick={handleMyFavorites}
+      >
+        <p>My Favorites</p>
       </div>
     </div>
 
