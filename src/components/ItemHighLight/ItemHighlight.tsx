@@ -27,6 +27,10 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
     height: toggle ? '60vh' : '7vh'
   })
 
+  const animateOpacity = useSpring<INT.IAnimateOpacity>({
+    opacity: toggle ? 1 : 0
+  })
+
   const handleGoToMovie = (title: string, id: number): void => {
     history.push(`/title/${makeDashesUrl(title)}`)
   }
@@ -51,10 +55,10 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                 style={{ backgroundImage: `url(${URL + backdrop_path})`, ...animateHighlight }}
               >
                 <div className="highlight-content">
-                  <div className="highlight-video">
+                  <a.div className="highlight-video" style={animateOpacity}>
                     <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
-                  </div>
-                  <div className="info-wrapper-highlight">
+                  </a.div>
+                  <a.div className="info-wrapper-highlight" style={animateOpacity}>
                     <h3>{title}</h3>
                     <p>{overview}</p>
                     <div className="cta">
@@ -65,10 +69,10 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                         Add to list
                         </button>
                     </div>
-                  </div>
-                  <div className="chevron" onClick={handleHighlightToggle}>
-                    <a.img src={chevron} alt="close" style={animateChevron} />
-                  </div>
+                  </a.div>
+                </div>
+                <div className="chevron" onClick={handleHighlightToggle}>
+                  <a.img src={chevron} alt="close" style={animateChevron} />
                 </div>
               </a.div>
             )
@@ -82,24 +86,24 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                 style={{ backgroundImage: `url(${URL + backdrop_path})`, ...animateHighlight }}
               >
                 <div className="highlight-content">
-                  <div className="highlight-video">
+                  <a.div className="highlight-video" style={animateOpacity}>
                     <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
-                  </div>
-                  <div className="info-wrapper-highlight">
+                  </a.div>
+                  <a.div className="info-wrapper-highlight" style={animateOpacity}>
                     <h3>{name}</h3>
                     <p>{overview}</p>
                     <div className="cta">
-                      <button onClick={() => handleGoToMovie(name, id)}>
+                      <button onClick={() => handleGoToSerie(name, id)}>
                         Details
                       </button>
                       <button onClick={() => console.log('added')}>
                         Add to list
                       </button>
                     </div>
-                  </div>
-                  <div className="chevron" onClick={handleHighlightToggle}>
-                    <a.img src={chevron} alt="close" style={animateChevron} />
-                  </div>
+                  </a.div>
+                </div>
+                <div className="chevron" onClick={handleHighlightToggle}>
+                  <a.img src={chevron} alt="close" style={animateChevron} />
                 </div>
               </a.div>
             )

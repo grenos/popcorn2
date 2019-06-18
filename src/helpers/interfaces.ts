@@ -68,6 +68,10 @@ export interface IAnimateHighlight {
   height: string
 }
 
+export interface IAnimateOpacity {
+  opacity: number
+}
+
 export interface IInputProps {
   scrolled: number
   getUserInputMoviesRequest?: any

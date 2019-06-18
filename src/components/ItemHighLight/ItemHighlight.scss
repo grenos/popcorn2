@@ -63,16 +63,15 @@
         }
       }
     }
-
-    .chevron {
-      cursor: pointer;
-      position: absolute;
-      bottom: 2%;
-      left: 50%;
-      img {
-        width: 30px;
-        transform: rotate(90deg);
-      }
+  }
+  .chevron {
+    cursor: pointer;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    img {
+      width: 30px;
+      transform: rotate(90deg);
     }
   }
 }
