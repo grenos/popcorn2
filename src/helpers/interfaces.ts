@@ -252,6 +252,14 @@ export interface IHighlightProps {
   searchSeries: Array<ISerie>
 }
 
+export interface IModalProps {
+  id: number
+  store?: any
+  backdrop_path: string
+  title: string
+  overview: string
+}
+
 export interface ITopResultsPage {
   isMovieCatSelected: boolean
   store?: any

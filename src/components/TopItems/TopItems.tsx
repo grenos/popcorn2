@@ -6,7 +6,11 @@ import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
+import MovieModal from '../MovieModal/MovieModal'
+import chevron from '../../media/img/chevron.png'
+import chunk from 'lodash.chunk'
 
+// var chunk = require('lodash.chunk');
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams { id: string, param2?: string }
@@ -32,6 +36,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
   const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
+
+  const [toggleModal, setToggleModal] = useState<boolean>(false)
+  const [selectedId, setSelectedId] = useState<number>(0)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
   useEffect(() => {
     // return () => {
@@ -100,22 +108,63 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
+  const handleModalStates = (id: number, index: number) => {
+    setSelectedId(id)
+    setSelectedIndex(index)
+    setToggleModal(toggleModal => !toggleModal)
+  }
+
+  const handleModal = (
+    id: number,
+    backdrop_path: string,
+    title: string,
+    overview: string,
+    index: number
+  ) => {
+    if (id === selectedId && index === selectedIndex) {
+      return <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
+    }
+  }
+
+
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      movies.map(({ id, poster_path, title, vote_average }) => {
+      chunk(movies, 7).map((arr: any, index: number) => {
         return (
-          <div key={id} className="locandina-outer" data-test="locandina-movie" >
-            <Link to={`/title/${makeDashesUrl(title)}`}>
-              <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${title}`} />
-              <div className="overlay-gallery">
-                <h3>{title}</h3>
-                <div className="ratings">
-                  <p>{vote_average}</p>
-                  <img src={popcorn} alt="logo" />
-                </div>
-              </div>
-            </Link>
+          <div key={index}>
+            <div className="row">
+              {
+                arr.map((movie: any) => (
+                  <div className="loc-wrapper" key={movie.id}>
+                    <div className="locandina-outer" data-test="locandina-movie" >
+                      {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
+                      <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                      <div className="overlay-gallery">
+                        <h3>{movie.title}</h3>
+                        <div className="ratings">
+                          <p>{movie.vote_average}</p>
+                          <img src={popcorn} alt="logo" />
+                        </div>
+                        <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
+                          <img src={chevron} alt="open modal" />
+                        </div>
+                      </div>
+                      {/* </Link> */}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div className="modal-wrapper">
+              {
+                movies.map(({ id, backdrop_path, title, overview }) => {
+                  return (
+                    toggleModal && handleModal(id, backdrop_path, title, overview, index)
+                  )
+                })
+              }
+            </div>
           </div>
         )
       })
@@ -124,19 +173,41 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      series.map(({ id, poster_path, name, vote_average }) => {
+      chunk(series, 7).map((arr: any, index: number) => {
         return (
-          <div key={id} className="locandina-outer" data-test="locandina-serie" >
-            <Link to={`/title/${makeDashesUrl(name)}`}>
-              <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${name}`} />
-              <div className="overlay-gallery">
-                <h3>{name}</h3>
-                <div className="ratings">
-                  <p>{vote_average}</p>
-                  <img src={popcorn} alt="logo" />
-                </div>
-              </div>
-            </Link>
+          <div key={index}>
+            <div className="row">
+              {
+                arr.map((serie: any) => (
+                  <div className="loc-wrapper" key={serie.id}>
+                    <div className="locandina-outer" data-test="locandina-movie" >
+                      {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
+                      <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                      <div className="overlay-gallery">
+                        <h3>{serie.title}</h3>
+                        <div className="ratings">
+                          <p>{serie.vote_average}</p>
+                          <img src={popcorn} alt="logo" />
+                        </div>
+                        <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
+                          <img src={chevron} alt="open modal" />
+                        </div>
+                      </div>
+                      {/* </Link> */}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div className="modal-wrapper">
+              {
+                series.map(({ id, backdrop_path, name, overview }) => {
+                  return (
+                    toggleModal && handleModal(id, backdrop_path, name, overview, index)
+                  )
+                })
+              }
+            </div>
           </div>
         )
       })
