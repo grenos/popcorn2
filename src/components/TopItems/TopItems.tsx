@@ -141,11 +141,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                       {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
                       <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
                       <div className="overlay-gallery">
-                        <h3>{movie.title}</h3>
-                        <div className="ratings">
-                          <p>{movie.vote_average}</p>
-                          <img src={popcorn} alt="logo" />
-                        </div>
                         <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
                           <img src={chevron} alt="open modal" />
                         </div>
@@ -184,11 +179,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                       {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
                       <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                       <div className="overlay-gallery">
-                        <h3>{serie.title}</h3>
-                        <div className="ratings">
-                          <p>{serie.vote_average}</p>
-                          <img src={popcorn} alt="logo" />
-                        </div>
                         <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
                           <img src={chevron} alt="open modal" />
                         </div>
@@ -217,8 +207,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
 
   return (
-    <div className="locandine-wrapper" data-test="component-locandine">
-      <div className="render-locandine-inner" style={{ marginTop: TopItemsActive ? '-11%' : 0 }}>
+    <div className="locandine-wrapper" data-test="component-locandine" style={{ marginTop: TopItemsActive ? '-11%' : 0 }}>
+      <div className="render-locandine-inner" >
         {renderTitles}
       </div>
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
