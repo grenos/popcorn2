@@ -10,10 +10,12 @@ import {
 } from '../../redux/actions/apiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
-import { Link, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router";
+
 import popcorn from '../../media/img/popcorn.png'
 
-export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
+export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
   getMovieGenresRequest,
   getSerieGenresRequest,
@@ -22,6 +24,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   isMovieCatSelected,
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
+  location,
+  history
 }): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
@@ -31,6 +35,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
   })
 
   useEffect(() => {
+    history.push({ state: { from: '' } })
+
     isMovieCatSelected
       ? getMovieGenresRequest()
       : getSerieGenresRequest()
@@ -53,10 +59,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   style={{ opacity, transform }}
                   className="genres"
                   data-test="movie-genres-list-items"
-                  onClick={() => handleMovieGenreClick(id, 1)}>
-                  <Link to={`/genres/${name}`}>
-                    {name}
-                  </Link>
+                  onClick={() => handleMovieGenreClick(id, 1, name)}>
+                  {name}
                 </a.li>}
             </Trail>
           }
@@ -82,10 +86,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
                   style={{ opacity, transform }}
                   className="genres"
                   data-test="serie-genres-list-items"
-                  onClick={() => handleSerieGenreClick(id, 1)}>
-                  <Link to={`/genres/${name}`}>
-                    {name}
-                  </Link>
+                  onClick={() => handleSerieGenreClick(id, 1, name)}>
+                  {name}
                 </a.li>}
             </Trail>
           }
@@ -94,12 +96,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps> = ({
     )
   }
 
-  const handleMovieGenreClick = (id: number, page: number): void => {
-    getMoviesByGenreRequest(id, page)
+  const handleMovieGenreClick = (id: number, page: number, name: string): void => {
+    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    if (location.pathname !== location.state.from) {
+      getMoviesByGenreRequest(id, page)
+    }
   }
 
-  const handleSerieGenreClick = (id: number, page: number): void => {
-    getSeriesByGenreRequest(id, page)
+  const handleSerieGenreClick = (id: number, page: number, name: string): void => {
+    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    if (location.pathname !== location.state.from) {
+      getSeriesByGenreRequest(id, page)
+    }
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
@@ -133,7 +141,6 @@ const mapStateToProps = (state: any, props: any) => {
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    // match: props.match
   }
 }
 

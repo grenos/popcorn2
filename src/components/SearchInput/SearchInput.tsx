@@ -1,40 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated as a } from 'react-spring'
+import { withRouter } from "react-router-dom"
 import search from '../../media/img/search.png'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
+import { userHasTypedRequest } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
-
+import { RouteComponentProps } from "react-router";
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
-export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
+export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentProps> = ({
   scrolled,
   getUserInputMoviesRequest,
   getUserInputSeriesRequest,
   isMovieCatSelected,
-  isSerieCatSelected
+  isSerieCatSelected,
+  history,
+  userHasTypedRequest
 }): JSX.Element => {
 
   const [change, setChange] = useState<string>('')
 
   useEffect((): void => {
-    if (isMovieCatSelected && scrolled < 20) {
+    if (isMovieCatSelected && scrolled < 30) {
       setChange('')
-    } else if (isSerieCatSelected && scrolled < 20) {
+    } else if (isSerieCatSelected && scrolled < 30) {
       setChange('')
     }
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])
-
-
-  const animateInputContainer = useSpring<INT.IAnimateInputContainer>({
-    opacity: scrolled > 20 ? 1 : .1,
-  })
-
-  const animateInput = useSpring<INT.IAnimateInput>({
-    width: scrolled > 20 ? '190px' : '21px',
-    pointerEvents: scrolled > 20 ? 'all' : 'none'
-  })
 
   const handleChange = (e: InputVal): void => {
     setChange(e.target.value)
@@ -42,34 +36,42 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps> = ({
 
   const handleKeyUp = (): void => {
     if (isMovieCatSelected && change.length > 1) {
+      history.push('/results')
       getUserInputMoviesRequest(change)
-    } else {
+      userHasTypedRequest(change)
+    } else if (!isMovieCatSelected && change.length > 1) {
+      history.push('/results')
       getUserInputSeriesRequest(change)
+      userHasTypedRequest(change)
     }
   }
 
+  const animateBorder = useSpring<INT.IAnimateInput>({
+    borderWidth: scrolled > 30 ? 1 : 0
+  })
+
+
   return (
-    <animated.div
+    <div
       className="search-input"
       data-test="component-search-input"
-      style={animateInputContainer}>
-
-      <animated.input
+    >
+      <a.input
         type="text"
         name="search"
         className="search-input__inp"
         data-test="search-input"
-        style={animateInput}
+        placeholder="Search"
+        style={animateBorder}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         value={change}
       />
-
       <img
         src={search}
         alt="search"
         className="search-input__img" />
-    </animated.div>
+    </div>
   )
 }
 
@@ -82,12 +84,13 @@ const mapStateToProps = (state: any) => {
 };
 
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {
     getUserInputMoviesRequest,
-    getUserInputSeriesRequest
+    getUserInputSeriesRequest,
+    userHasTypedRequest
   }
-)(UnconnectedSearchInput)
+)(UnconnectedSearchInput))
 
 

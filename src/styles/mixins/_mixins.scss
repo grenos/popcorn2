@@ -31,6 +31,38 @@
   align-items: $align;
 }
 
+//! first nth child
+@mixin first($num) {
+  @if $num == 1 {
+    &:first-child {
+      @content;
+    }
+  } @else {
+    &:nth-child(-n + #{$num}) {
+      @content;
+    }
+  }
+}
+
+//! last nth child
+@mixin last($num) {
+  &:nth-last-child(-n + #{$num}) {
+    @content;
+  }
+}
+
+//! every nth child
+@mixin each($num) {
+  &:nth-child(#{$num}n) {
+    @content;
+  }
+}
+@mixin otherEach($num) {
+  &:nth-child(#{$num}n + 1) {
+    @content;
+  }
+}
+
 //! @media
 @mixin phone-320 {
   @media (max-width: #{$_320}) {

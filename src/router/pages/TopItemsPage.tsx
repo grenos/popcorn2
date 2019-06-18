@@ -1,35 +1,53 @@
-import React from 'react'
-// import TopItems from '../../components/TopItems/TopItems'
-import { ReuseTopItems } from '../../components/HOC/RenderLocandine'
+import React, { useEffect } from 'react'
+import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
 import { getToggleMoviesRequest, getToggleSeriesRequest } from '../../redux/actions/apiActions'
+import { TopItemsActive } from '../../redux/actions/uiActions'
+import VisoreSlider from '../../components/VisoreSlider/VisoreSlider'
+import * as INT from '../../helpers/interfaces'
 
-
-const TopItemsPage: React.FC<any> = ({
+const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
   isMovieCatSelected,
   topMovies,
   topSeries,
   getToggleMoviesRequest,
-  getToggleSeriesRequest }) => {
+  getToggleSeriesRequest,
+  TopItemsActive
+}) => {
+
+  useEffect(() => {
+    TopItemsActive(true)
+    return () => {
+      TopItemsActive(false)
+    }
+  })
+
   return (
-    <div style={{ color: 'white', fontSize: '40px' }} >
-      {ReuseTopItems({ isMovieCatSelected, topMovies, topSeries, getToggleMoviesRequest, getToggleSeriesRequest })}
+    <div>
+      <VisoreSlider />
+      <TopItems
+        isMovieCatSelected={isMovieCatSelected}
+        movies={topMovies.slice(7)}
+        series={topSeries.slice(7)}
+        getMovies={getToggleMoviesRequest}
+        getSeries={getToggleSeriesRequest}
+      />
     </div >
   )
 }
 
 
-const mapStateToProps = (state: any, props: any) => {
+const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     topMovies: state.moviesReducer.topMovies,
     topSeries: state.seriesReducer.topSeries,
-    // match: props.match
   }
 }
 
 export default connect(mapStateToProps, {
   getToggleMoviesRequest,
-  getToggleSeriesRequest
+  getToggleSeriesRequest,
+  TopItemsActive
 })(TopItemsPage)
 

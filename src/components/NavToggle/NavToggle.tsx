@@ -1,59 +1,77 @@
 import React from 'react'
-import { useSpring, animated } from 'react-spring'
+import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
+import { clearMoviesByGenreState, clearSeriesByGenreState } from '../../redux/actions/apiActions'
+import { RouteComponentProps } from "react-router";
 import * as INT from '../../helpers/interfaces'
-import tele from '../../media/img/television.png'
-import film from '../../media/img/film.png'
+// import tele from '../../media/img/television.png'
+// import film from '../../media/img/film.png'
 
 
-export const UnconnectedNavToggle: React.FC<INT.IToggleProps> = ({
-  scrolled,
+export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
   getToggleMovieCatRequest,
-  getToggleSerieCatRequest
+  getToggleSerieCatRequest,
+  clearMoviesByGenreState,
+  clearSeriesByGenreState,
+  history
 }): JSX.Element => {
-
-  const animateToggle = useSpring<INT.IAnimateToggle>({
-    transform: scrolled > 20
-      ? 'scale(1) translateX(70%)'
-      : 'scale(0.8) translateX(-120%)',
-  })
 
   const handleMoviesToggle = (): void => {
     getToggleMovieCatRequest(true)
     getToggleSerieCatRequest(false)
+    clearSeriesByGenreState()
+    history.push('/')
   }
 
   const handleSeriesToggle = (): void => {
     getToggleSerieCatRequest(true)
     getToggleMovieCatRequest(false)
+    clearMoviesByGenreState()
+    history.push('/')
+  }
+
+  const handleMyFavorites = (): void => {
+    console.log('favorites');
   }
 
   return (
-    <animated.div
+    <div
       className="nav__type-toggle"
       data-test="nav-toggle"
-      style={animateToggle}
     >
-      <img src={film}
-        alt="movies"
+      <div
         data-test='toggle-film'
         className="toggle__img--film"
         onClick={handleMoviesToggle}
-      />
-      <img src={tele}
-        alt="series"
+      >
+        <p>Movies</p>
+      </div>
+
+      <div
         data-test='toggle-serie'
         className="toggle__img--tele"
         onClick={handleSeriesToggle}
-      />
-    </animated.div>
+      >
+        <p>Series</p>
+      </div>
+
+      <div
+        data-test='favorites-button'
+        className="favorites-button"
+        onClick={handleMyFavorites}
+      >
+        <p>My Favorites</p>
+      </div>
+    </div>
 
   )
 }
 
-export default connect(null, {
+export default withRouter(connect(null, {
   getToggleMovieCatRequest,
-  getToggleSerieCatRequest
-})(UnconnectedNavToggle)
+  getToggleSerieCatRequest,
+  clearMoviesByGenreState,
+  clearSeriesByGenreState
+})(UnconnectedNavToggle))
 

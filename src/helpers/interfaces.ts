@@ -48,7 +48,6 @@ export interface IAnimateMenu {
 }
 
 export interface IAnimateHeader {
-  height: number | string
   background: number | string
   boxShadow: number | string
 }
@@ -58,8 +57,19 @@ export interface IAnimateInputContainer {
 }
 
 export interface IAnimateInput {
-  width: string
-  pointerEvents: string
+  borderWidth: number
+}
+
+export interface IAnimateChevron {
+  transform: string
+}
+
+export interface IAnimateHighlight {
+  height: string
+}
+
+export interface IAnimateOpacity {
+  opacity: number
 }
 
 export interface IInputProps {
@@ -68,13 +78,15 @@ export interface IInputProps {
   getUserInputSeriesRequest?: any
   isMovieCatSelected: boolean
   isSerieCatSelected: boolean
+  userHasTypedRequest: Function
   store?: any
 }
 
 export interface IToggleProps {
-  scrolled: number
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
+  clearMoviesByGenreState: Function
+  clearSeriesByGenreState: Function
   store?: any
 }
 
@@ -86,11 +98,13 @@ export interface IToggleMenuProps {
 export interface ISearchMovies {
   type: string
   result: Array<IMovie>
+  id: number
 }
 
 export interface ISearchSeries {
   type: string
   result: Array<ISerie>
+  id: number
 }
 
 export interface IToggleCat {
@@ -158,6 +172,7 @@ export interface IMoviesState {
   topMovies: Array<IMovie>
   movieGenres: IGenresResult[]
   moviesByGenre: Array<IMovie>
+  movieCategoryId: number
 }
 
 
@@ -167,17 +182,22 @@ export interface ISeriesState {
   topSeries: Array<ISerie>
   serieGenres: IGenresResult[]
   seriesByGenre: Array<ISerie>
+  serieCategoryId: number
 }
 
 export interface IUiState {
   isMenuOpenProp: boolean
   isMovieCatSelected: boolean
   isSerieCatSelected: boolean
+  userHasTyped: ''
+  TopItemsActive: boolean
+  SearchItemsActive: boolean
+  genreItemsActive: boolean
 }
 
 
 export interface IInputSagaProps {
-  payload: string
+  inputValue: string
 }
 
 export interface IToggleSagaProps {
@@ -200,19 +220,74 @@ export interface IMenuProps {
   isMovieCatSelected: boolean
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
+
 }
 
 export interface ITopResultsProps {
+  isMovieCatSelected: boolean
+  store?: any
+  movies: Array<IMovie>
+  series: Array<ISerie>
+  getMovies: Function
+  getSeries: Function
+  userHasTyped?: string
+  moviesId?: number
+  seriesId?: number
+  TopItemsActive: boolean
+  SearchItemsActive: boolean
+  genreItemsActive: boolean
+}
+
+export interface IVisoreProps {
+  isMovieCatSelected: boolean
+  store?: any
+  topMovies: Array<IMovie>
+  topSeries: Array<ISerie>
+}
+
+export interface IHighlightProps {
+  isMovieCatSelected: boolean
+  store?: any
+  searchMovies: Array<IMovie>
+  searchSeries: Array<ISerie>
+}
+
+export interface ITopResultsPage {
   isMovieCatSelected: boolean
   store?: any
   topMovies: Array<IMovie>
   topSeries: Array<ISerie>
   getToggleMoviesRequest: Function
   getToggleSeriesRequest: Function
+  TopItemsActive: Function
+}
+
+export interface IGenreResultsPage {
+  isMovieCatSelected: boolean
+  store?: any
+  moviesByGenre: Array<IMovie>
+  seriesByGenre: Array<ISerie>
+  getMoviesByGenreRequest: Function
+  getSeriesByGenreRequest: Function
+  movieCategoryId: number
+  serieCategoryId: number
+  genreItemsActive: Function
+}
+
+export interface ITopSearchResultsPage {
+  isMovieCatSelected: boolean
+  store?: any
+  searchMovies: Array<IMovie>
+  searchSeries: Array<ISerie>
+  getUserInputMoviesRequest: Function
+  getUserInputSeriesRequest: Function
+  userHasTyped: string
+  SearchItemsActive: Function
 }
 
 export interface IMenuPropSingle {
   isMenuOpenProp: boolean
+  store?: any
 }
 
 export interface IMenuSlideAction {

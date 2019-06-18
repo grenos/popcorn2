@@ -1,24 +1,112 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
+import { connect } from 'react-redux'
 import { Link, withRouter } from "react-router-dom"
 import popcorn from '../../media/img/popcorn.png'
-import { filterNoImg } from '../../helpers/helperFunctions'
+import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
+import { RouteComponentProps } from "react-router"
+
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
+interface RouteParams { id: string, param2?: string }
 
-const TopItems: React.FC<any> = (props): JSX.Element => {
+export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = ({
+  isMovieCatSelected,
+  movies,
+  series,
+  getMovies,
+  getSeries,
+  moviesId,
+  seriesId,
+  location,
+  history,
+  match,
+  TopItemsActive,
+  SearchItemsActive,
+  genreItemsActive
+}): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
 
+  const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
+  const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
+
+  useEffect(() => {
+    // return () => {
+    if (match.url === '/') {
+      sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
+      sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
+    } else if (match.url === `/genres/${match.params.id}`) {
+      sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
+      sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
+    } else if (match.url === '/results') {
+      return
+    }
+    // }
+  }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
+
+  useEffect(() => {
+    if (match.url === '/') {
+      setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
+      setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
+    } else if (match.url === `/genres/${match.params.id}`) {
+      setGenreMovieCounter(parseInt(sessionStorage.getItem('genre_movies') || `1`))
+      setGenreSerieCounter(parseInt(sessionStorage.getItem('genre_series') || `1`))
+    } else if (match.url === '/results') {
+      return
+    }
+  }, [])
+
+
+  const handlePagination = (): void => {
+    if (isMovieCatSelected) {
+
+      if (match.url === '/') {
+        setMovieCounter(movieCounter => movieCounter + 1)
+        getMovies(movieCounter)
+      } else if (match.url === `/genres/${match.params.id}`) {
+        if (location.pathname === location.state.from) {
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+          getMovies(moviesId, genreMovieCounter)
+        } else {
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreMovieCounter(1)
+          setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
+        }
+      } else if (match.url === 'results') {
+        return
+      }
+    } else {
+
+      if (match.url === '/') {
+        setSerieCounter(serieCounter => serieCounter + 1)
+        getSeries(serieCounter)
+      } else if (match.url === `/genres/${match.params.id}`) {
+        if (location.pathname === location.state.from) {
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+          getSeries(seriesId, genreSerieCounter)
+        } else {
+          // resets parameters on category change
+          history.push({ state: { from: location.pathname } })
+          setGenreSerieCounter(1)
+          setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
+        }
+      } else if (match.url === 'results') {
+        return
+      }
+    }
+  }
+
+
   const renderMovies = (): JSX.Element[] => {
     return (
-      props.topMovies.map(({ id, poster_path, title, vote_average }: any) => {
+      movies.map(({ id, poster_path, title, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-movie" >
-            <Link to={`/title/${id}`}>
+            <Link to={`/title/${makeDashesUrl(title)}`}>
               <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${title}`} />
               <div className="overlay-gallery">
                 <h3>{title}</h3>
@@ -36,10 +124,10 @@ const TopItems: React.FC<any> = (props): JSX.Element => {
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      props.series.map(({ id, poster_path, name, vote_average }: any) => {
+      series.map(({ id, poster_path, name, vote_average }) => {
         return (
           <div key={id} className="locandina-outer" data-test="locandina-serie" >
-            <Link to={`/title/${id}`}>
+            <Link to={`/title/${makeDashesUrl(name)}`}>
               <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${name}`} />
               <div className="overlay-gallery">
                 <h3>{name}</h3>
@@ -55,28 +143,25 @@ const TopItems: React.FC<any> = (props): JSX.Element => {
     )
   }
 
-  const handlePagination = (): void => {
-    if (props.isMovieCatSelected) {
-      setMovieCounter(movieCounter => movieCounter + 1)
-      props.getToggleMoviesRequest(movieCounter)
-    } else {
-      setSerieCounter(serieCounter => serieCounter + 1)
-      props.getSeries(serieCounter)
-    }
-  }
-
-  const renderTitles = props.isMovieCatSelected ? renderMovies() : renderSeries()
+  const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine">
-      {renderTitles}
-      <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} />
+      <div className="render-locandine-inner" style={{ marginTop: TopItemsActive ? '-11%' : 0 }}>
+        {renderTitles}
+      </div>
+      <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
     </div>
   )
 }
 
+const mapStateToProps = (state: any) => {
+  return {
+    TopItemsActive: state.uiReducer.TopItemsActive,
+    SearchItemsActive: state.uiReducer.SearchItemsActive,
+    genreItemsActive: state.uiReducer.genreItemsActive
+  }
+}
 
-
-
-export default withRouter(TopItems)
+export default withRouter(connect(mapStateToProps, null)(UnconnectedTopItems))
 

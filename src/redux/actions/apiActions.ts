@@ -17,14 +17,16 @@ export const Types: any = {
   GET_MOVIE_BY_GENRE_REQUEST: 'GET_MOVIE_BY_GENRE_REQUEST',
   GET_MOVIE_BY_GENRE_SUCCESS: 'GET_MOVIE_BY_GENRE_SUCCESS',
   GET_SERIE_BY_GENRE_REQUEST: 'GET_SERIE_BY_GENRE_REQUEST',
-  GET_SERIE_BY_GENRE_SUCCESS: 'GET_SERIE_BY_GENRE_SUCCESS'
+  GET_SERIE_BY_GENRE_SUCCESS: 'GET_SERIE_BY_GENRE_SUCCESS',
+  CLEAR_MOVIES_BY_GENRES_STATE: 'CLEAR_MOVIES_BY_GENRES_STATE',
+  CLEAR_SERIES_BY_GENRES_STATE: 'CLEAR_SERIES_BY_GENRES_STATE'
 }
 
 
 
 export const getUserInputMoviesRequest = (inputValue: string) => ({
   type: Types.GET_USER_INPUT_MOVIES_REQUEST,
-  payload: inputValue
+  inputValue
 })
 export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
   type: Types.GET_USER_INPUT_MOVIES_SUCCESS,
@@ -35,7 +37,7 @@ export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
 
 export const getUserInputSeriesRequest = (inputValue: string) => ({
   type: Types.GET_USER_INPUT_SERIES_REQUEST,
-  payload: inputValue
+  inputValue
 })
 export const getUserInputSeriesSuccess = ({ result }: INT.ISearchSeries) => ({
   type: Types.GET_USER_INPUT_SERIES_SUCCESS,
@@ -91,9 +93,10 @@ export const getMoviesByGenreRequest = (id: number, page: number): INT.IGetByGen
   id,
   page
 })
-export const getMoviesByGenreSuccess = ({ result }: INT.ISearchMovies) => ({
+export const getMoviesByGenreSuccess = ({ result, id }: INT.ISearchMovies) => ({
   type: Types.GET_MOVIE_BY_GENRE_SUCCESS,
-  payload: result
+  payload: result,
+  id
 })
 
 
@@ -103,7 +106,19 @@ export const getSeriesByGenreRequest = (id: number, page: number): INT.IGetByGen
   id,
   page
 })
-export const getSeriesByGenreSuccess = ({ result }: INT.ISearchSeries) => ({
+export const getSeriesByGenreSuccess = ({ result, id }: INT.ISearchSeries) => ({
   type: Types.GET_SERIE_BY_GENRE_SUCCESS,
-  payload: result
+  payload: result,
+  id
 })
+
+
+
+
+export const clearMoviesByGenreState = () => ({
+  type: Types.CLEAR_MOVIES_BY_GENRES_STATE
+})
+export const clearSeriesByGenreState = () => ({
+  type: Types.CLEAR_SERIES_BY_GENRES_STATE
+})
+

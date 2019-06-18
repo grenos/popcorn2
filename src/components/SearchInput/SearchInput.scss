@@ -2,23 +2,23 @@
   height: 100%;
   @include flex-box(null, null, center, center);
   position: relative;
-  opacity: 0.1;
 }
 
 .search-input__inp {
   font-size: 18px;
   padding: 8px;
-  margin: 25px 20px 0 10px;
+  margin: 25px 30px 0 10px;
   border-radius: 5px;
-  border: 1px solid rgb(226, 210, 210);
-  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-style: solid;
+  border-color: rgb(226, 210, 210);
+  border-width: 0px;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  width: 21px;
-  pointer-events: none;
 }
 
 .search-input__img {
-  margin: 13px 30px;
+  margin: 13px 40px;
   position: absolute;
   width: 20px;
   right: 0;

@@ -1,5 +1,5 @@
 
-import { takeEvery, put, fork } from 'redux-saga/effects'
+import { takeEvery, put, fork, takeLatest } from 'redux-saga/effects'
 import * as actions from '../actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 
@@ -42,9 +42,27 @@ function* getToggleSerieCat({ payload }: INT.IMenuSlideAction) {
 }
 
 
+
+
+function* getUserHasTypedRequest() {
+  yield takeLatest(actions.Types.USER_HAS_TYPED_REQUEST, getUserInput)
+}
+function* getUserInput({ input }: any) {
+  try {
+    yield put(actions.userHasTypedSuccess({
+      payload: input
+    } as any))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
 const uiSagas = [
   fork(watchGetToggleMenuRequest),
   fork(watchToggleMovieCatRequest),
-  fork(watchToggleSerieCatRequest)
+  fork(watchToggleSerieCatRequest),
+  fork(getUserHasTypedRequest)
 ]
 export default uiSagas

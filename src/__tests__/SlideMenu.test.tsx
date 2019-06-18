@@ -5,7 +5,10 @@ import { findByTestAttr } from '../helpers/testUtils'
 import { UnconnectedSlideMenu } from '../components/SlideMenu/SlideMenu'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
-import { MemoryRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom'
+import { createLocation, createMemoryHistory } from 'history'
+const location = createLocation({state:{from: ''}})
+const history = createMemoryHistory()
 const mountWithRouter = (UnconnectedSlideMenu: any) =>
   mount(<Router>{UnconnectedSlideMenu}</Router>);
 
@@ -21,6 +24,8 @@ test('should render component', () => {
     movieGenres: [{ id: 28, name: 'Action' }],
     serieGenres: [{ id: 10759, name: '"Action & Adventure"' }],
     isMovieCatSelected: false,
+    location: location,
+    history: history
   }
 
   const Mocks = {
@@ -56,7 +61,9 @@ describe('<UnconnectedSlideMenu />', () => {
         isMenuOpenProp: false,
         movieGenres: { id: 28, name: 'Action' },
         serieGenres: { id: 10759, name: '"Action & Adventure"' },
-        isMovieCatSelected: false
+        isMovieCatSelected: false,
+        location: location,
+        history: history
       }
 
       const Mocks = {

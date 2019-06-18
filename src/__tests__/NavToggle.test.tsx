@@ -1,61 +1,51 @@
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import 'jest-dom/extend-expect'
-import { findByTestAttr, storeFactory } from '../helpers/testUtils'
-import NavToggle, { UnconnectedNavToggle } from '../components/NavToggle/NavToggle'
-
-
+import { findByTestAttr } from '../helpers/testUtils'
+import { UnconnectedNavToggle } from '../components/NavToggle/NavToggle'
+import { createMemoryHistory } from 'history'
+import { MemoryRouter as Router } from 'react-router-dom';
 Enzyme.configure({ adapter: new EnzymeAdapter() })
-const defaultProps = { scrolled: 21 }
 
 
-const setup = (initialState = {}, props = {}) => {
-  const setupProps = { ...defaultProps, ...props }
-  const store = storeFactory(initialState)
-  const wrapper = shallow(<NavToggle store={store} {...setupProps} />).dive()
-  return wrapper
-}
-
-
-test('should render toggle component', () => {
-  const wrapper = setup()
-  const component = findByTestAttr(wrapper, 'nav-toggle').dive()
-  expect(component.length).toBe(1)
-})
-
-
-const toggleCSSprops = {
-  transform: "scale(1) translateX(70%)"
-}
-test('categories elements to animate css if props > 20', () => {
-  const wrapper = setup()
-  const component = findByTestAttr(wrapper, 'nav-toggle').dive()
-  const animStyleToggle = component.prop('style')
-  expect(animStyleToggle).toEqual(toggleCSSprops)
-})
+const history = createMemoryHistory()
+const mountWithRouter = (UnconnectedNavToggle: any) =>
+  mount(<Router>{UnconnectedNavToggle}</Router>);
 
 
 
 describe('should call action creators', () => {
   let getToggleMovieCatRequestMock: any
   let getToggleSerieCatRequestMock: any
+  let clearMoviesByGenreStateMock: any
+  let clearSeriesByGenreStateMock: any
   let wrapper: any
 
   beforeEach(() => {
     getToggleMovieCatRequestMock = jest.fn()
     getToggleSerieCatRequestMock = jest.fn()
+    clearMoviesByGenreStateMock = jest.fn()
+    clearSeriesByGenreStateMock = jest.fn()
+
     const props = {
       getToggleMovieCatRequest: getToggleMovieCatRequestMock,
       getToggleSerieCatRequest: getToggleSerieCatRequestMock,
-      scrolled: 21
+      clearMoviesByGenreState: clearMoviesByGenreStateMock,
+      clearSeriesByGenreState: clearSeriesByGenreStateMock,
+      history: history
     }
-    wrapper = shallow(<UnconnectedNavToggle {...props} />)
+    wrapper = mountWithRouter(<UnconnectedNavToggle {...props} />)
 
     const toggleFilms = findByTestAttr(wrapper, 'toggle-film')
     toggleFilms.simulate('click')
     const toggleSeries = findByTestAttr(wrapper, 'toggle-serie')
     toggleSeries.simulate('click')
+  })
+
+  test('should render toggle component', () => {
+    const component = findByTestAttr(wrapper, 'nav-toggle').last()
+    expect(component.length).toBe(1)
   })
 
   test('should call getToggleMoviesRequest action', () => {
@@ -71,5 +61,22 @@ describe('should call action creators', () => {
     expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(true)
     expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(false)
   })
+
+  test('should call clearMoviesByGenreState action', () => {
+    const clearMoviesByGenreStateCount = clearMoviesByGenreStateMock.mock.calls.length
+    expect(clearMoviesByGenreStateCount).toBe(1)
+    expect(clearMoviesByGenreStateMock).toHaveBeenCalledWith()
+  })
+
+  test('should call clearSeriesByGenreState action', () => {
+    const clearSeriesByGenreStateCount = clearSeriesByGenreStateMock.mock.calls.length
+    expect(clearSeriesByGenreStateCount).toBe(1)
+    expect(clearSeriesByGenreStateMock).toHaveBeenCalledWith()
+  })
+
+  test('should call history.push', () => {
+
+  })
+
 
 });
