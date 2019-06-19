@@ -29,8 +29,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   TopItemsActive,
   isMovieModalOpen,
   openMovieModalRequest,
-  SearchItemsActive,
-  genreItemsActive
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -39,7 +37,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
   const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
 
-  // const [toggleModal, setToggleModal] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState<number>(0)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
@@ -114,7 +111,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     setSelectedId(id)
     setSelectedIndex(index)
     openMovieModalRequest(true)
-    // setToggleModal(toggleModal => !toggleModal)
   }
 
 

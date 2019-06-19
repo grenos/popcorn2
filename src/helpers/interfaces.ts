@@ -263,6 +263,7 @@ export interface IModalProps {
   overview: string,
   isMovieModalOpen: boolean
   openMovieModalRequest: Function
+  props?: any
 }
 
 export interface ITopResultsPage {
