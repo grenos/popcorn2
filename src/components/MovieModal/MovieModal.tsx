@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
@@ -21,6 +21,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   openMovieModalRequest
 }) => {
 
+  const refContainer = useRef<HTMLDivElement>(null)
+
   const transitionMount = useTransition(isMovieModalOpen, null, {
     from: { height: `0vh`, opacity: 0, },
     enter: { height: `55vh`, opacity: 1 },
@@ -41,34 +43,28 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     openMovieModalRequest(false)
   }
 
-  const prevAmount = usePrevious(isMovieModalOpen)
-
-  let renderAnimation: any
   useEffect(() => {
-    console.log(prevAmount);
-    console.log(isMovieModalOpen);
-
-    if (prevAmount.current !== isMovieModalOpen) {
-      renderAnimation = transitionMount
-    } else {
-      renderAnimation = transitionMounted
+    if (refContainer.current) {
+      console.log('on');
     }
-  }, [isMovieModalOpen, prevAmount])
-
+    return () => {
+      console.log('CIAO');
+    }
+  }, [refContainer])
 
   return (
-    <div className="item-modal">
+    <div className="item-modal" ref={refContainer}>
       {
-        renderAnimation.map(
+        transitionMounted.map(
           ({ item, key, props }) => (item &&
             <a.div
               key={key}
               className="modal-outer"
               style={{ backgroundImage: `url(${URL + backdrop_path})`, ...props }}
             >
-              <a.div className="modal-content">
+              <div className="modal-content">
                 <div className="modal-video">
-                  {/* <img src='http://unsplash.it/600/350?&gravity=center' alt='' /> */}
+                  <img src='http://unsplash.it/600/350?&gravity=center' alt='' />
                 </div>
                 <div className="info-wrapper-modal">
                   <h3>{title}</h3>
@@ -78,7 +74,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                     <button onClick={() => console.log('added')}>Add to list</button>
                   </div>
                 </div>
-              </a.div>
+              </div>
               <div className="close" onClick={handleHighlightToggle}>
                 <img src={close} alt="close" />
               </div>

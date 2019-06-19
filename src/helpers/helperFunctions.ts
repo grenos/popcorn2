@@ -9,7 +9,7 @@ export const filterNoImg = (baseUrl: string, poster: string, placeholder: string
 }
 
 
-export const makeDashesUrl = (str: string): string => {
+export const makeDashesUrl = (str: string): any => {
   if (str) {
     return str.replace(/\s+/g, '_')
   } else {
@@ -18,12 +18,12 @@ export const makeDashesUrl = (str: string): string => {
 }
 
 
-export const usePrevious = (value: any): any => {
+export function usePrevious(value: any): any {
   const ref = useRef()
-
   useEffect(() => {
     ref.current = value;
   }, [value])
+  console.log(ref);
 
   return ref
 }
