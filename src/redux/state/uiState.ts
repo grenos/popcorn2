@@ -8,7 +8,8 @@ export const UI_STATE: INT.IUiState = {
   userHasTyped: '',
   TopItemsActive: false,
   SearchItemsActive: false,
-  genreItemsActive: false
+  genreItemsActive: false,
+  isMovieModalOpen: false
 
 }
 

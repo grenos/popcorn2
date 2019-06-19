@@ -12,7 +12,8 @@ export const Types: any = {
   USER_HAS_TYPED_SUCCESS: 'USER_HAS_TYPED_SUCCESS',
   TOP_ITEMS_ACTIVE_ACTION: 'TOP_ITEMS_ACTIVE_ACTION',
   SEARCH_ITEMS_ACTIVE_ACTION: 'SEARCH_ITEMS_ACTIVE_ACTION',
-  GENRE_ITEMS_ACTIVE_ACTION: 'GENRE_ITEMS_ACTIVE_ACTION'
+  GENRE_ITEMS_ACTIVE_ACTION: 'GENRE_ITEMS_ACTIVE_ACTION',
+  IS_MOVIE_MODAL_OPEN_ACTION: 'IS_MOVIE_MODAL_OPEN_ACTION'
 }
 
 
@@ -67,5 +68,9 @@ export const SearchItemsActive = (toggle: boolean) => ({
 })
 export const genreItemsActive = (toggle: boolean) => ({
   type: Types.GENRE_ITEMS_ACTIVE_ACTION,
+  toggle
+})
+export const openMovieModalRequest = (toggle: boolean) => ({
+  type: Types.IS_MOVIE_MODAL_OPEN_ACTION,
   toggle
 })

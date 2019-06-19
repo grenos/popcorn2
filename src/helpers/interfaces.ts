@@ -193,6 +193,7 @@ export interface IUiState {
   TopItemsActive: boolean
   SearchItemsActive: boolean
   genreItemsActive: boolean
+  isMovieModalOpen: boolean
 }
 
 
@@ -235,7 +236,9 @@ export interface ITopResultsProps {
   seriesId?: number
   TopItemsActive: boolean
   SearchItemsActive: boolean
-  genreItemsActive: boolean
+  genreItemsActive: boolean,
+  isMovieModalOpen: boolean
+  openMovieModalRequest: Function
 }
 
 export interface IVisoreProps {
@@ -257,7 +260,9 @@ export interface IModalProps {
   store?: any
   backdrop_path: string
   title: string
-  overview: string
+  overview: string,
+  isMovieModalOpen: boolean
+  openMovieModalRequest: Function
 }
 
 export interface ITopResultsPage {

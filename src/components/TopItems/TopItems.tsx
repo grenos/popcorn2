@@ -3,6 +3,7 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { Link, withRouter } from "react-router-dom"
+import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
@@ -10,7 +11,6 @@ import MovieModal from '../MovieModal/MovieModal'
 import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
 
-// var chunk = require('lodash.chunk');
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams { id: string, param2?: string }
@@ -27,6 +27,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   history,
   match,
   TopItemsActive,
+  isMovieModalOpen,
+  openMovieModalRequest,
   SearchItemsActive,
   genreItemsActive
 }): JSX.Element => {
@@ -37,7 +39,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
   const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
 
-  const [toggleModal, setToggleModal] = useState<boolean>(false)
+  // const [toggleModal, setToggleModal] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState<number>(0)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
@@ -111,18 +113,21 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const handleModalStates = (id: number, index: number) => {
     setSelectedId(id)
     setSelectedIndex(index)
-    setToggleModal(toggleModal => !toggleModal)
+    openMovieModalRequest(true)
+    // setToggleModal(toggleModal => !toggleModal)
   }
+
 
   const handleModal = (
     id: number,
     backdrop_path: string,
     title: string,
     overview: string,
-    index: number
+    index: number,
   ) => {
     if (id === selectedId && index === selectedIndex) {
-      return <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
+      return <MovieModal
+        id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
     }
   }
 
@@ -155,7 +160,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               {
                 movies.map(({ id, backdrop_path, title, overview }) => {
                   return (
-                    toggleModal && handleModal(id, backdrop_path, title, overview, index)
+                    isMovieModalOpen && handleModal(id, backdrop_path, title, overview, index)
                   )
                 })
               }
@@ -193,7 +198,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               {
                 series.map(({ id, backdrop_path, name, overview }) => {
                   return (
-                    toggleModal && handleModal(id, backdrop_path, name, overview, index)
+                    isMovieModalOpen && handleModal(id, backdrop_path, name, overview, index)
                   )
                 })
               }
@@ -220,9 +225,10 @@ const mapStateToProps = (state: any) => {
   return {
     TopItemsActive: state.uiReducer.TopItemsActive,
     SearchItemsActive: state.uiReducer.SearchItemsActive,
-    genreItemsActive: state.uiReducer.genreItemsActive
+    genreItemsActive: state.uiReducer.genreItemsActive,
+    isMovieModalOpen: state.uiReducer.isMovieModalOpen
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(UnconnectedTopItems))
+export default withRouter(connect(mapStateToProps, { openMovieModalRequest })(UnconnectedTopItems))
 

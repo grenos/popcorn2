@@ -48,6 +48,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         genreItemsActive: action.toggle
       }
     }
+    case Types.IS_MOVIE_MODAL_OPEN_ACTION: {
+      return {
+        ...state,
+        isMovieModalOpen: action.toggle
+      }
+    }
     default: {
       return state
     }

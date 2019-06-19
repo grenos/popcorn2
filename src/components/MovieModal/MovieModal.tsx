@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
+import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import { withRouter } from "react-router-dom"
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-import chevron from '../../media/img/chevron.png'
+import close from '../../media/img/close.png'
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -16,6 +17,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   backdrop_path,
   title,
   overview,
+  isMovieModalOpen,
+  openMovieModalRequest
 }) => {
 
   const [toggle, setToggle] = useState<boolean>(true)
@@ -41,40 +44,47 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   }
 
   const handleHighlightToggle = () => {
-    setToggle(toggle => !toggle)
+    // setToggle(toggle => !toggle)
+    openMovieModalRequest(false)
   }
 
 
   return (
-    <div className="item-highlight">
+    <div className="item-modal">
       <a.div
         key={id}
-        className="highlight-outer"
+        className="modal-outer"
         style={{ backgroundImage: `url(${URL + backdrop_path})`, ...animateHighlight }}
       >
-        <div className="highlight-content">
-          <a.div className="highlight-video" style={animateOpacity}>
+        <div className="modal-content">
+          <a.div className="modal-video" style={animateOpacity}>
             <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
           </a.div>
-          <a.div className="info-wrapper-highlight" style={animateOpacity}>
+          <a.div className="info-wrapper-modal" style={animateOpacity}>
             <h3>{title}</h3>
             <p>{overview}</p>
             <div className="cta">
               <button onClick={() => handleGoToMovie(title, id)}>
                 Details
-                        </button>
+              </button>
               <button onClick={() => console.log('added')}>
                 Add to list
-                        </button>
+              </button>
             </div>
           </a.div>
         </div>
-        <div className="chevron" onClick={handleHighlightToggle}>
-          <a.img src={chevron} alt="close" style={animateChevron} />
+        <div className="close" onClick={handleHighlightToggle}>
+          <a.img src={close} alt="close" />
         </div>
       </a.div>
     </div>
   )
 }
 
-export default withRouter(connect(null, null)(MovieModal))
+const mapStateToProps = (state: any) => {
+  return {
+    isMovieModalOpen: state.uiReducer.isMovieModalOpen
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { openMovieModalRequest })(MovieModal))
