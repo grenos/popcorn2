@@ -30,8 +30,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     const wh: number = windowSize.innerHeight / 2
     const nav: number = 60
     // const _WH = windowSize.outerHeight
-    // const divHeight = _WH * 0.5
-    // const div = parseInt(divHeight.toFixed(0)) / 2
+    // const divHeight = _WH * 0.6
+    // const div = parseInt(divHeight.toFixed(0)) / 3
 
     if (ref.current) {
       window.scroll({
