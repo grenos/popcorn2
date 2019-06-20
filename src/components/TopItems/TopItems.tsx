@@ -7,10 +7,8 @@ import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
-// import MovieModal from '../MovieModal/MovieModal'
 import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
-import useWindowSize from '@rehooks/window-size';
 const MovieModal = lazy(() => import('components/MovieModal/MovieModal'))
 
 
@@ -186,7 +184,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                 arr.map((serie: any) => (
                   <div className="loc-wrapper" key={serie.id}>
                     <div className="locandina-outer" data-test="locandina-movie" >
-                      {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
+                      {/* <Link to={`/title/${makeDashesUrl(serie.title)}`}> */}
                       <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                       <div className="overlay-gallery">
                         <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
@@ -203,7 +201,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               {
                 series.map(({ id, backdrop_path, name, overview }) => {
                   return (
-                    isMovieModalOpen && handleModal(id, backdrop_path, name, overview, index)
+                    handleModal(id, backdrop_path, name, overview, index)
                   )
                 })
               }

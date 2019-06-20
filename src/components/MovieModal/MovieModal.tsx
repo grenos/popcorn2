@@ -5,9 +5,8 @@ import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import { withRouter } from "react-router-dom"
-import { makeDashesUrl, usePrevious } from '../../helpers/helperFunctions'
+import { makeDashesUrl } from '../../helpers/helperFunctions'
 import close from '../../media/img/close.png'
-import useComponentSize from '@rehooks/component-size'
 import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
@@ -23,15 +22,21 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 }) => {
 
   const ref = useRef<HTMLDivElement>(null)
-  let size = useComponentSize(ref)
   let windowSize = useWindowSize();
 
   const handleScroll = useCallback(() => {
-    const wh = windowSize.innerHeight / 4
+
+    const div: number = ref!.current!.offsetHeight / 3
+    const wh: number = windowSize.innerHeight / 2
+    const nav: number = 60
+    // const _WH = windowSize.outerHeight
+    // const divHeight = _WH * 0.5
+    // const div = parseInt(divHeight.toFixed(0)) / 2
+
     if (ref.current) {
       window.scroll({
-        // behavior: "smooth",
-        top: ref.current.offsetTop - wh
+        behavior: 'smooth',
+        top: ref.current.offsetTop + div - wh - nav
       })
     }
   }, [ref.current])
@@ -41,8 +46,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     from: { height: `0vh`, opacity: 0, marginTop: 0 },
     enter: { height: `60vh`, opacity: 1, marginTop: 10 },
     leave: { height: `0vh`, opacity: 0, marginTop: 0 },
-    config: { tension: 170, mass: 1, friction: 26 },
-    onStart: () => handleScroll(),
+    config: { tension: 240, mass: 1, friction: 26, clamp: true, velocity: 1 },
+    onRest: () => handleScroll(),
   })
 
   const transitionMounted = useTransition(isMovieModalOpen, null, {

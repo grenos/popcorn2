@@ -1,4 +1,3 @@
-import React, { useRef, useEffect } from 'react'
 
 export const filterNoImg = (baseUrl: string, poster: string, placeholder: string): string => {
   if (poster === '' || poster === null || poster === undefined) {
@@ -17,13 +16,3 @@ export const makeDashesUrl = (str: string): any => {
   }
 }
 
-
-export function usePrevious(value: any): any {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value;
-  }, [value])
-  console.log(ref);
-
-  return ref
-}

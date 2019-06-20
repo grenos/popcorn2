@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { store } from './redux/store/store'
 import Router from './router/Router'
+import "scroll-behavior-polyfill";
 
 ReactDOM.render(
   <Provider store={store}>

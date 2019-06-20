@@ -1,6 +1,6 @@
 .locandine-wrapper {
   // hack for waypoints to call api
-  padding: 1% 0;
+  padding: 0 0 5%;
 
   .render-locandine-inner {
     .row {
@@ -42,19 +42,13 @@
         flex-basis: calc(14.28% - 38px);
         width: calc(14.28vw - 38px);
         height: 32vh;
-        // margin: 10px;
         position: relative;
         cursor: pointer;
         border-radius: 5px;
 
-        // a {
-        //   height: 32vh;
-        //   text-decoration: none;
-        //   font-weight: 600;
-        //   line-height: 1.2rem;
-        //   font-size: 1rem;
-        //   color: #fff;
-        // }
+        a {
+          height: 32vh;
+        }
 
         img {
           width: 100%;
