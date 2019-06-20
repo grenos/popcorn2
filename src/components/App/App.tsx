@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
 import * as INT from '../../helpers/interfaces'
-const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'));
+const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpenProp }): JSX.Element => {

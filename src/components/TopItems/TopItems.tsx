@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy, Suspense } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
@@ -7,9 +7,10 @@ import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
-import MovieModal from '../MovieModal/MovieModal'
+// import MovieModal from '../MovieModal/MovieModal'
 import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
+const MovieModal = lazy(() => import('components/MovieModal/MovieModal'))
 
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
@@ -122,11 +123,17 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     index: number,
   ) => {
     if (id === selectedId && index === selectedIndex) {
-      return <MovieModal
-        id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
+      return (
+        <Suspense fallback={<Loader />}>
+          <MovieModal
+            id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
+        </Suspense>
+      )
     }
   }
 
+  // test loader for now
+  const Loader = () => <div className="loader">loading</div>
 
 
   const renderMovies = (): JSX.Element[] => {
@@ -156,7 +163,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               {
                 movies.map(({ id, backdrop_path, title, overview }) => {
                   return (
-                    isMovieModalOpen && handleModal(id, backdrop_path, title, overview, index)
+                    handleModal(id, backdrop_path, title, overview, index)
                   )
                 })
               }

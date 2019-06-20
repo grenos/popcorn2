@@ -24,9 +24,10 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   const refContainer = useRef<HTMLDivElement>(null)
 
   const transitionMount = useTransition(isMovieModalOpen, null, {
-    from: { height: `0vh`, opacity: 0, },
-    enter: { height: `55vh`, opacity: 1 },
-    leave: { height: `0vh`, opacity: 0 }
+    config: { tension: 170, mass: 1, friction: 26 },
+    from: { height: `0vh`, opacity: 0, marginTop: 0 },
+    enter: { height: `55vh`, opacity: 1, marginTop: 10 },
+    leave: { height: `0vh`, opacity: 0, marginTop: 0 }
   })
 
   const transitionMounted = useTransition(isMovieModalOpen, null, {
@@ -55,7 +56,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   return (
     <div className="item-modal" ref={refContainer}>
       {
-        transitionMounted.map(
+        transitionMount.map(
           ({ item, key, props }) => (item &&
             <a.div
               key={key}
