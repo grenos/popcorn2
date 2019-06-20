@@ -10,7 +10,9 @@ import { RouteComponentProps } from "react-router"
 // import MovieModal from '../MovieModal/MovieModal'
 import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
+import useWindowSize from '@rehooks/window-size';
 const MovieModal = lazy(() => import('components/MovieModal/MovieModal'))
+
 
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
@@ -144,7 +146,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             <div className="row">
               {
                 arr.map((movie: any) => (
-                  <div className="loc-wrapper" key={movie.id}>
+                  <div className="loc-wrapper" key={movie.id} >
                     <div className="locandina-outer" data-test="locandina-movie" >
                       {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
                       <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />

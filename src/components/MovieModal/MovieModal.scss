@@ -26,6 +26,10 @@
     .modal-video {
       @include flex-box(null, null, center, center);
       flex: 1;
+      img {
+        height: 400px;
+        border-radius: 5px;
+      }
     }
 
     .info-wrapper-modal {

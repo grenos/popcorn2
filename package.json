@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rehooks/component-size": "^1.0.2",
+    "@rehooks/window-size": "^1.0.2",
     "@types/jest": "^24.0.13",
     "@types/lodash.get": "^4.4.6",
     "@types/lodash.remove": "^4.7.6",

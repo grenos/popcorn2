@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
@@ -7,7 +7,8 @@ import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import { withRouter } from "react-router-dom"
 import { makeDashesUrl, usePrevious } from '../../helpers/helperFunctions'
 import close from '../../media/img/close.png'
-
+import useComponentSize from '@rehooks/component-size'
+import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
@@ -21,13 +22,27 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   openMovieModalRequest
 }) => {
 
-  const refContainer = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
+  let size = useComponentSize(ref)
+  let windowSize = useWindowSize();
+
+  const handleScroll = useCallback(() => {
+    const wh = windowSize.innerHeight / 4
+    if (ref.current) {
+      window.scroll({
+        // behavior: "smooth",
+        top: ref.current.offsetTop - wh
+      })
+    }
+  }, [ref.current])
+
 
   const transitionMount = useTransition(isMovieModalOpen, null, {
-    config: { tension: 170, mass: 1, friction: 26 },
     from: { height: `0vh`, opacity: 0, marginTop: 0 },
-    enter: { height: `55vh`, opacity: 1, marginTop: 10 },
-    leave: { height: `0vh`, opacity: 0, marginTop: 0 }
+    enter: { height: `60vh`, opacity: 1, marginTop: 10 },
+    leave: { height: `0vh`, opacity: 0, marginTop: 0 },
+    config: { tension: 170, mass: 1, friction: 26 },
+    onStart: () => handleScroll(),
   })
 
   const transitionMounted = useTransition(isMovieModalOpen, null, {
@@ -40,21 +55,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     history.push(`/title/${makeDashesUrl(title)}`)
   }
 
-  const handleHighlightToggle = () => {
+  const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
   }
 
-  useEffect(() => {
-    if (refContainer.current) {
-      console.log('on');
-    }
-    return () => {
-      console.log('CIAO');
-    }
-  }, [refContainer])
-
   return (
-    <div className="item-modal" ref={refContainer}>
+    <div className="item-modal" ref={ref}>
       {
         transitionMount.map(
           ({ item, key, props }) => (item &&
@@ -65,7 +71,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
             >
               <div className="modal-content">
                 <div className="modal-video">
-                  <img src='http://unsplash.it/600/350?&gravity=center' alt='' />
+                  <img src={`${URL + backdrop_path}`} alt='video' />
                 </div>
                 <div className="info-wrapper-modal">
                   <h3>{title}</h3>
