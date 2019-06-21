@@ -46,3 +46,15 @@ export const getSeriesByGenre = async (id: number, page: number): Promise<{}> =>
 }
 
 
+
+export const getMovieInfo = async (id: number): Promise<{}> => {
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apikey}&language=en-US&append_to_response=videos,similar`)
+  return res
+}
+export const getSerieInfo = async (id: number): Promise<{}> => {
+  const res = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=${apikey}&language=en-US&append_to_response=videos,similar,credits`)
+  return res
+}
+
+
+

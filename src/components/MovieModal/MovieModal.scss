@@ -40,14 +40,35 @@
         color: #fff;
         font-size: 46px;
         font-weight: bold;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
+      }
+
+      h5 {
+        color: #fff;
+        font-size: 26px;
+        font-style: italic;
+        margin-bottom: 30px;
       }
 
       p {
         color: #fff;
         font-size: 18px;
         line-height: 22px;
+        margin-bottom: 20px;
+      }
+
+      .modal-genres {
+        display: flex;
         margin-bottom: 40px;
+
+        p {
+          margin: 0 10px 0 0;
+          color: #fff;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 22px;
+          font-style: italic;
+        }
       }
 
       .cta {
@@ -62,7 +83,7 @@
           font-size: 20px;
           font-weight: bold;
           color: #fff;
-          margin: 10px;
+          margin: 0 20px 0 0;
         }
       }
     }

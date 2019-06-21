@@ -39,6 +39,37 @@ function* getUserInputSeries({ inputValue }: INT.IInputSagaProps) {
 
 
 
+function* watchGetMovieInfoRequest() {
+  yield takeLatest(actions.Types.GET_MOVIE_INFO_REQUEST, getMoviesInfo)
+}
+function* getMoviesInfo({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getMovieInfo, id)
+    yield put(actions.getMovieInfoSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* watchGetSerieInfoRequest() {
+  yield takeLatest(actions.Types.GET_SERIE_INFO_REQUEST, getSeriesInfo)
+}
+function* getSeriesInfo({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getSerieInfo, id)
+    yield put(actions.getSerieInfoSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
+
 function* watchGetToggleMoviesRequest() {
   yield takeEvery(actions.Types.GET_TOGGLE_MOVIES_REQUEST, getToggleMovies)
 }
@@ -69,6 +100,8 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
 
 
 
+
+
 function* watchgetMovieGenresRequest() {
   yield takeLatest(actions.Types.GET_MOVIE_GENRES_REQUEST, getMovieGenres)
 }
@@ -96,6 +129,8 @@ function* getSerieGenres() {
     console.log(e)
   }
 }
+
+
 
 
 
@@ -143,6 +178,7 @@ const apiSagas = [
   fork(watchgetSerieGenresRequest),
   fork(watchGetMoviesByGenreRequest),
   fork(watchGetSeriesByGenreRequest),
-
+  fork(watchGetMovieInfoRequest),
+  fork(watchGetSerieInfoRequest)
 ]
 export default apiSagas

@@ -101,6 +101,18 @@ export interface ISearchMovies {
   id: number
 }
 
+
+export interface ISearchMovieInfo {
+  type: string
+  id: number
+}
+
+export interface ISearchMovieInfoResults {
+  type: string
+  result: IMovieInfoRes
+  id: number
+}
+
 export interface ISearchSeries {
   type: string
   result: Array<ISerie>
@@ -168,37 +180,42 @@ export interface ISerie {
 }
 
 export interface IMoviesState {
-  searchMovies: Array<IMovie>
-  topMovies: Array<IMovie>
-  movieGenres: IGenresResult[]
-  moviesByGenre: Array<IMovie>
-  movieCategoryId: number
+  readonly searchMovies: Array<IMovie>
+  readonly topMovies: Array<IMovie>
+  readonly movieGenres: IGenresResult[]
+  readonly moviesByGenre: Array<IMovie>
+  readonly movieCategoryId: number
+  readonly movieInfo: IMovieInfoRes | any
 }
-
 
 
 export interface ISeriesState {
-  searchSeries: Array<ISerie>
-  topSeries: Array<ISerie>
-  serieGenres: IGenresResult[]
-  seriesByGenre: Array<ISerie>
-  serieCategoryId: number
+  readonly searchSeries: Array<ISerie>
+  readonly topSeries: Array<ISerie>
+  readonly serieGenres: IGenresResult[]
+  readonly seriesByGenre: Array<ISerie>
+  readonly serieCategoryId: number
+  readonly serieInfo: IMovieInfoRes | any
 }
 
 export interface IUiState {
-  isMenuOpenProp: boolean
-  isMovieCatSelected: boolean
-  isSerieCatSelected: boolean
-  userHasTyped: ''
-  TopItemsActive: boolean
-  SearchItemsActive: boolean
-  genreItemsActive: boolean
-  isMovieModalOpen: boolean
+  readonly isMenuOpenProp: boolean
+  readonly isMovieCatSelected: boolean
+  readonly isSerieCatSelected: boolean
+  readonly userHasTyped: ''
+  readonly TopItemsActive: boolean
+  readonly SearchItemsActive: boolean
+  readonly genreItemsActive: boolean
+  readonly isMovieModalOpen: boolean
 }
 
 
 export interface IInputSagaProps {
   inputValue: string
+}
+
+export interface IMovieInfoSagaProps {
+  id: number
 }
 
 export interface IToggleSagaProps {
@@ -263,7 +280,11 @@ export interface IModalProps {
   overview: string,
   isMovieModalOpen: boolean
   openMovieModalRequest: Function
+  getMovieInfoRequest: Function
+  getSerieInfoRequest: Function
+  isMovieCatSelected: boolean
   props?: any
+  movieInfo: IMovieInfoRes
 }
 
 export interface ITopResultsPage {
@@ -309,4 +330,61 @@ export interface IMenuSlideAction {
   payload: boolean
 }
 
+export interface IVideos {
+  results: Array<ITrailer>
+}
+
+export interface ITrailer {
+  id: string
+  iso_639_1: string
+  iso_3166_1: string
+  key: string
+  name: string
+  site: string
+  size: number
+  type: string
+}
+
+export interface IGenres {
+  id: number
+  name: string
+}
+
+export interface ISimilar {
+  page: number
+  results: Array<IMovie>
+  total_pages: number
+  total_results: number
+}
+
+
+export interface IMovieInfoRes {
+  adult: boolean
+  backdrop_path: string
+  belongs_to_collection: any
+  budget: number
+  genres: Array<IGenres>
+  homepage: string
+  id: number
+  imdb_id: string
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string
+  production_companies: any
+  production_countries: any
+  release_date: string
+  revenue: number
+  runtime: number
+  spoken_languages: any
+  status: string
+  tagline: string
+  title: string
+  video: boolean
+  vote_average: number
+  vote_count: number
+  videos: IVideos
+  similar: ISimilar
+}
 

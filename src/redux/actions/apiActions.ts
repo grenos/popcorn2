@@ -19,7 +19,11 @@ export const Types: any = {
   GET_SERIE_BY_GENRE_REQUEST: 'GET_SERIE_BY_GENRE_REQUEST',
   GET_SERIE_BY_GENRE_SUCCESS: 'GET_SERIE_BY_GENRE_SUCCESS',
   CLEAR_MOVIES_BY_GENRES_STATE: 'CLEAR_MOVIES_BY_GENRES_STATE',
-  CLEAR_SERIES_BY_GENRES_STATE: 'CLEAR_SERIES_BY_GENRES_STATE'
+  CLEAR_SERIES_BY_GENRES_STATE: 'CLEAR_SERIES_BY_GENRES_STATE',
+  GET_MOVIE_INFO_REQUEST: 'GET_MOVIE_INFO_REQUEST',
+  GET_MOVIE_INFO_SUCCESS: 'GET_MOVIE_INFO_SUCCESS',
+  GET_SERIE_INFO_REQUEST: 'GET_SERIE_INFO_REQUEST',
+  GET_SERIE_INFO_SUCCESS: 'GET_SERIE_INFO_SUCCESS'
 }
 
 
@@ -108,6 +112,31 @@ export const getSeriesByGenreRequest = (id: number, page: number): INT.IGetByGen
 })
 export const getSeriesByGenreSuccess = ({ result, id }: INT.ISearchSeries) => ({
   type: Types.GET_SERIE_BY_GENRE_SUCCESS,
+  payload: result,
+  id
+})
+
+
+
+
+export const getMovieInfoRequest = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_MOVIE_INFO_REQUEST,
+  id
+})
+
+export const getMovieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_MOVIE_INFO_SUCCESS,
+  payload: result,
+  id
+})
+
+export const getSerieInfoRequest = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_SERIE_INFO_REQUEST,
+  id
+})
+
+export const getSerieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_SERIE_INFO_SUCCESS,
   payload: result,
   id
 })

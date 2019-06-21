@@ -19,6 +19,12 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
         topSeries: [...state.topSeries, ...action.payload]
       }
     }
+    case Types.GET_SERIE_INFO_SUCCESS: {
+      return {
+        ...state,
+        serieInfo: { ...action.payload }
+      }
+    }
     case Types.GET_SERIE_GENRES_SUCCESS: {
       return {
         ...state,

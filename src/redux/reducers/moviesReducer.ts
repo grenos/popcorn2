@@ -17,6 +17,12 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         topMovies: [...state.topMovies, ...action.payload]
       }
     }
+    case Types.GET_MOVIE_INFO_SUCCESS: {
+      return {
+        ...state,
+        movieInfo: { ...action.payload }
+      }
+    }
     case Types.GET_MOVIE_GENRES_SUCCESS: {
       return {
         ...state,

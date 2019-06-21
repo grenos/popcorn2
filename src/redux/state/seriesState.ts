@@ -6,7 +6,8 @@ export const SERIES_STATE: INT.ISeriesState = {
   topSeries: [],
   serieGenres: [],
   seriesByGenre: [],
-  serieCategoryId: 0
+  serieCategoryId: 0,
+  serieInfo: {}
 }
 
 
