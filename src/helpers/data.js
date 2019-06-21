@@ -19,3 +19,5 @@ export const topSeries = [
   { id: 17, backdrop_path: 'test.jpg', name: 'matrix', overview: 'lorem ipsum' },
   { id: 18, backdrop_path: 'test.jpg', name: 'matrix', overview: 'lorem ipsum' },
 ]
+
+

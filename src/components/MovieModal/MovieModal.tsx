@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react'
+import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
@@ -8,10 +8,13 @@ import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/ap
 import { withRouter } from "react-router-dom"
 import { makeDashesUrl } from '../../helpers/helperFunctions'
 import close from '../../media/img/close.png'
+import play from '../../media/img/play.png'
+import pause from '../../media/img/pause.png'
+import volume from '../../media/img/volume.png'
+import mute from '../../media/img/mute.png'
 import useWindowSize from '@rehooks/window-size';
 import YouTube from 'react-youtube';
 import get from 'lodash.get'
-
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
@@ -28,18 +31,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   isMovieCatSelected,
   movieInfo
 }) => {
-
-  const Options = {
-    height: '65vh',
-    // width: '',
-    playerVars: { // https://developers.google.com/youtube/player_parameters
-      autoplay: 1
-    }
-  }
-
-  const _onReady = () => {
-    console.log('work');
-  }
 
   const ref = useRef<HTMLDivElement>(null)
   let windowSize = useWindowSize();
@@ -72,8 +63,56 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     history.push(`/title/${makeDashesUrl(title)}`)
   }
 
+  const [videoPlayer, setVideoPlayer] = useState()
+  const [togglePlayer, setTogglePlayer] = useState(false)
+  const [toggleMute, setToggleMute] = useState(false)
+
+  const onReady = (event: any) => {
+    const player = event.target
+    setVideoPlayer(player)
+  }
+
+  const Options = {
+    // @ts-ignore
+    height: '65vh',
+    playerVars: {
+      autoplay: 1,
+      cc_load_policy: 0,
+      controls: 0,
+      disablekb: 1,
+      enablejsapi: 1,
+      fs: 0,
+      iv_load_policy: 3,
+      loop: 1,
+      modestbranding: 1,
+      playsinline: 1,
+      rel: 0,
+      showinfo: 0,
+    }
+  }
+
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
+  }
+
+  const handleVolume = (): void => {
+    setToggleMute(toggleMute => !toggleMute)
+    // @ts-ignore
+    if (toggleMute) {
+      videoPlayer.unMute()
+    } else {
+      videoPlayer.mute()
+    }
+  }
+
+  const handlePlay = (): void => {
+    setTogglePlayer(togglePlayer => !togglePlayer)
+    // @ts-ignore
+    if (togglePlayer) {
+      videoPlayer.playVideo()
+    } else {
+      videoPlayer.pauseVideo()
+    }
   }
 
   const { tagline, genres } = movieInfo
@@ -90,13 +129,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               style={{ backgroundImage: `url(${URL + backdrop_path})`, ...props }}
             >
               <div className="modal-content">
-
                 <YouTube
                   videoId={video}
                   className="video"
                   containerClassName="video-container"
+                  // @ts-ignore
                   opts={Options}
-                  onReady={_onReady}
+                  onReady={onReady}
                 />
 
                 <div className="info-wrapper-modal">
@@ -119,6 +158,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               </div>
               <div className="close" onClick={handleHighlightToggle}>
                 <img src={close} alt="close" />
+              </div>
+              <div className="mute" onClick={handleVolume}>
+                <img src={toggleMute ? volume : mute} alt="close" />
+              </div>
+              <div className="pause" onClick={handlePlay}>
+                <img src={togglePlayer ? play : pause} alt="close" />
               </div>
             </a.div>
           )

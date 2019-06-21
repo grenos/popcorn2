@@ -84,7 +84,7 @@
           .cta {
             button {
               cursor: pointer;
-              background: rgba(0, 0, 0, 0.6);
+              background: rgba(255, 255, 255, 0.116);
               border: none;
               // border: 1px solid white;
               border-radius: 5px;
@@ -106,6 +106,26 @@
     position: absolute;
     top: 5%;
     right: 3%;
+    img {
+      width: 20px;
+    }
+  }
+  .mute {
+    z-index: 6;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    right: 6%;
+    img {
+      width: 20px;
+    }
+  }
+  .pause {
+    z-index: 6;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    right: 9%;
     img {
       width: 20px;
     }
