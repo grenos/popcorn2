@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useTransition, animated as a } from 'react-spring'
+import { useTransition, useSpring, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
@@ -29,7 +29,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   getMovieInfoRequest,
   getSerieInfoRequest,
   isMovieCatSelected,
-  movieInfo
+  movieInfo,
+  serieInfo
 }) => {
 
   const ref = useRef<HTMLDivElement>(null)
@@ -59,6 +60,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     onRest: () => handleScroll(),
   })
 
+  const fadeContent = useSpring({
+    from:{opacity: 0},
+    to: {opacity: 1},
+    config: { tension: 140, mass: 1, friction: 46, clamp: true },
+  })
+
   const handleGoToMovie = (title: string, id: number): void => {
     history.push(`/title/${makeDashesUrl(title)}`)
   }
@@ -80,6 +87,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
       cc_load_policy: 0,
       controls: 0,
       disablekb: 1,
+      origin: 'http://localhost:3000/',
       enablejsapi: 1,
       fs: 0,
       iv_load_policy: 3,
@@ -116,7 +124,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   }
 
   const { tagline, genres } = movieInfo
-  const video = get(movieInfo, 'videos.results[0].key', 'loading');
+  const movieVid = get(movieInfo, 'videos.results[0].key', 'loading')
+  const serieVid = get(serieInfo, 'videos.results[0].key', 'loading')
 
   return (
     <div className="item-modal" ref={ref}>
@@ -128,9 +137,9 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               className="modal-outer"
               style={{ backgroundImage: `url(${URL + backdrop_path})`, ...props }}
             >
-              <div className="modal-content">
+              <a.div className="modal-content" style={fadeContent}>
                 <YouTube
-                  videoId={video}
+                  videoId={isMovieCatSelected ? movieVid : serieVid}
                   className="video"
                   containerClassName="video-container"
                   // @ts-ignore
@@ -142,7 +151,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                   <div className="sizer">
                     <div className="info-inner">
                       <h3>{title}</h3>
-                      <h5>{tagline}</h5>
+                      <h5>{isMovieCatSelected && tagline}</h5>
                       <p>{overview}</p>
                       <div className="modal-genres">
                         {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
@@ -155,7 +164,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                   </div>
                 </div>
 
-              </div>
+              </a.div>
               <div className="close" onClick={handleHighlightToggle}>
                 <img src={close} alt="close" />
               </div>
@@ -177,7 +186,8 @@ const mapStateToProps = (state: any) => {
   return {
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    movieInfo: state.moviesReducer.movieInfo
+    movieInfo: state.moviesReducer.movieInfo,
+    serieInfo: state.seriesReducer.serieInfo,
   }
 }
 

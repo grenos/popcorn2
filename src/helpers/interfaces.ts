@@ -285,6 +285,7 @@ export interface IModalProps {
   isMovieCatSelected: boolean
   props?: any
   movieInfo: IMovieInfoRes
+  serieInfo: IMovieInfoRes
 }
 
 export interface ITopResultsPage {
