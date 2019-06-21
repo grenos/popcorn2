@@ -10,6 +10,8 @@ import { makeDashesUrl } from '../../helpers/helperFunctions'
 import close from '../../media/img/close.png'
 import useWindowSize from '@rehooks/window-size';
 import YouTube from 'react-youtube';
+import get from 'lodash.get'
+
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
@@ -28,8 +30,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 }) => {
 
   const Options = {
-    height: '390',
-    width: '640',
+    height: '65vh',
+    // width: '',
     playerVars: { // https://developers.google.com/youtube/player_parameters
       autoplay: 1
     }
@@ -75,6 +77,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   }
 
   const { tagline, genres } = movieInfo
+  const video = get(movieInfo, 'videos.results[0].key', 'loading');
 
   return (
     <div className="item-modal" ref={ref}>
@@ -87,25 +90,32 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               style={{ backgroundImage: `url(${URL + backdrop_path})`, ...props }}
             >
               <div className="modal-content">
-                <div className="modal-video">
-                  <YouTube
-                    videoId="2g811Eo7K8U"
-                    opts={Options}
-                    onReady={_onReady}
-                  />
-                </div>
+
+                <YouTube
+                  videoId={video}
+                  className="video"
+                  containerClassName="video-container"
+                  opts={Options}
+                  onReady={_onReady}
+                />
+
                 <div className="info-wrapper-modal">
-                  <h3>{title}</h3>
-                  <h5>{tagline}</h5>
-                  <p>{overview}</p>
-                  <div className="modal-genres">
-                    {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
-                  </div>
-                  <div className="cta">
-                    <button onClick={() => handleGoToMovie(title, id)}>Details</button>
-                    <button onClick={() => console.log('added')}>Add to list</button>
+                  <div className="sizer">
+                    <div className="info-inner">
+                      <h3>{title}</h3>
+                      <h5>{tagline}</h5>
+                      <p>{overview}</p>
+                      <div className="modal-genres">
+                        {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
+                      </div>
+                      <div className="cta">
+                        <button onClick={() => handleGoToMovie(title, id)}>Details</button>
+                        <button onClick={() => console.log('added')}>Add to list</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
               <div className="close" onClick={handleHighlightToggle}>
                 <img src={close} alt="close" />
