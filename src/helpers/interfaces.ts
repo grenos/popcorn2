@@ -207,6 +207,7 @@ export interface IUiState {
   readonly SearchItemsActive: boolean
   readonly genreItemsActive: boolean
   readonly isMovieModalOpen: boolean
+  readonly isVideoSectionOpen: boolean
 }
 
 
@@ -286,6 +287,8 @@ export interface IModalProps {
   props?: any
   movieInfo: IMovieInfoRes
   serieInfo: IMovieInfoRes
+  isVideoSectionOpen: boolean
+  openVideoSectionRequest: Function
 }
 
 export interface ITopResultsPage {

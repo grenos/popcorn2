@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { useTransition, useSpring, animated as a } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
-import { openMovieModalRequest } from '../../redux/actions/uiActions'
+import { openMovieModalRequest, openVideoSectionRequest } from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { withRouter } from "react-router-dom"
 import RelatedItems from './RelatedItems'
@@ -31,7 +31,9 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   getSerieInfoRequest,
   isMovieCatSelected,
   movieInfo,
-  serieInfo
+  serieInfo,
+  openVideoSectionRequest,
+  isVideoSectionOpen
 }) => {
 
   const ref = useRef<HTMLDivElement>(null)
@@ -130,7 +132,9 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   }
 
   const handleOtherVideos = () => {
-    setToggleVideos(toggleVideos => !toggleVideos)
+    openVideoSectionRequest(true)
+
+    setTogglePlayer(togglePlayer => !togglePlayer)
     videoPlayer.pauseVideo()
   }
 
@@ -198,7 +202,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               <div className="pause" onClick={handlePlay}>
                 <img src={togglePlayer ? play : pause} alt="close" />
               </div>
-              {toggleVideos && <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} />}
+              {isVideoSectionOpen && <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} />}
             </a.div>
           )
         )
@@ -213,13 +217,15 @@ const mapStateToProps = (state: any) => {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     movieInfo: state.moviesReducer.movieInfo,
     serieInfo: state.seriesReducer.serieInfo,
+    isVideoSectionOpen: state.uiReducer.isVideoSectionOpen
   }
 }
 
 export default withRouter(connect(mapStateToProps, {
   openMovieModalRequest,
   getMovieInfoRequest,
-  getSerieInfoRequest
+  getSerieInfoRequest,
+  openVideoSectionRequest
 })(MovieModal))
 
 

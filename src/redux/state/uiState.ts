@@ -9,7 +9,8 @@ export const UI_STATE: INT.IUiState = {
   TopItemsActive: false,
   SearchItemsActive: false,
   genreItemsActive: false,
-  isMovieModalOpen: false
+  isMovieModalOpen: false,
+  isVideoSectionOpen: false
 
 }
 

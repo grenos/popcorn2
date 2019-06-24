@@ -54,6 +54,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isMovieModalOpen: action.toggle
       }
     }
+    case Types.IS_VIDEO_SECTION_OPEN: {
+      return {
+        ...state,
+        isVideoSectionOpen: action.toggle
+      }
+    }
     default: {
       return state
     }

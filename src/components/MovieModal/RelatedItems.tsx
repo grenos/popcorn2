@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
 import * as INT from '../../helpers/interfaces'
+import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import get from 'lodash.get'
 import close from '../../media/img/close.png'
 
-const RelatedItems = ({ videos }: any) => {
+const RelatedItems = ({ videos, openVideoSectionRequest }: any) => {
 
   const Options = {
     // @ts-ignore
@@ -35,6 +37,10 @@ const RelatedItems = ({ videos }: any) => {
     width: '100%',
   }
 
+  const handleCloseVideo = () => {
+    openVideoSectionRequest(false)
+  }
+
 
   if (videos === undefined) {
     return null
@@ -55,7 +61,7 @@ const RelatedItems = ({ videos }: any) => {
             </div>
           ))}
         </Carousel>
-        <div className="close">
+        <div className="close" onClick={handleCloseVideo}>
           <img src={close} alt="close" />
         </div>
       </div>
@@ -64,4 +70,9 @@ const RelatedItems = ({ videos }: any) => {
 
 }
 
-export default RelatedItems
+
+export default connect(null, {
+  openVideoSectionRequest
+})(RelatedItems)
+
+
