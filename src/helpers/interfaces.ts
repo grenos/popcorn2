@@ -333,6 +333,9 @@ export interface IMenuSlideAction {
 
 export interface IVideos {
   results: Array<ITrailer>
+  // allMovieVids?: Array<ITrailer>
+  // allSerieVids?: Array<ITrailer>
+  // videos?: Array<ITrailer>
 }
 
 export interface ITrailer {

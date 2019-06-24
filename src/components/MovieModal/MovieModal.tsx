@@ -6,7 +6,7 @@ import { RouteComponentProps } from "react-router"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { withRouter } from "react-router-dom"
-import RelatedItems from './relatedItems'
+import RelatedItems from './RelatedItems'
 import close from '../../media/img/close.png'
 import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
@@ -124,8 +124,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     }
   }
 
-  const handleOtherVideos = () => {
-
+  const handleOtherVideos = (
+    // isMovieCatSelected: boolean,
+    // allMovieVids: INT.IVideos,
+    // allSerieVids: INT.IVideos
+    videos: any
+  ) => {
+    return <RelatedItems videos={videos} /> 
   }
 
   const handleRelated = () => {
@@ -136,12 +141,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 
   }
 
-  const { tagline, genres } = movieInfo
+  const { tagline, genres, videos } = movieInfo
   const movieVid = get(movieInfo, 'videos.results[0].key', 'loading')
+  const allMovieVids = get(movieInfo, 'videos.results', 'loading')
+  // const allSerieVids = get(serieInfo, 'videos.results', 'loading')
   const serieVid = get(serieInfo, 'videos.results[0].key', 'loading')
 
-  console.log(movieInfo);
-  
 
   return (
     <div className="item-modal" ref={ref}>
@@ -176,7 +181,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                         <button onClick={() => handleGoToFav(id)}>Add to list</button>
                       </div>
                       <div className="rel">
-                        <button onClick={handleOtherVideos}>Videos</button>
+                        <button onClick={() => handleOtherVideos(videos)}>Videos</button>
                         <button onClick={handleRelated}>Related Movies</button>
                         <button onClick={handleInfo}>Other info</button>
                       </div>
@@ -198,7 +203,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
           )
         )
       }
-      <RelatedItems />
+      {handleOtherVideos(videos)}
     </div>
   )
 }
