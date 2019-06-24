@@ -1,0 +1,20 @@
+.thumb-wrapper {
+  background: rgba(0, 0, 0, 0.9);
+  height: 65vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  .thumb-container {
+    @include flex-box(null, null, center, center);
+    height: 65vh;
+    .thumb {
+      height: 40%;
+      width: 70%;
+    }
+  }
+  .thumb-info {
+  }
+}

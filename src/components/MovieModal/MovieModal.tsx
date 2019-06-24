@@ -75,6 +75,11 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   const [togglePlayer, setTogglePlayer] = useState(false)
   const [toggleMute, setToggleMute] = useState(false)
 
+  const [toggleVideos, setToggleVideos] = useState(false)
+  // const [toggleMute, setToggleMute] = useState(false)
+  // const [toggleMute, setToggleMute] = useState(false)
+
+
   const onReady = (event: any) => {
     const player = event.target
     setVideoPlayer(player)
@@ -124,13 +129,9 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     }
   }
 
-  const handleOtherVideos = (
-    // isMovieCatSelected: boolean,
-    // allMovieVids: INT.IVideos,
-    // allSerieVids: INT.IVideos
-    videos: any
-  ) => {
-    return <RelatedItems videos={videos} /> 
+  const handleOtherVideos = () => {
+    setToggleVideos(toggleVideos => !toggleVideos)
+    videoPlayer.pauseVideo()
   }
 
   const handleRelated = () => {
@@ -141,10 +142,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 
   }
 
-  const { tagline, genres, videos } = movieInfo
+  const { tagline, genres } = movieInfo
   const movieVid = get(movieInfo, 'videos.results[0].key', 'loading')
-  const allMovieVids = get(movieInfo, 'videos.results', 'loading')
-  // const allSerieVids = get(serieInfo, 'videos.results', 'loading')
   const serieVid = get(serieInfo, 'videos.results[0].key', 'loading')
 
 
@@ -181,7 +180,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                         <button onClick={() => handleGoToFav(id)}>Add to list</button>
                       </div>
                       <div className="rel">
-                        <button onClick={() => handleOtherVideos(videos)}>Videos</button>
+                        <button onClick={handleOtherVideos}>Videos</button>
                         <button onClick={handleRelated}>Related Movies</button>
                         <button onClick={handleInfo}>Other info</button>
                       </div>
@@ -199,11 +198,11 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
               <div className="pause" onClick={handlePlay}>
                 <img src={togglePlayer ? play : pause} alt="close" />
               </div>
+              {toggleVideos && <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} />}
             </a.div>
           )
         )
       }
-      {handleOtherVideos(videos)}
     </div>
   )
 }

@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
 import * as INT from '../../helpers/interfaces'
 import get from 'lodash.get'
-
+import close from '../../media/img/close.png'
 
 const RelatedItems = ({ videos }: any) => {
 
   const Options = {
     // @ts-ignore
-    // height: '65vh',
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
       cc_load_policy: 0,
       controls: 0,
       disablekb: 1,
@@ -27,23 +26,39 @@ const RelatedItems = ({ videos }: any) => {
     }
   }
 
+  const params = {
+    dragging: false,
+    swiping: false,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    height: '100%',
+    width: '100%',
+  }
+
+
   if (videos === undefined) {
     return null
   } else {
     return (
-      <Carousel>
-         {videos.results.map((video: any, ) => (
-          <div className="wrapper" key={video.id}>
-            <YouTube
-              videoId={video.key}
-              className="video"
-              containerClassName="video-container"
-              // @ts-ignore
-              opts={Options}
-            />
-          </div>
-        ))} 
-      </Carousel>
+      <div className="thumb-wrapper">
+        <Carousel {...params}>
+          {videos.results.slice(0, 6).map((video: any, ) => (
+            <div key={video.id}>
+              <YouTube
+                videoId={video.key}
+                className="thumb"
+                containerClassName="thumb-container"
+                // @ts-ignore
+                opts={Options}
+              />
+              <p className="thumb-info">{video.title}</p>
+            </div>
+          ))}
+        </Carousel>
+        <div className="close">
+          <img src={close} alt="close" />
+        </div>
+      </div>
     )
   }
 
