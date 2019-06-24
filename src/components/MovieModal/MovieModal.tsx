@@ -6,7 +6,7 @@ import { RouteComponentProps } from "react-router"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { withRouter } from "react-router-dom"
-import { makeDashesUrl } from '../../helpers/helperFunctions'
+import RelatedItems from './relatedItems'
 import close from '../../media/img/close.png'
 import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
@@ -17,6 +17,7 @@ import YouTube from 'react-youtube';
 import get from 'lodash.get'
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
+
 
 const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   history,
@@ -61,13 +62,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   })
 
   const fadeContent = useSpring({
-    from:{opacity: 0},
-    to: {opacity: 1},
+    from: { opacity: 0 },
+    to: { opacity: 1 },
     config: { tension: 140, mass: 1, friction: 46, clamp: true },
   })
 
-  const handleGoToMovie = (title: string, id: number): void => {
-    history.push(`/title/${makeDashesUrl(title)}`)
+  const handleGoToFav = (id: number): void => {
+    console.log('add to fav');
   }
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -123,9 +124,24 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     }
   }
 
+  const handleOtherVideos = () => {
+
+  }
+
+  const handleRelated = () => {
+
+  }
+
+  const handleInfo = () => {
+
+  }
+
   const { tagline, genres } = movieInfo
   const movieVid = get(movieInfo, 'videos.results[0].key', 'loading')
   const serieVid = get(serieInfo, 'videos.results[0].key', 'loading')
+
+  console.log(movieInfo);
+  
 
   return (
     <div className="item-modal" ref={ref}>
@@ -157,8 +173,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
                         {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
                       </div>
                       <div className="cta">
-                        <button onClick={() => handleGoToMovie(title, id)}>Details</button>
-                        <button onClick={() => console.log('added')}>Add to list</button>
+                        <button onClick={() => handleGoToFav(id)}>Add to list</button>
+                      </div>
+                      <div className="rel">
+                        <button onClick={handleOtherVideos}>Videos</button>
+                        <button onClick={handleRelated}>Related Movies</button>
+                        <button onClick={handleInfo}>Other info</button>
                       </div>
                     </div>
                   </div>
@@ -178,6 +198,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
           )
         )
       }
+      <RelatedItems />
     </div>
   )
 }

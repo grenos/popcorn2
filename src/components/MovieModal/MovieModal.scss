@@ -97,6 +97,19 @@
             }
           }
         }
+        .rel {
+          position: absolute;
+          bottom: 5%;
+          left: 5%;
+          button {
+            background: none;
+            font-size: 18px;
+            border: none;
+            color: #fff;
+            margin: 0 10px 0;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
