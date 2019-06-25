@@ -15,11 +15,13 @@ import mute from '../../media/img/mute.png'
 import useWindowSize from '@rehooks/window-size';
 import YouTube from 'react-youtube';
 import get from 'lodash.get'
+import { useWhyDidYouUpdate } from '../../helpers/hooks'
+
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
 
-const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
+const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo(({
   history,
   id,
   backdrop_path,
@@ -35,6 +37,10 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
   openVideoSectionRequest,
   isVideoSectionOpen
 }) => {
+
+  const [videoPlayer, setVideoPlayer] = useState()
+  const [togglePlayer, setTogglePlayer] = useState(false)
+  const [toggleMute, setToggleMute] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
   let windowSize = useWindowSize();
@@ -73,14 +79,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     console.log('add to fav');
   }
 
-  const [videoPlayer, setVideoPlayer] = useState()
-  const [togglePlayer, setTogglePlayer] = useState(false)
-  const [toggleMute, setToggleMute] = useState(false)
-
-  const [toggleVideos, setToggleVideos] = useState(false)
-  // const [toggleMute, setToggleMute] = useState(false)
-  // const [toggleMute, setToggleMute] = useState(false)
-
 
   const onReady = (event: any) => {
     const player = event.target
@@ -113,7 +111,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 
   const handleVolume = (): void => {
     setToggleMute(toggleMute => !toggleMute)
-    // @ts-ignore
     if (toggleMute) {
       videoPlayer.unMute()
     } else {
@@ -123,7 +120,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 
   const handlePlay = (): void => {
     setTogglePlayer(togglePlayer => !togglePlayer)
-    // @ts-ignore
     if (togglePlayer) {
       videoPlayer.playVideo()
     } else {
@@ -131,9 +127,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
     }
   }
 
-  const handleOtherVideos = () => {
+  const handleOtherVideos = (): void => {
     openVideoSectionRequest(true)
-
     setTogglePlayer(togglePlayer => !togglePlayer)
     videoPlayer.pauseVideo()
   }
@@ -194,13 +189,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
 
               </a.div>
               <div className="close" onClick={handleHighlightToggle}>
-                <img src={close} alt="close" />
+                <img src={close} alt="close modal" />
               </div>
               <div className="mute" onClick={handleVolume}>
-                <img src={toggleMute ? volume : mute} alt="close" />
+                <img src={toggleMute ? volume : mute} alt="volume mute button" />
               </div>
               <div className="pause" onClick={handlePlay}>
-                <img src={togglePlayer ? play : pause} alt="close" />
+                <img src={togglePlayer ? play : pause} alt="pplay pause button" />
               </div>
               {isVideoSectionOpen && <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} />}
             </a.div>
@@ -209,7 +204,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = ({
       }
     </div>
   )
-}
+})
 
 const mapStateToProps = (state: any) => {
   return {

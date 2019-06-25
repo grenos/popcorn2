@@ -12,11 +12,10 @@ import chunk from 'lodash.chunk'
 const MovieModal = lazy(() => import('components/MovieModal/MovieModal'))
 
 
-
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams { id: string, param2?: string }
 
-export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = ({
+export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = React.memo(({
   isMovieCatSelected,
   movies,
   series,
@@ -132,6 +131,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
+ 
+
   // test loader for now
   const Loader = () => <div className="loader">loading</div>
 
@@ -222,7 +223,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
     </div>
   )
-}
+})
 
 const mapStateToProps = (state: any) => {
   return {
