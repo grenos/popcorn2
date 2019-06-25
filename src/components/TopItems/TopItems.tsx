@@ -132,8 +132,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      chunk(movies, 7).map((arr: any, index: number) => {
-        return (
+      chunk(movies, 7).map((arr: any, index: number) => (
           <div key={index}>
             <div className="row">
               {
@@ -162,14 +161,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           </div>
         )
-      })
+      )
     )
   }
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      chunk(series, 7).map((arr: any, index: number) => {
-        return (
+      chunk(series, 7).map((arr: any, index: number) => (
           <div key={index}>
             <div className="row">
               {
@@ -198,7 +196,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           </div>
         )
-      })
+      )
     )
   }
 
