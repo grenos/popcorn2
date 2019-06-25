@@ -12,11 +12,8 @@ import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
 import volume from '../../media/img/volume.png'
 import mute from '../../media/img/mute.png'
-import useWindowSize from '@rehooks/window-size';
 import YouTube from 'react-youtube';
 import get from 'lodash.get'
-import { useWhyDidYouUpdate } from '../../helpers/hooks'
-
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
@@ -43,7 +40,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   const [toggleMute, setToggleMute] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
-  let windowSize = useWindowSize();
 
   const handleScroll = useCallback(() => {
     const nav: number = 60
@@ -53,13 +49,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
         top: ref.current.offsetTop - nav * 2
       })
     }
-  }, [windowSize.innerHeight])
+  }, [])
 
   useEffect(() => {
     isMovieCatSelected
       ? getMovieInfoRequest(id)
       : getSerieInfoRequest(id)
-  }, [])
+  }, [getMovieInfoRequest, getSerieInfoRequest, id, isMovieCatSelected])
 
   const transitionMount = useTransition(isMovieModalOpen, null, {
     from: { height: `0vh`, opacity: 0 },

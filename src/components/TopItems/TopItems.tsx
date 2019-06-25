@@ -1,15 +1,16 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
-import { Link, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import popcorn from '../../media/img/popcorn.png'
-import { filterNoImg, makeDashesUrl } from '../../helpers/helperFunctions'
+import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
 import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
-const MovieModal = lazy(() => import('components/MovieModal/MovieModal'))
+import MovieModal from '../MovieModal/MovieModal'
+
 
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
@@ -123,18 +124,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   ) => {
     if (id === selectedId && index === selectedIndex) {
       return (
-        <Suspense fallback={<Loader />}>
-          <MovieModal
-            id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
-        </Suspense>
+        <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
       )
     }
   }
-
- 
-
-  // test loader for now
-  const Loader = () => <div className="loader">loading</div>
 
 
   const renderMovies = (): JSX.Element[] => {
@@ -147,14 +140,12 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                 arr.map((movie: any) => (
                   <div className="loc-wrapper" key={movie.id} >
                     <div className="locandina-outer" data-test="locandina-movie" >
-                      {/* <Link to={`/title/${makeDashesUrl(movie.title)}`}> */}
                       <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
                       <div className="overlay-gallery">
                         <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
                           <img src={chevron} alt="open modal" />
                         </div>
                       </div>
-                      {/* </Link> */}
                     </div>
                   </div>
                 ))
@@ -185,14 +176,12 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                 arr.map((serie: any) => (
                   <div className="loc-wrapper" key={serie.id}>
                     <div className="locandina-outer" data-test="locandina-movie" >
-                      {/* <Link to={`/title/${makeDashesUrl(serie.title)}`}> */}
                       <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                       <div className="overlay-gallery">
                         <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
                           <img src={chevron} alt="open modal" />
                         </div>
                       </div>
-                      {/* </Link> */}
                     </div>
                   </div>
                 ))

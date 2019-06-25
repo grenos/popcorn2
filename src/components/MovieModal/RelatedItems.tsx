@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
-import * as INT from '../../helpers/interfaces'
+// import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
-import get from 'lodash.get'
 import close from '../../media/img/close.png'
 
 const RelatedItems = ({ videos, openVideoSectionRequest }: any) => {
