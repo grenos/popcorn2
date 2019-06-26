@@ -124,7 +124,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   ) => {
     if (id === selectedId && index === selectedIndex) {
       return (
-        <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} />
+        <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} key={id} />
       )
     }
   }
@@ -133,34 +133,34 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const renderMovies = (): JSX.Element[] => {
     return (
       chunk(movies, 7).map((arr: any, index: number) => (
-          <div key={index}>
-            <div className="row">
-              {
-                arr.map((movie: any) => (
-                  <div className="loc-wrapper" key={movie.id} >
-                    <div className="locandina-outer" data-test="locandina-movie" >
-                      <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
-                      <div className="overlay-gallery">
-                        <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
-                          <img src={chevron} alt="open modal" />
-                        </div>
+        <div key={index}>
+          <div className="row">
+            {
+              arr.map((movie: any) => (
+                <div className="loc-wrapper" key={movie.id} >
+                  <div className="locandina-outer" data-test="locandina-movie" >
+                    <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                    <div className="overlay-gallery">
+                      <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
+                        <img src={chevron} alt="open modal" />
                       </div>
                     </div>
                   </div>
-                ))
-              }
-            </div>
-            <div className="modal-wrapper">
-              {
-                movies.map(({ id, backdrop_path, title, overview }) => {
-                  return (
-                    handleModal(id, backdrop_path, title, overview, index)
-                  )
-                })
-              }
-            </div>
+                </div>
+              ))
+            }
           </div>
-        )
+          <div className="modal-wrapper">
+            {
+              movies.map(({ id, backdrop_path, title, overview }) => {
+                return (
+                  handleModal(id, backdrop_path, title, overview, index)
+                )
+              })
+            }
+          </div>
+        </div>
+      )
       )
     )
   }
@@ -168,34 +168,34 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const renderSeries = (): JSX.Element[] => {
     return (
       chunk(series, 7).map((arr: any, index: number) => (
-          <div key={index}>
-            <div className="row">
-              {
-                arr.map((serie: any) => (
-                  <div className="loc-wrapper" key={serie.id}>
-                    <div className="locandina-outer" data-test="locandina-movie" >
-                      <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
-                      <div className="overlay-gallery">
-                        <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
-                          <img src={chevron} alt="open modal" />
-                        </div>
+        <div key={index}>
+          <div className="row">
+            {
+              arr.map((serie: any) => (
+                <div className="loc-wrapper" key={serie.id}>
+                  <div className="locandina-outer" data-test="locandina-movie" >
+                    <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                    <div className="overlay-gallery">
+                      <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
+                        <img src={chevron} alt="open modal" />
                       </div>
                     </div>
                   </div>
-                ))
-              }
-            </div>
-            <div className="modal-wrapper">
-              {
-                series.map(({ id, backdrop_path, name, overview }) => {
-                  return (
-                    handleModal(id, backdrop_path, name, overview, index)
-                  )
-                })
-              }
-            </div>
+                </div>
+              ))
+            }
           </div>
-        )
+          <div className="modal-wrapper">
+            {
+              series.map(({ id, backdrop_path, name, overview }) => {
+                return (
+                  handleModal(id, backdrop_path, name, overview, index)
+                )
+              })
+            }
+          </div>
+        </div>
+      )
       )
     )
   }
