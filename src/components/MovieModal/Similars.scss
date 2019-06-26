@@ -1,0 +1,46 @@
+.similar-wrapper {
+  background: rgba(0, 0, 0, 0.9);
+  height: 65vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  .similar-item {
+    height: 65vh;
+    @include flex-box(null, null, null, center);
+    .similar-inner-item {
+      position: relative;
+      height: 55vh;
+      transition: 0.2s;
+      filter: brightness(0.7);
+      &.active {
+        transform: scale(1.05) translate3d(-20%, 0, 0);
+        filter: brightness(1);
+        z-index: 100;
+        transition: 0.4s;
+        cursor: pointer;
+      }
+
+      .img-overlay {
+        height: 55vh;
+        position: absolute;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0) 65%,
+          rgba(0, 0, 0, 0.54) 100%
+        );
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      img {
+        height: 55vh;
+        box-shadow: -10px 0px 15px 10px rgba(0, 0, 0, 0.614);
+      }
+    }
+  }
+}

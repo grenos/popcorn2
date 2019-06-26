@@ -43,6 +43,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
       transitionMode="fade"
       renderCenterLeftControls={() => null}
       renderCenterRightControls={() => null}
+      renderBottomCenterControls={() => null}
       data-test="visore-component"
     >
       {

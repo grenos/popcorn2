@@ -7,14 +7,20 @@
   right: 0;
   bottom: 0;
   z-index: 20;
-  .thumb-container {
-    @include flex-box(null, null, center, center);
+  .thumb-inner {
+    @include flex-box(column, null, center, center);
     height: 65vh;
-    .thumb {
-      height: 40%;
-      width: 70%;
+
+    .thumb-container {
+      @include flex-box(null, null, center, center);
+      height: 40vh;
+      width: 100%;
+      .thumb {
+        width: 90%;
+      }
     }
-  }
-  .thumb-info {
+    .thumb-info {
+      color: #fff;
+    }
   }
 }

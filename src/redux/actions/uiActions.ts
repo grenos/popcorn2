@@ -14,7 +14,8 @@ export const Types: any = {
   SEARCH_ITEMS_ACTIVE_ACTION: 'SEARCH_ITEMS_ACTIVE_ACTION',
   GENRE_ITEMS_ACTIVE_ACTION: 'GENRE_ITEMS_ACTIVE_ACTION',
   IS_MOVIE_MODAL_OPEN_ACTION: 'IS_MOVIE_MODAL_OPEN_ACTION',
-  IS_VIDEO_SECTION_OPEN: 'IS_VIDEO_SECTION_OPEN'
+  IS_VIDEO_SECTION_OPEN: 'IS_VIDEO_SECTION_OPEN',
+  IS_SIMILAR_SECTION_OPEN: 'IS_SIMILAR_SECTION_OPEN',
 }
 
 
@@ -77,5 +78,9 @@ export const openMovieModalRequest = (toggle: boolean) => ({
 })
 export const openVideoSectionRequest = (toggle: boolean) => ({
   type: Types.IS_VIDEO_SECTION_OPEN,
+  toggle
+})
+export const openSimilarSectionRequest = (toggle: boolean) => ({
+  type: Types.IS_SIMILAR_SECTION_OPEN,
   toggle
 })

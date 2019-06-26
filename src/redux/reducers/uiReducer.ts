@@ -60,6 +60,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isVideoSectionOpen: action.toggle
       }
     }
+    case Types.IS_SIMILAR_SECTION_OPEN: {
+      return {
+        ...state,
+        isSimilarSectionOpen: action.toggle
+      }
+    }
     default: {
       return state
     }

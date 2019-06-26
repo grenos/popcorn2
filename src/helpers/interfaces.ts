@@ -208,6 +208,7 @@ export interface IUiState {
   readonly genreItemsActive: boolean
   readonly isMovieModalOpen: boolean
   readonly isVideoSectionOpen: boolean
+  readonly isSimilarSectionOpen: boolean
 }
 
 
@@ -289,6 +290,18 @@ export interface IModalProps {
   serieInfo: IMovieInfoRes
   isVideoSectionOpen: boolean
   openVideoSectionRequest: Function
+  openSimilarSectionRequest: Function
+  isSimilarSectionOpen: boolean
+}
+
+export interface IRelatedVidProps {
+  openVideoSectionRequest: Function
+  videos: IVideos
+}
+
+export interface ISimilarProps {
+  openSimilarSectionRequest: Function
+  videos: ISimilar
 }
 
 export interface ITopResultsPage {
@@ -336,9 +349,6 @@ export interface IMenuSlideAction {
 
 export interface IVideos {
   results: Array<ITrailer>
-  // allMovieVids?: Array<ITrailer>
-  // allSerieVids?: Array<ITrailer>
-  // videos?: Array<ITrailer>
 }
 
 export interface ITrailer {
