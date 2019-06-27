@@ -64,6 +64,9 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
                 {production_countries.map(({index, name,}: Countries) => <li key={index}>{name}</li>)}
               </ul>
             </div>
+            <div className="more-info-wrapper__col">
+             ACTORS GO HERE
+            </div>
           </div>
           <div className="close" onClick={this.handleCloseVideo}>
             <img src={close} alt="close" />

@@ -137,11 +137,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((movie: any) => (
-                <div className="loc-wrapper" key={movie.id} >
+                <div className="loc-wrapper" key={movie.id} onClick={() => handleModalStates(movie.id, index)}>
                   <div className="locandina-outer" data-test="locandina-movie" >
                     <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
                     <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
+                      <div className="chevron" >
                         <img src={chevron} alt="open modal" />
                       </div>
                     </div>
@@ -172,12 +172,12 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((serie: any) => (
-                <div className="loc-wrapper" key={serie.id}>
+                <div className="loc-wrapper" key={serie.id} onClick={() => handleModalStates(serie.id, index)}>
                   <div className="locandina-outer" data-test="locandina-movie" >
                     <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                     <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
-                         <img src={chevron} alt="open modal" />
+                      <div className="chevron">
+                        <img src={chevron} alt="open modal" />
                       </div>
                     </div>
                   </div>

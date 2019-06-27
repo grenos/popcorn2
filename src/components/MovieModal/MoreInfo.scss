@@ -18,6 +18,13 @@
     @include flex-box(row, null, center, center);
     .more-info-wrapper__col {
       color: #fff;
+      ul {
+        margin: 80px;
+        background: rgba(216, 112, 147, 0.336);
+        li {
+          margin: 10px;
+        }
+      }
     }
   }
 }
