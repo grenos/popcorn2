@@ -177,7 +177,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                     <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                     <div className="overlay-gallery">
                       <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
-                        <img src={chevron} alt="open modal" />
+                         <img src={chevron} alt="open modal" />
                       </div>
                     </div>
                   </div>

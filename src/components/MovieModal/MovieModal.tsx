@@ -4,11 +4,17 @@ import { useTransition, useSpring, animated as a } from 'react-spring'
 import { Spring, Transition } from 'react-spring/renderprops'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
-import { openMovieModalRequest, openVideoSectionRequest, openSimilarSectionRequest } from '../../redux/actions/uiActions'
+import {
+  openMovieModalRequest,
+  openVideoSectionRequest,
+  openSimilarSectionRequest,
+  openMoreInfoRequest
+} from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { withRouter } from "react-router-dom"
 import RelatedItems from './RelatedItems'
 import Similars from './Similars'
+import MoreInfo from './MoreInfo'
 import close from '../../media/img/close.png'
 import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
@@ -21,7 +27,6 @@ const URL = 'https://image.tmdb.org/t/p/w1280'
 
 
 const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo(({
-  history,
   id,
   backdrop_path,
   title,
@@ -36,7 +41,9 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   openVideoSectionRequest,
   isVideoSectionOpen,
   openSimilarSectionRequest,
-  isSimilarSectionOpen
+  isSimilarSectionOpen,
+  openMoreInfoRequest,
+  isMoreInfoOpen
 }) => {
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -105,8 +112,19 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
+  useEffect(() => {
+    resetModalsOnLocChange()
+    return () => resetModalsOnLocChange()
+  }, [])
+
+  const resetModalsOnLocChange = () => {
+    openVideoSectionRequest(false)
+    openMoreInfoRequest(false)
+  }
+
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
+
   }
 
   const handleVolume = (): void => {
@@ -129,18 +147,26 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
 
   const handleOtherVideos = (): void => {
     openVideoSectionRequest(true)
-    setTogglePlayer(togglePlayer => !togglePlayer)
-    videoPlayer.pauseVideo()
+    if (togglePlayer === false) {
+      setTogglePlayer(togglePlayer => !togglePlayer)
+      videoPlayer.pauseVideo()
+    }
   }
 
   const handleRelated = () => {
     openSimilarSectionRequest(true)
-    setTogglePlayer(togglePlayer => !togglePlayer)
-    videoPlayer.pauseVideo()
+    if (togglePlayer === false) {
+      setTogglePlayer(togglePlayer => !togglePlayer)
+      videoPlayer.pauseVideo()
+    }
   }
 
   const handleInfo = () => {
-
+    openMoreInfoRequest(true)
+    if (togglePlayer === false) {
+      setTogglePlayer(togglePlayer => !togglePlayer)
+      videoPlayer.pauseVideo()
+    }
   }
 
   const { tagline, genres } = movieInfo
@@ -219,6 +245,17 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
                   <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} />
                 )}
               </Transition>
+
+              <Transition
+                items={isMoreInfoOpen}
+                from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
+                enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
+                leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
+                {isMoreInfoOpen => isMoreInfoOpen && (props =>
+                  <MoreInfo info={isMovieCatSelected ? movieInfo : serieInfo} animation={props} />
+                )}
+              </Transition>
+
             </a.div>
           )
         )
@@ -234,7 +271,8 @@ const mapStateToProps = (state: any) => {
     movieInfo: state.moviesReducer.movieInfo,
     serieInfo: state.seriesReducer.serieInfo,
     isVideoSectionOpen: state.uiReducer.isVideoSectionOpen,
-    isSimilarSectionOpen: state.uiReducer.isSimilarSectionOpen
+    isSimilarSectionOpen: state.uiReducer.isSimilarSectionOpen,
+    isMoreInfoOpen: state.uiReducer.isMoreInfoOpen
   }
 }
 
@@ -243,7 +281,8 @@ export default withRouter(connect(mapStateToProps, {
   getMovieInfoRequest,
   getSerieInfoRequest,
   openVideoSectionRequest,
-  openSimilarSectionRequest
+  openSimilarSectionRequest,
+  openMoreInfoRequest
 })(MovieModal))
 
 

@@ -66,6 +66,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isSimilarSectionOpen: action.toggle
       }
     }
+    case Types.IS_MORE_INFO_OPEN: {
+      return {
+        ...state,
+        isMoreInfoOpen: action.toggle
+      }
+    }
     default: {
       return state
     }

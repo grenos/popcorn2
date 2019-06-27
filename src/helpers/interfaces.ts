@@ -209,6 +209,7 @@ export interface IUiState {
   readonly isMovieModalOpen: boolean
   readonly isVideoSectionOpen: boolean
   readonly isSimilarSectionOpen: boolean
+  readonly isMoreInfoOpen: boolean
 }
 
 
@@ -292,6 +293,8 @@ export interface IModalProps {
   openVideoSectionRequest: Function
   openSimilarSectionRequest: Function
   isSimilarSectionOpen: boolean
+  isMoreInfoOpen: boolean
+  openMoreInfoRequest: Function
 }
 
 export interface IRelatedVidProps {
@@ -303,6 +306,12 @@ export interface IRelatedVidProps {
 export interface ISimilarProps {
   openSimilarSectionRequest: Function
   videos: ISimilar
+  animation: any
+}
+
+export interface IMoreInfoProps {
+  openMoreInfoRequest: Function
+  info: IMovieInfoRes
   animation: any
 }
 

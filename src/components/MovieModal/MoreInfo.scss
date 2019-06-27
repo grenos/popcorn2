@@ -1,0 +1,23 @@
+.more-info-wrapper {
+  background: rgba(0, 0, 0, 0.9);
+  height: 65vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  .more-info-title {
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 80px;
+    @include flex-box(null, null, flex-start, center);
+  }
+  .more-info-wrapper_inner {
+    @include flex-box(row, null, center, center);
+    .more-info-wrapper__col {
+      color: #fff;
+    }
+  }
+}

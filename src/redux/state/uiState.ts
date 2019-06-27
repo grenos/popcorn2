@@ -11,7 +11,8 @@ export const UI_STATE: INT.IUiState = {
   genreItemsActive: false,
   isMovieModalOpen: false,
   isVideoSectionOpen: false,
-  isSimilarSectionOpen: false
+  isSimilarSectionOpen: false,
+  isMoreInfoOpen: false
 }
 
 

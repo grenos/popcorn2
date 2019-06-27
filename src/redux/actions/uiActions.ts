@@ -16,6 +16,7 @@ export const Types: any = {
   IS_MOVIE_MODAL_OPEN_ACTION: 'IS_MOVIE_MODAL_OPEN_ACTION',
   IS_VIDEO_SECTION_OPEN: 'IS_VIDEO_SECTION_OPEN',
   IS_SIMILAR_SECTION_OPEN: 'IS_SIMILAR_SECTION_OPEN',
+  IS_MORE_INFO_OPEN: 'IS_MORE_INFO_OPEN'
 }
 
 
@@ -82,5 +83,9 @@ export const openVideoSectionRequest = (toggle: boolean) => ({
 })
 export const openSimilarSectionRequest = (toggle: boolean) => ({
   type: Types.IS_SIMILAR_SECTION_OPEN,
+  toggle
+})
+export const openMoreInfoRequest = (toggle: boolean) => ({
+  type: Types.IS_MORE_INFO_OPEN,
   toggle
 })
