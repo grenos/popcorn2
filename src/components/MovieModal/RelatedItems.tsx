@@ -2,12 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
-import { Spring, Transition } from 'react-spring/renderprops'
 import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 
-const RelatedItems = ({ videos, openVideoSectionRequest }: INT.IRelatedVidProps): JSX.Element | null => {
+const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
 
   const Options = {
     // @ts-ignore
@@ -44,32 +43,25 @@ const RelatedItems = ({ videos, openVideoSectionRequest }: INT.IRelatedVidProps)
     return null
   } else {
     return (
-
-      <Spring
-        from={{ transform: 'translate3d(-100%, 0, 0)', opacity: 0 }}
-        to={{ transform: 'translate3d(0%, 0, 0)', opacity: 1 }}>
-        {props => (
-          <div className="thumb-wrapper" style={props}>
-            <Carousel {...params}>
-              {videos.results.slice(0, 6).map(({ id, key, name }) => (
-                <div key={id} className="thumb-inner">
-                  <YouTube
-                    videoId={key}
-                    className="thumb"
-                    containerClassName="thumb-container"
-                    // @ts-ignore
-                    opts={Options}
-                  />
-                  <p className="thumb-info">{name}</p>
-                </div>
-              ))}
-            </Carousel>
-            <div className="close" onClick={handleCloseVideo}>
-              <img src={close} alt="close" />
+      <div className="thumb-wrapper" style={animation}>
+        <Carousel {...params}>
+          {videos.results.slice(0, 6).map(({ id, key, name }) => (
+            <div key={id} className="thumb-inner">
+              <YouTube
+                videoId={key}
+                className="thumb"
+                containerClassName="thumb-container"
+                // @ts-ignore
+                opts={Options}
+              />
+              <p className="thumb-info">{name}</p>
             </div>
-          </div>
-        )}
-      </Spring >
+          ))}
+        </Carousel>
+        <div className="close" onClick={handleCloseVideo}>
+          <img src={close} alt="close" />
+        </div>
+      </div>
     )
   }
 

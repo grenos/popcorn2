@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, useSpring, animated as a } from 'react-spring'
+import { Spring, Transition } from 'react-spring/renderprops'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import { openMovieModalRequest, openVideoSectionRequest, openSimilarSectionRequest } from '../../redux/actions/uiActions'
@@ -198,8 +199,26 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
               <div className="pause" onClick={handlePlay}>
                 <img src={togglePlayer ? play : pause} alt="pplay pause button" />
               </div>
-              {isVideoSectionOpen && <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} />}
-              {isSimilarSectionOpen && <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} />}
+
+              <Transition
+                items={isVideoSectionOpen}
+                from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
+                enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
+                leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
+                {isVideoSectionOpen => isVideoSectionOpen && (props =>
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} />
+                )}
+              </Transition>
+
+              <Transition
+                items={isSimilarSectionOpen}
+                from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
+                enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
+                leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
+                {isSimilarSectionOpen => isSimilarSectionOpen && (props =>
+                  <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} />
+                )}
+              </Transition>
             </a.div>
           )
         )

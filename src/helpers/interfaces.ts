@@ -297,11 +297,13 @@ export interface IModalProps {
 export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos
+  animation: any
 }
 
 export interface ISimilarProps {
   openSimilarSectionRequest: Function
   videos: ISimilar
+  animation: any
 }
 
 export interface ITopResultsPage {

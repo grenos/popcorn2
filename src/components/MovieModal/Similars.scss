@@ -12,11 +12,11 @@
     @include flex-box(null, null, null, center);
     .similar-inner-item {
       position: relative;
-      height: 55vh;
+      height: 45vh;
       transition: 0.2s;
       filter: brightness(0.7);
       &.active {
-        transform: scale(1.05) translate3d(-20%, 0, 0);
+        transform: scale(1.05) translate3d(-10%, 0, 0);
         filter: brightness(1);
         z-index: 100;
         transition: 0.4s;
@@ -24,7 +24,7 @@
       }
 
       .img-overlay {
-        height: 55vh;
+        height: 45vh;
         position: absolute;
         background: radial-gradient(
           ellipse at center,
@@ -38,7 +38,7 @@
         bottom: 0;
       }
       img {
-        height: 55vh;
+        height: 45vh;
         box-shadow: -10px 0px 15px 10px rgba(0, 0, 0, 0.614);
       }
     }
