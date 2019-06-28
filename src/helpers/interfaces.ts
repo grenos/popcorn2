@@ -301,6 +301,7 @@ export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos
   animation: any
+  animationEnd: boolean
 }
 
 export interface ISimilarProps {

@@ -49,6 +49,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   const [videoPlayer, setVideoPlayer] = useState()
   const [togglePlayer, setTogglePlayer] = useState(false)
   const [toggleMute, setToggleMute] = useState(false)
+  const [animationEnd, setAnimationEnd] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
 
@@ -95,7 +96,6 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     console.log('add to fav');
   }
 
-
   const onReady = (event: any) => {
     const player = event.target
     setVideoPlayer(player)
@@ -122,20 +122,18 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   }
 
   useEffect(() => {
-    resetModalsOnLocChange()
     return () => resetModalsOnLocChange()
   }, [])
-
   const resetModalsOnLocChange = () => {
     openVideoSectionRequest(false)
     openMoreInfoRequest(false)
   }
 
+
+
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
-
   }
-
   const handleVolume = (): void => {
     setToggleMute(toggleMute => !toggleMute)
     if (toggleMute) {
@@ -144,6 +142,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
       videoPlayer.mute()
     }
   }
+
 
   useEffect(() => {
     if (videoPlayer !== undefined) {
@@ -166,6 +165,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
+
   const handleOtherVideos = (): void => {
     openVideoSectionRequest(true)
     if (togglePlayer === false) {
@@ -174,7 +174,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
-  const handleRelated = () => {
+  const handleRelated = (): void => {
     openSimilarSectionRequest(true)
     if (togglePlayer === false) {
       setTogglePlayer(togglePlayer => !togglePlayer)
@@ -182,12 +182,16 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
-  const handleInfo = () => {
+  const handleInfo = (): void => {
     openMoreInfoRequest(true)
     if (togglePlayer === false) {
       setTogglePlayer(togglePlayer => !togglePlayer)
       videoPlayer.pauseVideo()
     }
+  }
+
+  const handleAnimationEnd = () => {
+    setAnimationEnd(animationEnd => !animationEnd)
   }
 
   const { tagline, genres } = movieInfo
@@ -244,16 +248,18 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
                 <img src={toggleMute ? volume : mute} alt="volume mute button" />
               </div>
               <div className="pause" onClick={handlePlay}>
-                <img src={togglePlayer ? play : pause} alt="pplay pause button" />
+                <img src={isVideoSectionOpen || isSimilarSectionOpen || isMoreInfoOpen ? play : pause} alt="pplay pause button" />
               </div>
 
               <Transition
                 items={isVideoSectionOpen}
                 from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
-                leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
+                leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
+                onRest={handleAnimationEnd}
+              >
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
-                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} />
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd}/>
                 )}
               </Transition>
 

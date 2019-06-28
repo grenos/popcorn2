@@ -6,7 +6,7 @@ import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 
-const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
+const RelatedItems = ({ videos, openVideoSectionRequest, animation, animationEnd }: INT.IRelatedVidProps): JSX.Element | null => {
 
   const Options = {
     // @ts-ignore
@@ -38,7 +38,6 @@ const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelat
     openVideoSectionRequest(false)
   }
 
-
   if (videos === undefined) {
     return null
   } else {
@@ -47,7 +46,7 @@ const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelat
         <Carousel {...params}>
           {videos.results.slice(0, 6).map(({ id, key, name }) => (
             <div key={id} className="thumb-inner">
-              <YouTube
+              animationEnd && <YouTube
                 videoId={key}
                 className="thumb"
                 containerClassName="thumb-container"
