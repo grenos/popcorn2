@@ -17,32 +17,6 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   searchSeries
 }): JSX.Element => {
 
-  const [toggle, setToggle] = useState<boolean>(true)
-
-  const animateChevron = useSpring<INT.IAnimateChevron>({
-    transform: toggle ? 'rotate(90deg)' : 'rotate(270deg)',
-  })
-
-  const animateHighlight = useSpring<INT.IAnimateHighlight>({
-    height: toggle ? '60vh' : '7vh'
-  })
-
-  const animateOpacity = useSpring<INT.IAnimateOpacity>({
-    opacity: toggle ? 1 : 0
-  })
-
-  const handleGoToMovie = (title: string, id: number): void => {
-    history.push(`/title/${makeDashesUrl(title)}`)
-  }
-
-  const handleGoToSerie = (name: string, id: number): void => {
-    history.push(`/title/${makeDashesUrl(name)}`)
-  }
-
-  const handleHighlightToggle = () => {
-    setToggle(toggle => !toggle)
-  }
-
   return (
     <div className="item-highlight">
       {
@@ -52,27 +26,21 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
               <a.div
                 key={id}
                 className="highlight-outer"
-                style={{ backgroundImage: `url(${URL + backdrop_path})`, ...animateHighlight }}
+                style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="highlight-content">
-                  <a.div className="highlight-video" style={animateOpacity}>
+                  <a.div className="highlight-video">
                     <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
                   </a.div>
-                  <a.div className="info-wrapper-highlight" style={animateOpacity}>
+                  <a.div className="info-wrapper-highlight">
                     <h3>{title}</h3>
                     <p>{overview}</p>
                     <div className="cta">
-                      <button onClick={() => handleGoToMovie(title, id)}>
-                        Details
-                        </button>
                       <button onClick={() => console.log('added')}>
                         Add to list
                         </button>
                     </div>
                   </a.div>
-                </div>
-                <div className="chevron" onClick={handleHighlightToggle}>
-                  <a.img src={chevron} alt="close" style={animateChevron} />
                 </div>
               </a.div>
             )
@@ -83,27 +51,21 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
               <a.div
                 key={id}
                 className="highlight-outer"
-                style={{ backgroundImage: `url(${URL + backdrop_path})`, ...animateHighlight }}
+                style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="highlight-content">
-                  <a.div className="highlight-video" style={animateOpacity}>
+                  <a.div className="highlight-video">
                     <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
                   </a.div>
-                  <a.div className="info-wrapper-highlight" style={animateOpacity}>
+                  <a.div className="info-wrapper-highlight">
                     <h3>{name}</h3>
                     <p>{overview}</p>
                     <div className="cta">
-                      <button onClick={() => handleGoToSerie(name, id)}>
-                        Details
-                      </button>
                       <button onClick={() => console.log('added')}>
                         Add to list
                       </button>
                     </div>
                   </a.div>
-                </div>
-                <div className="chevron" onClick={handleHighlightToggle}>
-                  <a.img src={chevron} alt="close" style={animateChevron} />
                 </div>
               </a.div>
             )
