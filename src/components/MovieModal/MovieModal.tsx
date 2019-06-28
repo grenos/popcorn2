@@ -168,7 +168,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
 
   const handleOtherVideos = (): void => {
     openVideoSectionRequest(true)
-    if (togglePlayer === false) {
+    if (togglePlayer) {
       setTogglePlayer(togglePlayer => !togglePlayer)
       videoPlayer.pauseVideo()
     }
@@ -176,7 +176,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
 
   const handleRelated = (): void => {
     openSimilarSectionRequest(true)
-    if (togglePlayer === false) {
+    if (togglePlayer) {
       setTogglePlayer(togglePlayer => !togglePlayer)
       videoPlayer.pauseVideo()
     }
@@ -184,7 +184,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
 
   const handleInfo = (): void => {
     openMoreInfoRequest(true)
-    if (togglePlayer === false) {
+    if (togglePlayer) {
       setTogglePlayer(togglePlayer => !togglePlayer)
       videoPlayer.pauseVideo()
     }
@@ -248,7 +248,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
                 <img src={toggleMute ? volume : mute} alt="volume mute button" />
               </div>
               <div className="pause" onClick={handlePlay}>
-                <img src={isVideoSectionOpen || isSimilarSectionOpen || isMoreInfoOpen ? play : pause} alt="pplay pause button" />
+                <img src={togglePlayer || isVideoSectionOpen || isSimilarSectionOpen || isMoreInfoOpen ? play : pause} alt="pplay pause button" />
               </div>
 
               <Transition
