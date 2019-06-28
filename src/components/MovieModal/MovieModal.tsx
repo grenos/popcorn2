@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, useSpring, animated as a } from 'react-spring'
-import { Spring, Transition } from 'react-spring/renderprops'
+import { Transition } from 'react-spring/renderprops'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import {
@@ -79,7 +79,16 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   const fadeContent = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { tension: 140, mass: 1, friction: 46, clamp: true },
+    config: { tension: 130, mass: 1, friction: 46, clamp: true },
+  })
+
+  const fadeOnHide = useSpring({
+    opacity:
+      isVideoSectionOpen
+        || isSimilarSectionOpen
+        || isMoreInfoOpen
+        ? 0 : 1,
+    config: { tension: 160, mass: 1, friction: 46, clamp: true }
   })
 
   const handleGoToFav = (id: number): void => {
@@ -136,6 +145,18 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
+  useEffect(() => {
+    if (videoPlayer !== undefined) {
+      if (isMovieModalOpen) {
+        isVideoSectionOpen
+          || isSimilarSectionOpen
+          || isMoreInfoOpen
+          ? videoPlayer.pauseVideo()
+          : videoPlayer.playVideo()
+      }
+    }
+  }, [isMovieModalOpen, isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer])
+
   const handlePlay = (): void => {
     setTogglePlayer(togglePlayer => !togglePlayer)
     if (togglePlayer) {
@@ -184,7 +205,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
               className="modal-outer"
               style={{ backgroundImage: `url(${URL + backdrop_path})`, ...props }}
             >
-              <a.div className="modal-content" style={fadeContent}>
+              <a.div className="modal-content" style={{ ...fadeContent, ...fadeOnHide }}>
                 <YouTube
                   videoId={isMovieCatSelected ? movieVid : serieVid}
                   className="video"
