@@ -49,7 +49,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   const [videoPlayer, setVideoPlayer] = useState()
   const [togglePlayer, setTogglePlayer] = useState(false)
   const [toggleMute, setToggleMute] = useState(false)
-  const [animationEnd, setAnimationEnd] = useState(false)
+  const [animationEnd, setAnimationEnd] = useState(true)
 
   const ref = useRef<HTMLDivElement>(null)
 

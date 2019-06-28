@@ -308,6 +308,12 @@ export interface ISimilarProps {
   openSimilarSectionRequest: Function
   videos: ISimilar
   animation: any
+  history: any
+  location: any
+  match: any
+  getMovieInfoRequest: Function
+  getSerieInfoRequest: Function
+  isMovieCatSelected: boolean
 }
 
 export interface IMoreInfoProps {

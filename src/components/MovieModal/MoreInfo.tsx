@@ -8,8 +8,8 @@ import close from '../../media/img/close.png'
 
 interface LocalState { activeHover: number, toggleHover: boolean }
 
-interface Companies {id: number, name: string}
-interface Countries {index: number, name: string}
+interface Companies { id: number, name: string }
+interface Countries { index: number, name: string }
 
 class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
 
@@ -56,16 +56,16 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
             </div>
             <div className="more-info-wrapper__col">
               <ul>
-                {production_companies.map(({id, name,}: Companies) => <li key={id}>{name}</li>)}
+                {production_companies.map(({ id, name, }: Companies) => <li key={id}>{name}</li>)}
               </ul>
             </div>
             <div className="more-info-wrapper__col">
               <ul>
-                {production_countries.map(({index, name,}: Countries) => <li key={index}>{name}</li>)}
+                {production_countries && production_countries.map(({ index, name, }: Countries) => <li key={index}>{name}</li>)}
               </ul>
             </div>
             <div className="more-info-wrapper__col">
-             ACTORS GO HERE
+              ACTORS GO HERE
             </div>
           </div>
           <div className="close" onClick={this.handleCloseVideo}>

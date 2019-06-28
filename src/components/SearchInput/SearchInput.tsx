@@ -80,8 +80,8 @@ const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     isSerieCatSelected: state.uiReducer.isSerieCatSelected
-  };
-};
+  }
+}
 
 
 export default withRouter(connect(

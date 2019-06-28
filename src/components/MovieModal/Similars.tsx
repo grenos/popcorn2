@@ -1,8 +1,11 @@
 import React, { useState, Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router";
 import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
+import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { openSimilarSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 import popcorn from '../../media/img/popcorn.png'
@@ -20,7 +23,7 @@ const params = {
 
 interface LocalState { activeHover: number, toggleHover: boolean }
 
-class SimilarItems extends Component<INT.ISimilarProps, LocalState>{
+class SimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
 
   constructor(props: INT.ISimilarProps) {
     super(props)
@@ -44,11 +47,19 @@ class SimilarItems extends Component<INT.ISimilarProps, LocalState>{
     this.setState(prevState => ({
       toggleHover: !prevState.toggleHover
     }));
+  }
 
+  handleLocaClick(id: number): void {
+    if (this.props.isMovieCatSelected) {
+      this.props.getMovieInfoRequest(id)
+    } else {
+      this.props.getSerieInfoRequest(id)
+    }
+    this.props.history.push('/title')
+    this.props.openSimilarSectionRequest(false)
   }
 
   render() {
-
     let { videos, animation } = this.props
     let { toggleHover, activeHover } = this.state
 
@@ -60,7 +71,7 @@ class SimilarItems extends Component<INT.ISimilarProps, LocalState>{
           <Carousel {...params}>
             {
               videos.results.map(({ id, title, poster_path }) => (
-                <div key={id} className="similar-item">
+                <div key={id} className="similar-item" onClick={() => this.handleLocaClick(id)}>
                   <div
                     className={
                       activeHover === id
@@ -88,9 +99,23 @@ class SimilarItems extends Component<INT.ISimilarProps, LocalState>{
 }
 
 
-export default connect(null, {
-  openSimilarSectionRequest
-})(SimilarItems)
+const mapStateToProps = (state: any) => {
+  return {
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
+    isSerieCatSelected: state.uiReducer.isSerieCatSelected
+  }
+}
+
+
+export default withRouter(connect(
+  mapStateToProps,
+  {
+    getMovieInfoRequest,
+    getSerieInfoRequest,
+    openSimilarSectionRequest,
+  }
+)(SimilarItems))
+
 
 
 
