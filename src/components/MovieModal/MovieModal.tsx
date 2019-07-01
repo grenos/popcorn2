@@ -63,7 +63,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }, [])
 
-  useEffect(() => {
+  useEffect((): void => {
     isMovieCatSelected
       ? getMovieInfoRequest(id)
       : getSerieInfoRequest(id)
@@ -96,7 +96,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     console.log('add to fav');
   }
 
-  const onReady = (event: any) => {
+  const onReady = (event: any): void => {
     const player = event.target
     setVideoPlayer(player)
   }
@@ -122,6 +122,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   }
 
   useEffect(() => {
+    resetModalsOnLocChange()
     return () => resetModalsOnLocChange()
   }, [])
   const resetModalsOnLocChange = () => {
@@ -129,11 +130,10 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     openMoreInfoRequest(false)
   }
 
-
-
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
   }
+
   const handleVolume = (): void => {
     setToggleMute(toggleMute => !toggleMute)
     if (toggleMute) {
@@ -154,7 +154,8 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
           : videoPlayer.playVideo()
       }
     }
-  }, [isMovieModalOpen, isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer])
+  }, [isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer])
+
 
   const handlePlay = (): void => {
     setTogglePlayer(togglePlayer => !togglePlayer)
@@ -259,7 +260,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
                 onRest={handleAnimationEnd}
               >
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
-                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd}/>
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
                 )}
               </Transition>
 

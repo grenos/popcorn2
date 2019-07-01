@@ -34,9 +34,6 @@ const RelatedItems = ({ videos, openVideoSectionRequest, animation, animationEnd
     width: '100%',
   }
 
-  console.log(animationEnd);
-
-
   const handleCloseVideo = (): void => {
     openVideoSectionRequest(false)
   }
