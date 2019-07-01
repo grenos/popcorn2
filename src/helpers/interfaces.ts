@@ -43,6 +43,7 @@ export interface IAnimateToggle {
   opacity?: number
 }
 
+
 export interface IAnimateMenu {
   transform: number | string
 }
@@ -301,7 +302,7 @@ export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos
   animation: any
-  animationEnd: boolean
+  // animationEnd: boolean
 }
 
 export interface ISimilarProps {

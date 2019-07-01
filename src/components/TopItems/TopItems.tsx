@@ -121,22 +121,24 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     title: string,
     overview: string,
     index: number,
-  ) => {
+  ): JSX.Element | null => {
     if (id === selectedId && index === selectedIndex) {
       return (
         <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} key={id} />
       )
+    } else {
+      return null
     }
   }
 
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      chunk(movies, 7).map((arr: any, index: number) => (
+      chunk(movies, 7).map((arr: INT.IMovie[], index: number) => (
         <div key={index}>
           <div className="row">
             {
-              arr.map((movie: any) => (
+              arr.map((movie: INT.IMovie) => (
                 <div className="loc-wrapper" key={movie.id} onClick={() => handleModalStates(movie.id, index)}>
                   <div className="locandina-outer" data-test="locandina-movie" >
                     <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
@@ -167,11 +169,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      chunk(series, 7).map((arr: any, index: number) => (
+      chunk(series, 7).map((arr: INT.ISerie[], index: number) => (
         <div key={index}>
           <div className="row">
             {
-              arr.map((serie: any) => (
+              arr.map((serie: INT.ISerie) => (
                 <div className="loc-wrapper" key={serie.id} onClick={() => handleModalStates(serie.id, index)}>
                   <div className="locandina-outer" data-test="locandina-movie" >
                     <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />

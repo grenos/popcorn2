@@ -47,13 +47,13 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
 }) => {
 
   const [videoPlayer, setVideoPlayer] = useState()
-  const [togglePlayer, setTogglePlayer] = useState(false)
-  const [toggleMute, setToggleMute] = useState(false)
-  const [animationEnd, setAnimationEnd] = useState(true)
+  const [togglePlayer, setTogglePlayer] = useState<boolean>(false)
+  const [toggleMute, setToggleMute] = useState<boolean>(false)
+  // const [animationEnd, setAnimationEnd] = useState<boolean>(true)
 
   const ref = useRef<HTMLDivElement>(null)
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = useCallback((): void => {
     const nav: number = 60
     if (ref.current) {
       window.scroll({
@@ -93,7 +93,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   })
 
   const handleGoToFav = (id: number): void => {
-    console.log('add to fav');
+    console.log('add to fav : ' + id);
   }
 
   const onReady = (event: any): void => {
@@ -121,7 +121,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
-  const resetModalsOnLocChange = () => {
+  const resetModalsOnLocChange = (): void => {
     openVideoSectionRequest(false)
     openSimilarSectionRequest(false)
     openMoreInfoRequest(false)
@@ -129,7 +129,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
   useEffect(() => {
     resetModalsOnLocChange()
     return () => resetModalsOnLocChange()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -157,7 +157,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
           : videoPlayer.playVideo()
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer])
 
 
@@ -195,13 +195,14 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
-  const handleAnimationEnd = () => {
-    setAnimationEnd(animationEnd => !animationEnd)
-  }
+  // const handleAnimationEnd = (): void => {
+  //   console.log('end');
+  //   setAnimationEnd(animationEnd => animationEnd)
+  // }
 
   const { tagline, genres } = movieInfo
-  const movieVid = get(movieInfo, 'videos.results[0].key', 'loading')
-  const serieVid = get(serieInfo, 'videos.results[0].key', 'loading')
+  const movieVid: string = get(movieInfo, 'videos.results[0].key', '')
+  const serieVid: string = get(serieInfo, 'videos.results[0].key', '')
 
 
   return (
@@ -261,10 +262,12 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
                 from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
-                onRest={handleAnimationEnd}
+              // onRest={handleAnimationEnd}
               >
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
-                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
+                  // <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
+
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} />
                 )}
               </Transition>
 
