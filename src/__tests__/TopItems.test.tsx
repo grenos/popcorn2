@@ -15,13 +15,14 @@ const mountWithRouter = (UnconnectedTopItems: any) =>
 describe('<UnconnectedToItems />', () => {
   let wrapper: any
   let setup: any
-  let handlePaginationMock: any
+  let openMovieModalRequestMock: any
   let history: any
   let location: any
   let match: any
 
+
   beforeEach(() => {
-    handlePaginationMock = jest.fn()
+    openMovieModalRequestMock = jest.fn()
 
     history = createMemoryHistory()
     location = createLocation({
@@ -40,20 +41,18 @@ describe('<UnconnectedToItems />', () => {
 
     setup = (testProps: any = {}) => {
       const userProps = {
-        movies: [{ id: 1, title: 'matrix', poster_path: "gdfgdfgdfg.jpg" }],
-        series: [{ id: 2, title: 'GOT', poster_path: "gdfgdfgdfg.jpg" }],
+        movies: [{ id: 1, poster_path: "gdfgdfgdfg.jpg" }],
+        series: [{ id: 2, poster_path: "gdfgdfgdfg.jpg" }],
         isMovieCatSelected: true,
         history: history,
         location: location,
-        match: match
+        match: match,
+        isMovieModalOpen: false,
+        openMovieModalRequest: openMovieModalRequestMock,
       }
 
-      const mocks = {
-        handlePagination: handlePaginationMock
-      }
-
-      const props = { ...mocks, ...userProps, ...testProps }
-      wrapper = mountWithRouter(<UnconnectedTopItems {...props} />)
+      const props = { ...userProps, ...testProps }
+      wrapper = shallow(<UnconnectedTopItems {...props} />)
       return wrapper
     }
   })
@@ -75,6 +74,17 @@ describe('<UnconnectedToItems />', () => {
     const component = findByTestAttr(wrapper, 'locandina-serie')
     expect(component.length).toBe(1)
   })
+
+  test('should open modal', () => {
+    setup()
+    const locandina = wrapper.find('.loc-wrapper')
+    locandina.simulate('click')
+
+    const modal = findByTestAttr(wrapper, 'component-modal')
+    expect(modal.length).toBe(1)
+    expect(openMovieModalRequestMock).toHaveBeenCalledTimes(1)
+  })
+
 
 })
 

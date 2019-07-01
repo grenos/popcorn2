@@ -1,9 +1,9 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, useSpring, animated as a } from 'react-spring'
-import { Transition } from 'react-spring/renderprops'
+import { Transition } from 'react-spring/renderprops.cjs'
 import * as INT from '../../helpers/interfaces'
-import { RouteComponentProps } from "react-router"
+// import { RouteComponentProps } from "react-router"
 import {
   openMovieModalRequest,
   openVideoSectionRequest,
@@ -11,7 +11,6 @@ import {
   openMoreInfoRequest
 } from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
-import { withRouter } from "react-router-dom"
 import RelatedItems from './RelatedItems'
 import Similars from './Similars'
 import MoreInfo from './MoreInfo'
@@ -25,8 +24,7 @@ import get from 'lodash.get'
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
 
-
-const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo(({
+export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   id,
   backdrop_path,
   title,
@@ -311,14 +309,14 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   openMovieModalRequest,
   getMovieInfoRequest,
   getSerieInfoRequest,
   openVideoSectionRequest,
   openSimilarSectionRequest,
   openMoreInfoRequest
-})(MovieModal))
+})(UnconnectedMovieModal)
 
 
 

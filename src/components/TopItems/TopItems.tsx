@@ -152,7 +152,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               ))
             }
           </div>
-          <div className="modal-wrapper">
+          <div className="modal-wrapper" data-test="component-modal">
             {
               movies.map(({ id, backdrop_path, title, overview }) => {
                 return (
@@ -175,7 +175,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             {
               arr.map((serie: INT.ISerie) => (
                 <div className="loc-wrapper" key={serie.id} onClick={() => handleModalStates(serie.id, index)}>
-                  <div className="locandina-outer" data-test="locandina-movie" >
+                  <div className="locandina-outer" data-test="locandina-serie" >
                     <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                     <div className="overlay-gallery">
                       <div className="chevron">

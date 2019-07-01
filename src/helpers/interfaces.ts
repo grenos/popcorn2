@@ -256,8 +256,6 @@ export interface ITopResultsProps {
   moviesId?: number
   seriesId?: number
   TopItemsActive: boolean
-  SearchItemsActive: boolean
-  genreItemsActive: boolean,
   isMovieModalOpen: boolean
   openMovieModalRequest: Function
 }
