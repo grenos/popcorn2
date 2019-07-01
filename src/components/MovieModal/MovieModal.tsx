@@ -121,14 +121,17 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
     }
   }
 
+  const resetModalsOnLocChange = () => {
+    openVideoSectionRequest(false)
+    openSimilarSectionRequest(false)
+    openMoreInfoRequest(false)
+  }
   useEffect(() => {
     resetModalsOnLocChange()
     return () => resetModalsOnLocChange()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const resetModalsOnLocChange = () => {
-    openVideoSectionRequest(false)
-    openMoreInfoRequest(false)
-  }
+
 
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false)
@@ -154,6 +157,7 @@ const MovieModal: React.FC<INT.IModalProps & RouteComponentProps> = React.memo((
           : videoPlayer.playVideo()
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer])
 
 

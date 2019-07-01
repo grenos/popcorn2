@@ -15,15 +15,12 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
 
   constructor(props: INT.IMoreInfoProps) {
     super(props)
-
     this.state = {
       activeHover: 0,
       toggleHover: false
     }
-
     this.handleCloseVideo = this.handleCloseVideo.bind(this)
   }
-
 
   handleCloseVideo(): void {
     this.props.openMoreInfoRequest(false)
@@ -31,8 +28,7 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
 
   render() {
 
-    let { id, budget, homepage, original_language, original_title, production_companies, production_countries, release_date, revenue, runtime, spoken_languages, status } = this.props.info
-
+    let { budget, homepage, original_language, original_title, production_companies, production_countries, release_date, revenue, runtime, spoken_languages, status } = this.props.info
 
     if (this.props.info === undefined) {
       return null

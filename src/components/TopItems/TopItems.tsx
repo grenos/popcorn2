@@ -3,7 +3,6 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
-import { Transition } from 'react-spring/renderprops'
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
@@ -43,7 +42,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
   useEffect(() => {
-    // return () => {
     if (match.url === '/') {
       sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
       sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
@@ -53,7 +51,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     } else if (match.url === '/results') {
       return
     }
-    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
 
   useEffect(() => {
@@ -66,6 +64,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     } else if (match.url === '/results') {
       return
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, [])
 
 

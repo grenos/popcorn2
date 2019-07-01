@@ -40,6 +40,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     isMovieCatSelected
       ? getMovieGenresRequest()
       : getSerieGenresRequest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMovieCatSelected, getMovieGenresRequest, getSerieGenresRequest])
 
   const renderMovieGenres = (): JSX.Element => {
