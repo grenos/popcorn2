@@ -1,7 +1,8 @@
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import { findByTestAttr } from '../helpers/testUtils'
+import 'jest-dom/extend-expect'
 import { UnconnectedMovieModal } from '../components/MovieModal/MovieModal'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
@@ -26,12 +27,13 @@ describe('<UnconnectedMovieModal />', () => {
 
     setup = (testProps: any = {}) => {
       const userProps = {
-        id: 1,
-        backdrop_path: 'djgjkdgjkdf.jpg',
         title: 'matrix',
-        overview: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et facere assumenda numquam natus nulla, distinctio voluptatum cupiditate dicta asperiores nihil molestias. Cum aperiam modi nostrum iste nam quia eius sint!',
-        movieInfo: {genres: ['action.', 'comedy'], tagline: 'its a movie ok?', videoKey: 'dfjdskjgksj'},
-        serieInfo: {genres: ['action.', 'comedy'], videoKey: 'dfjdskjgksj'},
+        overview: 'Lorem, ipsum',
+        movieInfo: {
+
+          genres: [{ id: 32, name: 'action' }],
+          tagline: 'its a movie ok?',
+        },
 
         isMovieCatSelected: true,
         isMovieModalOpen: true,
@@ -48,13 +50,70 @@ describe('<UnconnectedMovieModal />', () => {
       }
 
       const props = { ...userProps, ...testProps }
-      wrapper = shallow(<UnconnectedMovieModal {...props} />)
+      wrapper = mount(<UnconnectedMovieModal {...props} />)
       return wrapper
     }
   })
 
   test('should render component', () => {
+    setup()
+    const component = findByTestAttr(wrapper, 'component-modal')
+    expect(component.length).toBe(1)
+  })
 
+  test('should test if all elements are rendered inside modal', () => {
+    setup()
+    const video = wrapper.find('YouTube')
+    const title = findByTestAttr(wrapper, 'modal-title')
+    const tagline = wrapper.find('.info-inner h5')
+    const overview = findByTestAttr(wrapper, 'modal-overview')
+    const genres = wrapper.find('.modal-genres')
+
+    expect(video.length).toBe(1)
+    expect(title.text()).toContain('matrix')
+    expect(tagline.text()).toContain('its a movie ok?')
+    expect(overview.text()).toContain('Lorem, ipsum')
+    expect(genres.text()).toContain('action')
+  })
+
+  test('should print stuff if series category is active', () => {
+    setup({ isMovieCatSelected: false })
+    const tagline = wrapper.find('.info-inner h5')
+    expect(tagline.text()).toEqual('')
+  })
+
+  test('should test click handlers onload', () => {
+    setup({})
+
+    // on mount
+    expect(openVideoSectionRequestMock).toHaveBeenCalledTimes(1)
+    expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(1)
+    expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(1)
+
+
+    const close = wrapper.find('.close')
+    close.simulate('click')
+    expect(openMovieModalRequestMock).toHaveBeenCalledTimes(1)
+    expect(openMovieModalRequestMock).toHaveBeenCalledWith(false)
+    expect(getMovieInfoRequestMock).toHaveBeenCalledTimes(1)
+
+    const videosBtn = findByTestAttr(wrapper, 'videosBtn')
+    videosBtn.simulate('click')
+    // why is it called twice?
+    expect(openVideoSectionRequestMock).toHaveBeenCalledTimes(2)
+
+    const relatedBtn = findByTestAttr(wrapper, 'relatedBtn')
+    relatedBtn.simulate('click')
+    // why is it called twice?
+    expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(2)
+
+    const infoBtn = findByTestAttr(wrapper, 'relatedBtn')
+    infoBtn.simulate('click')
+    expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(1)
+
+
+    setup({ isMovieCatSelected: false })
+    expect(getSerieInfoRequestMock).toHaveBeenCalledTimes(1)
   })
 
 })

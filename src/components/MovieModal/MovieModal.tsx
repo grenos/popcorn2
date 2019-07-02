@@ -204,7 +204,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
 
   return (
-    <div className="item-modal" ref={ref}>
+    <div className="item-modal" ref={ref} data-test="component-modal">
       {
         transitionMount.map(
           ({ item, key, props }) => (item &&
@@ -226,9 +226,9 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 <div className="info-wrapper-modal">
                   <div className="sizer">
                     <div className="info-inner">
-                      <h3>{title}</h3>
+                      <h3 data-test="modal-title">{title}</h3>
                       <h5>{isMovieCatSelected && tagline}</h5>
-                      <p>{overview}</p>
+                      <p data-test="modal-overview">{overview}</p>
                       <div className="modal-genres">
                         {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
                       </div>
@@ -236,9 +236,9 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                         <button onClick={() => handleGoToFav(id)}>Add to list</button>
                       </div>
                       <div className="rel">
-                        <button onClick={handleOtherVideos}>Videos</button>
-                        <button onClick={handleRelated}>Related Movies</button>
-                        <button onClick={handleInfo}>Other info</button>
+                        <button onClick={handleOtherVideos} data-test="videosBtn">Videos</button>
+                        <button onClick={handleRelated} data-test="relatedBtn">Related Movies</button>
+                        <button onClick={handleInfo} data-test="infoBtn">Other info</button>
                       </div>
                     </div>
                   </div>
@@ -265,7 +265,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
                   // <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
 
-                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} />
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} data-test="related-modal"/>
                 )}
               </Transition>
 
@@ -275,7 +275,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
                 {isSimilarSectionOpen => isSimilarSectionOpen && (props =>
-                  <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} />
+                  <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} data-test="similar-modal"/>
                 )}
               </Transition>
 
@@ -285,7 +285,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
                 {isMoreInfoOpen => isMoreInfoOpen && (props =>
-                  <MoreInfo info={isMovieCatSelected ? movieInfo : serieInfo} animation={props} />
+                  <MoreInfo info={isMovieCatSelected ? movieInfo : serieInfo} animation={props} data-test="moreInfo-modal"/>
                 )}
               </Transition>
 
