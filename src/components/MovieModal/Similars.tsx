@@ -23,7 +23,7 @@ const params = {
 
 interface LocalState { activeHover: number, toggleHover: boolean }
 
-class SimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
+export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
 
   constructor(props: INT.ISimilarProps) {
     super(props)
@@ -36,7 +36,6 @@ class SimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, Lo
     this.handleCloseVideo = this.handleCloseVideo.bind(this)
     this.handleHover = this.handleHover.bind(this)
   }
-
 
   handleCloseVideo(): void {
     this.props.openSimilarSectionRequest(false)
@@ -67,7 +66,7 @@ class SimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, Lo
       return null
     } else {
       return (
-        <div className="similar-wrapper" style={animation}>
+        <div className="similar-wrapper" style={animation} data-test="component-similars">
           <Carousel {...params}>
             {
               videos.results.map(({ id, title, poster_path }) => (
@@ -114,7 +113,7 @@ export default withRouter(connect(
     getSerieInfoRequest,
     openSimilarSectionRequest,
   }
-)(SimilarItems))
+)(UnconnectedSimilarItems))
 
 
 

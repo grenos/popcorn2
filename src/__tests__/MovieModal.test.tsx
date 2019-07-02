@@ -6,7 +6,6 @@ import 'jest-dom/extend-expect'
 import { UnconnectedMovieModal } from '../components/MovieModal/MovieModal'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
-
 describe('<UnconnectedMovieModal />', () => {
   let wrapper: any
   let setup: any

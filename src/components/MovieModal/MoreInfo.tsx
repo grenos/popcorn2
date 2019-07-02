@@ -4,14 +4,11 @@ import * as INT from '../../helpers/interfaces'
 import { openMoreInfoRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 
-
-
 interface LocalState { activeHover: number, toggleHover: boolean }
-
 interface Companies { id: number, name: string }
 interface Countries { index: number, name: string }
 
-class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
+export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
 
   constructor(props: INT.IMoreInfoProps) {
     super(props)
@@ -34,7 +31,7 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
       return null
     } else {
       return (
-        <div className="more-info-wrapper" style={this.props.animation}>
+        <div className="more-info-wrapper" style={this.props.animation} data-test="component-moreInfo">
           <div className="more-info-title">
             <h3>{original_title}</h3>
           </div>
@@ -76,7 +73,7 @@ class MoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
 
 export default connect(null, {
   openMoreInfoRequest
-})(MoreInfo)
+})(UnconnectedMoreInfo)
 
 
 

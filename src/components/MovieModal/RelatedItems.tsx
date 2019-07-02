@@ -6,7 +6,7 @@ import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 
-const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
+export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
 
   const Options = {
     // @ts-ignore
@@ -42,7 +42,7 @@ const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelat
     return null
   } else {
     return (
-      <div className="thumb-wrapper" style={animation}>
+      <div className="thumb-wrapper" style={animation} data-test="component-related">
         <Carousel {...params}>
           {videos.results.slice(0, 6).map(({ id, key, name }) => (
             <div key={id} className="thumb-inner">
@@ -69,6 +69,6 @@ const RelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelat
 
 export default connect(null, {
   openVideoSectionRequest
-})(RelatedItems)
+})(UnconnectedRelatedItems)
 
 
