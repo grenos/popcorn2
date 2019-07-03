@@ -22,7 +22,6 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
     }
   })
 
-
   return (
     <div>
       <ItemHighlight />

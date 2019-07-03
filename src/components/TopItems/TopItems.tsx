@@ -42,6 +42,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
   useEffect(() => {
+    // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
     return () => {
       if (match.url === '/') {
         sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))

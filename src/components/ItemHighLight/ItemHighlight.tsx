@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
@@ -68,7 +68,6 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
               </div>
             )
           })
-
       }
     </div>
   )
