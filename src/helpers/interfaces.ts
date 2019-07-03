@@ -114,6 +114,25 @@ export interface ISearchMovieInfoResults {
   id: number
 }
 
+export interface ISearchCastResults {
+  type: string
+  result: Array<ICast>
+  id: number
+}
+
+export interface ICast {
+  cast_id: number
+  character: string
+  credit_id: string
+  gender: number
+  id: number
+  name: string
+  order: number
+  profile_path: string
+  index?: number
+}
+
+
 export interface ISearchSeries {
   type: string
   result: Array<ISerie>
@@ -187,6 +206,7 @@ export interface IMoviesState {
   readonly moviesByGenre: Array<IMovie>
   readonly movieCategoryId: number
   readonly movieInfo: IMovieInfoRes | any
+  readonly cast: ICast[]
 }
 
 
@@ -294,6 +314,7 @@ export interface IModalProps {
   isSimilarSectionOpen: boolean
   isMoreInfoOpen: boolean
   openMoreInfoRequest: Function
+  getCastRequest: Function
 }
 
 export interface IRelatedVidProps {
@@ -319,6 +340,7 @@ export interface IMoreInfoProps {
   openMoreInfoRequest: Function
   info: IMovieInfoRes
   animation: any
+  cast: ICast[]
 }
 
 export interface ITopResultsPage {

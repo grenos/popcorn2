@@ -1,5 +1,5 @@
 .more-info-wrapper {
-  background: rgba(0, 0, 0, 0.95);
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.9) 70%, rgba(0, 0, 0, 0) 100%);
   height: 65vh;
   position: absolute;
   top: 0;
@@ -11,19 +11,51 @@
     color: #fff;
     font-size: 40px;
     font-weight: bold;
-    margin: 80px;
+    margin: 80px 0 0 80px;
     @include flex-box(null, null, flex-start, center);
   }
   .more-info-wrapper_inner {
-    @include flex-box(row, null, center, center);
+    @include flex-box(row, null, flex-start, center);
     .more-info-wrapper__col {
       color: #fff;
       ul {
-        margin: 80px;
-        background: rgba(216, 112, 147, 0.336);
-        li {
-          margin: 10px;
+        margin: 60px;
+        h5 {
+          font-weight: bold;
+          font-size: 22px;
         }
+        li {
+          font-style: italic;
+          margin: 10px;
+          font-size: 18px;
+          a {
+            font-style: initial;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 0 10px 0;
+            color: #fff;
+          }
+          span {
+            font-style: initial;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 0 10px 0;
+          }
+        }
+      }
+    }
+    .more-info-wrapper__col--cast {
+      width: 30%;
+      color: #fff;
+      margin: 0 60px;
+      h5 {
+        font-weight: bold;
+        font-size: 22px;
+        margin: 10px 10px 10px 0;
+      }
+      span {
+        font-size: 18px;
+        line-height: 24px;
       }
     }
   }

@@ -10,7 +10,7 @@ import {
   openSimilarSectionRequest,
   openMoreInfoRequest
 } from '../../redux/actions/uiActions'
-import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
+import { getMovieInfoRequest, getSerieInfoRequest, getCastRequest } from '../../redux/actions/apiActions'
 import RelatedItems from './RelatedItems'
 import Similars from './Similars'
 import MoreInfo from './MoreInfo'
@@ -41,7 +41,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   openSimilarSectionRequest,
   isSimilarSectionOpen,
   openMoreInfoRequest,
-  isMoreInfoOpen
+  isMoreInfoOpen,
+  getCastRequest
 }) => {
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -185,8 +186,9 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   }
 
-  const handleInfo = (): void => {
+  const handleInfo = (id: number): void => {
     openMoreInfoRequest(true)
+    getCastRequest(id)
     if (togglePlayer) {
       setTogglePlayer(togglePlayer => !togglePlayer)
       videoPlayer.pauseVideo()
@@ -238,7 +240,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                       <div className="rel">
                         <button onClick={handleOtherVideos} data-test="videosBtn">Videos</button>
                         <button onClick={handleRelated} data-test="relatedBtn">Related Movies</button>
-                        <button onClick={handleInfo} data-test="infoBtn">Other info</button>
+                        <button onClick={() => handleInfo(id)} data-test="infoBtn">Other info</button>
                       </div>
                     </div>
                   </div>
@@ -265,7 +267,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
                   // <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
 
-                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} data-test="related-modal"/>
+                  <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} data-test="related-modal" />
                 )}
               </Transition>
 
@@ -275,7 +277,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
                 {isSimilarSectionOpen => isSimilarSectionOpen && (props =>
-                  <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} data-test="similar-modal"/>
+                  <Similars videos={isMovieCatSelected ? movieInfo.similar : serieInfo.similar} animation={props} data-test="similar-modal" />
                 )}
               </Transition>
 
@@ -285,7 +287,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}>
                 {isMoreInfoOpen => isMoreInfoOpen && (props =>
-                  <MoreInfo info={isMovieCatSelected ? movieInfo : serieInfo} animation={props} data-test="moreInfo-modal"/>
+                  <MoreInfo info={isMovieCatSelected ? movieInfo : serieInfo} animation={props} data-test="moreInfo-modal" />
                 )}
               </Transition>
 
@@ -315,7 +317,8 @@ export default connect(mapStateToProps, {
   getSerieInfoRequest,
   openVideoSectionRequest,
   openSimilarSectionRequest,
-  openMoreInfoRequest
+  openMoreInfoRequest,
+  getCastRequest
 })(UnconnectedMovieModal)
 
 

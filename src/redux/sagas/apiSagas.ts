@@ -169,6 +169,22 @@ function* getSeriesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
 
 
 
+function* watchGetCastInfoRequest() {
+  yield takeLatest(actions.Types.GET_CAST_INFO_REQUEST, getCastInfo)
+}
+function* getCastInfo({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getCast, id)
+    yield put(actions.getCastSuccess({
+      result: result.data.cast      
+    } as INT.ISearchCastResults))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
 const apiSagas = [
   fork(watchGetUsersMoviesRequest),
   fork(watchGetToggleMoviesRequest),
@@ -179,6 +195,7 @@ const apiSagas = [
   fork(watchGetMoviesByGenreRequest),
   fork(watchGetSeriesByGenreRequest),
   fork(watchGetMovieInfoRequest),
-  fork(watchGetSerieInfoRequest)
+  fork(watchGetSerieInfoRequest),
+  fork(watchGetCastInfoRequest)
 ]
 export default apiSagas

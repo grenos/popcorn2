@@ -58,3 +58,8 @@ export const getSerieInfo = async (id: number): Promise<{}> => {
 
 
 
+export const getCast = async (id: number): Promise<{}> => {
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apikey}&language=en-US`)
+  return res
+}
+

@@ -123,7 +123,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
                 <img src={popcorn} alt="logo" />
               </div>
               <div className="nav-list-wrapper">
-                <Scrollbar noDefaultStyles>
+                <Scrollbar noDefaultStyles style={{ height: 'calc(100vh - 13rem)' }}>
                   {renderList}
                 </Scrollbar>
               </div>

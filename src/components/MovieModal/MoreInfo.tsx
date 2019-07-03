@@ -3,19 +3,16 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { openMoreInfoRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
+import Scrollbar from "react-scrollbars-custom";
 
-interface LocalState { activeHover: number, toggleHover: boolean }
+
 interface Companies { id: number, name: string }
 interface Countries { index: number, name: string }
 
-export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps, LocalState>{
+export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps>{
 
   constructor(props: INT.IMoreInfoProps) {
     super(props)
-    this.state = {
-      activeHover: 0,
-      toggleHover: false
-    }
     this.handleCloseVideo = this.handleCloseVideo.bind(this)
   }
 
@@ -25,7 +22,7 @@ export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps, LocalStat
 
   render() {
 
-    let { budget, homepage, original_language, original_title, production_companies, production_countries, release_date, revenue, runtime, spoken_languages, status } = this.props.info
+    let { budget, homepage, original_language, original_title, production_companies, production_countries, release_date, revenue, runtime, status } = this.props.info
 
     if (this.props.info === undefined) {
       return null
@@ -39,26 +36,44 @@ export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps, LocalStat
             <div className="more-info-wrapper__col">
               <ul>
                 <li><a href={homepage}>Website</a></li>
-                <li>Original language{original_language}</li>
-                <li>Status {status}</li>
-                <li>Release date {release_date}</li>
-                <li>Total Budget {budget}</li>
-                <li>Total Revenue {revenue}</li>
-                <li>Run Time {runtime} min.</li>
+                <li><span>Original language:</span>
+                  {original_language}
+                </li>
+                <li><span>Status:</span>
+                  {status}
+                </li>
+                <li><span>Release date:</span>
+                  {release_date}
+                </li>
+                <li><span>Total Budget:</span>
+                  {budget}
+                </li>
+                <li><span>Total Revenue:</span>
+                  {revenue}
+                </li>
+                <li><span>Run Time:</span>
+                  {runtime}
+                  <span>min.</span>
+                </li>
               </ul>
             </div>
             <div className="more-info-wrapper__col">
               <ul>
+                <h5>Production Companies</h5>
                 {production_companies.map(({ id, name, }: Companies) => <li key={id}>{name}</li>)}
               </ul>
-            </div>
-            <div className="more-info-wrapper__col">
+
               <ul>
-                {production_countries && production_countries.map(({ index, name, }: Countries) => <li key={index}>{name}</li>)}
+                <h5>Production Countries</h5>
+                {production_countries && production_countries.map(({ name, }: Countries) => <li key={name}>{name}</li>)}
               </ul>
             </div>
-            <div className="more-info-wrapper__col">
-              ACTORS GO HERE
+
+            <div className="more-info-wrapper__col--cast">
+              <h5>Cast</h5>
+              <Scrollbar noDefaultStyles style={{ height: 200 }}>
+                {this.props.cast.map(({ name }) => <span key={name}>{name}, </span>)}
+              </Scrollbar>
             </div>
           </div>
           <div className="close" onClick={this.handleCloseVideo}>
@@ -71,7 +86,14 @@ export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps, LocalStat
 }
 
 
-export default connect(null, {
+const mapStateToProps = (state: any) => {
+  return {
+    cast: state.moviesReducer.cast
+  }
+}
+
+
+export default connect(mapStateToProps, {
   openMoreInfoRequest
 })(UnconnectedMoreInfo)
 

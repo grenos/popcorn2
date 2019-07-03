@@ -51,6 +51,12 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         moviesByGenre: []
       }
     }
+    case Types.GET_CAST_INFO_SUCCESS: {
+      return {
+        ...state,
+        cast: action.payload
+      }
+    }
     default: {
       return state
     }

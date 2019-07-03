@@ -23,7 +23,9 @@ export const Types: any = {
   GET_MOVIE_INFO_REQUEST: 'GET_MOVIE_INFO_REQUEST',
   GET_MOVIE_INFO_SUCCESS: 'GET_MOVIE_INFO_SUCCESS',
   GET_SERIE_INFO_REQUEST: 'GET_SERIE_INFO_REQUEST',
-  GET_SERIE_INFO_SUCCESS: 'GET_SERIE_INFO_SUCCESS'
+  GET_SERIE_INFO_SUCCESS: 'GET_SERIE_INFO_SUCCESS',
+  GET_CAST_INFO_REQUEST: 'GET_CAST_INFO_REQUEST',
+  GET_CAST_INFO_SUCCESS: 'GET_CAST_INFO_SUCCESS'
 }
 
 
@@ -140,6 +142,20 @@ export const getSerieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults)
   payload: result,
   id
 })
+
+
+export const getCastRequest = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_CAST_INFO_REQUEST,
+  id
+})
+
+export const getCastSuccess = ({ result, id }: INT.ISearchCastResults) => ({
+  type: Types.GET_CAST_INFO_SUCCESS,
+  payload: result,
+  id
+})
+
+
 
 
 
