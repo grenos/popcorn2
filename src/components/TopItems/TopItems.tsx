@@ -42,14 +42,16 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
   useEffect(() => {
-    if (match.url === '/') {
-      sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
-      sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
-    } else if (match.url === `/genres/${match.params.id}`) {
-      sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
-      sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
-    } else if (match.url === '/results') {
-      return
+    return () => {
+      if (match.url === '/') {
+        sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
+        sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
+      } else if (match.url === `/genres/${match.params.id}`) {
+        sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
+        sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
+      } else if (match.url === '/results') {
+        return
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
@@ -79,7 +81,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
           getMovies(moviesId, genreMovieCounter)
         } else {
+          // component mounts here in on genres
           // resets parameters on category change
+          // and then falls into above if
           history.push({ state: { from: location.pathname } })
           setGenreMovieCounter(1)
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
@@ -97,7 +101,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
           getSeries(seriesId, genreSerieCounter)
         } else {
+          // component mounts here if on genres
           // resets parameters on category change
+          // and then falls into above if
           history.push({ state: { from: location.pathname } })
           setGenreSerieCounter(1)
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)

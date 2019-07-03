@@ -28,7 +28,6 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
   history
 }): JSX.Element => {
 
-
   const handleGoToMovie = (title: string, id: number): void => {
     history.push(`/title/${makeDashesUrl(title)}`)
   }

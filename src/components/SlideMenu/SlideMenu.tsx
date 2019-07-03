@@ -98,10 +98,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   }
 
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
+    // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    // if (location.pathname !== location.state.from) {
+    getMoviesByGenreRequest(id, page)
     history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
-    if (location.pathname !== location.state.from) {
-      getMoviesByGenreRequest(id, page)
-    }
+    console.log(history);
+    // }
   }
 
   const handleSerieGenreClick = (id: number, page: number, name: string): void => {

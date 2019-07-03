@@ -5,6 +5,7 @@ import { RouteComponentProps } from "react-router";
 import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
+import { makeDashesUrl } from '../../helpers/helperFunctions'
 import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
 import { openSimilarSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
@@ -48,13 +49,13 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     }));
   }
 
-  handleLocaClick(id: number): void {
+  handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {
       this.props.getMovieInfoRequest(id)
     } else {
       this.props.getSerieInfoRequest(id)
     }
-    this.props.history.push('/title')
+    this.props.history.push(makeDashesUrl(title))
     this.props.openSimilarSectionRequest(false)
   }
 
@@ -70,7 +71,7 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
           <Carousel {...params}>
             {
               videos.results.map(({ id, title, poster_path }) => (
-                <div key={id} className="similar-item" onClick={() => this.handleLocaClick(id)}>
+                <div key={id} className="similar-item" onClick={() => this.handleLocaClick(id, title)}>
                   <div
                     className={
                       activeHover === id

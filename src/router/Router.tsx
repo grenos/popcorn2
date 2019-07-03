@@ -8,7 +8,6 @@ import TitlePage from './pages/TitlePage'
 
 
 const Router = () => {
-
   return (
     <BrowserRouter>
       <>
