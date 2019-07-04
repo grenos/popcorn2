@@ -444,3 +444,14 @@ export interface IMovieInfoRes {
   similar: ISimilar
 }
 
+export interface ITitlePageProps {
+  movieInfo: IMovieInfoRes
+  serieInfo: IMovieInfoRes
+  isMovieModalOpen: boolean
+}
+
+export interface ITitleModalProps {
+  movieInfo: IMovieInfoRes
+  serieInfo: IMovieInfoRes
+  isMovieModalOpen: boolean
+}
