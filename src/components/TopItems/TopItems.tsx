@@ -12,9 +12,10 @@ import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 
 
-
 const URL = 'https://image.tmdb.org/t/p/w500/'
-interface RouteParams { id: string, param2?: string }
+interface RouteParams {
+  name: any; id: string, param2?: string
+}
 
 export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = React.memo(({
   isMovieCatSelected,
@@ -77,7 +78,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       if (match.url === '/') {
         setMovieCounter(movieCounter => movieCounter + 1)
         getMovies(movieCounter)
-      } else if (match.url === `/genres/${match.params.id}`) {
+      } else if (match.url === `/genres/${match.params.name}`) {
+
         if (location.pathname === location.state.from) {
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
           getMovies(moviesId, genreMovieCounter)
@@ -211,8 +213,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
 
+
   return (
-    <div className="locandine-wrapper" data-test="component-locandine" style={{ marginTop: TopItemsActive ? '-11%' : 0 }}>
+    <div className="locandine-wrapper" data-test="component-locandine" style={{
+      marginTop: TopItemsActive ? '-11%' : '0%'
+    }}>
       <div className="render-locandine-inner" >
         {renderTitles}
       </div>

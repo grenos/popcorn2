@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import close from '../../media/img/close.png'
 
-const URL = 'https://image.tmdb.org/t/p/w500/'
+const URL = 'https://image.tmdb.org/t/p/original'
 
 
 const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, serieInfo, isMovieModalOpen }): JSX.Element => {
@@ -22,6 +22,3 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, serieInfo, isMo
 
 export default TitleModal
 
-{/* <div className="close" onClick={handleClose}>
-            <img src={close} alt="close modal" />
-          </div> */}

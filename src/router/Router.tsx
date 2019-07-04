@@ -13,9 +13,9 @@ const Router = () => {
       <>
         <App />
         <Route exact path="/" component={TopItemsPage} />
-        <Route path="/genres/:name" component={GenreItemsPage} />
-        <Route path="/results" component={SearchResultsPage} />
-        <Route path="/:title" component={TitlePage} />
+        <Route exact path="/genres/:name" component={GenreItemsPage} />
+        <Route exact path="/results" component={SearchResultsPage} />
+        <Route exact path="/title/:title" component={TitlePage} />
       </>
     </BrowserRouter>
   )

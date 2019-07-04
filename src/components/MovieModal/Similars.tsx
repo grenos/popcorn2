@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from "react-router"
 import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
@@ -49,13 +49,15 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     }));
   }
 
+
+
   handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {
       this.props.getMovieInfoRequest(id)
     } else {
       this.props.getSerieInfoRequest(id)
     }
-    this.props.history.push(makeDashesUrl(title))
+    this.props.history.push(`/title/${makeDashesUrl(title)}`)
     this.props.openSimilarSectionRequest(false)
   }
 
