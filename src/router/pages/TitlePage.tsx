@@ -28,13 +28,6 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
     return () => set(false)
   }, [])
 
-  useEffect(() => {
-    // set modal to false if user presses browser back button
-    window.onpopstate = (e) => {
-      set(false)
-    }
-  }, [window.onpopstate])
-
 
   const handleClose = () => {
     set(false)
