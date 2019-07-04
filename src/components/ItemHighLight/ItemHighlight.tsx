@@ -19,7 +19,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
     <div className="item-highlight">
       {
         isMovieCatSelected ?
-          searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview }) => {
+          searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview, poster_path }) => {
             return (
               <div
                 key={id}
@@ -28,7 +28,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
               >
                 <div className="highlight-content">
                   <div className="highlight-video">
-                    <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
+                    <img src={URL + poster_path} alt={title} />
                   </div>
                   <div className="info-wrapper-highlight">
                     <h3>{title}</h3>
