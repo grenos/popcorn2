@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"

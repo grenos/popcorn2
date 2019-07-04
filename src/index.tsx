@@ -7,6 +7,23 @@ import { store } from './redux/store/store'
 import Router from './router/Router'
 import "scroll-behavior-polyfill";
 
+
+// clear SessionStorage on refresh for pagination
+if (performance.navigation.type === 1) {
+  sessionStorage.clear()
+}
+const refreshPage = performance.getEntriesByType("navigation")
+refreshPage.forEach(item => {
+  // @ts-ignore
+  if (item.type === 'reload') {
+    sessionStorage.clear()
+  }
+})
+
+
+
+
+
 ReactDOM.render(
   <Provider store={store}>
     <Router />
