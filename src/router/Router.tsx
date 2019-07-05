@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from '../redux/store/store'
 import App from '../components/App/App'
 import TopItemsPage from './pages/TopItemsPage'
 import GenreItemsPage from './pages/GenreItemsPage'
@@ -9,15 +11,15 @@ import TitlePage from './pages/TitlePage'
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <>
         <App />
         <Route exact path="/" component={TopItemsPage} />
-        <Route exact path="/genres/:name" component={GenreItemsPage} />
+        <Route exact path="/genres/:id" component={GenreItemsPage} />
         <Route exact path="/results" component={SearchResultsPage} />
         <Route exact path="/title/:title" component={TitlePage} />
       </>
-    </BrowserRouter>
+    </ConnectedRouter>
   )
 }
 

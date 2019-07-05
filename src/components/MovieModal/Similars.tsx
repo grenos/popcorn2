@@ -5,7 +5,6 @@ import { RouteComponentProps } from "react-router"
 import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
-import { makeDashesUrl } from '../../helpers/helperFunctions'
 import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
 import { openSimilarSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
@@ -49,16 +48,15 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     }));
   }
 
-
-
   handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {
-      this.props.getMovieInfoModalRequest(id)
+      this.props.getMovieInfoModalRequest(id, title)
     } else {
-      this.props.getSerieInfoModalRequest(id)
+      this.props.getSerieInfoModalRequest(id, title)
     }
-    this.props.history.push(`/title/${makeDashesUrl(title)}`)
-    this.props.openSimilarSectionRequest(false)
+    //! called from saga instead
+    // this.props.history.push(`/title/${makeDashesUrl(title)}`)
+    // this.props.openSimilarSectionRequest(false)
   }
 
   render() {
@@ -72,20 +70,22 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
         <div className="similar-wrapper" style={animation} data-test="component-similars">
           <Carousel {...params}>
             {
-              videos.results.map(({ id, title, poster_path }) => (
-                <div key={id} className="similar-item" onClick={() => this.handleLocaClick(id, title)}>
+              videos.results.map((video) => (
+                <div key={video.id} className="similar-item" onClick={() =>
+                  this.handleLocaClick(video.id, this.props.isMovieCatSelected ? video.title : video.name)}>
                   <div
                     className={
-                      activeHover === id
+                      activeHover === video.id
                         && toggleHover
                         ? 'similar-inner-item active'
                         : 'similar-inner-item'
                     }
-                    onMouseEnter={() => this.handleHover(id)}
-                    onMouseLeave={() => this.handleHover(id)}
+                    onMouseEnter={() => this.handleHover(video.id)}
+                    onMouseLeave={() => this.handleHover(video.id)}
                   >
                     <div className="img-overlay"></div>
-                    <img src={filterNoImg(URL, poster_path, popcorn)} alt={`${title}`} />
+                    <img src={filterNoImg(URL, video.poster_path, popcorn)}
+                      alt={`${this.props.isMovieCatSelected ? video.title : video.name}`} />
                   </div>
                 </div>
               ))

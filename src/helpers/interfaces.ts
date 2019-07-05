@@ -103,6 +103,12 @@ export interface ISearchMovies {
 }
 
 
+export interface ISearchMovieInfoModal {
+  type: string
+  id: number
+  title: string
+}
+
 export interface ISearchMovieInfo {
   type: string
   id: number
@@ -167,6 +173,7 @@ export interface IMoviesReducer {
 
 
 export interface IMovie {
+  name: string
   vote_count: number
   id: number
   video: boolean
@@ -242,6 +249,7 @@ export interface IInputSagaProps {
 
 export interface IMovieInfoSagaProps {
   id: number
+  title: string
 }
 
 export interface IToggleSagaProps {
@@ -450,10 +458,10 @@ export interface ITitlePageProps {
   movieInfoModal: IMovieInfoRes
   serieInfoModal: IMovieInfoRes
   isMovieModalOpen: boolean
+  isMovieCatSelected: boolean
 }
 
 export interface ITitleModalProps {
   movieInfo: IMovieInfoRes
-  serieInfo: IMovieInfoRes
   isMovieModalOpen: boolean
 }

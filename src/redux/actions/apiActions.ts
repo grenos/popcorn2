@@ -158,9 +158,10 @@ export const getCastSuccess = ({ result, id }: INT.ISearchCastResults) => ({
 })
 
 
-export const getMovieInfoModalRequest = (id: number): INT.ISearchMovieInfo => ({
+export const getMovieInfoModalRequest = (id: number, title: string): INT.ISearchMovieInfoModal => ({
   type: Types.GET_MOVIE_INFO_MODAL_REQUEST,
-  id
+  id,
+  title
 })
 export const getMovieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
   type: Types.GET_MOVIE_INFO_MODAL_SUCCESS,
@@ -169,9 +170,10 @@ export const getMovieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoRes
 })
 
 
-export const getSerieInfoModalRequest = (id: number): INT.ISearchMovieInfo => ({
+export const getSerieInfoModalRequest = (id: number, title: string): INT.ISearchMovieInfoModal => ({
   type: Types.GET_SERIE_INFO_MODAL_REQUEST,
-  id
+  id,
+  title
 })
 export const getSerieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
   type: Types.GET_SERIE_INFO_MODAL_SUCCESS,

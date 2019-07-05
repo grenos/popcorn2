@@ -18,6 +18,7 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
   movieInfoModal,
   serieInfoModal,
   isMovieModalOpen,
+  isMovieCatSelected,
   history }): JSX.Element => {
 
   const [show, set] = useState(false)
@@ -26,18 +27,6 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
     set(true)
     // set modal to false on route unmount
     return () => set(false)
-  }, [])
-
-
-  useEffect(() => {
-    // window.onpopstate = (e) => {
-    //   console.log('click')
-    //   console.log(e);
-    // }
-    console.log(history.action);
-
-    return () => console.log(history.action);
-
   }, [])
 
   const handleClose = () => {
@@ -57,7 +46,9 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
     >
       {show => show && (props =>
         <div style={props}>
-          <TitleModal movieInfo={movieInfoModal} serieInfo={serieInfoModal} isMovieModalOpen={isMovieModalOpen} />
+          <TitleModal
+            movieInfo={isMovieCatSelected ? movieInfoModal : serieInfoModal}
+            isMovieModalOpen={isMovieModalOpen} />
 
           <div className="close" onClick={handleClose} >
             <img src={close} alt="close modal" style={closeStyle} />
@@ -73,6 +64,7 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
 const mapStateToProps = (state: any) => {
   return {
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
+    isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     movieInfoModal: state.moviesReducer.movieInfoModal,
     serieInfoModal: state.seriesReducer.serieInfoModal
   }

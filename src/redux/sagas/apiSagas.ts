@@ -1,9 +1,11 @@
 
 import { takeLatest, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 import * as actions from '../actions/apiActions'
+import * as actionsUI from '../actions/uiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
-
+import { makeDashesUrl } from '../../helpers/helperFunctions'
 
 
 
@@ -189,12 +191,14 @@ function* getCastInfo({ id }: INT.IMovieInfoSagaProps) {
 function* watchGetMovieInfoModalRequest() {
   yield takeLatest(actions.Types.GET_MOVIE_INFO_MODAL_REQUEST, getMoviesInfoModal)
 }
-function* getMoviesInfoModal({ id }: INT.IMovieInfoSagaProps) {
+function* getMoviesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
   try {
     const result = yield call(api.getMovieInfo, id)
     yield put(actions.getMovieInfoModalSuccess({
       result: result.data
     } as INT.ISearchMovieInfoResults))
+    yield put(push(`/title/${makeDashesUrl(title)}`))
+    yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
     console.log(e);
   }
@@ -204,12 +208,14 @@ function* getMoviesInfoModal({ id }: INT.IMovieInfoSagaProps) {
 function* watchGetSerieInfoModalRequest() {
   yield takeLatest(actions.Types.GET_SERIE_INFO_MODAL_REQUEST, getSeriesInfoModal)
 }
-function* getSeriesInfoModal({ id }: INT.IMovieInfoSagaProps) {
+function* getSeriesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
   try {
     const result = yield call(api.getSerieInfo, id)
     yield put(actions.getSerieInfoModalSuccess({
       result: result.data
     } as INT.ISearchMovieInfoResults))
+    yield put(push(`/title/${makeDashesUrl(title)}`))
+    yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
     console.log(e);
   }
