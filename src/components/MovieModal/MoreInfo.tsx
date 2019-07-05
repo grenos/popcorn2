@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { openMoreInfoRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
-import Scrollbar from "react-scrollbars-custom";
+import Scrollbar from "react-scrollbars-custom"
 
 
 interface Companies { id: number, name: string }

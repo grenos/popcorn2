@@ -4,6 +4,7 @@ import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest } from '../../redux/actions/uiActions'
+import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
@@ -41,6 +42,16 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const [selectedId, setSelectedId] = useState<number>(0)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
+
+  const [toggle, setToggle] = useState<boolean>(false)
+
+  useEffect(() => {
+    setToggle(toggle => !toggle)
+    return () => {
+      setToggle(toggle => !toggle)
+    }
+  }, [toggle, setToggle])
+
 
   useEffect(() => {
     // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
@@ -84,7 +95,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
           getMovies(moviesId, genreMovieCounter)
         } else {
-          // component mounts here in on genres
+          // component mounts here if on genres
           // resets parameters on category change
           // and then falls into above if
           history.push({ state: { from: location.pathname } })
@@ -148,16 +159,28 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((movie: INT.IMovie) => (
-                <div className="loc-wrapper" key={movie.id} onClick={() => handleModalStates(movie.id, index)}>
-                  <div className="locandina-outer" data-test="locandina-movie" >
-                    <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
-                    <div className="overlay-gallery">
-                      <div className="chevron" >
-                        <img src={chevron} alt="open modal" />
+                <Transition
+                  native
+                  items={toggle}
+                  from={{ opacity: 0 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={config.stiff}
+                  key={movie.id}
+                >
+                  {(toggle: boolean) => toggle && (props =>
+                    <a.div className="loc-wrapper" onClick={() => handleModalStates(movie.id, index)} style={props}>
+                      <div className="locandina-outer" data-test="locandina-movie" >
+                        <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                        <div className="overlay-gallery">
+                          <div className="chevron" >
+                            <img src={chevron} alt="open modal" />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                    </a.div>
+                  )}
+                </Transition>
               ))
             }
           </div>
@@ -183,16 +206,28 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((serie: INT.ISerie) => (
-                <div className="loc-wrapper" key={serie.id} onClick={() => handleModalStates(serie.id, index)}>
-                  <div className="locandina-outer" data-test="locandina-serie" >
-                    <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
-                    <div className="overlay-gallery">
-                      <div className="chevron">
-                        <img src={chevron} alt="open modal" />
+                <Transition
+                  native
+                  items={toggle}
+                  from={{ opacity: 0 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={config.stiff}
+                  key={serie.id}
+                >
+                  {(toggle: boolean) => toggle && (props =>
+                    <a.div className="loc-wrapper" onClick={() => handleModalStates(serie.id, index)} style={props}>
+                      <div className="locandina-outer" data-test="locandina-serie" >
+                        <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                        <div className="overlay-gallery">
+                          <div className="chevron">
+                            <img src={chevron} alt="open modal" />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                    </a.div>
+                  )}
+                </Transition>
               ))
             }
           </div>

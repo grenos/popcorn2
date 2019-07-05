@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { useTransition, useSpring, animated as a } from 'react-spring'
 import { Transition } from 'react-spring/renderprops.cjs'
 import * as INT from '../../helpers/interfaces'
-// import { RouteComponentProps } from "react-router"
 import {
   openMovieModalRequest,
   openVideoSectionRequest,
@@ -11,6 +10,7 @@ import {
   openMoreInfoRequest
 } from '../../redux/actions/uiActions'
 import { getMovieInfoRequest, getSerieInfoRequest, getCastRequest } from '../../redux/actions/apiActions'
+import Scrollbar from "react-scrollbars-custom"
 import RelatedItems from './RelatedItems'
 import Similars from './Similars'
 import MoreInfo from './MoreInfo'
@@ -230,7 +230,9 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                     <div className="info-inner">
                       <h3 data-test="modal-title">{title}</h3>
                       <h5>{isMovieCatSelected && tagline}</h5>
-                      <p data-test="modal-overview">{overview}</p>
+                      <Scrollbar noDefaultStyles style={{ height: 100, marginBottom: 40 }}>
+                        <p data-test="modal-overview">{overview}</p>
+                      </Scrollbar>
                       <div className="modal-genres">
                         {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
                       </div>
