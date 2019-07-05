@@ -15,8 +15,8 @@ const closeStyle: React.CSSProperties = {
 
 
 const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
-  movieInfo,
-  serieInfo,
+  movieInfoModal,
+  serieInfoModal,
   isMovieModalOpen,
   history }): JSX.Element => {
 
@@ -28,6 +28,17 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
     return () => set(false)
   }, [])
 
+
+  useEffect(() => {
+    // window.onpopstate = (e) => {
+    //   console.log('click')
+    //   console.log(e);
+    // }
+    console.log(history.action);
+
+    return () => console.log(history.action);
+
+  }, [])
 
   const handleClose = () => {
     set(false)
@@ -46,7 +57,7 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
     >
       {show => show && (props =>
         <div style={props}>
-          <TitleModal movieInfo={movieInfo} serieInfo={serieInfo} isMovieModalOpen={isMovieModalOpen} />
+          <TitleModal movieInfo={movieInfoModal} serieInfo={serieInfoModal} isMovieModalOpen={isMovieModalOpen} />
 
           <div className="close" onClick={handleClose} >
             <img src={close} alt="close modal" style={closeStyle} />
@@ -62,8 +73,8 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
 const mapStateToProps = (state: any) => {
   return {
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
-    movieInfo: state.moviesReducer.movieInfo,
-    serieInfo: state.seriesReducer.serieInfo
+    movieInfoModal: state.moviesReducer.movieInfoModal,
+    serieInfoModal: state.seriesReducer.serieInfoModal
   }
 }
 

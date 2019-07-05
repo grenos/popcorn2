@@ -52,6 +52,12 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
         seriesByGenre: []
       }
     }
+    case Types.GET_SERIE_INFO_MODAL_SUCCESS: {
+      return {
+        ...state,
+        serieInfoModal: { ...action.payload }
+      }
+    }
     default: {
       return state
     }

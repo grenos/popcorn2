@@ -206,6 +206,7 @@ export interface IMoviesState {
   readonly moviesByGenre: Array<IMovie>
   readonly movieCategoryId: number
   readonly movieInfo: IMovieInfoRes | any
+  readonly movieInfoModal: IMovieInfoRes | any
   readonly cast: ICast[]
 }
 
@@ -217,6 +218,7 @@ export interface ISeriesState {
   readonly seriesByGenre: Array<ISerie>
   readonly serieCategoryId: number
   readonly serieInfo: IMovieInfoRes | any
+  readonly serieInfoModal: IMovieInfoRes | any
 }
 
 export interface IUiState {
@@ -331,8 +333,8 @@ export interface ISimilarProps {
   history: any
   location: any
   match: any
-  getMovieInfoRequest: Function
-  getSerieInfoRequest: Function
+  getMovieInfoModalRequest: Function
+  getSerieInfoModalRequest: Function
   isMovieCatSelected: boolean
 }
 
@@ -445,8 +447,8 @@ export interface IMovieInfoRes {
 }
 
 export interface ITitlePageProps {
-  movieInfo: IMovieInfoRes
-  serieInfo: IMovieInfoRes
+  movieInfoModal: IMovieInfoRes
+  serieInfoModal: IMovieInfoRes
   isMovieModalOpen: boolean
 }
 

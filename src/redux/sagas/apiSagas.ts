@@ -176,12 +176,47 @@ function* getCastInfo({ id }: INT.IMovieInfoSagaProps) {
   try {
     const result = yield call(api.getCast, id)
     yield put(actions.getCastSuccess({
-      result: result.data.cast      
+      result: result.data.cast
     } as INT.ISearchCastResults))
   } catch (e) {
     console.log(e);
   }
 }
+
+
+
+
+function* watchGetMovieInfoModalRequest() {
+  yield takeLatest(actions.Types.GET_MOVIE_INFO_MODAL_REQUEST, getMoviesInfoModal)
+}
+function* getMoviesInfoModal({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getMovieInfo, id)
+    yield put(actions.getMovieInfoModalSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+function* watchGetSerieInfoModalRequest() {
+  yield takeLatest(actions.Types.GET_SERIE_INFO_MODAL_REQUEST, getSeriesInfoModal)
+}
+function* getSeriesInfoModal({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getSerieInfo, id)
+    yield put(actions.getSerieInfoModalSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
 
 
 
@@ -196,6 +231,8 @@ const apiSagas = [
   fork(watchGetSeriesByGenreRequest),
   fork(watchGetMovieInfoRequest),
   fork(watchGetSerieInfoRequest),
-  fork(watchGetCastInfoRequest)
+  fork(watchGetCastInfoRequest),
+  fork(watchGetMovieInfoModalRequest),
+  fork(watchGetSerieInfoModalRequest)
 ]
 export default apiSagas

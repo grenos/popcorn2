@@ -57,6 +57,12 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         cast: action.payload
       }
     }
+    case Types.GET_MOVIE_INFO_MODAL_SUCCESS: {
+      return {
+        ...state,
+        movieInfoModal: { ...action.payload }
+      }
+    }
     default: {
       return state
     }

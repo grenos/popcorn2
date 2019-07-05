@@ -6,7 +6,7 @@ import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-import { getMovieInfoRequest, getSerieInfoRequest } from '../../redux/actions/apiActions'
+import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
 import { openSimilarSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 import popcorn from '../../media/img/popcorn.png'
@@ -53,9 +53,9 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
 
   handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {
-      this.props.getMovieInfoRequest(id)
+      this.props.getMovieInfoModalRequest(id)
     } else {
-      this.props.getSerieInfoRequest(id)
+      this.props.getSerieInfoModalRequest(id)
     }
     this.props.history.push(`/title/${makeDashesUrl(title)}`)
     this.props.openSimilarSectionRequest(false)
@@ -112,8 +112,8 @@ const mapStateToProps = (state: any) => {
 export default withRouter(connect(
   mapStateToProps,
   {
-    getMovieInfoRequest,
-    getSerieInfoRequest,
+    getMovieInfoModalRequest,
+    getSerieInfoModalRequest,
     openSimilarSectionRequest,
   }
 )(UnconnectedSimilarItems))

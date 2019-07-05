@@ -22,10 +22,14 @@ export const Types: any = {
   CLEAR_SERIES_BY_GENRES_STATE: 'CLEAR_SERIES_BY_GENRES_STATE',
   GET_MOVIE_INFO_REQUEST: 'GET_MOVIE_INFO_REQUEST',
   GET_MOVIE_INFO_SUCCESS: 'GET_MOVIE_INFO_SUCCESS',
+  GET_MOVIE_INFO_MODAL_REQUEST: 'GET_MOVIE_INFO_MODAL_REQUEST',
+  GET_MOVIE_INFO_MODAL_SUCCESS: 'GET_MOVIE_INFO_MODAL_SUCCESS',
   GET_SERIE_INFO_REQUEST: 'GET_SERIE_INFO_REQUEST',
   GET_SERIE_INFO_SUCCESS: 'GET_SERIE_INFO_SUCCESS',
   GET_CAST_INFO_REQUEST: 'GET_CAST_INFO_REQUEST',
-  GET_CAST_INFO_SUCCESS: 'GET_CAST_INFO_SUCCESS'
+  GET_CAST_INFO_SUCCESS: 'GET_CAST_INFO_SUCCESS',
+  GET_SERIE_INFO_MODAL_REQUEST: 'GET_SERIE_INFO_MODAL_REQUEST',
+  GET_SERIE_INFO_MODAL_SUCCESS: 'GET_SERIE_INFO_MODAL_SUCCESS'
 }
 
 
@@ -125,18 +129,17 @@ export const getMovieInfoRequest = (id: number): INT.ISearchMovieInfo => ({
   type: Types.GET_MOVIE_INFO_REQUEST,
   id
 })
-
 export const getMovieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
   type: Types.GET_MOVIE_INFO_SUCCESS,
   payload: result,
   id
 })
 
+
 export const getSerieInfoRequest = (id: number): INT.ISearchMovieInfo => ({
   type: Types.GET_SERIE_INFO_REQUEST,
   id
 })
-
 export const getSerieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
   type: Types.GET_SERIE_INFO_SUCCESS,
   payload: result,
@@ -148,9 +151,30 @@ export const getCastRequest = (id: number): INT.ISearchMovieInfo => ({
   type: Types.GET_CAST_INFO_REQUEST,
   id
 })
-
 export const getCastSuccess = ({ result, id }: INT.ISearchCastResults) => ({
   type: Types.GET_CAST_INFO_SUCCESS,
+  payload: result,
+  id
+})
+
+
+export const getMovieInfoModalRequest = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_MOVIE_INFO_MODAL_REQUEST,
+  id
+})
+export const getMovieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_MOVIE_INFO_MODAL_SUCCESS,
+  payload: result,
+  id
+})
+
+
+export const getSerieInfoModalRequest = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_SERIE_INFO_MODAL_REQUEST,
+  id
+})
+export const getSerieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_SERIE_INFO_MODAL_SUCCESS,
   payload: result,
   id
 })
