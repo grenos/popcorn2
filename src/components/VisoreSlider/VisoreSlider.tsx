@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import { withRouter } from "react-router-dom"
-import { makeDashesUrl } from '../../helpers/helperFunctions'
+import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -21,19 +21,27 @@ const params = {
   pauseOnHover: false,
 }
 
+interface ISeriePorops { id: number, name: string }
+
 export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
   isMovieCatSelected,
   topMovies,
   topSeries,
-  history
+  history,
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest
 }): JSX.Element => {
 
-  const handleGoToMovie = (title: string, id: number): void => {
-    history.push(`/title/${makeDashesUrl(title)}`)
+  const handleGoToMovie = (id: number, title: string, ): void => {
+    getMovieInfoModalRequest(id, title)
+    //! called from saga
+    // history.push(`/title/${makeDashesUrl(title)}`)
   }
 
-  const handleGoToSerie = (name: string, id: number): void => {
-    history.push(`/title/${makeDashesUrl(name)}`)
+  const handleGoToSerie = (id: number, name: string, ): void => {
+    getSerieInfoModalRequest(id, name)
+    //! called from saga
+    // history.push(`/title/${makeDashesUrl(name)}`)
   }
 
 
@@ -61,7 +69,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
                       <h3>{title}</h3>
                       <p>{overview}</p>
                       <div className="cta">
-                        <button onClick={() => handleGoToMovie(title, id)}>
+                        <button onClick={() => handleGoToMovie(id, title)}>
                           Details
                         </button>
                         <button onClick={() => console.log('added')}>
@@ -89,7 +97,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
                       <h3>{name}</h3>
                       <p>{overview}</p>
                       <div className="cta">
-                        <button onClick={() => handleGoToSerie(name, id)}>
+                        <button onClick={() => handleGoToSerie(id, name)}>
                           Details
                         </button>
                         <button onClick={() => console.log('added')}>
@@ -116,6 +124,9 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(UnconnectedVisoreSlider))
+export default withRouter(connect(mapStateToProps, {
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest
+})(UnconnectedVisoreSlider))
 
 

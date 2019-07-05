@@ -295,6 +295,8 @@ export interface IVisoreProps {
   store?: any
   topMovies: Array<IMovie>
   topSeries: Array<ISerie>
+  getSerieInfoModalRequest: Function
+  getMovieInfoModalRequest: Function
 }
 
 export interface IHighlightProps {
