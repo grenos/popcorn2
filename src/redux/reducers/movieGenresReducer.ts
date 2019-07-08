@@ -5,8 +5,8 @@ import { MOVIE_GENRE_STATE } from '../state/movieGenreState'
 
 export default function movieGenresReducer(state = MOVIE_GENRE_STATE, action: any) {
   switch (action.type) {
+    case Types.GET_MOVIE_BY_GENRE_SUCCESS:
 
-    case Types.GET_MOVIE_BY_GENRE_SUCCESS: {
       switch (action.name) {
         case 'Action': {
           return {
@@ -123,8 +123,7 @@ export default function movieGenresReducer(state = MOVIE_GENRE_STATE, action: an
           }
         }
       }
-    }
-
+      break
     default: {
       return state
     }

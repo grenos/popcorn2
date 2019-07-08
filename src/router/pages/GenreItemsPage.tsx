@@ -90,7 +90,6 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
         break;
       case 'western': setGenreCat(western)
         break;
-
       default:
         break;
     }
