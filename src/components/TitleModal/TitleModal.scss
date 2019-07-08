@@ -1,6 +1,25 @@
-.title-modal-wrapper {
+.title-modal__wrapper {
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  .title-modal__header {
+    .header__icons {
+    }
+    .header__title {
+      h3 {
+      }
+      h5 {
+      }
+    }
+  }
+
+  .title-modal__main-window {
+    .main-window__video {
+    }
+
+    .main-window__info {
+    }
+  }
 }
