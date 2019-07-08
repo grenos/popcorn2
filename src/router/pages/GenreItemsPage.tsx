@@ -78,11 +78,13 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
         break
       case 'music': setGenreCat(music)
         break;
+      case 'mystery': setGenreCat(mystery)
+        break;
       case 'romance': setGenreCat(romance)
         break;
-      case 'science fiction': setGenreCat(science_fiction)
+      case 'science_fiction': setGenreCat(science_fiction)
         break;
-      case 'tv movie': setGenreCat(tv_movie)
+      case 'tv_movie': setGenreCat(tv_movie)
         break;
       case 'thriller': setGenreCat(thriller)
         break;
