@@ -98,28 +98,32 @@ export const getSerieGenresSuccess = ({ result }: INT.IGenresAction) => ({
 
 
 
-export const getMoviesByGenreRequest = (id: number, page: number): INT.IGetByGenreSagaProps => ({
+export const getMoviesByGenreRequest = (id: number, page: number, name: string): INT.IGetByGenreSagaProps => ({
   type: Types.GET_MOVIE_BY_GENRE_REQUEST,
   id,
-  page
+  page,
+  name
 })
-export const getMoviesByGenreSuccess = ({ result, id }: INT.ISearchMovies) => ({
+export const getMoviesByGenreSuccess = ({ result, id, name }: INT.ISearchMovies) => ({
   type: Types.GET_MOVIE_BY_GENRE_SUCCESS,
   payload: result,
-  id
+  id,
+  name
 })
 
 
 
-export const getSeriesByGenreRequest = (id: number, page: number): INT.IGetByGenreSagaProps => ({
+export const getSeriesByGenreRequest = (id: number, page: number, name: string): INT.IGetByGenreSagaProps => ({
   type: Types.GET_SERIE_BY_GENRE_REQUEST,
   id,
-  page
+  page,
+  name
 })
-export const getSeriesByGenreSuccess = ({ result, id }: INT.ISearchSeries) => ({
+export const getSeriesByGenreSuccess = ({ result, id, name }: INT.ISearchSeries) => ({
   type: Types.GET_SERIE_BY_GENRE_SUCCESS,
   payload: result,
-  id
+  id,
+  name
 })
 
 

@@ -139,12 +139,13 @@ function* getSerieGenres() {
 function* watchGetMoviesByGenreRequest() {
   yield takeEvery(actions.Types.GET_MOVIE_BY_GENRE_REQUEST, getMoviesByGenre)
 }
-function* getMoviesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
+function* getMoviesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
   try {
     const result = yield call(api.getMoviesByGenre, id, page)
     yield put(actions.getMoviesByGenreSuccess({
       result: result.data.results,
-      id
+      id,
+      name
     } as INT.ISearchMovies))
   } catch (e) {
     console.log(e)
@@ -157,12 +158,13 @@ function* getMoviesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
 function* watchGetSeriesByGenreRequest() {
   yield takeLatest(actions.Types.GET_SERIE_BY_GENRE_REQUEST, getSeriesByGenre)
 }
-function* getSeriesByGenre({ id, page }: INT.IGetByGenreSagaProps) {
+function* getSeriesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
   try {
     const result = yield call(api.getSeriesByGenre, id, page)
     yield put(actions.getSeriesByGenreSuccess({
       result: result.data.results,
-      id
+      id,
+      name
     } as INT.ISearchSeries))
   } catch (e) {
     console.log(e)

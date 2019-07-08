@@ -29,22 +29,6 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         movieGenres: action.payload
       }
     }
-    case Types.GET_MOVIE_BY_GENRE_SUCCESS: {
-
-      if (state.movieCategoryId === action.id) {
-        return {
-          ...state,
-          moviesByGenre: [...state.moviesByGenre, ...action.payload],
-          movieCategoryId: action.id
-        }
-      } else {
-        return {
-          ...state,
-          moviesByGenre: action.payload,
-          movieCategoryId: action.id
-        }
-      }
-    }
     case Types.CLEAR_MOVIES_BY_GENRES_STATE: {
       return {
         ...state,

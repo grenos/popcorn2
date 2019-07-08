@@ -20,13 +20,13 @@ https://github.com/piotrwitek/react-redux-typescript-guide#--fc-counter
 moviesByGenre state is an object with arrays inside
 every named array inside corresponds to each genre category
 
-all the calls for movies by category have their own reducer
-which has one action and inside a switch 
+calls for movies by category have their own reducer
+which has one action and inside has a switch 
 that watches what category was clicked and saves the returned data inside that category of the state
 
 then on genres page we get all the movies by genre from state 
 use a switch OR useReducer hook to see 
-if location.pathname is EQUAL to category on state 
+if location.pathname is EQUAL to category on state  (MAYBE ALSO DOABLE WITH FILTER)
 we pass only that array to be rendered
 
 so going back and forth with the browser 
