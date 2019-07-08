@@ -330,6 +330,8 @@ export interface ITopResultsProps {
   TopItemsActive: boolean
   isMovieModalOpen: boolean
   openMovieModalRequest: Function
+  getToggleMovieCatRequest: Function
+  getToggleSerieCatRequest: Function
 }
 
 export interface IVisoreProps {

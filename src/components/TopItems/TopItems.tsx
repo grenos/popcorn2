@@ -3,7 +3,7 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
-import { openMovieModalRequest } from '../../redux/actions/uiActions'
+import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
 import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
@@ -30,8 +30,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   history,
   match,
   TopItemsActive,
-  isMovieModalOpen,
   openMovieModalRequest,
+  getToggleMovieCatRequest,
+  getToggleSerieCatRequest
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -52,6 +53,15 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }, [toggle, setToggle])
 
+  useEffect(() => {
+    if (match.url === `/genres/films/${match.params.id}`) {
+      getToggleMovieCatRequest(true)
+      getToggleSerieCatRequest(false)
+    } else if (match.url === `/genres/series/${match.params.id}`) {
+      getToggleMovieCatRequest(false)
+      getToggleSerieCatRequest(true)
+    }
+  }, [match.url, getToggleMovieCatRequest, getToggleSerieCatRequest, match.params.id])
 
   useEffect(() => {
     // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
@@ -91,7 +101,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       } else if (match.url === `/genres/films/${match.params.id}`) {
         if (location.pathname === location.state.from) {
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          getMovies!(moviesId, genreMovieCounter, match.params.id.toLowerCase())
+          getMovies!(moviesId, genreMovieCounter, match.params.id)
         } else {
           // component mounts here if on genres
           // resets parameters on category change
@@ -111,7 +121,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       } else if (match.url === `/genres/series/${match.params.id}`) {
         if (location.pathname === location.state.from) {
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
-          getSeries!(seriesId, genreSerieCounter, match.params.id.toLowerCase())
+          getSeries!(seriesId, genreSerieCounter, match.params.id)
         } else {
           // component mounts here if on genres
           // resets parameters on category change
@@ -268,5 +278,9 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { openMovieModalRequest })(UnconnectedTopItems))
+export default withRouter(connect(mapStateToProps, {
+  openMovieModalRequest,
+  getToggleMovieCatRequest,
+  getToggleSerieCatRequest
+})(UnconnectedTopItems))
 

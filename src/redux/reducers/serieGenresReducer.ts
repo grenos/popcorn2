@@ -4,7 +4,6 @@ import { SERIES_GENRES_STATE } from '../state/seriesGenreState'
 
 
 
-
 export default function seriesReducer(state = SERIES_GENRES_STATE, action: any) {
   switch (action.type) {
 

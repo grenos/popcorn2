@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TopItems from '../../components/TopItems/TopItems'
 import { connect } from 'react-redux'
-import { getMoviesByGenreRequest, getSeriesByGenreRequest } from '../../redux/actions/apiActions'
+import { getSeriesByGenreRequest } from '../../redux/actions/apiActions'
 import { genreItemsActive } from '../../redux/actions/uiActions'
 import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
@@ -140,7 +140,6 @@ const mapStateToProps = (state: any) => {
 }
 
 export default connect(mapStateToProps, {
-  getMoviesByGenreRequest,
   getSeriesByGenreRequest,
   genreItemsActive
 })(GenreItemsPage)
