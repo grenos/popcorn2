@@ -14,31 +14,28 @@ interface RouteParams {
 
 const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<RouteParams>> = ({
   isMovieCatSelected,
-  action,
-  adventure,
+  action_adventure,
   animation,
   comedy,
   crime,
   documentary,
   drama,
   family,
-  fantasy,
-  history,
-  horror,
-  music,
+  kids,
   mystery,
-  romance,
-  science_fiction,
-  tv_movie,
-  thriller,
-  war,
+  news,
+  reality,
+  scifi_fantasy,
+  soap,
+  talk,
+  war_politics,
   western,
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
   movieCategoryId,
   serieCategoryId,
   genreItemsActive,
-  match,
+  match
 }) => {
 
   const [genreCat, setGenreCat] = useState()
@@ -52,66 +49,59 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 
 
   useEffect(() => {
+    console.log(makeDashesUrl(match.params.id.toLowerCase()));
     switch (makeDashesUrl(match.params.id.toLowerCase())) {
-      case 'action': setGenreCat(action)
+      case 'action_&_adventure': setGenreCat(action_adventure)
         break
-      case 'adventure': setGenreCat(adventure)
-        break;
       case 'animation': setGenreCat(animation)
         break;
       case 'comedy': setGenreCat(comedy)
         break;
+      case 'documentary': setGenreCat(documentary)
+        break;
       case 'crime': setGenreCat(crime)
         break;
-      case 'documentary': setGenreCat(documentary)
-        break
       case 'drama': setGenreCat(drama)
-        break;
+        break
       case 'family': setGenreCat(family)
         break;
-      case 'fantasy': setGenreCat(fantasy)
-        break;
-      case 'history': setGenreCat(history)
-        break;
-      case 'horror': setGenreCat(horror)
-        break
-      case 'music': setGenreCat(music)
+      case 'kids': setGenreCat(kids)
         break;
       case 'mystery': setGenreCat(mystery)
         break;
-      case 'romance': setGenreCat(romance)
+      case 'news': setGenreCat(news)
+        break
+      case 'reality': setGenreCat(reality)
         break;
-      case 'science_fiction': setGenreCat(science_fiction)
+      case 'sci-fi_&_fantasy': setGenreCat(scifi_fantasy)
         break;
-      case 'tv_movie': setGenreCat(tv_movie)
+      case 'soap': setGenreCat(soap)
         break;
-      case 'thriller': setGenreCat(thriller)
+      case 'talk': setGenreCat(talk)
         break;
-      case 'war': setGenreCat(war)
+      case 'war_&_politics': setGenreCat(war_politics)
         break;
       case 'western': setGenreCat(western)
         break;
       default:
         break;
     }
-  }, [action,
-      adventure,
+  }, [
+      action_adventure,
       animation,
       comedy,
-      crime,
       documentary,
       drama,
       family,
-      fantasy,
-      history,
-      horror,
-      music,
+      kids,
       mystery,
-      romance,
-      science_fiction,
-      tv_movie,
-      thriller,
-      war,
+      crime,
+      news,
+      reality,
+      scifi_fantasy,
+      soap,
+      talk,
+      war_politics,
       western,
       match.params.id])
 
@@ -120,7 +110,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
     <div>
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
-        movies={genreCat}
+        series={genreCat}
         getMovies={getMoviesByGenreRequest}
         getSeries={getSeriesByGenreRequest}
         moviesId={movieCategoryId}
@@ -136,25 +126,22 @@ const mapStateToProps = (state: any) => {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     movieCategoryId: state.moviesReducer.movieCategoryId,
     serieCategoryId: state.seriesReducer.serieCategoryId,
-    action: state.movieGenresReducer.action,
-    adventure: state.movieGenresReducer.adventure,
-    animation: state.movieGenresReducer.animation,
-    comedy: state.movieGenresReducer.comedy,
-    crime: state.movieGenresReducer.crime,
-    documentary: state.movieGenresReducer.documentary,
-    drama: state.movieGenresReducer.drama,
-    family: state.movieGenresReducer.family,
-    fantasy: state.movieGenresReducer.fantasy,
-    history: state.movieGenresReducer.history,
-    horror: state.movieGenresReducer.horror,
-    music: state.movieGenresReducer.music,
-    mystery: state.movieGenresReducer.mystery,
-    romance: state.movieGenresReducer.romance,
-    science_fiction: state.movieGenresReducer.science_fiction,
-    tv_movie: state.movieGenresReducer.tv_movie,
-    thriller: state.movieGenresReducer.thriller,
-    war: state.movieGenresReducer.war,
-    western: state.movieGenresReducer.western
+    action_adventure: state.serieGenresReducer.action_adventure,
+    animation: state.serieGenresReducer.animation,
+    comedy: state.serieGenresReducer.comedy,
+    crime: state.serieGenresReducer.crime,
+    documentary: state.serieGenresReducer.documentary,
+    drama: state.serieGenresReducer.drama,
+    family: state.serieGenresReducer.family,
+    kids: state.serieGenresReducer.kids,
+    mystery: state.serieGenresReducer.mystery,
+    news: state.serieGenresReducer.news,
+    reality: state.serieGenresReducer.reality,
+    scifi_fantasy: state.serieGenresReducer.scifi_fantasy,
+    soap: state.serieGenresReducer.soap,
+    talk: state.serieGenresReducer.talk,
+    war_politics: state.serieGenresReducer.war_politics,
+    western: state.serieGenresReducer.western
   }
 }
 

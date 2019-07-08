@@ -245,10 +245,28 @@ export interface ISeriesState {
   readonly searchSeries: Array<ISerie>
   readonly topSeries: Array<ISerie>
   readonly serieGenres: IGenresResult[]
-  readonly seriesByGenre: Array<ISerie>
   readonly serieCategoryId: number
   readonly serieInfo: IMovieInfoRes | any
   readonly serieInfoModal: IMovieInfoRes | any
+}
+
+export interface ISeriesByGenre {
+  action_adventure: Array<ISerie>
+  animation: Array<ISerie>
+  comedy: Array<ISerie>
+  documentary: Array<ISerie>
+  drama: Array<ISerie>
+  family: Array<ISerie>
+  kids: Array<ISerie>
+  crime: Array<ISerie>
+  mystery: Array<ISerie>
+  news: Array<ISerie>
+  reality: Array<ISerie>
+  scifi_fantasy: Array<ISerie>
+  soap: Array<ISerie>
+  talk: Array<ISerie>
+  war_politics: Array<ISerie>
+  western: Array<ISerie>
 }
 
 export interface IUiState {
@@ -302,8 +320,8 @@ export interface IMenuProps {
 export interface ITopResultsProps {
   isMovieCatSelected: boolean
   store?: any
-  movies: Array<IMovie>
-  series: Array<ISerie>
+  movies?: Array<IMovie>
+  series?: Array<ISerie>
   getMovies: Function
   getSeries: Function
   userHasTyped?: string
@@ -391,33 +409,43 @@ export interface ITopResultsPage {
 
 export interface IGenreResultsPage {
   isMovieCatSelected: boolean
-  seriesByGenre: Array<ISerie>
   store?: any
   getMoviesByGenreRequest: Function
   getSeriesByGenreRequest: Function
   movieCategoryId: number
   serieCategoryId: number
   genreItemsActive: Function
+  movies: Array<IMovie>
+  series: Array<ISerie>
   action: Array<IMovie>
+  action_adventure: Array<ISerie>
   adventure: Array<IMovie>
-  animation: Array<IMovie>
-  comedy: Array<IMovie>
+  animation: Array<IMovie> | Array<ISerie>
+  comedy: Array<IMovie> | Array<ISerie>
   crime: Array<IMovie>
-  documentary: Array<IMovie>
-  drama: Array<IMovie>
-  family: Array<IMovie>
+  documentary: Array<IMovie> | Array<ISerie>
+  drama: Array<IMovie> | Array<ISerie>
+  family: Array<IMovie> | Array<ISerie>
+  kids: Array<ISerie>
   fantasy: Array<IMovie>
   history: Array<IMovie>
   horror: Array<IMovie>
   music: Array<IMovie>
-  mystery: Array<IMovie>
+  mystery: Array<IMovie> | Array<ISerie>
   romance: Array<IMovie>
   science_fiction: Array<IMovie>
   tv_movie: Array<IMovie>
   thriller: Array<IMovie>
   war: Array<IMovie>
-  western: Array<IMovie>
+  western: Array<IMovie> | Array<ISerie>
+  news: Array<ISerie>
+  reality: Array<ISerie>
+  scifi_fantasy: Array<ISerie>
+  soap: Array<ISerie>
+  talk: Array<ISerie>
+  war_politics: Array<ISerie>
 }
+
 
 export interface ITopSearchResultsPage {
   isMovieCatSelected: boolean

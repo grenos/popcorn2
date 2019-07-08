@@ -4,6 +4,7 @@ import moviesReducer from './moviesReducer'
 import seriesReducer from './seriesReducer'
 import uiReducer from './uiReducer'
 import movieGenresReducer from './movieGenresReducer'
+import serieGenresReducer from './serieGenresReducer'
 
 
 export default (history: any) => combineReducers({
@@ -11,5 +12,6 @@ export default (history: any) => combineReducers({
   moviesReducer: moviesReducer,
   seriesReducer: seriesReducer,
   movieGenresReducer: movieGenresReducer,
+  serieGenresReducer: serieGenresReducer,
   uiReducer: uiReducer
 })

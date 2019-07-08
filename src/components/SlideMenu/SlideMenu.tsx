@@ -12,7 +12,7 @@ import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router";
-
+import { makeDashesUrl } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
@@ -101,7 +101,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
     getMoviesByGenreRequest(id, page, name)
-    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
+    history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
     // }
   }
 
@@ -109,8 +109,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
     getSeriesByGenreRequest(id, page, name)
-    history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
-
+    history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
     // }
   }
 
