@@ -6,7 +6,6 @@ import { genreItemsActive } from '../../redux/actions/uiActions'
 import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
 
-
 import * as INT from '../../helpers/interfaces'
 interface RouteParams {
   id: string,
@@ -34,9 +33,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
   war,
   western,
   getMoviesByGenreRequest,
-  getSeriesByGenreRequest,
   movieCategoryId,
-  serieCategoryId,
   genreItemsActive,
   match,
 }) => {
@@ -49,7 +46,6 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
       genreItemsActive(false)
     }
   })
-
 
   useEffect(() => {
     switch (makeDashesUrl(match.params.id.toLowerCase())) {
@@ -122,9 +118,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
         isMovieCatSelected={isMovieCatSelected}
         movies={genreCat}
         getMovies={getMoviesByGenreRequest}
-        getSeries={getSeriesByGenreRequest}
         moviesId={movieCategoryId}
-        seriesId={serieCategoryId}
       />
     </div >
   )
@@ -134,8 +128,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    movieCategoryId: state.moviesReducer.movieCategoryId,
-    serieCategoryId: state.seriesReducer.serieCategoryId,
+    movieCategoryId: state.movieGenresReducer.movieCategoryId,
     action: state.movieGenresReducer.action,
     adventure: state.movieGenresReducer.adventure,
     animation: state.movieGenresReducer.animation,

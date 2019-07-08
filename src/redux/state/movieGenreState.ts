@@ -20,7 +20,8 @@ export const MOVIE_GENRE_STATE: INT.IMoviesByGenre = {
   tv_movie: [],
   thriller: [],
   war: [],
-  western: []
+  western: [],
+  movieCategoryId: 0
 }
 
 

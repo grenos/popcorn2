@@ -212,13 +212,13 @@ export interface IMoviesState {
   readonly searchMovies: Array<IMovie>
   readonly topMovies: Array<IMovie>
   readonly movieGenres: IGenresResult[]
-  readonly movieCategoryId: number
   readonly movieInfo: IMovieInfoRes | any
   readonly movieInfoModal: IMovieInfoRes | any
   readonly cast: ICast[]
 }
 
 export interface IMoviesByGenre {
+  movieCategoryId: number
   action: Array<IMovie>
   adventure: Array<IMovie>
   animation: Array<IMovie>
@@ -245,7 +245,6 @@ export interface ISeriesState {
   readonly searchSeries: Array<ISerie>
   readonly topSeries: Array<ISerie>
   readonly serieGenres: IGenresResult[]
-  readonly serieCategoryId: number
   readonly serieInfo: IMovieInfoRes | any
   readonly serieInfoModal: IMovieInfoRes | any
 }
@@ -267,6 +266,7 @@ export interface ISeriesByGenre {
   talk: Array<ISerie>
   war_politics: Array<ISerie>
   western: Array<ISerie>
+  serieCategoryId: number
 }
 
 export interface IUiState {
@@ -322,8 +322,8 @@ export interface ITopResultsProps {
   store?: any
   movies?: Array<IMovie>
   series?: Array<ISerie>
-  getMovies: Function
-  getSeries: Function
+  getMovies?: Function
+  getSeries?: Function
   userHasTyped?: string
   moviesId?: number
   seriesId?: number

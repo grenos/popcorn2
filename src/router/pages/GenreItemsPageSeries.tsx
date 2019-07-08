@@ -30,9 +30,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
   talk,
   war_politics,
   western,
-  getMoviesByGenreRequest,
   getSeriesByGenreRequest,
-  movieCategoryId,
   serieCategoryId,
   genreItemsActive,
   match
@@ -49,7 +47,6 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 
 
   useEffect(() => {
-    console.log(makeDashesUrl(match.params.id.toLowerCase()));
     switch (makeDashesUrl(match.params.id.toLowerCase())) {
       case 'action_&_adventure': setGenreCat(action_adventure)
         break
@@ -111,9 +108,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
         series={genreCat}
-        getMovies={getMoviesByGenreRequest}
         getSeries={getSeriesByGenreRequest}
-        moviesId={movieCategoryId}
         seriesId={serieCategoryId}
       />
     </div >
@@ -124,8 +119,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    movieCategoryId: state.moviesReducer.movieCategoryId,
-    serieCategoryId: state.seriesReducer.serieCategoryId,
+    serieCategoryId: state.serieGenresReducer.serieCategoryId,
     action_adventure: state.serieGenresReducer.action_adventure,
     animation: state.serieGenresReducer.animation,
     comedy: state.serieGenresReducer.comedy,

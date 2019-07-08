@@ -5,7 +5,6 @@ export const MOVIE_STATE: INT.IMoviesState = {
   searchMovies: [],
   topMovies: [],
   movieGenres: [],
-  movieCategoryId: 0,
   movieInfo: {},
   movieInfoModal: {},
   cast: []

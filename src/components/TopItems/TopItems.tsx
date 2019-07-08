@@ -85,15 +85,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
-
       if (match.url === '/') {
         setMovieCounter(movieCounter => movieCounter + 1)
-        getMovies(movieCounter)
-      } else if (match.url === `/genres/${match.params.name}`) {
-
+        getMovies!(movieCounter)
+      } else if (match.url === `/genres/films/${match.params.id}`) {
         if (location.pathname === location.state.from) {
           setGenreMovieCounter(genreMovieCounter => genreMovieCounter + 1)
-          getMovies(moviesId, genreMovieCounter)
+          getMovies!(moviesId, genreMovieCounter, match.params.id.toLowerCase())
         } else {
           // component mounts here if on genres
           // resets parameters on category change
@@ -109,11 +107,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
       if (match.url === '/') {
         setSerieCounter(serieCounter => serieCounter + 1)
-        getSeries(serieCounter)
-      } else if (match.url === `/genres/${match.params.id}`) {
+        getSeries!(serieCounter)
+      } else if (match.url === `/genres/series/${match.params.id}`) {
         if (location.pathname === location.state.from) {
           setGenreSerieCounter(genreSerieCounter => genreSerieCounter + 1)
-          getSeries(seriesId, genreSerieCounter)
+          getSeries!(seriesId, genreSerieCounter, match.params.id.toLowerCase())
         } else {
           // component mounts here if on genres
           // resets parameters on category change

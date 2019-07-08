@@ -17,7 +17,8 @@ export const SERIES_GENRES_STATE: INT.ISeriesByGenre = {
   soap: [],
   talk: [],
   war_politics: [],
-  western: []
+  western: [],
+  serieCategoryId: 0,
 }
 
 
