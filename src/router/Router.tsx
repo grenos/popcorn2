@@ -11,6 +11,7 @@ import TitlePage from './pages/TitlePage'
 
 
 const Router = () => {
+
   return (
     <ConnectedRouter history={history}>
       <>

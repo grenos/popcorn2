@@ -526,6 +526,12 @@ export interface IMovieInfoRes {
   vote_count: number
   videos: IVideos
   similar: ISimilar
+
+  created_by: any
+  episode_run_time: any
+  first_air_date: any
+  name: string
+  number_of_seasons: any
 }
 
 export interface ITitlePageProps {
@@ -538,4 +544,5 @@ export interface ITitlePageProps {
 export interface ITitleModalProps {
   movieInfo: IMovieInfoRes
   isMovieModalOpen: boolean
+  show: boolean
 }

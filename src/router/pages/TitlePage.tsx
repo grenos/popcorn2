@@ -4,13 +4,15 @@ import { RouteComponentProps } from "react-router"
 import * as INT from '../../helpers/interfaces'
 import TitleModal from '../../components/TitleModal/TitleModal'
 import { Transition } from 'react-spring/renderprops.cjs'
-import close from '../../media/img/close.png'
+import back from '../../media/img/back.png'
 
 const closeStyle: React.CSSProperties = {
   position: 'absolute',
-  top: '5%',
-  right: '10%',
-  width: '20px'
+  top: 0,
+  margin: '40px 0',
+  left: '3%',
+  width: '35px',
+  cursor: 'pointer'
 }
 
 
@@ -48,10 +50,12 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
         <div style={props}>
           <TitleModal
             movieInfo={isMovieCatSelected ? movieInfoModal : serieInfoModal}
-            isMovieModalOpen={isMovieModalOpen} />
+            isMovieModalOpen={isMovieModalOpen}
+            show={show}
+          />
 
           <div className="close" onClick={handleClose} >
-            <img src={close} alt="close modal" style={closeStyle} />
+            <img src={back} alt="close modal" style={closeStyle} />
           </div>
         </div>
 

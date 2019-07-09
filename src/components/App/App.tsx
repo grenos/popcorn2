@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
 import Nav from '../Nav/Nav'
 import * as INT from '../../helpers/interfaces'
+import { withRouter } from "react-router-dom"
+import { RouteComponentProps } from "react-router"
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
+// import SlideMenu from '../SlideMenu/SlideMenu'
 
 
-export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpenProp }): JSX.Element => {
+export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({
+  isMenuOpenProp,
+  location
+}): JSX.Element | null => {
 
   const [scrolled, setScrolled] = useState<number>(0);
 
@@ -33,15 +39,21 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle> = ({ isMenuOpenProp }
   // test loader for now
   const Loader = () => <div className="loader">loading</div>
 
-  return (
-    <>
-      <Nav scrolled={scrolled} />
-      <Suspense fallback={<Loader />}>
-        <SlideMenu />
-      </Suspense>
-      <MenuToggle />
-    </>
-  )
+  if (location.pathname.includes('/title/')) {
+    return (
+      null
+    )
+  } else {
+    return (
+      <>
+        < Nav scrolled={scrolled} />
+        <Suspense fallback={<Loader />}>
+          <SlideMenu />
+        </Suspense>
+        <MenuToggle />
+      </>
+    )
+  }
 }
 
 
@@ -51,6 +63,6 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps, null)(UnconnectedApp)
+export default withRouter(connect(mapStateToProps, null)(UnconnectedApp))
 
 

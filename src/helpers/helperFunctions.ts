@@ -8,11 +8,16 @@ export const filterNoImg = (baseUrl: string, poster: string, placeholder: string
 }
 
 
-export const makeDashesUrl = (str: string): any => {
+export const makeDashesUrl = (str: string): string | null => {
   if (str) {
     return str.replace(/\s+/g, '_')
   } else {
-    return
+    return null
   }
 }
 
+
+
+export const reverseMe = (str: string): string => {
+  return str.split('-').reverse().join(' - ')
+}
