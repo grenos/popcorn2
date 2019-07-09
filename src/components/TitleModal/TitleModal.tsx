@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg, reverseMe } from '../../helpers/helperFunctions'
 import logo from '../../media/img/logo.png'
@@ -15,11 +15,9 @@ const Options = {
   playerVars: {
     autoplay: 1,
     cc_load_policy: 0,
-    // controls: 0,
     disablekb: 1,
     origin: 'http://localhost:3000/',
     enablejsapi: 1,
-    // fs: 0,
     iv_load_policy: 3,
     loop: 1,
     modestbranding: 1,
@@ -29,12 +27,13 @@ const Options = {
   }
 }
 
+interface IProducer { name: string }
+
 const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpen }): JSX.Element => {
 
-  let { backdrop_path, homepage, id, original_language, overview, release_date, runtime, tagline, title, videos, vote_average, created_by, first_air_date, episode_run_time, genres, name, number_of_seasons } = movieInfo
+  let { backdrop_path, homepage, original_language, overview, release_date, runtime, tagline, title, videos, vote_average, created_by, first_air_date, episode_run_time, genres, name, number_of_seasons } = movieInfo
 
   const movieVid: string = get(videos, 'results[0].key', '')
-  // const serieVid: string = get(serieInfo, 'videos.results[0].key', '')
 
   return (
     <div className="title-modal__wrapper" style={{
@@ -90,8 +89,12 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
               ? <li>Seasons: <span>{number_of_seasons}</span></li>
               : null
             }
+            {created_by && created_by > 0
+              ? <li>Created By: <span>{created_by.map(({ name }: IProducer) => name + ', ')}</span></li>
+              : null
+            }
           </ul>
-          <a href={homepage} target="_blank">
+          <a href={homepage} target="_blank" rel="noopener noreferrer">
             <img src={internet} alt="internet" />
           </a>
         </div>

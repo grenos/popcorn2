@@ -259,7 +259,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine" style={{
-      marginTop: TopItemsActive ? '-11%' : '0%'
+      marginTop: TopItemsActive ? '-11%' : '4%'
     }}>
       <div className="render-locandine-inner" >
         {renderTitles}

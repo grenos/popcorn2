@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from '../redux/store/store'
 import App from '../components/App/App'
