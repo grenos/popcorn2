@@ -73,11 +73,11 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
         </div>
         <div className="main-window__info">
           <p>{overview}</p>
-          {genres.map(({ id, name }) => <span key={id} className="title-genres">{name}, </span>)}
+          {genres.map(({ id, name }) => <span key={id} className="title-genres">{name}{' '}</span>)}
           <ul>
             {runtime
               ? <li>Runtime: <span>{runtime}</span></li>
-              : <li>Episode Runtime: <span>{episode_run_time.map((ep: number) => ep + ', ')}</span>mins.</li>
+              : <li>Episode Runtime: <span>{episode_run_time.map((ep: number) => ep + ' ')}</span> mins.</li>
             }
             {release_date
               ? <li>Release Date: <span>{reverseMe(release_date)}</span></li>
@@ -89,8 +89,8 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
               ? <li>Seasons: <span>{number_of_seasons}</span></li>
               : null
             }
-            {created_by && created_by > 0
-              ? <li>Created By: <span>{created_by.map(({ name }: IProducer) => name + ', ')}</span></li>
+            {created_by && created_by.length >= 1
+              ? <li>Created By: <span>{created_by.map(({ name }: IProducer) => name + '  ')} </span></li>
               : null
             }
           </ul>

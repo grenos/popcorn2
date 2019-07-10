@@ -29,7 +29,6 @@ describe('<UnconnectedMovieModal />', () => {
         title: 'matrix',
         overview: 'Lorem, ipsum',
         movieInfo: {
-
           genres: [{ id: 32, name: 'action' }],
           tagline: 'its a movie ok?',
         },

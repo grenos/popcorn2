@@ -12,16 +12,16 @@ describe('<UnconnectedSimilarItems />', () => {
   let wrapper: any
   let setup: any
   let openSimilarSectionRequestMock: any
-  let getMovieInfoRequestMock: any
-  let getSerieInfoRequestMock: any
+  let getMovieInfoModalRequestMock: any
+  let getSerieInfoModalRequestMock: any
   let history: any
   let location: any
   let match: any
 
   beforeEach(() => {
     openSimilarSectionRequestMock = jest.fn()
-    getMovieInfoRequestMock = jest.fn()
-    getSerieInfoRequestMock = jest.fn()
+    getMovieInfoModalRequestMock = jest.fn()
+    getSerieInfoModalRequestMock = jest.fn()
 
     history = createMemoryHistory()
     location = createLocation({
@@ -42,8 +42,8 @@ describe('<UnconnectedSimilarItems />', () => {
       const userProps = {
         isMovieCatSelected: true,
         openSimilarSectionRequest: openSimilarSectionRequestMock,
-        getMovieInfoRequest: getMovieInfoRequestMock,
-        getSerieInfoRequest: getSerieInfoRequestMock,
+        getMovieInfoModalRequest: getMovieInfoModalRequestMock,
+        getSerieInfoModalRequest: getSerieInfoModalRequestMock,
         videos: {
           results: [
             { id: 3434, title: 'matrix', poster_path: 'gdfgd.jpg' },
@@ -91,20 +91,14 @@ describe('<UnconnectedSimilarItems />', () => {
     setup({ isMovieCatSelected: true })
     const loc1 = wrapper.find('.similar-item').at(0)
     loc1.simulate('click')
-    expect(getMovieInfoRequestMock).toHaveBeenCalledTimes(1)
-
-    expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(1)
-    expect(openSimilarSectionRequestMock).toHaveBeenCalledWith(false)
+    expect(getMovieInfoModalRequestMock).toHaveBeenCalledTimes(1)
   })
 
   test('should call action to call serie data', () => {
     setup({ isMovieCatSelected: false })
     const loc2 = wrapper.find('.similar-item').at(0)
     loc2.simulate('click')
-    expect(getMovieInfoRequestMock).toHaveBeenCalledTimes(1)
-
-    expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(1)
-    expect(openSimilarSectionRequestMock).toHaveBeenCalledWith(false)
+    expect(getMovieInfoModalRequestMock).toHaveBeenCalledTimes(1)
   })
 
   test('should close modal', () => {

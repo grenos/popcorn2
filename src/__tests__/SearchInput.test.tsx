@@ -13,13 +13,15 @@ const history = createMemoryHistory()
 const mountWithRouter = (UnconnectedNavToggle: any) =>
   mount(<Router>{UnconnectedNavToggle}</Router>);
 
-const defaultProps = { scrolled: 21 }
+const defaultProps = {
+  scrolled: 21
+}
 
 
 const setup = (initialState = {}, props = {}) => {
   const setupProps = { ...defaultProps, ...props }
   const store = storeFactory(initialState)
-  const wrapper = mountWithRouter(<SearchInput store={store} {...setupProps} />)
+  const wrapper = mountWithRouter(<UnconnectedSearchInput store={store} {...setupProps} />)
   return wrapper
 }
 

@@ -6,7 +6,6 @@ import * as INT from '../../helpers/interfaces'
 import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router"
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
-// import SlideMenu from '../SlideMenu/SlideMenu'
 
 
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({

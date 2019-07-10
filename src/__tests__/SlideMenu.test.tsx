@@ -7,7 +7,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 import { MemoryRouter as Router } from 'react-router-dom'
 import { createLocation, createMemoryHistory } from 'history'
-const location = createLocation({state:{from: ''}})
+const location = createLocation({ state: { from: '' } })
 const history = createMemoryHistory()
 const mountWithRouter = (UnconnectedSlideMenu: any) =>
   mount(<Router>{UnconnectedSlideMenu}</Router>);
@@ -101,7 +101,7 @@ describe('<UnconnectedSlideMenu />', () => {
     list.simulate('click')
     const getMoviesByGenreRequest = getMoviesByGenreRequestMock.mock.calls.length
     expect(getMoviesByGenreRequest).toBe(1)
-    expect(getMoviesByGenreRequestMock).toHaveBeenCalledWith(28, 1)
+    expect(getMoviesByGenreRequestMock).toHaveBeenCalledWith(28, 1, 'Action')
   })
 
   test('should test if getSeriesByGenreRequest gets called', () => {
@@ -111,7 +111,7 @@ describe('<UnconnectedSlideMenu />', () => {
     list.simulate('click')
     const getSeriesByGenreRequest = getSeriesByGenreRequestMock.mock.calls.length
     expect(getSeriesByGenreRequest).toBe(1)
-    expect(getSeriesByGenreRequestMock).toHaveBeenCalledWith(10759, 1)
+    expect(getSeriesByGenreRequestMock).toHaveBeenCalledWith(10759, 1, '"Action_&_Adventure"')
   })
 
   test('should call getMovieGenresRequest', () => {
