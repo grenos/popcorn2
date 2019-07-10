@@ -1,38 +1,32 @@
-import React, { useRef, useEffect, useContext } from 'react'
-import { __RouterContext as RouterContext } from 'react-router'
+import { useEffect } from 'react'
 
 
-export function useWhyDidYouUpdate(name, props) {
-  // Get a mutable ref object where we can store props ...
-  // ... for comparison next time this hook runs.
-  const previousProps = useRef();
-
-  useEffect(() => {
-    if (previousProps.current) {
-      // Get all keys from previous and current props
-      const allKeys = Object.keys({ ...previousProps.current, ...props });
-      // Use this object to keep track of changed props
-      const changesObj = {};
-      // Iterate through keys
-      allKeys.forEach(key => {
-        // If previous is different from current
-        if (previousProps.current[key] !== props[key]) {
-          // Add to changesObj
-          changesObj[key] = {
-            from: previousProps.current[key],
-            to: props[key]
-          };
+export function useOnClickOutside(ref, handler) {
+  useEffect(
+    () => {
+      const listener = event => {
+        // Do nothing if clicking ref's element or descendent elements
+        if (!ref.current || ref.current.contains(event.target)) {
+          return;
         }
-      });
 
-      // If changesObj not empty then output to console
-      if (Object.keys(changesObj).length) {
-        console.log('[why-did-you-update]', name, changesObj);
-      }
-    }
+        handler(event);
+      };
 
-    // Finally update previousProps with current props for next hook call
-    previousProps.current = props;
-  });
+      document.addEventListener('mousedown', listener);
+      document.addEventListener('touchstart', listener);
+
+      return () => {
+        document.removeEventListener('mousedown', listener);
+        document.removeEventListener('touchstart', listener);
+      };
+    },
+    // Add ref and handler to effect dependencies
+    // It's worth noting that because passed in handler is a new ...
+    // ... function on every render that will cause this effect ...
+    // ... callback/cleanup to run every render. It's not a big deal ...
+    // ... but to optimize you can wrap handler in useCallback before ...
+    // ... passing it into this hook.
+    [ref, handler]
+  );
 }
-

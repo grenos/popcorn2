@@ -348,6 +348,8 @@ export interface IHighlightProps {
   store?: any
   searchMovies: Array<IMovie>
   searchSeries: Array<ISerie>
+  getMovieInfoModalRequest: Function
+  getSerieInfoModalRequest: Function
 }
 
 export interface IModalProps {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router"
 import { withRouter } from "react-router-dom"
-
+import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -12,14 +12,27 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   history,
   searchMovies,
   searchSeries,
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest
 }): JSX.Element => {
 
+  const handleGoToMovie = (id: number, title: string, ): void => {
+    getMovieInfoModalRequest(id, title)
+    //! called from saga
+    // history.push(`/title/${makeDashesUrl(title)}`)
+  }
+
+  const handleGoToSerie = (id: number, name: string, ): void => {
+    getSerieInfoModalRequest(id, name)
+    //! called from saga
+    // history.push(`/title/${makeDashesUrl(name)}`)
+  }
 
   return (
     <div className="item-highlight">
       {
         isMovieCatSelected ?
-          searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview, poster_path }) => {
+          searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview }) => {
             return (
               <div
                 key={id}
@@ -27,13 +40,13 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                 style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="highlight-content">
-                  <div className="highlight-video">
-                    <img src={URL + poster_path} alt={title} />
-                  </div>
                   <div className="info-wrapper-highlight">
                     <h3>{title}</h3>
                     <p>{overview}</p>
                     <div className="cta">
+                      <button onClick={() => handleGoToMovie(id, title)}>
+                        Detials
+                      </button>
                       <button onClick={() => console.log('added')}>
                         Add to list
                         </button>
@@ -52,13 +65,13 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                 style={{ backgroundImage: `url(${URL + backdrop_path})` }}
               >
                 <div className="highlight-content">
-                  <div className="highlight-video">
-                    <img src='http://unsplash.it/600/350?random&gravity=center' alt='' />
-                  </div>
                   <div className="info-wrapper-highlight">
                     <h3>{name}</h3>
                     <p>{overview}</p>
                     <div className="cta">
+                      <button onClick={() => handleGoToSerie(id, name)}>
+                        Detials
+                      </button>
                       <button onClick={() => console.log('added')}>
                         Add to list
                       </button>
@@ -82,6 +95,9 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(UnconnectedItemHighlight))
+export default withRouter(connect(mapStateToProps, {
+  getSerieInfoModalRequest,
+  getMovieInfoModalRequest
+})(UnconnectedItemHighlight))
 
 
