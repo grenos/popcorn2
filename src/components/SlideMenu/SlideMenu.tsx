@@ -100,7 +100,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
-    getMoviesByGenreRequest(id, page, name)
+    getMoviesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
     // }
   }
@@ -108,7 +108,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   const handleSerieGenreClick = (id: number, page: number, name: string): void => {
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
-    getSeriesByGenreRequest(id, page, name)
+    getSeriesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
     // }
   }

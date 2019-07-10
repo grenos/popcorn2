@@ -105,7 +105,7 @@ export default function movieGenresReducer(state = MOVIE_GENRE_STATE, action: an
             movieCategoryId: action.id
           }
         }
-        case 'Science Fiction': {
+        case 'Science_Fiction': {
           return {
             ...state,
             science_fiction: [...state.science_fiction, ...action.payload],

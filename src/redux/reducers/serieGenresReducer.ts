@@ -9,7 +9,9 @@ export default function seriesReducer(state = SERIES_GENRES_STATE, action: any) 
 
     case Types.GET_SERIE_BY_GENRE_SUCCESS:
       switch (action.name) {
-        case 'Action & Adventure': {
+
+
+        case 'Action_&_Adventure': {
           return {
             ...state,
             action_adventure: [...state.action_adventure, ...action.payload],
@@ -86,7 +88,7 @@ export default function seriesReducer(state = SERIES_GENRES_STATE, action: any) 
             serieCategoryId: action.id
           }
         }
-        case 'Sci-Fi & Fantasy': {
+        case 'Sci-Fi_&_Fantasy': {
           return {
             ...state,
             scifi_fantasy: [...state.scifi_fantasy, ...action.payload],
@@ -107,7 +109,7 @@ export default function seriesReducer(state = SERIES_GENRES_STATE, action: any) 
             serieCategoryId: action.id
           }
         }
-        case 'War & Politics': {
+        case 'War_&_Politics': {
           return {
             ...state,
             war_politics: [...state.war_politics, ...action.payload],

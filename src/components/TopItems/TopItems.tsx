@@ -92,7 +92,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, [])
 
-
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
       if (match.url === '/') {
