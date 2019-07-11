@@ -31,6 +31,27 @@ describe('<UnconnectedMovieModal />', () => {
         movieInfo: {
           genres: [{ id: 32, name: 'action' }],
           tagline: 'its a movie ok?',
+          videos: {
+            results: [
+              { id: 345, key: 'fdfgdfg', name: 'just a title' },
+              { id: 634, key: 'fasssss', name: 'just another title' },
+              { id: 6555, key: 'yassss', name: 'just another title again' },
+              { id: 666, key: 'hehehe', name: 'yes' },
+            ]
+          }
+        },
+
+        serieInfo: {
+          genres: [{ id: 32, name: 'action' }],
+          tagline: 'its a movie ok?',
+          videos: {
+            results: [
+              { id: 345, key: 'fdfgdfg', name: 'just a title' },
+              { id: 634, key: 'fasssss', name: 'just another title' },
+              { id: 6555, key: 'yassss', name: 'just another title again' },
+              { id: 666, key: 'hehehe', name: 'yes' },
+            ]
+          }
         },
 
         isMovieCatSelected: true,
@@ -79,6 +100,19 @@ describe('<UnconnectedMovieModal />', () => {
     const tagline = wrapper.find('.info-inner h5')
     expect(tagline.text()).toEqual('')
   })
+
+  test('should test if video button is NOT rendered if there are no data ', () => {
+    setup({ movieInfo: { videos: { results: [] } } })
+    const videosBtn = findByTestAttr(wrapper, 'videosBtn')
+    expect(videosBtn.length).toBe(0)
+  })
+
+  test('should test if similars button is NOT rendered if there are no data ', () => {
+    setup({ movieInfo: { similar: { results: [] } } })
+    const relatedBtn = findByTestAttr(wrapper, 'relatedBtn')
+    expect(relatedBtn.length).toBe(0)
+  })
+
 
   test('should test click handlers onload', () => {
     setup({})

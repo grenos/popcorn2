@@ -16,19 +16,21 @@ describe('<UnconnectedRelatedItems />', () => {
   beforeEach(() => {
     openVideoSectionRequestMock = jest.fn()
 
-    setup = () => {
+    setup = (testProps: any = {}) => {
       const userProps = {
         videos: {
           results: [
             { id: 345, key: 'fdfgdfg', name: 'just a title' },
-            { id: 634, key: 'fasssss', name: 'just another title' }
+            { id: 634, key: 'fasssss', name: 'just another title' },
+            { id: 6555, key: 'yassss', name: 'just another title again' },
+            { id: 666, key: 'hehehe', name: 'yes' },
           ]
         },
         openVideoSectionRequest: openVideoSectionRequestMock,
         animation: false
       }
 
-      const props = { ...userProps }
+      const props = { ...userProps, ...testProps }
       wrapper = shallow(<UnconnectedRelatedItems {...props} />)
       return wrapper
     }
@@ -46,17 +48,23 @@ describe('<UnconnectedRelatedItems />', () => {
     expect(carousel.length).toBe(1)
   })
 
-  test('should have 2 youtube players', () => {
+  test('should Not have carousel', () => {
+    setup({ videos: { results: [] } })
+    const carousel = wrapper.find('Carousel')
+    expect(carousel.length).toBe(0)
+  })
+
+  test('should have 4 youtube players', () => {
     setup()
     const youtube = wrapper.find('YouTube')
-    expect(youtube.length).toBe(2)
+    expect(youtube.length).toBe(4)
   })
 
   test('should print video titles', () => {
     setup()
     const title = wrapper.find('.thumb-info')
     expect(title.first().text()).toContain('just a title')
-    expect(title.last().text()).toContain('just another title')
+    expect(title.last().text()).toContain('yes')
   })
 
   test('should call action', () => {
