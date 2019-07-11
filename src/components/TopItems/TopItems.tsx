@@ -191,15 +191,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               ))
             }
           </div>
-          <div className="modal-wrapper" data-test="component-modal">
-            {
-              movies!.map(({ id, backdrop_path, title, overview }) => {
-                return (
-                  handleModal(id, backdrop_path, title, overview, index)
-                )
-              })
-            }
-          </div>
+          {
+            movies!.map(({ id, backdrop_path, title, overview }) => {
+              return (
+                handleModal(id, backdrop_path, title, overview, index)
+              )
+            })
+          }
         </div>
       )
       )
@@ -238,15 +236,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
               ))
             }
           </div>
-          <div className="modal-wrapper">
-            {
-              series!.map(({ id, backdrop_path, name, overview }) => {
-                return (
-                  handleModal(id, backdrop_path, name, overview, index)
-                )
-              })
-            }
-          </div>
+          {
+            series!.map(({ id, backdrop_path, name, overview }) => {
+              return (
+                handleModal(id, backdrop_path, name, overview, index)
+              )
+            })
+          }
         </div>
       )
       )

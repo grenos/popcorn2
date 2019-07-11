@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
@@ -34,12 +34,43 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
     width: '100%',
   }
 
+  let sizer: string
+  useEffect(() => {
+    if (videos.results.length === 3) {
+      sizer = "thumb-no-slider"
+    } else if (videos.results.length === 2) {
+      sizer = "thumb-no-slider-duo"
+    } else if (videos.results.length === 3) {
+      sizer = "thumb-no-slider-solo"
+    }
+  }, [videos.results.length])
+
   const handleCloseVideo = (): void => {
     openVideoSectionRequest(false)
   }
 
   if (videos === undefined) {
     return null
+  } else if (videos.results.length < 4) {
+    return (
+      <div className="thumb-wrapper-no-slider" style={animation} data-test="component-related">
+        {videos.results.slice(0, 6).map(({ id, key, name }) => (
+          <div key={id} className="thumb-inner-no-slider">
+            <YouTube
+              videoId={key}
+              className={sizer}
+              containerClassName="thumb-container-no-slider"
+              // @ts-ignore
+              opts={Options}
+            />
+            <p className="thumb-info-no-slider">{name}</p>
+          </div>
+        ))}
+        <div className="close" onClick={handleCloseVideo}>
+          <img src={close} alt="close" />
+        </div>
+      </div>
+    )
   } else {
     return (
       <div className="thumb-wrapper" style={animation} data-test="component-related">

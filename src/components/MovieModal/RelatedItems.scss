@@ -24,3 +24,40 @@
     }
   }
 }
+
+.thumb-wrapper-no-slider {
+  background: rgba(0, 0, 0, 0.95);
+  height: 65vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  @include flex-box(row, null, center, center);
+
+  .thumb-inner-no-slider {
+    @include flex-box(column, null, center, center);
+    height: 65vh;
+    width: 100%;
+
+    .thumb-container-no-slider {
+      @include flex-box(null, null, center, center);
+      height: 40vh;
+      width: 100%;
+
+      .thumb-no-slider {
+        width: 90%;
+      }
+      .thumb-no-slider-duo {
+        width: 760%;
+      }
+      .thumb-no-slider-solo {
+        width: 40%;
+      }
+    }
+    .thumb-info-no-slider {
+      color: #fff;
+    }
+  }
+}

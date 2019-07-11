@@ -195,11 +195,6 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   }
 
-  // const handleAnimationEnd = (): void => {
-  //   console.log('end');
-  //   setAnimationEnd(animationEnd => animationEnd)
-  // }
-
   const { tagline, genres } = movieInfo
   const movieVid: string = get(movieInfo, 'videos.results[0].key', '')
   const serieVid: string = get(serieInfo, 'videos.results[0].key', '')
@@ -240,8 +235,18 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                         <button onClick={() => handleGoToFav(id)}>Add to list</button>
                       </div>
                       <div className="rel">
-                        <button onClick={handleOtherVideos} data-test="videosBtn">Videos</button>
-                        <button onClick={handleRelated} data-test="relatedBtn">Related Movies</button>
+                        {
+                          (movieInfo.videos && movieInfo.videos.results.length < 1)
+                            || (serieInfo.videos && serieInfo.videos.results.length < 1)
+                            ? null
+                            : <button onClick={handleOtherVideos} data-test="videosBtn">Videos</button>
+                        }
+                        {
+                          (movieInfo.similar && movieInfo.similar.results.length < 1)
+                            || (serieInfo.similar && serieInfo.similar.results.length < 1)
+                            ? null
+                            : <button onClick={handleRelated} data-test="relatedBtn">Related Movies</button>
+                        }
                         <button onClick={() => handleInfo(id)} data-test="infoBtn">Other info</button>
                       </div>
                     </div>
@@ -264,11 +269,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 from={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
                 enter={{ opacity: 1, transform: 'translate3d(0%, 0, 0)' }}
                 leave={{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }}
-              // onRest={handleAnimationEnd}
               >
                 {isVideoSectionOpen => isVideoSectionOpen && (props =>
-                  // <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} animationEnd={animationEnd} />
-
                   <RelatedItems videos={isMovieCatSelected ? movieInfo.videos : serieInfo.videos} animation={props} data-test="related-modal" />
                 )}
               </Transition>
