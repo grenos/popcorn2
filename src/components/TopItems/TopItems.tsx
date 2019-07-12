@@ -12,7 +12,6 @@ import chevron from '../../media/img/chevron.png'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 
-
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams {
   name: any; id: string, param2?: string
@@ -32,7 +31,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   TopItemsActive,
   openMovieModalRequest,
   getToggleMovieCatRequest,
-  getToggleSerieCatRequest
+  getToggleSerieCatRequest,
+  SearchItemsActive
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -254,7 +254,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine" style={{
-      marginTop: TopItemsActive ? '-11%' : '4%'
+      marginTop: TopItemsActive || SearchItemsActive ? '-11%' : '4%'
     }}>
       <div className="render-locandine-inner" >
         {renderTitles}
@@ -269,7 +269,7 @@ const mapStateToProps = (state: any) => {
     TopItemsActive: state.uiReducer.TopItemsActive,
     SearchItemsActive: state.uiReducer.SearchItemsActive,
     genreItemsActive: state.uiReducer.genreItemsActive,
-    isMovieModalOpen: state.uiReducer.isMovieModalOpen
+    isMovieModalOpen: state.uiReducer.isMovieModalOpen,
   }
 }
 

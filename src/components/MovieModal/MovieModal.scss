@@ -21,7 +21,12 @@
       z-index: 4;
       .video {
         height: 65vh;
+        opacity: 0;
         width: 65vw;
+      }
+      .fadein {
+        opacity: 1;
+        transition: 0.8s;
       }
     }
 

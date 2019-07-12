@@ -79,7 +79,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   const fadeContent = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { tension: 130, mass: 1, friction: 46, clamp: true },
+    config: { tension: 170, mass: 1, friction: 46, clamp: true },
   })
 
   const fadeOnHide = useSpring({
@@ -95,9 +95,12 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     console.log('add to fav : ' + id);
   }
 
+  const [videoActive, setVideoActive] = useState<boolean>(false)
+
   const onReady = (event: any): void => {
     const player = event.target
     setVideoPlayer(player)
+    setVideoActive(videoActive => !videoActive)
   }
 
   const Options = {
@@ -213,7 +216,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
               <a.div className="modal-content" style={{ ...fadeContent, ...fadeOnHide }}>
                 <YouTube
                   videoId={isMovieCatSelected ? movieVid : serieVid}
-                  className="video"
+                  className={`video ${videoActive ? 'fadein' : null}`}
                   containerClassName="video-container"
                   // @ts-ignore
                   opts={Options}

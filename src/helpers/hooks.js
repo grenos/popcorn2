@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 export function useOnClickOutside(ref, handler) {
@@ -30,3 +30,21 @@ export function useOnClickOutside(ref, handler) {
     [ref, handler]
   );
 }
+
+
+
+export function useCssClass(data) {
+  const [CssClass, setCssClasses] = useState('')
+  useEffect(() => {
+    if (data === 3) {
+      setCssClasses("thumb-no-slider")
+    } else if (data === 2) {
+      setCssClasses("thumb-no-slider-duo")
+    } else if (data === 1) {
+      setCssClasses("thumb-no-slider-solo")
+    }
+  }, [data])
+
+  return { CssClass }
+}
+

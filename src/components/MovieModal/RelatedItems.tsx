@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
 import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
+import { useCssClass } from '../../helpers/hooks'
 
 export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
 
@@ -34,20 +35,12 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
     width: '100%',
   }
 
-  let sizer: string
-  useEffect(() => {
-    if (videos.results.length === 3) {
-      sizer = "thumb-no-slider"
-    } else if (videos.results.length === 2) {
-      sizer = "thumb-no-slider-duo"
-    } else if (videos.results.length === 3) {
-      sizer = "thumb-no-slider-solo"
-    }
-  }, [videos.results.length])
+  const { CssClass } = useCssClass(videos.results.length)
 
   const handleCloseVideo = (): void => {
     openVideoSectionRequest(false)
   }
+
 
   if (videos === undefined) {
     return null
@@ -58,7 +51,7 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
           <div key={id} className="thumb-inner-no-slider">
             <YouTube
               videoId={key}
-              className={sizer}
+              className={CssClass}
               containerClassName="thumb-container-no-slider"
               // @ts-ignore
               opts={Options}

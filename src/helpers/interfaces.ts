@@ -332,6 +332,7 @@ export interface ITopResultsProps {
   openMovieModalRequest: Function
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
+  SearchItemsActive: boolean
 }
 
 export interface IVisoreProps {
