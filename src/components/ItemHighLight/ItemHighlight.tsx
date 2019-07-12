@@ -41,13 +41,14 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
       {
         animateContainer.map(
           ({ item, key, props }) => (item &&
-            <a.div className="item-highlight" key={key} style={props}>
+            <a.div className="item-highlight" key={key} style={props} data-test="component-highlight">
               {isMovieCatSelected ?
                 searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview }) => {
                   return (
                     <div
                       key={id}
                       className="highlight-outer"
+                      data-test="movie-highlight-outer"
                       style={{ backgroundImage: `url(${URL + backdrop_path})` }}
                     >
                       <div className="highlight-content">
@@ -55,7 +56,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                           <h3>{title}</h3>
                           <p>{overview}</p>
                           <div className="cta">
-                            <button onClick={() => handleGoToMovie(id, title)}>
+                            <button onClick={() => handleGoToMovie(id, title)} data-test="cta-details">
                               Detials
                       </button>
                             <button onClick={() => console.log('added')}>
@@ -73,6 +74,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                     <div
                       key={id}
                       className="highlight-outer"
+                      data-test="serie-highlight-outer"
                       style={{ backgroundImage: `url(${URL + backdrop_path})` }}
                     >
                       <div className="highlight-content">
@@ -80,7 +82,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                           <h3>{name}</h3>
                           <p>{overview}</p>
                           <div className="cta">
-                            <button onClick={() => handleGoToSerie(id, name)}>
+                            <button onClick={() => handleGoToSerie(id, name)} data-test="cta-details">
                               Detials
                       </button>
                             <button onClick={() => console.log('added')}>
