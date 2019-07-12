@@ -228,7 +228,10 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                     <div className="info-inner">
                       <h3 data-test="modal-title">{title}</h3>
                       <h5>{isMovieCatSelected && tagline}</h5>
-                      <Scrollbar noDefaultStyles style={{ height: 100, marginBottom: 40 }}>
+                      <Scrollbar
+                        noDefaultStyles
+                        momentum={true}
+                        style={{ height: 100, marginBottom: 40 }}>
                         <p data-test="modal-overview">{overview}</p>
                       </Scrollbar>
                       <div className="modal-genres">
