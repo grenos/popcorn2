@@ -8,6 +8,7 @@ import { RouteComponentProps } from "react-router"
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 
+
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({
   isMenuOpenProp,
   location
@@ -61,6 +62,7 @@ const mapStateToProps = (state: any) => {
     isMenuOpenProp: state.uiReducer.isMenuOpenProp,
   };
 };
+
 
 export default withRouter(connect(mapStateToProps, null)(UnconnectedApp))
 
