@@ -45,7 +45,7 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     this.setState({ activeHover: id, })
     this.setState(prevState => ({
       toggleHover: !prevState.toggleHover
-    }));
+    }))
   }
 
   handleLocaClick(id: number, title: string): void {

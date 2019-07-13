@@ -7,6 +7,9 @@ import { store } from './redux/store/store'
 import Router from './router/Router'
 import "scroll-behavior-polyfill";
 
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
 
 // clear SessionStorage on refresh for pagination
 if (performance.navigation.type === 1) {
@@ -19,9 +22,6 @@ refreshPage.forEach(item => {
     sessionStorage.clear()
   }
 })
-
-
-
 
 
 ReactDOM.render(

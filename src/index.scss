@@ -20,6 +20,7 @@
 @import "./components/MovieModal/Similars.scss";
 @import "./components/MovieModal/MoreInfo.scss";
 @import "./components/TitleModal/TitleModal.scss";
+@import "./components/SignInModal/SignInModal.scss";
 
 // @import "styles/_colors.scss"; // assuming a styles directory under src/
 // @import "~nprogress/nprogress"; // importing a css file from the nprogress node module
@@ -31,6 +32,7 @@ body {
 html {
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -49,8 +51,10 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+  width: 0px;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
   -ms-overflow-style: none; // IE 10+
   scrollbar-width: none; // Firefox
 }
@@ -76,4 +80,9 @@ span {
   width: 10px !important;
   height: 10px !important;
   background: #fff !important;
+}
+
+#modal-root {
+  position: relative;
+  z-index: 999;
 }

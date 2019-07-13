@@ -17,18 +17,40 @@
 }
 
 .menu-logo {
+  @include flex-box(column, null, center, center);
   background: #000;
   backface-visibility: hidden;
   width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 103;
   box-shadow: 3px 0 10px rgba(0, 0, 0, 1);
+  border-bottom: 1px solid #fff;
 
   img {
-    width: 70%;
-    padding: 30px;
+    width: 30%;
+    margin: 20px;
+
+  }
+
+  .signup {
+    width: 100%;
+    @include flex-box(column, null, center, center);
+    color: #fff;
+    margin: 0 0 30px 0;
+
+    p {
+      font-size: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: .2s;
+
+      &:hover {
+        color: rgb(255, 235, 235);
+        transition: .3s;
+        text-shadow: 1px 0px 14px rgb(255, 235, 235);
+      }
+    }
   }
 }
 
@@ -36,7 +58,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 0 0 0 20px;
+  margin: 10px 0 50px 20px;
 }
 
 .genres-list {

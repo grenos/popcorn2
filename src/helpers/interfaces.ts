@@ -376,6 +376,10 @@ export interface IModalProps {
   getCastRequest: Function
 }
 
+export interface IModal {
+  props: any
+}
+
 export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos

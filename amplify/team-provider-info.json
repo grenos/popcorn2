@@ -1,0 +1,19 @@
+{
+    "popcorn": {
+        "awscloudformation": {
+            "AuthRoleName": "popcorn-style-2-popcorn-20190713121545-authRole",
+            "UnauthRoleArn": "arn:aws:iam::667339103200:role/popcorn-style-2-popcorn-20190713121545-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::667339103200:role/popcorn-style-2-popcorn-20190713121545-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "popcorn-style-2-popcorn-20190713121545-deployment",
+            "UnauthRoleName": "popcorn-style-2-popcorn-20190713121545-unauthRole",
+            "StackName": "popcorn-style-2-popcorn-20190713121545",
+            "StackId": "arn:aws:cloudformation:us-east-1:667339103200:stack/popcorn-style-2-popcorn-20190713121545/2e2c1710-a557-11e9-9617-0a743b4c9590"
+        },
+        "categories": {
+            "auth": {
+                "popcornstyle2fd19c007": {}
+            }
+        }
+    }
+}

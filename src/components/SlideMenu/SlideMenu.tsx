@@ -14,6 +14,7 @@ import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
+import Modal from '../SignInModal/Modal'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
@@ -97,6 +98,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     )
   }
 
+  const handleLogin = () => { }
+
+  const handleSignup = () => { }
+
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
@@ -115,14 +120,20 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
 
+
   return (
     <div data-test="slide-menu">
       {
         transition.map(
           ({ item, key, props }) => (item &&
             <a.div className="nav-wrapper" style={props} key={key}>
+              <Modal props={props} />
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
+                <div className="signup">
+                  <p onClick={handleLogin}>Log In</p>
+                  <p onClick={handleSignup}>Sign Up</p>
+                </div>
               </div>
               <div className="nav-list-wrapper">
                 <Scrollbar noDefaultStyles style={{ height: 'calc(100vh - 13rem)' }}>
