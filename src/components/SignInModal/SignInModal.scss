@@ -65,6 +65,7 @@
             color: #fff;
             padding: 10px 0;
             font-size: 16px;
+            transition: .2s;
 
             &.succes {
               box-shadow: inset 0 -10px 10px -10px rgba(88, 197, 73, 0.357);
@@ -72,6 +73,7 @@
             }
 
             &.error {
+              transition: .2s;
               box-shadow: inset 0 -10px 10px -10px rgba(197, 73, 73, 0.357);
               border-bottom: 1px solid rgba(216, 147, 147, 0.357);
             }

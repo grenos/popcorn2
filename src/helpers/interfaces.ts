@@ -384,6 +384,10 @@ export interface IModal {
   openAuthModal: Function
 }
 
+export interface ILogin {
+  openAuthModal: Function
+}
+
 export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos
