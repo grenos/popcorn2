@@ -16,7 +16,11 @@ interface LocalState {
   confirmationCode: string,
   isConfirmModal: boolean,
   name: string,
-  error: boolean
+  nameError: boolean,
+  emailError: boolean,
+  passError: boolean,
+  confirmPassError: boolean,
+  show: boolean
 }
 
 class SignUp extends Component<INT.ILogin, LocalState> {
@@ -32,7 +36,11 @@ class SignUp extends Component<INT.ILogin, LocalState> {
       confirmPass: '',
       confirmationCode: '',
       isConfirmModal: false,
-      error: false
+      nameError: false,
+      emailError: false,
+      passError: false,
+      confirmPassError: false,
+      show: false
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -48,19 +56,35 @@ class SignUp extends Component<INT.ILogin, LocalState> {
   }
 
   handleName(e: InputVal): void {
-    this.setState({ name: e.target.value })
+    this.setState({
+      name: e.target.value,
+      nameError: false,
+      show: false
+    })
   }
 
   handleEmail(e: InputVal): void {
-    this.setState({ email: e.target.value })
+    this.setState({
+      email: e.target.value,
+      emailError: false,
+      show: false
+    })
   }
 
   handlePassword(e: InputVal): void {
-    this.setState({ password: e.target.value })
+    this.setState({
+      password: e.target.value,
+      passError: false,
+      show: false
+    })
   }
 
   handleConfirmPassword(e: InputVal): void {
-    this.setState({ confirmPass: e.target.value })
+    this.setState({
+      confirmPass: e.target.value,
+      confirmPassError: false,
+      show: false
+    })
   }
 
   handleSignUp(event: PreventDefault): void {
@@ -68,21 +92,21 @@ class SignUp extends Component<INT.ILogin, LocalState> {
     const { email, password, confirmPass, name } = this.state
 
     if (!name) {
-      this.setState({ error: true })
+      this.setState({ nameError: true, show: true })
     }
 
     // email
     if (!isEmail(email)) {
-      this.setState({ error: true })
+      this.setState({ emailError: true, show: true })
     }
 
     // small password
     if (password.length < 8) {
-      this.setState({ error: true })
+      this.setState({ passError: true, show: true })
     }
 
     if (confirmPass !== password) {
-      this.setState({ error: true })
+      this.setState({ confirmPassError: true, show: true })
     }
 
     // success
@@ -95,7 +119,7 @@ class SignUp extends Component<INT.ILogin, LocalState> {
   }
 
   render() {
-    const { error } = this.state
+    const { nameError, emailError, passError, confirmPassError, show } = this.state
     return (
       <div className="modal-inner">
         <img src={close}
@@ -110,42 +134,46 @@ class SignUp extends Component<INT.ILogin, LocalState> {
         <form onSubmit={this.handleSignUp}>
           <div className="form-group">
             <label>
-              Name
+              Name*
           <input
                 type="text"
                 value={this.state.name}
                 onChange={this.handleName}
-                className={error ? 'error' : ''}
+                className={nameError ? 'error' : ''}
               />
+              <p className={nameError && show ? 'show' : ''} >Please fill in your name</p>
             </label>
             <label>
-              Email
+              Email*
           <input
                 type="text"
                 value={this.state.email}
                 onChange={this.handleEmail}
-                className={error ? 'error' : ''}
+                className={emailError ? 'error' : ''}
               />
+              <p className={emailError && show ? 'show' : ''} >Please fill in your email</p>
             </label>
           </div>
           <div className="form-group">
             <label>
-              Password
+              Password*
           <input
                 type="text"
                 value={this.state.password}
                 onChange={this.handlePassword}
-                className={error ? 'error' : ''}
+                className={passError ? 'error' : ''}
               />
+              <p className={passError && show ? 'show' : ''} >At least 8 characters long</p>
             </label>
             <label>
-              Confirm Password
+              Confirm Password*
           <input
                 type="text"
                 value={this.state.confirmPass}
                 onChange={this.handleConfirmPassword}
-                className={error ? 'error' : ''}
+                className={confirmPassError ? 'error' : ''}
               />
+              <p className={confirmPassError && show ? 'show' : ''} >Password doesn't match</p>
             </label>
           </div>
           <input type="submit" value="Sign Up" />

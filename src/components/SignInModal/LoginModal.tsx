@@ -12,7 +12,6 @@ type PreventDefault = React.FormEvent<HTMLFormElement>
 interface LocalState {
   email: string,
   password: string,
-  error: boolean
 }
 
 class Login extends Component<INT.ILogin, LocalState> {
@@ -23,8 +22,7 @@ class Login extends Component<INT.ILogin, LocalState> {
 
     this.state = {
       email: '',
-      password: '',
-      error: false
+      password: ''
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -52,16 +50,6 @@ class Login extends Component<INT.ILogin, LocalState> {
     event.preventDefault()
     const { email, password } = this.state
 
-    // email
-    if (!isEmail(email)) {
-      this.setState({ error: true })
-    }
-
-    // small password
-    if (password.length < 8) {
-      this.setState({ error: true })
-    }
-
     // success
     if (isEmail(email)
       && (password.length < 8)) {
@@ -70,7 +58,6 @@ class Login extends Component<INT.ILogin, LocalState> {
   }
 
   render() {
-    const { error } = this.state
 
     return (
       <div className="modal-inner">
@@ -90,7 +77,6 @@ class Login extends Component<INT.ILogin, LocalState> {
                 type="text"
                 value={this.state.email}
                 onChange={this.handleEmail}
-                className={error ? 'error' : ''}
               />
             </label>
             <label>
@@ -99,7 +85,6 @@ class Login extends Component<INT.ILogin, LocalState> {
                 type="text"
                 value={this.state.password}
                 onChange={this.handlePassword}
-                className={error ? 'error' : ''}
               />
             </label>
           </div>
