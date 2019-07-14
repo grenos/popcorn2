@@ -317,7 +317,8 @@ export interface IMenuProps {
   isMovieCatSelected: boolean
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
-
+  userSignedIn: Function
+  userInfo: any
 }
 
 export interface ITopResultsProps {
@@ -387,16 +388,19 @@ export interface IModal {
 
 export interface ILogin {
   openAuthModal: Function
+  saveUserInfo: Function
 }
 
 export interface IConfirmSignUp {
   isConfirmModalOpen: boolean
+  openAuthModal: Function
+  openConfirmModal: Function
+  email: string
 }
 
 export interface ISignUp {
   openAuthModal: Function
   makeSignUpGlobal: Function
-  getSignUpRequest: Function
   openConfirmModal: Function
   isConfirmModalOpen: boolean
 }

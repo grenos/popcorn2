@@ -2,7 +2,9 @@
 
 
 export const AWS_STATE: any = {
-  signup: {}
+  signup: {},
+  userInfo: {},
+  isUserSignedIn: false
 }
 
 

@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { openAuthModal } from '../../redux/actions/uiActions'
+import { saveUserInfo } from '../../redux/actions/awsActions'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
-import isEmail from 'validator/lib/isEmail';
+import isEmail from 'validator/lib/isEmail'
+import { Auth } from 'aws-amplify'
+
 
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
@@ -15,11 +18,8 @@ interface LocalState {
 }
 
 class Login extends Component<INT.ILogin, LocalState> {
-  el: HTMLDivElement
   constructor(props: INT.ILogin) {
     super(props);
-    this.el = document.createElement('div');
-
     this.state = {
       email: '',
       password: ''
@@ -29,7 +29,6 @@ class Login extends Component<INT.ILogin, LocalState> {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
-
   }
 
 
@@ -52,10 +51,16 @@ class Login extends Component<INT.ILogin, LocalState> {
 
     // success
     if (isEmail(email)
-      && (password.length < 8)) {
-      alert('ok')
+      && (password.length > 7)) {
+      Auth.signIn(email, password)
+        .then(user => (
+          this.props.openAuthModal(false),
+          this.props.saveUserInfo(user)
+        ))
+        .catch(err => console.log(err))
     }
   }
+
 
   render() {
 
@@ -96,4 +101,4 @@ class Login extends Component<INT.ILogin, LocalState> {
 }
 
 
-export default connect(null, { openAuthModal })(Login)
+export default connect(null, { openAuthModal, saveUserInfo })(Login)

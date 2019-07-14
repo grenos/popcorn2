@@ -9,6 +9,7 @@ import {
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
 import { openAuthModal } from '../../redux/actions/uiActions'
+import { userSignedIn } from '../../redux/actions/awsActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { withRouter } from "react-router-dom"
@@ -16,6 +17,9 @@ import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
 import Modal from '../SignInModal/Modal'
+import { Auth } from 'aws-amplify'
+
+// CognitoIdentityServiceProvider.3m3p1gpneah664gfk2fnaf10se.vasilis.green@gmail.com.userData
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
@@ -28,8 +32,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   getSeriesByGenreRequest,
   location,
   history,
-  openAuthModal
+  openAuthModal,
+  userInfo
 }): JSX.Element => {
+
+
+
 
   const [modalType, setModalType] = useState<number>(0)
 
@@ -112,6 +120,31 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     openAuthModal(true)
   }
 
+  const handleSignOut = () => {
+    Auth.signOut()
+      .then()
+      .catch(err => console.log(err));
+  }
+
+  const handleSignInData = (): JSX.Element => {
+    // const signedIn = userInfo.attributes.name
+    if (!userInfo.attributes.name) {
+      return (
+        <div>
+          <p onClick={handleLogin}>Log In</p>
+          <p onClick={handleSignup}>Sign Up</p>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <p>Hello `${userInfo.attributes.name}`</p>
+          <p onClick={handleSignOut}>Sign Out</p>
+        </div>
+      )
+    }
+  }
+
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
     //! not sure if useful keep here for now
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
@@ -139,8 +172,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
                 <div className="signup">
-                  <p onClick={handleLogin}>Log In</p>
-                  <p onClick={handleSignup}>Sign Up</p>
+                  {handleSignInData()}
                 </div>
               </div>
               <div className="nav-list-wrapper">
@@ -163,6 +195,7 @@ const mapStateToProps = (state: any, props: any) => {
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
+    userInfo: state.awsReducer.userInfo
   }
 }
 
@@ -172,7 +205,8 @@ export default withRouter(connect(mapStateToProps,
     getSeriesByGenreRequest,
     getMovieGenresRequest,
     getSerieGenresRequest,
-    openAuthModal
+    openAuthModal,
+    userSignedIn
   }
 )(UnconnectedSlideMenu))
 

@@ -3,8 +3,8 @@ import * as INT from '../../helpers/interfaces'
 
 export const Types: any = {
   MAKE_SIGNUP_GLOBAL: 'MAKE_SIGNUP_GLOBAL',
-  GET_SIGNUP_REQUEST: 'GET_SIGNUP_REQUEST',
-  GET_SIGNUP_SUCCESS: 'GET_SIGNUP_SUCCESS'
+  SAVE_USER_INFO: 'SAVE_USER_INFO',
+  IS_USER_SIGNED_IN: 'IS_USER_SIGNED_IN'
 }
 
 
@@ -13,13 +13,14 @@ export const makeSignUpGlobal = ({ ...signup }: INT.ISignupState) => ({
   signup
 })
 
-export const getSignUpRequest = () => ({
-  type: Types.GET_SIGNUP_REQUEST,
+export const saveUserInfo = (userInfo: any) => ({
+  type: Types.SAVE_USER_INFO,
+  userInfo
 })
 
-
-export const getSignUpSuccess = () => ({
-  type: Types.GET_SIGNUP_SUCCESS,
+export const userSignedIn = (toggle: boolean) => ({
+  type: Types.IS_USER_SIGNED_IN,
+  toggle
 })
 
 

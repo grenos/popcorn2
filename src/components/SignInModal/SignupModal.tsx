@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { openAuthModal, openConfirmModal } from '../../redux/actions/uiActions'
-import { makeSignUpGlobal, getSignUpRequest } from '../../redux/actions/awsActions'
+import { makeSignUpGlobal } from '../../redux/actions/awsActions'
 import { Transition } from 'react-spring/renderprops.cjs'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
@@ -109,28 +109,23 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
     }
 
     // success
-    // if (isEmail(email)
-    //   && (password.length >= 8)
-    //   && (confirmPass === password)
-    //   && (name !== '')) {
-    //   this.props.makeSignUpGlobal({
-    //     email,
-    //     password,
-    //     name
-    //   })
-    // this.props.getSignUpRequest()
-
-    // Auth.signUp({
-    //   username: email,
-    //   password,
-    //   attributes: { email, name, }
-    // }).then(
-    //   this.props.openConfirmModal(true)
-    // ).catch((err: any) => console.log(err));
-    // }
-
-    this.props.openConfirmModal(true)
-
+    if (isEmail(email)
+      && (password.length >= 8)
+      && (confirmPass === password)
+      && (name !== '')) {
+      this.props.makeSignUpGlobal({
+        email,
+        password,
+        name
+      })
+      Auth.signUp({
+        username: email,
+        password,
+        attributes: { email, name, }
+      }).then(
+        this.props.openConfirmModal(true)
+      ).catch((err: any) => console.log(err));
+    }
   }
 
   render() {
@@ -223,6 +218,5 @@ const mapStateToProps = (state: any) => {
 export default connect(mapStateToProps, {
   openAuthModal,
   makeSignUpGlobal,
-  getSignUpRequest,
   openConfirmModal
 })(SignUp)

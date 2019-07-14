@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import { Transition } from 'react-spring/renderprops.cjs'
+import { Auth } from 'aws-amplify'
+import { openAuthModal, openConfirmModal } from '../../redux/actions/uiActions'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -29,14 +31,22 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 
   handleConfirm(event: PreventDefault): void {
     event.preventDefault()
-    alert('ok')
+    const { email, openAuthModal, openConfirmModal } = this.props
+    const { confirmationCode } = this.state
+
+    Auth.confirmSignUp(email, confirmationCode, {})
+      .then(() => {
+        openConfirmModal(false)
+        openAuthModal(false)
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     const { isConfirmModalOpen } = this.props
     return (
       <Transition
-        delay={2000}
+        delay={700}
         items={isConfirmModalOpen}
         from={{ transform: 'translate3d(0, 100%, 0)', opacity: 0, display: 'none' }}
         enter={{ transform: 'translate3d(0, 0%, 0)', opacity: 1, display: 'block' }}
@@ -70,8 +80,13 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 const mapStateToProps = (state: any) => {
   return {
     isConfirmModalOpen: state.uiReducer.isConfirmModalOpen,
+    isAuthModalOpen: state.uiReducer.isAuthModalOpen,
+    email: state.awsReducer.signup.email
   }
 }
 
 
-export default connect(mapStateToProps, {})(ConfirmationModal)
+export default connect(mapStateToProps, {
+  openAuthModal,
+  openConfirmModal
+})(ConfirmationModal)

@@ -13,6 +13,18 @@ export default function awsReducer(state = AWS_STATE, action: any) {
         signup: action.signup
       }
     }
+    case Types.SAVE_USER_INFO: {
+      return {
+        ...state,
+        userInfo: action.userInfo
+      }
+    }
+    case Types.IS_USER_SIGNED_IN: {
+      return {
+        ...state,
+        isUserSignedIn: action.toggle
+      }
+    }
     default: {
       return state
     }
