@@ -14,6 +14,7 @@
     "@types/react-portal": "^4.0.2",
     "@types/react-router-dom": "^4.3.3",
     "@types/react-youtube": "^7.6.2",
+    "@types/validator": "^10.11.1",
     "array-each-slice": "^1.0.1",
     "aws-amplify": "^1.1.30",
     "aws-amplify-react": "^2.3.10",
@@ -42,7 +43,8 @@
     "swiper": "^4.5.0",
     "typescript": "^3.4.5",
     "use-abortable-fetch": "^2.6.2",
-    "use-react-router": "^1.0.7"
+    "use-react-router": "^1.0.7",
+    "validator": "^11.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

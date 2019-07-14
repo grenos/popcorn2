@@ -72,6 +72,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isMoreInfoOpen: action.toggle
       }
     }
+    case Types.IS_AUTH_MODAL_OPEN: {
+      return {
+        ...state,
+        isAuthModalOpen: action.toggle
+      }
+    }
     default: {
       return state
     }

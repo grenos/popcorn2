@@ -281,6 +281,7 @@ export interface IUiState {
   readonly isVideoSectionOpen: boolean
   readonly isSimilarSectionOpen: boolean
   readonly isMoreInfoOpen: boolean
+  readonly isAuthModalOpen: boolean
 }
 
 
@@ -306,6 +307,7 @@ export interface IGetByGenreSagaProps {
 
 export interface IMenuProps {
   isMenuOpenProp: boolean
+  openAuthModal: Function
   store?: any
   movieGenres: IGenresResult[]
   serieGenres: IGenresResult[]
@@ -377,14 +379,15 @@ export interface IModalProps {
 }
 
 export interface IModal {
-  props: any
+  modalType: number
+  isAuthModalOpen: boolean
+  openAuthModal: Function
 }
 
 export interface IRelatedVidProps {
   openVideoSectionRequest: Function
   videos: IVideos
   animation: any
-  // animationEnd: boolean
 }
 
 export interface ISimilarProps {

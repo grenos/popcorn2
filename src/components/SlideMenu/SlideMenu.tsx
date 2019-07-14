@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Scrollbar from "react-scrollbars-custom";
 import * as INT from '../../helpers/interfaces'
@@ -8,6 +8,7 @@ import {
   getMovieGenresRequest,
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
+import { openAuthModal } from '../../redux/actions/uiActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { withRouter } from "react-router-dom"
@@ -26,8 +27,11 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   getMoviesByGenreRequest,
   getSeriesByGenreRequest,
   location,
-  history
+  history,
+  openAuthModal
 }): JSX.Element => {
+
+  const [modalType, setModalType] = useState<number>(0)
 
   const transition = useTransition(isMenuOpenProp, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -98,11 +102,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     )
   }
 
-  const handleLogin = () => { }
+  const handleLogin = () => {
+    setModalType(1)
+    openAuthModal(true)
+  }
 
-  const handleSignup = () => { }
+  const handleSignup = () => {
+    setModalType(2)
+    openAuthModal(true)
+  }
 
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
+    //! not sure if useful keep here for now
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
     getMoviesByGenreRequest(id, page, makeDashesUrl(name))
@@ -111,11 +122,8 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   }
 
   const handleSerieGenreClick = (id: number, page: number, name: string): void => {
-    // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
-    // if (location.pathname !== location.state.from) {
     getSeriesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
-    // }
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
@@ -127,7 +135,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
         transition.map(
           ({ item, key, props }) => (item &&
             <a.div className="nav-wrapper" style={props} key={key}>
-              <Modal props={props} />
+              <Modal modalType={modalType} />
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
                 <div className="signup">
@@ -164,6 +172,7 @@ export default withRouter(connect(mapStateToProps,
     getSeriesByGenreRequest,
     getMovieGenresRequest,
     getSerieGenresRequest,
+    openAuthModal
   }
 )(UnconnectedSlideMenu))
 

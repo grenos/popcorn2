@@ -1,9 +1,107 @@
-.sign-in-wrapper {
-  background: rgba(199, 24, 24, 0.6);
+.modal-wrapper {
+  background: linear-gradient(to right,
+    rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(107, 10, 10, 0.4) 100%);
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 200;
+  @include flex-box(row, null, center, center);
+
+  .modal-inner {
+    background: rgba(0, 0, 0, 0.719);
+    border-radius: 5px;
+    margin-left: 200px;
+    // height: 70%;
+    // width: 40%;
+    padding: 50px;
+    color: #fff;
+    position: relative;
+
+    .close-log-modal {
+      position: absolute;
+      top: 3%;
+      left: 2%;
+      width: 20px;
+      cursor: pointer;
+    }
+
+    .logo-title {
+      @include flex-box(row, null, center, flex-end);
+      margin: 2% 0;
+
+      img {
+        width: 20%;
+        margin-right: 10px;
+      }
+
+      h3 {
+        font-size: 26px;
+        font-style: italic;
+      }
+    }
+
+    form {
+      margin: 10%;
+      @include flex-box(column, null, center, center);
+
+      .form-group {
+        @include flex-box(row, null, center, center);
+
+        label {
+          @include flex-box(column, null, center, flex-start);
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin: 20px;
+          color: rgb(150, 150, 150);
+          font-size: 14px;
+
+          input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            height: 30px;
+            width: 180px;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 16px;
+
+            &.succes {
+              box-shadow: inset 0 -10px 10px -10px rgba(88, 197, 73, 0.357);
+              border-bottom: 1px solid rgba(179, 221, 174, 0.357);
+            }
+
+            &.error {
+              box-shadow: inset 0 -10px 10px -10px rgba(197, 73, 73, 0.357);
+              border-bottom: 1px solid rgba(216, 147, 147, 0.357);
+            }
+          }
+        }
+      }
+
+      input[type=submit] {
+        @include flex-box(row, null, center, center);
+        background: rgba(136, 136, 136, 0.719);
+        border: none;
+        border-radius: 5px;
+        height: 40px;
+        width: 100px;
+        color: #fff;
+        padding: 10px 0;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 20px 0 0;
+        transition: .2s;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(161, 161, 161, 0.719);
+          font-size: 17px;
+          box-shadow: 0px 0px 10px rgba(161, 161, 161, 0.164);
+          transition: .3s;
+        }
+      }
+
+    }
+  }
 }
