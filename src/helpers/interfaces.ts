@@ -282,6 +282,7 @@ export interface IUiState {
   readonly isSimilarSectionOpen: boolean
   readonly isMoreInfoOpen: boolean
   readonly isAuthModalOpen: boolean
+  readonly isConfirmModalOpen: boolean
 }
 
 
@@ -386,6 +387,25 @@ export interface IModal {
 
 export interface ILogin {
   openAuthModal: Function
+}
+
+export interface IConfirmSignUp {
+  isConfirmModalOpen: boolean
+}
+
+export interface ISignUp {
+  openAuthModal: Function
+  makeSignUpGlobal: Function
+  getSignUpRequest: Function
+  openConfirmModal: Function
+  isConfirmModalOpen: boolean
+}
+
+export interface ISignupState {
+  email: string,
+  password: string,
+  confirmPass: string,
+  name: string,
 }
 
 export interface IRelatedVidProps {

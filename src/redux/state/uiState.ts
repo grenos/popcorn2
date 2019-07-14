@@ -13,7 +13,8 @@ export const UI_STATE: INT.IUiState = {
   isVideoSectionOpen: false,
   isSimilarSectionOpen: false,
   isMoreInfoOpen: false,
-  isAuthModalOpen: false
+  isAuthModalOpen: false,
+  isConfirmModalOpen: false
 }
 
 

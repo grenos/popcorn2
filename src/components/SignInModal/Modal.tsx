@@ -10,29 +10,11 @@ import SignUp from './SignupModal'
 
 const modalRoot = document.getElementById('modal-root')
 
-interface LocalState {
-  email: string,
-  password: string,
-  confirmPass: string,
-  confirmationCode: string,
-  isConfirmModal: boolean,
-  name: string
-}
-
-class Modal extends Component<INT.IModal, LocalState> {
+class Modal extends Component<INT.IModal> {
   el: HTMLDivElement
   constructor(props: INT.IModal) {
     super(props);
     this.el = document.createElement('div');
-
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-      confirmPass: '',
-      confirmationCode: '',
-      isConfirmModal: false
-    }
   }
 
   componentDidMount(): void {
@@ -42,6 +24,7 @@ class Modal extends Component<INT.IModal, LocalState> {
   componentWillUnmount(): void {
     modalRoot!.removeChild(this.el)
   }
+
 
 
   render() {

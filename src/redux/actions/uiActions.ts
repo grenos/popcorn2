@@ -17,7 +17,8 @@ export const Types: any = {
   IS_VIDEO_SECTION_OPEN: 'IS_VIDEO_SECTION_OPEN',
   IS_SIMILAR_SECTION_OPEN: 'IS_SIMILAR_SECTION_OPEN',
   IS_MORE_INFO_OPEN: 'IS_MORE_INFO_OPEN',
-  IS_AUTH_MODAL_OPEN: 'IS_AUTH_MODAL_OPEN'
+  IS_AUTH_MODAL_OPEN: 'IS_AUTH_MODAL_OPEN',
+  IS_CONFIRM_MODAL_OPEN: 'IS_CONFIRM_MODAL_OPEN',
 }
 
 
@@ -95,3 +96,10 @@ export const openAuthModal = (toggle: boolean) => ({
   type: Types.IS_AUTH_MODAL_OPEN,
   toggle
 })
+
+export const openConfirmModal = (toggle: boolean) => ({
+  type: Types.IS_CONFIRM_MODAL_OPEN,
+  toggle
+})
+
+

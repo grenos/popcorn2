@@ -48,7 +48,6 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   const [videoPlayer, setVideoPlayer] = useState()
   const [togglePlayer, setTogglePlayer] = useState<boolean>(false)
   const [toggleMute, setToggleMute] = useState<boolean>(false)
-  // const [animationEnd, setAnimationEnd] = useState<boolean>(true)
 
   const ref = useRef<HTMLDivElement>(null)
 
