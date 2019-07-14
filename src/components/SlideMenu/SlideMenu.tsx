@@ -126,23 +126,23 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
       .catch(err => console.log(err));
   }
 
-  const handleSignInData = (): JSX.Element => {
+  const handleSignInData = () => {
     // const signedIn = userInfo.attributes.name
-    if (!userInfo.attributes.name) {
-      return (
-        <div>
-          <p onClick={handleLogin}>Log In</p>
-          <p onClick={handleSignup}>Sign Up</p>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <p>Hello `${userInfo.attributes.name}`</p>
-          <p onClick={handleSignOut}>Sign Out</p>
-        </div>
-      )
-    }
+    // if (!userInfo.attributes.name) {
+    //   return (
+    //     <div>
+    //       <p onClick={handleLogin}>Log In</p>
+    //       <p onClick={handleSignup}>Sign Up</p>
+    //     </div>
+    //   )
+    // } else {
+    //   return (
+    //     <div>
+    //       <p>Hello `${userInfo.attributes.name}`</p>
+    //       <p onClick={handleSignOut}>Sign Out</p>
+    //     </div>
+    //   )
+    // }
   }
 
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
@@ -172,7 +172,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
                 <div className="signup">
-                  {handleSignInData()}
+                  {/* {handleSignInData()} */}
                 </div>
               </div>
               <div className="nav-list-wrapper">
