@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { openAuthModal } from '../../redux/actions/uiActions'
-import { saveUserInfo } from '../../redux/actions/awsActions'
+import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
@@ -55,7 +55,9 @@ class Login extends Component<INT.ILogin, LocalState> {
       Auth.signIn(email, password)
         .then(user => (
           this.props.openAuthModal(false),
-          this.props.saveUserInfo(user)
+          this.props.saveUserInfo(user),
+          this.props.userSignedIn(true),
+          this.props.getToggleMenuRequest()
         ))
         .catch(err => console.log(err))
     }
@@ -101,4 +103,4 @@ class Login extends Component<INT.ILogin, LocalState> {
 }
 
 
-export default connect(null, { openAuthModal, saveUserInfo })(Login)
+export default connect(null, { openAuthModal, saveUserInfo, userSignedIn, getToggleMenuRequest })(Login)

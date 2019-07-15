@@ -8,8 +8,8 @@ import {
   getMovieGenresRequest,
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
-import { openAuthModal } from '../../redux/actions/uiActions'
-import { userSignedIn } from '../../redux/actions/awsActions'
+import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { userSignedIn, clearUserInfo } from '../../redux/actions/awsActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
 import { withRouter } from "react-router-dom"
@@ -18,8 +18,7 @@ import { makeDashesUrl } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
 import Modal from '../SignInModal/Modal'
 import { Auth } from 'aws-amplify'
-
-// CognitoIdentityServiceProvider.3m3p1gpneah664gfk2fnaf10se.vasilis.green@gmail.com.userData
+import get from 'lodash.get'
 
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
@@ -33,10 +32,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   location,
   history,
   openAuthModal,
-  userInfo
+  userSignedIn,
+  clearUserInfo,
+  getToggleMenuRequest,
+  userInfo,
+  isUserSignedIn
 }): JSX.Element => {
-
-
 
 
   const [modalType, setModalType] = useState<number>(0)
@@ -122,27 +123,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
 
   const handleSignOut = () => {
     Auth.signOut()
-      .then()
+      .then(
+        getToggleMenuRequest(),
+        userSignedIn(false)
+      )
       .catch(err => console.log(err));
-  }
-
-  const handleSignInData = () => {
-    // const signedIn = userInfo.attributes.name
-    // if (!userInfo.attributes.name) {
-    //   return (
-    //     <div>
-    //       <p onClick={handleLogin}>Log In</p>
-    //       <p onClick={handleSignup}>Sign Up</p>
-    //     </div>
-    //   )
-    // } else {
-    //   return (
-    //     <div>
-    //       <p>Hello `${userInfo.attributes.name}`</p>
-    //       <p onClick={handleSignOut}>Sign Out</p>
-    //     </div>
-    //   )
-    // }
+    clearUserInfo()
   }
 
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
@@ -160,7 +146,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
-
+  const name: string = get(userInfo, 'attributes.name', '')
 
   return (
     <div data-test="slide-menu">
@@ -172,7 +158,14 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
                 <div className="signup">
-                  {/* {handleSignInData()} */}
+                  <div>
+                    {isUserSignedIn ? null : <p onClick={handleLogin}>Log In</p>}
+                    {isUserSignedIn ? null : <p onClick={handleSignup}>Sign Up</p>}
+                  </div>
+                  <div>
+                    <span>{isUserSignedIn ? name : null}</span>
+                    {isUserSignedIn ? <p onClick={handleSignOut}>Sign Out</p> : null}
+                  </div>
                 </div>
               </div>
               <div className="nav-list-wrapper">
@@ -189,13 +182,14 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
 }
 
 
-const mapStateToProps = (state: any, props: any) => {
+const mapStateToProps = (state: any) => {
   return {
     isMenuOpenProp: state.uiReducer.isMenuOpenProp,
     movieGenres: state.moviesReducer.movieGenres,
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    userInfo: state.awsReducer.userInfo
+    userInfo: state.awsReducer.userInfo,
+    isUserSignedIn: state.awsReducer.isUserSignedIn
   }
 }
 
@@ -206,7 +200,9 @@ export default withRouter(connect(mapStateToProps,
     getMovieGenresRequest,
     getSerieGenresRequest,
     openAuthModal,
-    userSignedIn
+    userSignedIn,
+    clearUserInfo,
+    getToggleMenuRequest
   }
 )(UnconnectedSlideMenu))
 

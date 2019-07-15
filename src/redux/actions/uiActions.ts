@@ -22,16 +22,9 @@ export const Types: any = {
 }
 
 
-export const getToggleMenuRequest = (isMenuOpenProp: boolean) => ({
+export const getToggleMenuRequest = () => ({
   type: Types.GET_MENU_TOGGLE_REQUEST,
-  payload: isMenuOpenProp
-} as INT.IMenuSlideAction)
-
-export const getToggleMenuSuccess = (isMenuOpenProp: boolean) => ({
-  type: Types.GET_MENU_TOGGLE_SUCCESS,
-  payload: isMenuOpenProp
-} as INT.IMenuSlideAction)
-
+})
 
 export const getToggleMovieCatRequest = (payload: boolean): INT.IToggleCat => ({
   type: Types.GET_TOGGLE_MOVIE_CAT_REQUEST,

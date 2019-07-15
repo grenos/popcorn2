@@ -6,10 +6,10 @@ import { UI_STATE } from '../state/uiState'
 
 export default function uiReducer(state = UI_STATE, action: any) {
   switch (action.type) {
-    case Types.GET_MENU_TOGGLE_SUCCESS: {
+    case Types.GET_MENU_TOGGLE_REQUEST: {
       return {
         ...state,
-        isMenuOpenProp: action.payload
+        isMenuOpenProp: !state.isMenuOpenProp
       }
     }
     case Types.GET_TOGGLE_MOVIE_CAT_SUCCESS: {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux'
 import MenuToggle from 'components/MenuToggle/MenuToggle'
+import { userSignedIn } from '../../redux/actions/awsActions'
 import Nav from '../Nav/Nav'
 import * as INT from '../../helpers/interfaces'
 import { withRouter } from "react-router-dom"
@@ -11,7 +12,8 @@ const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({
   isMenuOpenProp,
-  location
+  location,
+  userSignedIn
 }): JSX.Element | null => {
 
   const [scrolled, setScrolled] = useState<number>(0);
@@ -64,6 +66,6 @@ const mapStateToProps = (state: any) => {
 };
 
 
-export default withRouter(connect(mapStateToProps, null)(UnconnectedApp))
+export default withRouter(connect(mapStateToProps, { userSignedIn })(UnconnectedApp))
 
 

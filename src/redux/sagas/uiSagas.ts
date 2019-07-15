@@ -5,20 +5,6 @@ import * as INT from '../../helpers/interfaces'
 
 
 
-
-function* watchGetToggleMenuRequest() {
-  yield takeEvery(actions.Types.GET_MENU_TOGGLE_REQUEST, getToggleMEnu)
-}
-function* getToggleMEnu({ payload: isMenuOpenProp }: INT.IMenuSlideAction) {
-  try {
-    yield put(actions.getToggleMenuSuccess(isMenuOpenProp) as INT.IMenuSlideAction)
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-
-
 function* watchToggleMovieCatRequest() {
   yield takeEvery(actions.Types.GET_TOGGLE_MOVIE_CAT_REQUEST, getToggleMovieCat)
 }
@@ -60,7 +46,6 @@ function* getUserInput({ input }: any) {
 
 
 const uiSagas = [
-  fork(watchGetToggleMenuRequest),
   fork(watchToggleMovieCatRequest),
   fork(watchToggleSerieCatRequest),
   fork(getUserHasTypedRequest)

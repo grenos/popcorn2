@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring';
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
@@ -7,28 +7,22 @@ import * as INT from '../../helpers/interfaces'
 
 
 export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
-  getToggleMenuRequest }): JSX.Element => {
-
-  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    getToggleMenuRequest(isMenuOpen)
-  }, [getToggleMenuRequest, isMenuOpen])
+  getToggleMenuRequest, isMenuOpenProp }): JSX.Element => {
 
   const btnAnimation = useSpring<INT.IAnimateToggle>({
-    transform: isMenuOpen
+    transform: isMenuOpenProp
       ? `translate3d(200px,0,0)`
       : `translate3d(0px,0,0)`
   })
 
   const imgAnimation = useSpring<INT.IAnimateToggle>({
-    transform: isMenuOpen
+    transform: isMenuOpenProp
       ? `rotate(0deg)`
       : `rotate(540deg)`
   })
 
   const makeBoolGlobal = (): void => {
-    setMenuOpen(isMenuOpen => !isMenuOpen)
+    getToggleMenuRequest()
   }
 
   return (
@@ -48,7 +42,13 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   )
 }
 
+const mapStateToProps = (state: any) => {
+  return {
+    isMenuOpenProp: state.uiReducer.isMenuOpenProp,
+  }
+}
 
-export default connect(null, {
+
+export default connect(mapStateToProps, {
   getToggleMenuRequest,
 })(UnconnectedMenuToggle)

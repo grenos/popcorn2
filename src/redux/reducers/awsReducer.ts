@@ -19,6 +19,12 @@ export default function awsReducer(state = AWS_STATE, action: any) {
         userInfo: action.userInfo
       }
     }
+    case Types.CLEAR_USER_INFO: {
+      return {
+        ...state,
+        userInfo: {}
+      }
+    }
     case Types.IS_USER_SIGNED_IN: {
       return {
         ...state,

@@ -93,6 +93,7 @@ export interface IToggleProps {
 
 export interface IToggleMenuProps {
   getToggleMenuRequest: Function
+  isMenuOpenProp: boolean
   store?: any
 }
 
@@ -318,7 +319,10 @@ export interface IMenuProps {
   getMovieGenresRequest: Function
   getSerieGenresRequest: Function
   userSignedIn: Function
+  isUserSignedIn: boolean
   userInfo: any
+  clearUserInfo: Function
+  getToggleMenuRequest: Function
 }
 
 export interface ITopResultsProps {
@@ -389,6 +393,8 @@ export interface IModal {
 export interface ILogin {
   openAuthModal: Function
   saveUserInfo: Function
+  userSignedIn: Function
+  getToggleMenuRequest: Function
 }
 
 export interface IConfirmSignUp {
@@ -501,6 +507,7 @@ export interface ITopSearchResultsPage {
 export interface IMenuPropSingle {
   isMenuOpenProp: boolean
   store?: any
+  userSignedIn: Function
 }
 
 export interface IMenuSlideAction {

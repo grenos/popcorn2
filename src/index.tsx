@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import { store } from './redux/store/store'
+import { store, persistor } from './redux/store/store'
 import Router from './router/Router'
 import "scroll-behavior-polyfill";
+import { PersistGate } from 'redux-persist/lib/integration/react'
 
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
@@ -24,9 +25,12 @@ refreshPage.forEach(item => {
 })
 
 
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router />
+    <PersistGate loading={'<div>loading</div>'} persistor={persistor}>
+      <Router />
+    </PersistGate>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
