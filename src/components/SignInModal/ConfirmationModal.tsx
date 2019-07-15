@@ -39,7 +39,7 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
         openConfirmModal(false)
         openAuthModal(false)
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.message));
   }
 
   render() {

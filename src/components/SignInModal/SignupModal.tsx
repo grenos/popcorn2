@@ -124,7 +124,7 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
         attributes: { email, name, }
       }).then(
         this.props.openConfirmModal(true)
-      ).catch((err: any) => console.log(err));
+      ).catch((err: any) => console.log(err))
     }
   }
 
