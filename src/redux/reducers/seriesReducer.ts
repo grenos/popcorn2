@@ -43,6 +43,25 @@ export default function seriesReducer(state = SERIES_STATE, action: any) {
         serieInfoModal: { ...action.payload }
       }
     }
+    case Types.GET_SERIE_FAV_SUCCESS: {
+      return {
+        ...state,
+        favSeries: [
+          ...state.favSeries,
+          {
+            id: action.id,
+            poster: action.poster,
+            genreId: action.genreId
+          }
+        ]
+      }
+    }
+    case Types.REMOVE_FAV_SERIE_SUCCESS: {
+      return {
+        ...state,
+        favSeries: state.favSeries.filter(item => action.id !== item.id)
+      }
+    }
     default: {
       return state
     }

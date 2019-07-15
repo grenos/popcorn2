@@ -32,7 +32,8 @@ export const Types: any = {
   GET_SERIE_INFO_MODAL_SUCCESS: 'GET_SERIE_INFO_MODAL_SUCCESS',
   GET_MOVIE_FAV_SUCCESS: 'GET_MOVIE_FAV_SUCCESS',
   GET_SERIE_FAV_SUCCESS: 'GET_SERIE_FAV_SUCCESS',
-  REMOVE_FAV_MOVIE_SUCCESS: 'REMOVE_FAV_MOVIE_SUCCESS'
+  REMOVE_FAV_MOVIE_SUCCESS: 'REMOVE_FAV_MOVIE_SUCCESS',
+  REMOVE_FAV_SERIE_SUCCESS: 'REMOVE_FAV_SERIE_SUCCESS'
 }
 
 
@@ -202,13 +203,17 @@ export const removeFavMovieSuccess = (id: number) => ({
 })
 
 
-export const getSerieFavoriteSuccess = (id: number, title: string): INT.ISearchMovieInfoModal => ({
+
+export const getSerieFavoriteSuccess = ({ id, poster, genreId }: INT.IFavMovie): INT.IFavMovieAction => ({
   type: Types.GET_SERIE_FAV_SUCCESS,
   id,
-  title
+  poster,
+  genreId
 })
-
-
+export const removeFavSerieSuccess = (id: number) => ({
+  type: Types.REMOVE_FAV_SERIE_SUCCESS,
+  id
+})
 
 
 

@@ -264,6 +264,7 @@ export interface ISeriesState {
   readonly serieGenres: IGenresResult[]
   readonly serieInfo: IMovieInfoRes | any
   readonly serieInfoModal: IMovieInfoRes | any
+  readonly favSeries: Array<IFavMovie>
 }
 
 export interface ISeriesByGenre {
@@ -360,6 +361,8 @@ export interface ITopResultsProps {
   getMovieFavoriteSuccess: Function,
   favMovies: IFavMovie[]
   removeFavMovieSuccess: Function
+  getSerieFavoriteSuccess: Function
+  removeFavSerieSuccess: Function
 }
 
 export interface IVisoreProps {

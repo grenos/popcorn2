@@ -4,7 +4,7 @@ import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
-import { getMovieFavoriteSuccess, removeFavMovieSuccess } from '../../redux/actions/apiActions'
+import { getMovieFavoriteSuccess, removeFavMovieSuccess, getSerieFavoriteSuccess, removeFavSerieSuccess } from '../../redux/actions/apiActions'
 import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
@@ -37,8 +37,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   getToggleSerieCatRequest,
   SearchItemsActive,
   getMovieFavoriteSuccess,
+  getSerieFavoriteSuccess,
   favMovies,
-  removeFavMovieSuccess
+  removeFavMovieSuccess,
+  removeFavSerieSuccess
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -167,26 +169,13 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   let favImg: string
   const handleMovieFavs = (id: number, poster: string, genreId: number) => {
-
     getMovieFavoriteSuccess({ id, poster, genreId })
-
-
-    // if (favMovies.length === 0) {
-    //   getMovieFavoriteSuccess({ id, poster, genreId })
-    // } else {
-    //   favMovies.map(item =>
-    //     item.id !== id
-
-    //     // ? getMovieFavoriteSuccess({ id, poster, genreId })
-    //     // : removeFavMovieSuccess(id)
-    //   )
-    // }
+    // removeFavMovieSuccess(id)
   }
 
-
-
   const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
-
+    getSerieFavoriteSuccess({ id, poster, genreId })
+    // removeFavSerieSuccess(id)
   }
 
 
@@ -316,6 +305,8 @@ export default withRouter(connect(mapStateToProps, {
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   getMovieFavoriteSuccess,
-  removeFavMovieSuccess
+  removeFavMovieSuccess,
+  getSerieFavoriteSuccess,
+  removeFavSerieSuccess
 })(UnconnectedTopItems))
 
