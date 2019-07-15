@@ -75,10 +75,20 @@
           }
 
           .chevron {
+            padding: 20px 20px 0;
             img {
-              margin-bottom: 5px;
-              width: 20px;
+              // margin-bottom: 5px;
+              width: 30px;
               transform: rotate(270deg);
+            }
+          }
+          .heart {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: -10px;
+            img {
+              width: 30px;
             }
           }
         }

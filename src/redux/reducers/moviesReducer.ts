@@ -47,8 +47,28 @@ export default function moviesReducer(state = MOVIE_STATE, action: any) {
         movieInfoModal: { ...action.payload }
       }
     }
+    case Types.GET_MOVIE_FAV_SUCCESS: {
+      return {
+        ...state,
+        favMovies: [
+          ...state.favMovies,
+          {
+            id: action.id,
+            poster: action.poster,
+            genreId: action.genreId
+          }
+        ]
+      }
+    }
+    case Types.REMOVE_FAV_MOVIE_SUCCESS: {
+      return {
+        ...state,
+        favMovies: state.favMovies.filter(item => action.id !== item.id)
+      }
+    }
     default: {
       return state
     }
   }
 }
+

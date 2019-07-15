@@ -111,6 +111,8 @@ export interface ISearchMovieInfoModal {
   title: string
 }
 
+
+
 export interface ISearchMovieInfo {
   type: string
   id: number
@@ -216,6 +218,20 @@ export interface IMoviesState {
   readonly movieInfo: IMovieInfoRes | any
   readonly movieInfoModal: IMovieInfoRes | any
   readonly cast: ICast[]
+  readonly favMovies: Array<IFavMovie>
+}
+
+export interface IFavMovie {
+  id: number
+  poster: string
+  genreId: number
+}
+
+export interface IFavMovieAction {
+  type: string
+  id: number
+  poster: string
+  genreId: number
 }
 
 export interface IMoviesByGenre {
@@ -341,6 +357,9 @@ export interface ITopResultsProps {
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
   SearchItemsActive: boolean
+  getMovieFavoriteSuccess: Function,
+  favMovies: IFavMovie[]
+  removeFavMovieSuccess: Function
 }
 
 export interface IVisoreProps {

@@ -7,7 +7,8 @@ export const MOVIE_STATE: INT.IMoviesState = {
   movieGenres: [],
   movieInfo: {},
   movieInfoModal: {},
-  cast: []
+  cast: [],
+  favMovies: []
 }
 
 

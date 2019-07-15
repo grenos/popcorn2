@@ -4,11 +4,14 @@ import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
+import { getMovieFavoriteSuccess, removeFavMovieSuccess } from '../../redux/actions/apiActions'
 import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
 import chevron from '../../media/img/chevron.png'
+import like from '../../media/img/like.png'
+import liked from '../../media/img/liked.png'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 
@@ -32,7 +35,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   openMovieModalRequest,
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
-  SearchItemsActive
+  SearchItemsActive,
+  getMovieFavoriteSuccess,
+  favMovies,
+  removeFavMovieSuccess
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -159,6 +165,31 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
+  let favImg: string
+  const handleMovieFavs = (id: number, poster: string, genreId: number) => {
+
+    getMovieFavoriteSuccess({ id, poster, genreId })
+
+
+    // if (favMovies.length === 0) {
+    //   getMovieFavoriteSuccess({ id, poster, genreId })
+    // } else {
+    //   favMovies.map(item =>
+    //     item.id !== id
+
+    //     // ? getMovieFavoriteSuccess({ id, poster, genreId })
+    //     // : removeFavMovieSuccess(id)
+    //   )
+    // }
+  }
+
+
+
+  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
+
+  }
+
+
   const renderMovies = (): JSX.Element[] => {
     return (
       chunk(movies, 7).map((arr: INT.IMovie[], index: number) => (
@@ -176,12 +207,15 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   key={movie.id}
                 >
                   {(toggle: boolean) => toggle && (props =>
-                    <a.div className="loc-wrapper" onClick={() => handleModalStates(movie.id, index)} style={props}>
+                    <a.div className="loc-wrapper" style={props}>
                       <div className="locandina-outer" data-test="locandina-movie" >
                         <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
                         <div className="overlay-gallery">
-                          <div className="chevron" >
+                          <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
                             <img src={chevron} alt="open modal" />
+                          </div>
+                          <div className="heart" onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
+                            <img src={like} alt="open modal" />
                           </div>
                         </div>
                       </div>
@@ -221,12 +255,15 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   key={serie.id}
                 >
                   {(toggle: boolean) => toggle && (props =>
-                    <a.div className="loc-wrapper" onClick={() => handleModalStates(serie.id, index)} style={props}>
+                    <a.div className="loc-wrapper" style={props}>
                       <div className="locandina-outer" data-test="locandina-serie" >
                         <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                         <div className="overlay-gallery">
-                          <div className="chevron">
+                          <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
                             <img src={chevron} alt="open modal" />
+                          </div>
+                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.poster_path, serie.genre_ids[0])}>
+                            <img src={like} alt="open modal" />
                           </div>
                         </div>
                       </div>
@@ -270,12 +307,15 @@ const mapStateToProps = (state: any) => {
     SearchItemsActive: state.uiReducer.SearchItemsActive,
     genreItemsActive: state.uiReducer.genreItemsActive,
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
+    favMovies: state.moviesReducer.favMovies
   }
 }
 
 export default withRouter(connect(mapStateToProps, {
   openMovieModalRequest,
   getToggleMovieCatRequest,
-  getToggleSerieCatRequest
+  getToggleSerieCatRequest,
+  getMovieFavoriteSuccess,
+  removeFavMovieSuccess
 })(UnconnectedTopItems))
 
