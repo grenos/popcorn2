@@ -167,9 +167,33 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
-  let favImg: string
   const handleMovieFavs = (id: number, poster: string, genreId: number) => {
-    getMovieFavoriteSuccess({ id, poster, genreId })
+    if (favMovies.length === 0) {
+      getMovieFavoriteSuccess({ id, poster, genreId })
+    }
+
+    if (favMovies.length !== 0) {
+      let removedID = false;
+      let clickedID: number;
+
+      favMovies.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            clickedID = item.id;
+            removeFavMovieSuccess(clickedID);
+            removedID = true;
+          } else {
+            if (i + 1 === favMovies.length) {
+              getMovieFavoriteSuccess({ id, poster, genreId })
+            }
+          }
+        }
+      })
+    }
+
+
+
+
     // removeFavMovieSuccess(id)
   }
 
