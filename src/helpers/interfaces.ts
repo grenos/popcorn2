@@ -360,6 +360,7 @@ export interface ITopResultsProps {
   SearchItemsActive: boolean
   getMovieFavoriteSuccess: Function,
   favMovies: IFavMovie[]
+  favSeries: IFavMovie[]
   removeFavMovieSuccess: Function
   getSerieFavoriteSuccess: Function
   removeFavSerieSuccess: Function

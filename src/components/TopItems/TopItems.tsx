@@ -39,6 +39,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   getMovieFavoriteSuccess,
   getSerieFavoriteSuccess,
   favMovies,
+  favSeries,
   removeFavMovieSuccess,
   removeFavSerieSuccess
 }): JSX.Element => {
@@ -168,38 +169,52 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
 
   const handleMovieFavs = (id: number, poster: string, genreId: number) => {
-    if (favMovies.length === 0) {
+    (favMovies.length === 0) &&
       getMovieFavoriteSuccess({ id, poster, genreId })
-    }
+
 
     if (favMovies.length !== 0) {
-      let removedID = false;
-      let clickedID: number;
+      let removedID: boolean = false
+      let clickedID: number
 
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            clickedID = item.id;
-            removeFavMovieSuccess(clickedID);
-            removedID = true;
+            clickedID = item.id
+            removeFavMovieSuccess(clickedID)
+            removedID = true
           } else {
-            if (i + 1 === favMovies.length) {
+            (i + 1 === favMovies.length) &&
               getMovieFavoriteSuccess({ id, poster, genreId })
-            }
+          }
+        }
+      })
+    }
+  }
+
+  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
+    (favSeries.length === 0) &&
+      getSerieFavoriteSuccess({ id, poster, genreId })
+
+    if (favSeries.length !== 0) {
+      let removedID: boolean = false
+      let clickedID: number
+
+      favSeries.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            clickedID = item.id
+            removeFavSerieSuccess(clickedID)
+            removedID = true
+          } else {
+            (i + 1 === favSeries.length) &&
+              getSerieFavoriteSuccess({ id, poster, genreId })
           }
         }
       })
     }
 
 
-
-
-    // removeFavMovieSuccess(id)
-  }
-
-  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
-    getSerieFavoriteSuccess({ id, poster, genreId })
-    // removeFavSerieSuccess(id)
   }
 
 
@@ -228,7 +243,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                             <img src={chevron} alt="open modal" />
                           </div>
                           <div className="heart" onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
-                            <img src={like} alt="open modal" />
+                            {favMovies.length === 0 && <img src={like} alt="open modal" />}
                           </div>
                         </div>
                       </div>
@@ -320,7 +335,8 @@ const mapStateToProps = (state: any) => {
     SearchItemsActive: state.uiReducer.SearchItemsActive,
     genreItemsActive: state.uiReducer.genreItemsActive,
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
-    favMovies: state.moviesReducer.favMovies
+    favMovies: state.moviesReducer.favMovies,
+    favSeries: state.seriesReducer.favSeries
   }
 }
 
