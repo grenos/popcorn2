@@ -279,7 +279,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                             <img src={chevron} alt="open modal" />
                           </div>
                           <div className="heart"
-                            onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
+                            onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0])}>
                             {haandleFavMovieImg(movie.id)}
                           </div>
                         </div>
@@ -327,7 +327,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                           <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
                             <img src={chevron} alt="open modal" />
                           </div>
-                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.poster_path, serie.genre_ids[0])}>
+                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0])}>
                             {haandleFavSerieImg(serie.id)}
                           </div>
                         </div>

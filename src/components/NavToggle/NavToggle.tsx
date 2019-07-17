@@ -32,7 +32,7 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   }
 
   const handleMyFavorites = (): void => {
-    console.log('favorites');
+    history.push('/favorites')
   }
 
   return (

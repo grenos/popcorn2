@@ -565,6 +565,11 @@ export interface IGenres {
   name: string
 }
 
+export interface IFavorites {
+  favMovies: IFavMovie[]
+  favSeries: IFavMovie[]
+}
+
 export interface ISimilar {
   page: number
   results: Array<IMovie>

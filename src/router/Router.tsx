@@ -8,6 +8,7 @@ import GenreItemsPage from './pages/GenreItemsPage'
 import SearchResultsPage from './pages/SearchResultsPage'
 import GenreItemsPageSeries from './pages/GenreItemsPageSeries'
 import TitlePage from './pages/TitlePage'
+import FavoritesPage from './pages/FavoritesPage'
 
 
 const Router = () => {
@@ -21,6 +22,7 @@ const Router = () => {
         <Route exact path="/genres/series/:id" component={GenreItemsPageSeries} />
         <Route exact path="/results" component={SearchResultsPage} />
         <Route exact path="/title/:title" component={TitlePage} />
+        <Route exact path="/favorites" component={FavoritesPage} />
       </>
     </ConnectedRouter>
   )
