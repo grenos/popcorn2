@@ -213,8 +213,19 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         }
       })
     }
+  }
 
+  const haandleFavImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    favMovies.map(item => {
+      itemId.push(item.id);
+    })
 
+    if (itemId.includes(id)) {
+      return <img src={liked} alt="add to favorites" />
+    } else {
+      return <img src={like} alt="add to favorites" />
+    }
   }
 
 
@@ -224,7 +235,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         <div key={index}>
           <div className="row">
             {
-              arr.map((movie: INT.IMovie) => (
+              arr.map((movie: INT.IMovie, i) => (
                 <Transition
                   native
                   items={toggle}
@@ -242,8 +253,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                           <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
                             <img src={chevron} alt="open modal" />
                           </div>
-                          <div className="heart" onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
-                            {favMovies.length === 0 && <img src={like} alt="open modal" />}
+                          <div className="heart"
+                            onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
+                            {haandleFavImg(movie.id)}
                           </div>
                         </div>
                       </div>
