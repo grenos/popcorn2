@@ -388,6 +388,7 @@ export interface IModalProps {
   id: number
   store?: any
   backdrop_path: string
+  poster_path: string
   title: string
   overview: string,
   isMovieModalOpen: boolean
@@ -405,6 +406,12 @@ export interface IModalProps {
   isMoreInfoOpen: boolean
   openMoreInfoRequest: Function
   getCastRequest: Function
+  getMovieFavoriteSuccess: Function
+  getSerieFavoriteSuccess: Function
+  favMovies: Array<IFavMovie>
+  favSeries: Array<IFavMovie>
+  removeFavMovieSuccess: Function
+  removeFavSerieSuccess: Function
 }
 
 export interface IModal {

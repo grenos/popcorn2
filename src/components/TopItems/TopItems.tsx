@@ -157,10 +157,18 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     title: string,
     overview: string,
     index: number,
+    poster_path: string
   ): JSX.Element | null => {
     if (id === selectedId && index === selectedIndex) {
       return (
-        <MovieModal id={id} backdrop_path={backdrop_path} title={title} overview={overview} key={id} />
+        <MovieModal
+          id={id}
+          backdrop_path={backdrop_path}
+          title={title}
+          overview={overview}
+          key={id}
+          poster_path={poster_path}
+        />
       )
     } else {
       return null
@@ -215,9 +223,24 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
-  const haandleFavImg = (id: number): JSX.Element => {
+
+
+  const haandleFavMovieImg = (id: number): JSX.Element => {
     let itemId: Array<number> = []
     favMovies.map(item => {
+      itemId.push(item.id);
+    })
+
+    if (itemId.includes(id)) {
+      return < img src={liked} alt="add to favorites" />
+    } else {
+      return <img src={like} alt="add to favorites" />
+    }
+  }
+
+  const haandleFavSerieImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    favSeries.map(item => {
       itemId.push(item.id);
     })
 
@@ -255,7 +278,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                           </div>
                           <div className="heart"
                             onClick={() => handleMovieFavs(movie.id, movie.poster_path, movie.genre_ids[0])}>
-                            {haandleFavImg(movie.id)}
+                            {haandleFavMovieImg(movie.id)}
                           </div>
                         </div>
                       </div>
@@ -266,9 +289,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             }
           </div>
           {
-            movies!.map(({ id, backdrop_path, title, overview }) => {
+            movies!.map(({ id, backdrop_path, title, overview, poster_path }) => {
               return (
-                handleModal(id, backdrop_path, title, overview, index)
+                handleModal(id, backdrop_path, title, overview, index, poster_path)
               )
             })
           }
@@ -303,7 +326,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                             <img src={chevron} alt="open modal" />
                           </div>
                           <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.poster_path, serie.genre_ids[0])}>
-                            <img src={like} alt="open modal" />
+                            {haandleFavSerieImg(serie.id)}
                           </div>
                         </div>
                       </div>
@@ -314,9 +337,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             }
           </div>
           {
-            series!.map(({ id, backdrop_path, name, overview }) => {
+            series!.map(({ id, backdrop_path, name, overview, poster_path }) => {
               return (
-                handleModal(id, backdrop_path, name, overview, index)
+                handleModal(id, backdrop_path, name, overview, index, poster_path)
               )
             })
           }

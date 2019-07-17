@@ -9,7 +9,15 @@ import {
   openSimilarSectionRequest,
   openMoreInfoRequest
 } from '../../redux/actions/uiActions'
-import { getMovieInfoRequest, getSerieInfoRequest, getCastRequest } from '../../redux/actions/apiActions'
+import {
+  getMovieInfoRequest,
+  getSerieInfoRequest,
+  getCastRequest,
+  getMovieFavoriteSuccess,
+  getSerieFavoriteSuccess,
+  removeFavMovieSuccess,
+  removeFavSerieSuccess
+} from '../../redux/actions/apiActions'
 import Scrollbar from "react-scrollbars-custom"
 import RelatedItems from './RelatedItems'
 import Similars from './Similars'
@@ -19,7 +27,9 @@ import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
 import volume from '../../media/img/volume.png'
 import mute from '../../media/img/mute.png'
-import YouTube from 'react-youtube';
+import like from '../../media/img/like.png'
+import liked from '../../media/img/liked.png'
+import YouTube from 'react-youtube'
 import get from 'lodash.get'
 
 const URL = 'https://image.tmdb.org/t/p/w1280'
@@ -27,6 +37,7 @@ const URL = 'https://image.tmdb.org/t/p/w1280'
 export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   id,
   backdrop_path,
+  poster_path,
   title,
   overview,
   isMovieModalOpen,
@@ -42,7 +53,13 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   isSimilarSectionOpen,
   openMoreInfoRequest,
   isMoreInfoOpen,
-  getCastRequest
+  getCastRequest,
+  getMovieFavoriteSuccess,
+  getSerieFavoriteSuccess,
+  favMovies,
+  favSeries,
+  removeFavMovieSuccess,
+  removeFavSerieSuccess
 }) => {
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -197,6 +214,81 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   }
 
+  const handleMovieFavs = (id: number, poster: string, genreId: any) => {
+    (favMovies.length === 0) &&
+      getMovieFavoriteSuccess({ id, poster, genreId })
+
+
+    if (favMovies.length !== 0) {
+      let removedID: boolean = false
+      let clickedID: number
+
+      favMovies.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            clickedID = item.id
+            removeFavMovieSuccess(clickedID)
+            removedID = true
+          } else {
+            (i + 1 === favMovies.length) &&
+              getMovieFavoriteSuccess({ id, poster, genreId })
+          }
+        }
+      })
+    }
+  }
+
+  const handleSerieFavs = (id: number, poster: string, genreId: any): void => {
+    (favSeries.length === 0) &&
+      getSerieFavoriteSuccess({ id, poster, genreId })
+
+    if (favSeries.length !== 0) {
+      let removedID: boolean = false
+      let clickedID: number
+
+      favSeries.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            clickedID = item.id
+            removeFavSerieSuccess(clickedID)
+            removedID = true
+          } else {
+            (i + 1 === favSeries.length) &&
+              getSerieFavoriteSuccess({ id, poster, genreId })
+          }
+        }
+      })
+    }
+  }
+
+
+
+  const haandleFavMovieImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    favMovies.map(item => {
+      itemId.push(item.id);
+    })
+
+    if (itemId.includes(id)) {
+      return <span>Remove from list</span>
+    } else {
+      return <span>Add to list</span>
+    }
+  }
+
+  const haandleFavSerieImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    favSeries.map(item => {
+      itemId.push(item.id);
+    })
+
+    if (itemId.includes(id)) {
+      return <span>Remove from list</span>
+    } else {
+      return <span>Add to list</span>
+    }
+  }
+
   const { tagline, genres } = movieInfo
   const movieVid: string = get(movieInfo, 'videos.results[0].key', '')
   const serieVid: string = get(serieInfo, 'videos.results[0].key', '')
@@ -237,7 +329,15 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                         {genres && genres.map(({ id, name }) => <p key={id}>{name}</p>)}
                       </div>
                       <div className="cta">
-                        <button onClick={() => handleGoToFav(id)}>Add to list</button>
+                        {isMovieCatSelected
+                          ? <button
+                            onClick={() => handleMovieFavs(id, poster_path, genres[0])}>
+                            {haandleFavMovieImg(id)}
+                          </button>
+                          : <button
+                            onClick={() => handleSerieFavs(id, poster_path, genres[0])}>
+                            {haandleFavSerieImg(id)}
+                          </button>}
                       </div>
                       <div className="rel">
                         {
@@ -316,7 +416,9 @@ const mapStateToProps = (state: any) => {
     serieInfo: state.seriesReducer.serieInfo,
     isVideoSectionOpen: state.uiReducer.isVideoSectionOpen,
     isSimilarSectionOpen: state.uiReducer.isSimilarSectionOpen,
-    isMoreInfoOpen: state.uiReducer.isMoreInfoOpen
+    isMoreInfoOpen: state.uiReducer.isMoreInfoOpen,
+    favMovies: state.moviesReducer.favMovies,
+    favSeries: state.seriesReducer.favSeries
   }
 }
 
@@ -327,7 +429,11 @@ export default connect(mapStateToProps, {
   openVideoSectionRequest,
   openSimilarSectionRequest,
   openMoreInfoRequest,
-  getCastRequest
+  getCastRequest,
+  getMovieFavoriteSuccess,
+  getSerieFavoriteSuccess,
+  removeFavMovieSuccess,
+  removeFavSerieSuccess
 })(UnconnectedMovieModal)
 
 
