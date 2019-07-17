@@ -54,6 +54,7 @@ class Login extends Component<INT.ILogin, LocalState> {
       && (password.length > 7)) {
       Auth.signIn(email, password)
         .then(user => (
+          // eslint-disable-next-line no-sequences
           this.props.openAuthModal(false),
           this.props.saveUserInfo(user),
           this.props.userSignedIn(true),

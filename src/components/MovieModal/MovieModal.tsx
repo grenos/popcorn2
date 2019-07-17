@@ -27,8 +27,6 @@ import play from '../../media/img/play.png'
 import pause from '../../media/img/pause.png'
 import volume from '../../media/img/volume.png'
 import mute from '../../media/img/mute.png'
-import like from '../../media/img/like.png'
-import liked from '../../media/img/liked.png'
 import YouTube from 'react-youtube'
 import get from 'lodash.get'
 
@@ -106,10 +104,6 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
         ? 0 : 1,
     config: { tension: 160, mass: 1, friction: 46, clamp: true }
   })
-
-  const handleGoToFav = (id: number): void => {
-    console.log('add to fav : ' + id);
-  }
 
   const [videoActive, setVideoActive] = useState<boolean>(false)
 
@@ -222,7 +216,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     if (favMovies.length !== 0) {
       let removedID: boolean = false
       let clickedID: number
-
+      // eslint-disable-next-line array-callback-return
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
@@ -245,7 +239,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     if (favSeries.length !== 0) {
       let removedID: boolean = false
       let clickedID: number
-
+      // eslint-disable-next-line array-callback-return
       favSeries.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
@@ -265,6 +259,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const haandleFavMovieImg = (id: number): JSX.Element => {
     let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
       itemId.push(item.id);
     })
@@ -278,6 +273,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const haandleFavSerieImg = (id: number): JSX.Element => {
     let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favSeries.map(item => {
       itemId.push(item.id);
     })

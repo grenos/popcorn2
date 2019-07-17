@@ -184,7 +184,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     if (favMovies.length !== 0) {
       let removedID: boolean = false
       let clickedID: number
-
+      // eslint-disable-next-line array-callback-return
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
@@ -207,7 +207,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     if (favSeries.length !== 0) {
       let removedID: boolean = false
       let clickedID: number
-
+      // eslint-disable-next-line array-callback-return
       favSeries.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
@@ -227,6 +227,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const haandleFavMovieImg = (id: number): JSX.Element => {
     let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
       itemId.push(item.id);
     })
@@ -240,6 +241,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const haandleFavSerieImg = (id: number): JSX.Element => {
     let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favSeries.map(item => {
       itemId.push(item.id);
     })
