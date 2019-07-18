@@ -569,7 +569,6 @@ export interface IFavorites {
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
   categorizeArrays: Function
-  // favReducer: any
 }
 
 export interface ISimilar {

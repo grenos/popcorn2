@@ -3,27 +3,34 @@ import { FAVORITES_STATE } from '../state/favoritesState'
 // import * as INT from '../../helpers/interfaces'
 
 
+//! CANT FIND SOLUTION
+// https://stackoverflow.com/questions/57095722/return-from-switch-statement-inside-array-map
+
 export default function favoritesReducer(state = FAVORITES_STATE, action: any) {
   switch (action.type) {
     case Types.CATEGORIZE_FAV_ARRAYS:
       const arrays = action.arr1.concat(action.arr2)
       arrays.map((item: any) => {
+
         switch (item.genreId) {
-          case 28:
+          case 28: {
             return {
               ...state,
               action: [...state.action, item]
             }
-          case 12:
+          }
+          case 12: {
             return {
               ...state,
               adventure: [...state.adventure, item]
             }
-          case 16:
+          }
+          case 16: {
             return {
               ...state,
               animation: [...state.animation, item]
             }
+          }
           case 35: {
             return {
               ...state,
@@ -169,13 +176,16 @@ export default function favoritesReducer(state = FAVORITES_STATE, action: any) {
               war: [...state.war, item]
             }
           }
-          default:
+          default: {
             return state
+          }
         } // inner switch end
       }) // map end
-    default:
+    default: {
       return state
+    }
   } // outer switch end
-  return state
+
+
 } // action end
 

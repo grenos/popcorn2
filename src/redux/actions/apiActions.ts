@@ -34,7 +34,7 @@ export const Types: any = {
   GET_SERIE_FAV_SUCCESS: 'GET_SERIE_FAV_SUCCESS',
   REMOVE_FAV_MOVIE_SUCCESS: 'REMOVE_FAV_MOVIE_SUCCESS',
   REMOVE_FAV_SERIE_SUCCESS: 'REMOVE_FAV_SERIE_SUCCESS',
-  CATEGORIZE_FAV_ARRAYS: 'CATEGORIZE_FAV_ARRAYS'
+  // CATEGORIZE_FAV_ARRAYS: 'CATEGORIZE_FAV_ARRAYS'
 }
 
 
@@ -228,8 +228,8 @@ export const clearSeriesByGenreState = () => ({
 
 
 
-export const categorizeArrays = (arr1: any, arr2: any): any => ({
-  type: Types.CATEGORIZE_FAV_ARRAYS,
-  arr1,
-  arr2
-})
+// export const categorizeArrays = (arr1: any, arr2: any): any => ({
+//   type: Types.CATEGORIZE_FAV_ARRAYS,
+//   arr1,
+//   arr2
+// })
