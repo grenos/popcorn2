@@ -23,6 +23,8 @@ const Favorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
     setGenres(arrays);
   }, [favMovies, favSeries])
 
+
+
   return (
     <div style={{ color: 'white', fontSize: 50, margin: 30 }}>
 
@@ -42,3 +44,27 @@ export default withRouter(connect(mapStateToProps, { categorizeArrays })(Favorit
 
 
 
+
+// action: [],
+// adventure: [],
+// animation: [],
+// comedy: [],
+// crime: [],
+// documentary: [],
+// drama: [],
+// family: [],
+// fantasy: [],
+// history: [],
+// horror: [],
+// music: [],
+// mystery: [],
+// romance: [],
+// science_fiction: [],
+// tv_movie: [],
+// thriller: [],
+// war: [],
+// western: [],
+// news: [],
+// reality: [],
+// sopa: [],
+// talk: []
