@@ -5,20 +5,21 @@ import { withRouter } from "react-router-dom"
 import * as INT from '../../helpers/interfaces'
 // import { movieGenresMock } from '../../helpers/mockData/movie-genres'
 // import { serieGenresMock } from '../../helpers/mockData/serie-genres'
-import { compareArrValues, categorizeArrays } from '../../helpers/helperFunctions'
+import { compareArrValues, } from '../../helpers/helperFunctions'
+import { categorizeArrays } from '../../redux/actions/apiActions'
 
 // const URL = 'https://image.tmdb.org/t/p/w300'
 
 const Favorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
   favMovies,
-  favSeries
+  favSeries,
+  categorizeArrays,
+  // favReducer
 }): JSX.Element => {
 
   useEffect(() => {
-    const arr = categorizeArrays(favMovies, favSeries)
-
-  }, [favMovies, favSeries])
-
+    categorizeArrays(favMovies, favSeries)
+  }, [favMovies, favSeries, categorizeArrays])
 
   return (
     <div style={{ color: 'white', fontSize: 50, margin: 30 }}>
@@ -31,11 +32,12 @@ const Favorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
 const mapStateToProps = (state: any) => {
   return {
     favMovies: state.moviesReducer.favMovies,
-    favSeries: state.seriesReducer.favSeries
+    favSeries: state.seriesReducer.favSeries,
+    // favReducer: state.favReducer
   }
 }
 
-export default withRouter(connect(mapStateToProps, {})(Favorites))
+export default withRouter(connect(mapStateToProps, { categorizeArrays })(Favorites))
 
 
 

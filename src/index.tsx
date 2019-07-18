@@ -28,7 +28,7 @@ refreshPage.forEach(item => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={'<div>loading</div>'} persistor={persistor}>
+    <PersistGate loading={'loading'} persistor={persistor}>
       <Router />
     </PersistGate>
   </Provider>,
