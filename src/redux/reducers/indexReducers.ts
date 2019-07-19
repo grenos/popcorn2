@@ -6,7 +6,7 @@ import uiReducer from './uiReducer'
 import awsReducer from './awsReducer'
 import movieGenresReducer from './movieGenresReducer'
 import serieGenresReducer from './serieGenresReducer'
-// import favoritesReducer from './favoritesReducer'
+import { favoritesReducer } from './favoritesReducer'
 
 export default (history: any) => combineReducers({
   router: connectRouter(history),
@@ -16,5 +16,5 @@ export default (history: any) => combineReducers({
   movieGenresReducer: movieGenresReducer,
   serieGenresReducer: serieGenresReducer,
   uiReducer: uiReducer,
-  // favoritesReducer: favoritesReducer
+  favoritesReducer: favoritesReducer
 })

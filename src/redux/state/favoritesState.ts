@@ -22,7 +22,7 @@ export const FAVORITES_STATE: any = {
   western: [],
   news: [],
   reality: [],
-  sopa: [],
+  soap: [],
   talk: []
 }
 

@@ -358,11 +358,11 @@ export interface ITopResultsProps {
   getToggleMovieCatRequest: Function
   getToggleSerieCatRequest: Function
   SearchItemsActive: boolean
-  getMovieFavoriteSuccess: Function,
+  getMovieFavoriteRequest: Function,
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
   removeFavMovieSuccess: Function
-  getSerieFavoriteSuccess: Function
+  getSerieFavoriteRequest: Function
   removeFavSerieSuccess: Function
 }
 
@@ -406,8 +406,8 @@ export interface IModalProps {
   isMoreInfoOpen: boolean
   openMoreInfoRequest: Function
   getCastRequest: Function
-  getMovieFavoriteSuccess: Function
-  getSerieFavoriteSuccess: Function
+  getMovieFavoriteRequest: Function
+  getSerieFavoriteRequest: Function
   favMovies: Array<IFavMovie>
   favSeries: Array<IFavMovie>
   removeFavMovieSuccess: Function
@@ -569,6 +569,7 @@ export interface IFavorites {
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
   categorizeArrays: Function
+  favArray: any
 }
 
 export interface ISimilar {

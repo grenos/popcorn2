@@ -30,11 +30,12 @@ export const Types: any = {
   GET_CAST_INFO_SUCCESS: 'GET_CAST_INFO_SUCCESS',
   GET_SERIE_INFO_MODAL_REQUEST: 'GET_SERIE_INFO_MODAL_REQUEST',
   GET_SERIE_INFO_MODAL_SUCCESS: 'GET_SERIE_INFO_MODAL_SUCCESS',
+  GET_MOVIE_FAV_REQUEST: 'GET_MOVIE_FAV_REQUEST',
+  GET_SERIE_FAV_REQUEST: 'GET_SERIE_FAV_REQUEST',
   GET_MOVIE_FAV_SUCCESS: 'GET_MOVIE_FAV_SUCCESS',
-  GET_SERIE_FAV_SUCCESS: 'GET_SERIE_FAV_SUCCESS',
   REMOVE_FAV_MOVIE_SUCCESS: 'REMOVE_FAV_MOVIE_SUCCESS',
   REMOVE_FAV_SERIE_SUCCESS: 'REMOVE_FAV_SERIE_SUCCESS',
-  // CATEGORIZE_FAV_ARRAYS: 'CATEGORIZE_FAV_ARRAYS'
+  CATEGORIZE_FAV_ARRAYS: 'CATEGORIZE_FAV_ARRAYS'
 }
 
 
@@ -192,6 +193,12 @@ export const getSerieInfoModalSuccess = ({ result, id }: INT.ISearchMovieInfoRes
 
 
 
+export const getMovieFavoriteRequest = ({ id, poster, genreId }: INT.IFavMovie): INT.IFavMovieAction => ({
+  type: Types.GET_MOVIE_FAV_REQUEST,
+  id,
+  poster,
+  genreId
+})
 export const getMovieFavoriteSuccess = ({ id, poster, genreId }: INT.IFavMovie): INT.IFavMovieAction => ({
   type: Types.GET_MOVIE_FAV_SUCCESS,
   id,
@@ -205,16 +212,28 @@ export const removeFavMovieSuccess = (id: number) => ({
 
 
 
-export const getSerieFavoriteSuccess = ({ id, poster, genreId }: INT.IFavMovie): INT.IFavMovieAction => ({
-  type: Types.GET_SERIE_FAV_SUCCESS,
+export const getSerieFavoriteRequest = ({ id, poster, genreId }: INT.IFavMovie): INT.IFavMovieAction => ({
+  type: Types.GET_SERIE_FAV_REQUEST,
   id,
   poster,
   genreId
 })
+
+
 export const removeFavSerieSuccess = (id: number) => ({
   type: Types.REMOVE_FAV_SERIE_SUCCESS,
   id
 })
+
+
+export const categorizeArrays = (arr1: any, arr2: any): any => ({
+  type: Types.CATEGORIZE_FAV_ARRAYS,
+  arr1,
+  arr2
+})
+
+
+
 
 
 
@@ -228,8 +247,4 @@ export const clearSeriesByGenreState = () => ({
 
 
 
-// export const categorizeArrays = (arr1: any, arr2: any): any => ({
-//   type: Types.CATEGORIZE_FAV_ARRAYS,
-//   arr1,
-//   arr2
-// })
+

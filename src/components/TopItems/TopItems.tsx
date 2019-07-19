@@ -4,7 +4,7 @@ import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
-import { getMovieFavoriteSuccess, removeFavMovieSuccess, getSerieFavoriteSuccess, removeFavSerieSuccess } from '../../redux/actions/apiActions'
+import { getMovieFavoriteRequest, removeFavMovieSuccess, getSerieFavoriteRequest, removeFavSerieSuccess } from '../../redux/actions/apiActions'
 import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
@@ -36,8 +36,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   SearchItemsActive,
-  getMovieFavoriteSuccess,
-  getSerieFavoriteSuccess,
+  getMovieFavoriteRequest,
+  getSerieFavoriteRequest,
   favMovies,
   favSeries,
   removeFavMovieSuccess,
@@ -178,7 +178,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const handleMovieFavs = (id: number, poster: string, genreId: number) => {
     (favMovies.length === 0) &&
-      getMovieFavoriteSuccess({ id, poster, genreId })
+      getMovieFavoriteRequest({ id, poster, genreId })
 
 
     if (favMovies.length !== 0) {
@@ -193,7 +193,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
-              getMovieFavoriteSuccess({ id, poster, genreId })
+              getMovieFavoriteRequest({ id, poster, genreId })
           }
         }
       })
@@ -202,7 +202,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
     (favSeries.length === 0) &&
-      getSerieFavoriteSuccess({ id, poster, genreId })
+      getSerieFavoriteRequest({ id, poster, genreId })
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
@@ -216,7 +216,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
-              getSerieFavoriteSuccess({ id, poster, genreId })
+              getSerieFavoriteRequest({ id, poster, genreId })
           }
         }
       })
@@ -381,9 +381,9 @@ export default withRouter(connect(mapStateToProps, {
   openMovieModalRequest,
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
-  getMovieFavoriteSuccess,
+  getMovieFavoriteRequest,
   removeFavMovieSuccess,
-  getSerieFavoriteSuccess,
+  getSerieFavoriteRequest,
   removeFavSerieSuccess
 })(UnconnectedTopItems))
 

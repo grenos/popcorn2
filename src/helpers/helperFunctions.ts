@@ -38,9 +38,7 @@ export const compareArrValues = (arr1: INT.IFavMovie[], arr2: INT.IGenres[]): Ar
 
 
 export const categorizeArrays = (arr1: INT.IFavMovie[], arr2: INT.IFavMovie[]) => {
-
   const arrays = arr1.concat(arr2)
-
   const filteredArrays = arrays.reduce((acc, item) => {
     switch (item.genreId) {
       case 28:
@@ -152,7 +150,7 @@ export const categorizeArrays = (arr1: INT.IFavMovie[], arr2: INT.IFavMovie[]) =
       western: [],
       news: [],
       reality: [],
-      sopa: [],
+      soap: [],
       talk: []
     } as any
   )

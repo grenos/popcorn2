@@ -1,12 +1,12 @@
 
-import { takeLatest, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { takeLatest, call, fork, put, takeEvery, select } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import * as actions from '../actions/apiActions'
 import * as actionsUI from '../actions/uiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-
+import * as selectors from './selectors';
 
 
 function* watchGetUsersMoviesRequest() {
@@ -226,6 +226,22 @@ function* getSeriesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
 
 
 
+function* watchGetMovieFavoriteRequest() {
+  yield takeEvery(actions.Types.GET_MOVIE_FAV_REQUEST, getMovieFavorite)
+}
+function* getMovieFavorite({ id, poster, genreId }: INT.IFavMovie) {
+  try {
+    yield put(actions.getMovieFavoriteSuccess({ id, poster, genreId }))
+    let favMovies = yield select(selectors.getFavoriteMovies)
+    let favSeries = yield select(selectors.getFavoriteSeries)
+    yield put(actions.categorizeArrays(favMovies, favSeries))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
+
 
 
 const apiSagas = [
@@ -241,6 +257,7 @@ const apiSagas = [
   fork(watchGetSerieInfoRequest),
   fork(watchGetCastInfoRequest),
   fork(watchGetMovieInfoModalRequest),
-  fork(watchGetSerieInfoModalRequest)
+  fork(watchGetSerieInfoModalRequest),
+  fork(watchGetMovieFavoriteRequest)
 ]
 export default apiSagas

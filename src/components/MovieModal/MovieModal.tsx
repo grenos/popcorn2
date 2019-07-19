@@ -13,8 +13,8 @@ import {
   getMovieInfoRequest,
   getSerieInfoRequest,
   getCastRequest,
-  getMovieFavoriteSuccess,
-  getSerieFavoriteSuccess,
+  getSerieFavoriteRequest,
+  getMovieFavoriteRequest,
   removeFavMovieSuccess,
   removeFavSerieSuccess
 } from '../../redux/actions/apiActions'
@@ -52,8 +52,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   openMoreInfoRequest,
   isMoreInfoOpen,
   getCastRequest,
-  getMovieFavoriteSuccess,
-  getSerieFavoriteSuccess,
+  getSerieFavoriteRequest,
+  getMovieFavoriteRequest,
   favMovies,
   favSeries,
   removeFavMovieSuccess,
@@ -210,7 +210,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const handleMovieFavs = (id: number, poster: string, genreId: any) => {
     (favMovies.length === 0) &&
-      getMovieFavoriteSuccess({ id, poster, genreId })
+      getMovieFavoriteRequest({ id, poster, genreId })
 
 
     if (favMovies.length !== 0) {
@@ -225,7 +225,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
-              getMovieFavoriteSuccess({ id, poster, genreId })
+              getMovieFavoriteRequest({ id, poster, genreId })
           }
         }
       })
@@ -234,7 +234,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const handleSerieFavs = (id: number, poster: string, genreId: any): void => {
     (favSeries.length === 0) &&
-      getSerieFavoriteSuccess({ id, poster, genreId })
+      getSerieFavoriteRequest({ id, poster, genreId })
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
@@ -248,7 +248,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
-              getSerieFavoriteSuccess({ id, poster, genreId })
+              getSerieFavoriteRequest({ id, poster, genreId })
           }
         }
       })
@@ -426,8 +426,8 @@ export default connect(mapStateToProps, {
   openSimilarSectionRequest,
   openMoreInfoRequest,
   getCastRequest,
-  getMovieFavoriteSuccess,
-  getSerieFavoriteSuccess,
+  getMovieFavoriteRequest,
+  getSerieFavoriteRequest,
   removeFavMovieSuccess,
   removeFavSerieSuccess
 })(UnconnectedMovieModal)
