@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from "react-router"
 import { withRouter } from "react-router-dom"
 import * as INT from '../../helpers/interfaces'
-import { categorizeArrays } from '../../redux/actions/apiActions'
-// import { movieGenresMock } from '../../helpers/mockData/movie-genres'
-// import { serieGenresMock } from '../../helpers/mockData/serie-genres'
-// import { compareArrValues } from '../../helpers/helperFunctions'
-
+import { filterNoImg } from '../../helpers/helperFunctions'
+import popcorn from '../../media/img/popcorn.png'
+import like from '../../media/img/like.png'
+import liked from '../../media/img/liked.png'
+import info from '../../media/img/info.png'
 
 const URL = 'https://image.tmdb.org/t/p/w500'
 
 export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
-  favMovies,
-  favSeries,
-  categorizeArrays,
-  favArray
+  favArrays
 }): JSX.Element => {
 
-  useEffect(() => {
-    categorizeArrays(favMovies, favSeries)
-
-  }, [favMovies, favSeries, categorizeArrays])
-
-
-  const { action,
+  const { action_items,
     adventure,
     animation,
     comedy,
@@ -46,196 +37,319 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
     news,
     reality,
     soap,
-    talk } = favArray
+    talk } = favArrays
 
   return (
-    <div style={{ color: 'white', fontSize: 50, margin: 30 }}>
+    <div className="favorites-wrapper">
 
-      <div className="row-fav">
-        {action.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {action_items.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Action</h2></div>
+        <div className="favorites__inner-row">
+          {action_items.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <div className="favorites__loc-img">
+                  <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                </div>
+                <div className="favorites__heart">
+                  <img src={liked} alt="remove to favorites" />
+                </div>
+                <div className="favorites__info">
+                  <img src={info} alt="item info" />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {adventure.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {adventure.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Adventure</h2></div>
+        <div className="favorites__inner-row">
+          {adventure.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {animation.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {animation.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Animation</h2></div>
+        <div className="favorites__inner-row">
+          {animation.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {comedy.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {comedy.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Comedy</h2></div>
+        <div className="favorites__inner-row">
+          {comedy.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {crime.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {crime.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Crime</h2></div>
+        <div className="favorites__inner-row">
+          {crime.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {documentary.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {documentary.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Documentary</h2></div>
+        <div className="favorites__inner-row">
+          {documentary.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {drama.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {drama.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Drama</h2></div>
+        <div className="favorites__inner-row">
+          {drama.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {family.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {family.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Family</h2></div>
+        <div className="favorites__inner-row">
+          {family.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {fantasy.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {fantasy.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Fantasy</h2></div>
+        <div className="favorites__inner-row">
+          {fantasy.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {history.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {history.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>History</h2></div>
+        <div className="favorites__inner-row">
+          {history.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {horror.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {horror.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Horror</h2></div>
+        <div className="favorites__inner-row">
+          {horror.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {music.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {music.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Music</h2></div>
+        <div className="favorites__inner-row">
+          {music.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {mystery.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {mystery.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Mystery</h2></div>
+        <div className="favorites__inner-row">
+          {mystery.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {romance.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {romance.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Romance</h2></div>
+        <div className="favorites__inner-row">
+          {romance.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {science_fiction.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {science_fiction.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Science Fiction</h2></div>
+        <div className="favorites__inner-row">
+          {science_fiction.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {tv_movie.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {tv_movie.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>TV Movies</h2></div>
+        <div className="favorites__inner-row">
+          {tv_movie.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {thriller.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {thriller.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Thriller</h2></div>
+        <div className="favorites__inner-row">
+          {thriller.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {war.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {war.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>War & Politics</h2></div>
+        <div className="favorites__inner-row">
+          {war.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {western.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {western.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Western</h2></div>
+        <div className="favorites__inner-row">
+          {western.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {news.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {news.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>News</h2></div>
+        <div className="favorites__inner-row">
+          {news.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {reality.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {reality.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Reality</h2></div>
+        <div className="favorites__inner-row">
+          {reality.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      {/* <div className="row-fav">
-        {soap.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div> */}
+      {soap.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Soap Opera</h2></div>
+        <div className="favorites__inner-row">
+          {soap.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-      <div className="row-fav">
-        {talk.map((item: any) => {
-          return (
-            <img key={item.id} src={URL + item.poster} alt="" />
-          )
-        })}
-      </div>
+      {talk.length > 0 ? <div className="row-fav">
+        <div className="row-fav__title"><h2>Talk Show</h2></div>
+        <div className="favorites__inner-row">
+          {talk.map((item: any) => {
+            return (
+              <div className="favorites__loc-wraper">
+                <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div> : null}
 
-    </div >
+    </div>
   )
 }
 
@@ -245,13 +359,11 @@ const mapStateToProps = (state: any) => {
   return {
     favMovies: state.moviesReducer.favMovies,
     favSeries: state.seriesReducer.favSeries,
-    favArray: state.favoritesReducer
+    favArrays: state.favoritesReducer
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
-  categorizeArrays
-})(UnconnectedFavorites))
+export default withRouter(connect(mapStateToProps, {})(UnconnectedFavorites))
 
 
 

@@ -229,7 +229,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     })
 
     if (itemId.includes(id)) {
-      return < img src={liked} alt="remove to favorites" />
+      return <img src={liked} alt="remove to favorites" />
     } else {
       return <img src={like} alt="add to favorites" />
     }

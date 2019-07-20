@@ -572,10 +572,7 @@ export interface IGenres {
 }
 
 export interface IFavorites {
-  favMovies: IFavMovie[]
-  favSeries: IFavMovie[]
-  categorizeArrays: Function
-  favArray: any
+  favArrays: any
 }
 
 export interface ISimilar {
