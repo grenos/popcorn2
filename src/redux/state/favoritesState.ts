@@ -1,7 +1,7 @@
 // import * as INT from '../../helpers/interfaces'
 
 export const FAVORITES_STATE: any = {
-  action: [],
+  action_items: [],
   adventure: [],
   animation: [],
   comedy: [],

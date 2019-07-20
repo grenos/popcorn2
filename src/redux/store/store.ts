@@ -24,7 +24,8 @@ const authPersistConfig = {
     'seriesReducer',
     'movieGenresReducer',
     'serieGenresReducer',
-    'uiReducer'
+    'uiReducer',
+    'favoritesReducer'
   ]
 }
 

@@ -232,16 +232,23 @@ function* watchGetMovieFavoriteRequest() {
 function* getMovieFavorite({ id, poster, genreId }: INT.IFavMovie) {
   try {
     yield put(actions.getMovieFavoriteSuccess({ id, poster, genreId }))
-    let favMovies = yield select(selectors.getFavoriteMovies)
-    let favSeries = yield select(selectors.getFavoriteSeries)
-    yield put(actions.categorizeArrays(favMovies, favSeries))
+    yield put(actions.categorizeArrays({ id, poster, genreId }))
   } catch (e) {
     console.log(e)
   }
 }
 
-
-
+function* watchGetSerieFavoriteRequest() {
+  yield takeEvery(actions.Types.GET_SERIE_FAV_REQUEST, getSerieFavorite)
+}
+function* getSerieFavorite({ id, poster, genreId }: INT.IFavMovie) {
+  try {
+    yield put(actions.getSerieFavoriteSuccess({ id, poster, genreId }))
+    yield put(actions.categorizeArrays({ id, poster, genreId }))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 
 const apiSagas = [
@@ -258,6 +265,7 @@ const apiSagas = [
   fork(watchGetCastInfoRequest),
   fork(watchGetMovieInfoModalRequest),
   fork(watchGetSerieInfoModalRequest),
-  fork(watchGetMovieFavoriteRequest)
+  fork(watchGetMovieFavoriteRequest),
+  fork(watchGetSerieFavoriteRequest)
 ]
 export default apiSagas
