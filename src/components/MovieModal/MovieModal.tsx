@@ -15,8 +15,8 @@ import {
   getCastRequest,
   getSerieFavoriteRequest,
   getMovieFavoriteRequest,
-  removeFavMovieSuccess,
-  removeFavSerieSuccess
+  removeFavMovieRequest,
+  removeFavSerieRequest
 } from '../../redux/actions/apiActions'
 import Scrollbar from "react-scrollbars-custom"
 import RelatedItems from './RelatedItems'
@@ -56,8 +56,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   getMovieFavoriteRequest,
   favMovies,
   favSeries,
-  removeFavMovieSuccess,
-  removeFavSerieSuccess
+  removeFavMovieRequest,
+  removeFavSerieRequest
 }) => {
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -215,13 +215,11 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
     if (favMovies.length !== 0) {
       let removedID: boolean = false
-      let clickedID: number
       // eslint-disable-next-line array-callback-return
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            clickedID = item.id
-            removeFavMovieSuccess(clickedID)
+            removeFavMovieRequest(item.id, item.genreId)
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
@@ -238,13 +236,11 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
-      let clickedID: number
       // eslint-disable-next-line array-callback-return
       favSeries.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            clickedID = item.id
-            removeFavSerieSuccess(clickedID)
+            removeFavSerieRequest(item.id, item.genreId)
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
@@ -428,8 +424,8 @@ export default connect(mapStateToProps, {
   getCastRequest,
   getMovieFavoriteRequest,
   getSerieFavoriteRequest,
-  removeFavMovieSuccess,
-  removeFavSerieSuccess
+  removeFavMovieRequest,
+  removeFavSerieRequest
 })(UnconnectedMovieModal)
 
 

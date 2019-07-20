@@ -1,12 +1,12 @@
 
-import { takeLatest, call, fork, put, takeEvery, select } from 'redux-saga/effects'
+import { takeLatest, call, fork, put, takeEvery } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import * as actions from '../actions/apiActions'
 import * as actionsUI from '../actions/uiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-import * as selectors from './selectors';
+// import * as selectors from './selectors';
 
 
 function* watchGetUsersMoviesRequest() {
@@ -251,6 +251,39 @@ function* getSerieFavorite({ id, poster, genreId }: INT.IFavMovie) {
 }
 
 
+
+
+function* watchRemoveFavMovieRequest() {
+  yield takeEvery(actions.Types.REMOVE_FAV_MOVIE_REQUEST, removeFromMovieFav)
+}
+function* removeFromMovieFav({ id, genreId }: any) {
+  try {
+    yield put(actions.removeFavMovieSuccess(id))
+    yield put(actions.removeFromFavCategories(id, genreId))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+function* watchRemoveFavSerieRequest() {
+  yield takeEvery(actions.Types.REMOVE_FAV_SERIE_REQUEST, removeFromSerieFav)
+}
+function* removeFromSerieFav({ id, genreId }: any) {
+  try {
+    yield put(actions.removeFavSerieSuccess(id))
+    yield put(actions.removeFromFavCategories(id, genreId))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
+
+
+
+
+
+
 const apiSagas = [
   fork(watchGetUsersMoviesRequest),
   fork(watchGetToggleMoviesRequest),
@@ -266,6 +299,8 @@ const apiSagas = [
   fork(watchGetMovieInfoModalRequest),
   fork(watchGetSerieInfoModalRequest),
   fork(watchGetMovieFavoriteRequest),
-  fork(watchGetSerieFavoriteRequest)
+  fork(watchGetSerieFavoriteRequest),
+  fork(watchRemoveFavMovieRequest),
+  fork(watchRemoveFavSerieRequest)
 ]
 export default apiSagas

@@ -16,5 +16,5 @@ export default (history: any) => combineReducers({
   movieGenresReducer: movieGenresReducer,
   serieGenresReducer: serieGenresReducer,
   uiReducer: uiReducer,
-  favoritesReducer: favoritesReducer
+  favoritesReducer: favoritesReducer,
 })

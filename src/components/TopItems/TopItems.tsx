@@ -4,7 +4,7 @@ import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
-import { getMovieFavoriteRequest, removeFavMovieSuccess, getSerieFavoriteRequest, removeFavSerieSuccess } from '../../redux/actions/apiActions'
+import { getMovieFavoriteRequest, removeFavMovieRequest, getSerieFavoriteRequest, removeFavSerieRequest } from '../../redux/actions/apiActions'
 import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
@@ -40,8 +40,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   getSerieFavoriteRequest,
   favMovies,
   favSeries,
-  removeFavMovieSuccess,
-  removeFavSerieSuccess
+  removeFavMovieRequest,
+  removeFavSerieRequest
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -183,13 +183,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
     if (favMovies.length !== 0) {
       let removedID: boolean = false
-      let clickedID: number
       // eslint-disable-next-line array-callback-return
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            clickedID = item.id
-            removeFavMovieSuccess(clickedID)
+            removeFavMovieRequest(item.id, item.genreId)
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
@@ -206,13 +204,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
-      let clickedID: number
       // eslint-disable-next-line array-callback-return
       favSeries.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            clickedID = item.id
-            removeFavSerieSuccess(clickedID)
+            removeFavSerieRequest(item.id, item.genreId)
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
@@ -382,8 +378,8 @@ export default withRouter(connect(mapStateToProps, {
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   getMovieFavoriteRequest,
-  removeFavMovieSuccess,
+  removeFavMovieRequest,
   getSerieFavoriteRequest,
-  removeFavSerieSuccess
+  removeFavSerieRequest
 })(UnconnectedTopItems))
 

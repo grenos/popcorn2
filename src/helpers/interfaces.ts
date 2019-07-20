@@ -361,9 +361,9 @@ export interface ITopResultsProps {
   getMovieFavoriteRequest: Function,
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
-  removeFavMovieSuccess: Function
+  removeFavMovieRequest: Function
   getSerieFavoriteRequest: Function
-  removeFavSerieSuccess: Function
+  removeFavSerieRequest: Function
 }
 
 export interface IVisoreProps {
@@ -410,8 +410,8 @@ export interface IModalProps {
   getSerieFavoriteRequest: Function
   favMovies: Array<IFavMovie>
   favSeries: Array<IFavMovie>
-  removeFavMovieSuccess: Function
-  removeFavSerieSuccess: Function
+  removeFavMovieRequest: Function
+  removeFavSerieRequest: Function
 }
 
 export interface IModal {
