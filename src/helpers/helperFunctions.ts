@@ -36,20 +36,6 @@ export const compareArrValues = (arr1: INT.IFavMovie[], arr2: INT.IGenres[]): Ar
   return genreMatch
 }
 
-export const filterFavCategories = (arr: any, obj: any): any => {
-  let objToReturn
-  console.log(arr)
-
-  arr.forEach((el: any) => {
-    // console.log(el.id)
-    // console.log(obj.id)
-    // return (
-    //   el.id !== obj.id ? objToReturn = obj : null
-    // )
-  })
-  return objToReturn
-}
-
 
 //! UNUSED
 export const categorizeArrays = (arr1: INT.IFavMovie[], arr2: INT.IFavMovie[]) => {

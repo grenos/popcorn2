@@ -2,9 +2,16 @@ import React from 'react'
 import Carousel from 'nuka-carousel';
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import { RouteComponentProps } from "react-router"
-import { withRouter } from "react-router-dom"
-import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
+import {
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest
+} from '../../redux/actions/apiActions'
+import { filterNoImg } from '../../helpers/helperFunctions'
+import popcorn from '../../media/img/popcorn.png'
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -21,15 +28,18 @@ const params = {
   pauseOnHover: false,
 }
 
-interface ISeriePorops { id: number, name: string }
-
-export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponentProps> = ({
+export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   isMovieCatSelected,
   topMovies,
   topSeries,
-  history,
   getMovieInfoModalRequest,
-  getSerieInfoModalRequest
+  getSerieInfoModalRequest,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest,
+  favMovies,
+  favSeries
 }): JSX.Element => {
 
   const handleGoToMovie = (id: number, title: string, ): void => {
@@ -45,6 +55,78 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
   }
 
 
+  const handleMovieFavs = (id: number, poster: string, genreId: number) => {
+    (favMovies.length === 0) &&
+      getMovieFavoriteRequest({ id, poster, genreId })
+
+    if (favMovies.length !== 0) {
+      let removedID: boolean = false
+      // eslint-disable-next-line array-callback-return
+      favMovies.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            removeFavMovieRequest(item.id, item.genreId)
+            removedID = true
+          } else {
+            (i + 1 === favMovies.length) &&
+              getMovieFavoriteRequest({ id, poster, genreId })
+          }
+        }
+      })
+    }
+  }
+
+  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
+    (favSeries.length === 0) &&
+      getSerieFavoriteRequest({ id, poster, genreId })
+
+    if (favSeries.length !== 0) {
+      let removedID: boolean = false
+      // eslint-disable-next-line array-callback-return
+      favSeries.map((item, i) => {
+        if (!removedID) {
+          if (item.id === id) {
+            removeFavSerieRequest(item.id, item.genreId)
+            removedID = true
+          } else {
+            (i + 1 === favSeries.length) &&
+              getSerieFavoriteRequest({ id, poster, genreId })
+          }
+        }
+      })
+    }
+  }
+
+
+  const haandleFavMovieImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
+    favMovies.map(item => {
+      itemId.push(item.id);
+    })
+
+    if (itemId.includes(id)) {
+      return <span>Remove from list</span>
+    } else {
+      return <span>Add to list</span>
+    }
+  }
+
+  const haandleFavSerieImg = (id: number): JSX.Element => {
+    let itemId: Array<number> = []
+    // eslint-disable-next-line array-callback-return
+    favSeries.map(item => {
+      itemId.push(item.id);
+    })
+
+    if (itemId.includes(id)) {
+      return <span>Remove from list</span>
+    } else {
+      return <span>Add to list</span>
+    }
+  }
+
+
   return (
     <Carousel {...params}
       transitionMode="fade"
@@ -55,13 +137,13 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
     >
       {
         isMovieCatSelected ?
-          topMovies.slice(0, 7).map(({ id, backdrop_path, title, overview }) => {
+          topMovies.slice(0, 7).map(({ id, backdrop_path, title, overview, genre_ids }) => {
             return (
               <div
                 key={id}
                 className="slide-outer"
                 data-test="movie-slide"
-                style={{ backgroundImage: `url(${URL + backdrop_path})` }}
+                style={{ backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }}
               >
                 <div className="overlay-gallery-1">
                   <div className="overlay-gallery-2">
@@ -72,8 +154,9 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
                         <button onClick={() => handleGoToMovie(id, title)}>
                           Details
                         </button>
-                        <button onClick={() => console.log('added')}>
-                          Add to list
+                        <button
+                          onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0])}>
+                          {haandleFavMovieImg(id)}
                         </button>
                       </div>
                     </div>
@@ -83,7 +166,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
             )
           })
           :
-          topSeries.slice(0, 7).map(({ id, backdrop_path, name, overview }) => {
+          topSeries.slice(0, 7).map(({ id, backdrop_path, name, overview, genre_ids }) => {
             return (
               <div
                 key={id}
@@ -100,8 +183,9 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps & RouteComponent
                         <button onClick={() => handleGoToSerie(id, name)}>
                           Details
                         </button>
-                        <button onClick={() => console.log('added')}>
-                          Add to list
+                        <button
+                          onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0])}>
+                          {haandleFavSerieImg(id)}
                         </button>
                       </div>
                     </div>
@@ -120,13 +204,19 @@ const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     topMovies: state.moviesReducer.topMovies,
-    topSeries: state.seriesReducer.topSeries
+    topSeries: state.seriesReducer.topSeries,
+    favMovies: state.moviesReducer.favMovies,
+    favSeries: state.seriesReducer.favSeries
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   getMovieInfoModalRequest,
-  getSerieInfoModalRequest
-})(UnconnectedVisoreSlider))
+  getSerieInfoModalRequest,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest
+})(UnconnectedVisoreSlider)
 
 

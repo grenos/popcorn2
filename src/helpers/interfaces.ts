@@ -373,6 +373,12 @@ export interface IVisoreProps {
   topSeries: Array<ISerie>
   getSerieInfoModalRequest: Function
   getMovieInfoModalRequest: Function
+  getMovieFavoriteRequest: Function
+  removeFavMovieRequest: Function
+  getSerieFavoriteRequest: Function
+  removeFavSerieRequest: Function
+  favMovies: IFavMovie[]
+  favSeries: IFavMovie[]
 }
 
 export interface IHighlightProps {
