@@ -229,10 +229,10 @@ function* getSeriesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
 function* watchGetMovieFavoriteRequest() {
   yield takeEvery(actions.Types.GET_MOVIE_FAV_REQUEST, getMovieFavorite)
 }
-function* getMovieFavorite({ id, poster, genreId }: INT.IFavMovie) {
+function* getMovieFavorite({ id, poster, genreId, title }: INT.IFavMovie) {
   try {
     yield put(actions.getMovieFavoriteSuccess({ id, poster, genreId }))
-    yield put(actions.categorizeArrays({ id, poster, genreId }))
+    yield put(actions.categorizeArrays({ id, poster, genreId, title }))
   } catch (e) {
     console.log(e)
   }
@@ -241,10 +241,10 @@ function* getMovieFavorite({ id, poster, genreId }: INT.IFavMovie) {
 function* watchGetSerieFavoriteRequest() {
   yield takeEvery(actions.Types.GET_SERIE_FAV_REQUEST, getSerieFavorite)
 }
-function* getSerieFavorite({ id, poster, genreId }: INT.IFavMovie) {
+function* getSerieFavorite({ id, poster, genreId, title }: INT.IFavMovie) {
   try {
     yield put(actions.getSerieFavoriteSuccess({ id, poster, genreId }))
-    yield put(actions.categorizeArrays({ id, poster, genreId }))
+    yield put(actions.categorizeArrays({ id, poster, genreId, title }))
   } catch (e) {
     console.log(e)
   }

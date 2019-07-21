@@ -15,11 +15,13 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
         case 12: {
+          console.log(action.title);
           return {
             ...state,
             adventure: [
@@ -27,7 +29,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -39,7 +42,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -51,7 +55,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -63,7 +68,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -75,7 +81,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -87,7 +94,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -99,7 +107,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -111,7 +120,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -123,7 +133,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -135,7 +146,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -147,7 +159,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -159,7 +172,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -171,7 +185,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -183,7 +198,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -195,7 +211,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -207,7 +224,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -219,7 +237,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -231,7 +250,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -244,7 +264,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -256,7 +277,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -268,7 +290,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -280,7 +303,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -292,7 +316,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -304,7 +329,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -316,7 +342,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }
@@ -328,7 +355,8 @@ export function favoritesReducer(state = FAVORITES_STATE, action: any) {
               {
                 id: action.id,
                 poster: action.poster,
-                genreId: action.genreId
+                genreId: action.genreId,
+                title: action.title
               }]
           }
         }

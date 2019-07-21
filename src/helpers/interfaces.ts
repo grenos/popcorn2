@@ -225,6 +225,8 @@ export interface IFavMovie {
   id: number
   poster: string
   genreId: number
+  title?: string
+  name?: string
 }
 
 export interface IFavMovieAction {
@@ -232,6 +234,8 @@ export interface IFavMovieAction {
   id: number
   poster: string
   genreId: number
+  title?: string
+  name?: string
 }
 
 export interface IMoviesByGenre {
@@ -577,6 +581,9 @@ export interface IFavorites {
   removeFavSerieRequest: Function
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
+  getMovieInfoModalRequest: Function
+  getSerieInfoModalRequest: Function
+  isMovieCatSelected: boolean
 }
 
 export interface ISimilar {

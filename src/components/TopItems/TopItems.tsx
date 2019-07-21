@@ -176,9 +176,11 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
-  const handleMovieFavs = (id: number, poster: string, genreId: number) => {
+  const handleMovieFavs = (
+    id: number, poster: string, genreId: number, title: string
+  ) => {
     (favMovies.length === 0) &&
-      getMovieFavoriteRequest({ id, poster, genreId })
+      getMovieFavoriteRequest({ id, poster, genreId, title })
 
 
     if (favMovies.length !== 0) {
@@ -191,16 +193,18 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
-              getMovieFavoriteRequest({ id, poster, genreId })
+              getMovieFavoriteRequest({ id, poster, genreId, title })
           }
         }
       })
     }
   }
 
-  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
+  const handleSerieFavs = (
+    id: number, poster: string, genreId: number, name: string
+  ): void => {
     (favSeries.length === 0) &&
-      getSerieFavoriteRequest({ id, poster, genreId })
+      getSerieFavoriteRequest({ id, poster, genreId, name })
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
@@ -212,7 +216,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
-              getSerieFavoriteRequest({ id, poster, genreId })
+              getSerieFavoriteRequest({ id, poster, genreId, name })
           }
         }
       })
@@ -275,7 +279,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                             <img src={chevron} alt="open modal" />
                           </div>
                           <div className="heart"
-                            onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0])}>
+                            onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
                             {haandleFavMovieImg(movie.id)}
                           </div>
                         </div>
@@ -323,7 +327,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                           <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
                             <img src={chevron} alt="open modal" />
                           </div>
-                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0])}>
+                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
                             {haandleFavSerieImg(serie.id)}
                           </div>
                         </div>
