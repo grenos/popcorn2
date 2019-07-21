@@ -2,6 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from "react-router"
 import { withRouter } from "react-router-dom"
+import {
+  removeFavMovieRequest,
+  removeFavSerieRequest
+} from '../../redux/actions/apiActions'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
@@ -12,7 +16,11 @@ import info from '../../media/img/info.png'
 const URL = 'https://image.tmdb.org/t/p/w500'
 
 export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
-  favArrays
+  favArrays,
+  removeFavMovieRequest,
+  removeFavSerieRequest,
+  favMovies,
+  favSeries
 }): JSX.Element => {
 
   const { action_items,
@@ -39,6 +47,32 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
     soap,
     talk } = favArrays
 
+
+  const handleRemoveFavs = (id: number, genreId: number) => {
+    removeFavMovieRequest(id, genreId)
+    removeFavSerieRequest(id, genreId)
+  }
+
+  const haandleFavMovieImg = (id: number): JSX.Element => {
+    let itemIdMov: Array<number> = []
+    let itemIdSer: Array<number> = []
+    // eslint-disable-next-line array-callback-return
+    favMovies.map(item => {
+      itemIdMov.push(item.id);
+    })
+
+    favSeries.map(item => {
+      itemIdSer.push(item.id);
+    })
+
+    if (itemIdMov.includes(id) || itemIdSer.includes(id)) {
+      return <img src={liked} alt="remove to favorites" />
+    } else {
+      return <img src={like} alt="add to favorites" />
+    }
+  }
+
+
   return (
     <div className="favorites-wrapper">
 
@@ -47,12 +81,13 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
         <div className="favorites__inner-row">
           {action_items.map((item: any) => {
             return (
-              <div className="favorites__loc-wraper">
+              <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img key={item.id} src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
                 </div>
-                <div className="favorites__heart">
-                  <img src={liked} alt="remove to favorites" />
+                <div className="favorites__heart"
+                  onClick={() => handleRemoveFavs(item.id, item.genreId)}>
+                  {haandleFavMovieImg(item.id)}
                 </div>
                 <div className="favorites__info">
                   <img src={info} alt="item info" />
@@ -62,6 +97,7 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
           })}
         </div>
       </div> : null}
+
 
       {adventure.length > 0 ? <div className="row-fav">
         <div className="row-fav__title"><h2>Adventure</h2></div>
@@ -363,7 +399,10 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {})(UnconnectedFavorites))
+export default withRouter(connect(mapStateToProps, {
+  removeFavMovieRequest,
+  removeFavSerieRequest
+})(UnconnectedFavorites))
 
 
 

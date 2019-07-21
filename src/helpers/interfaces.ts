@@ -573,6 +573,10 @@ export interface IGenres {
 
 export interface IFavorites {
   favArrays: any
+  removeFavMovieRequest: Function
+  removeFavSerieRequest: Function
+  favMovies: IFavMovie[]
+  favSeries: IFavMovie[]
 }
 
 export interface ISimilar {
