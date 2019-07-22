@@ -10,6 +10,7 @@ import {
   getSerieFavoriteRequest,
   removeFavSerieRequest
 } from '../../redux/actions/apiActions'
+import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
 
@@ -39,16 +40,19 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   getSerieFavoriteRequest,
   removeFavSerieRequest,
   favMovies,
-  favSeries
+  favSeries,
+  relatedMovieSelected
 }): JSX.Element => {
 
   const handleGoToMovie = (id: number, title: string, ): void => {
+    relatedMovieSelected(TextTrackCueList)
     getMovieInfoModalRequest(id, title)
     //! called from saga
     // history.push(`/title/${makeDashesUrl(title)}`)
   }
 
   const handleGoToSerie = (id: number, name: string, ): void => {
+    relatedMovieSelected(false)
     getSerieInfoModalRequest(id, name)
     //! called from saga
     // history.push(`/title/${makeDashesUrl(name)}`)
@@ -216,7 +220,8 @@ export default connect(mapStateToProps, {
   getMovieFavoriteRequest,
   removeFavMovieRequest,
   getSerieFavoriteRequest,
-  removeFavSerieRequest
+  removeFavSerieRequest,
+  relatedMovieSelected
 })(UnconnectedVisoreSlider)
 
 

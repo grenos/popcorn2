@@ -6,7 +6,7 @@ import Carousel from 'nuka-carousel';
 import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
 import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
-import { openSimilarSectionRequest } from '../../redux/actions/uiActions'
+import { openSimilarSectionRequest, relatedMovieSelected } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 import popcorn from '../../media/img/popcorn.png'
 
@@ -50,8 +50,10 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
 
   handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {
+      this.props.relatedMovieSelected(true)
       this.props.getMovieInfoModalRequest(id, title)
     } else {
+      this.props.relatedMovieSelected(false)
       this.props.getSerieInfoModalRequest(id, title)
     }
     //! called from saga instead
@@ -104,7 +106,8 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    isSerieCatSelected: state.uiReducer.isSerieCatSelected
+    isSerieCatSelected: state.uiReducer.isSerieCatSelected,
+    isRelatedMovieSelected: state.uiReducer.isRelatedMovieSelected
   }
 }
 
@@ -115,6 +118,7 @@ export default withRouter(connect(
     getMovieInfoModalRequest,
     getSerieInfoModalRequest,
     openSimilarSectionRequest,
+    relatedMovieSelected
   }
 )(UnconnectedSimilarItems))
 

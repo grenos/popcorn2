@@ -62,22 +62,21 @@
           overflow: hidden;
         }
         .cta {
+          @include flex-box(row, wrap, flex-start, center);
           button {
             cursor: pointer;
             background: rgba(0, 0, 0, 0.6);
             border: none;
             border-radius: 5px;
-            height: 45px;
-            width: 160px;
+            padding: 10px 30px;
             font-size: 20px;
             font-weight: bold;
             color: #fff;
-            margin: 10px;
+            margin: 0 20px 0 0;
             transition: 0.3s;
             &:hover {
-              background: rgba(0, 0, 0, 0.7);
+              background: rgba(209, 209, 209, 0.4);
               transition: 0.3s;
-              font-size: 21px;
             }
           }
         }

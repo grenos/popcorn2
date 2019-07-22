@@ -305,6 +305,7 @@ export interface IUiState {
   readonly isMoreInfoOpen: boolean
   readonly isAuthModalOpen: boolean
   readonly isConfirmModalOpen: boolean
+  readonly isRelatedMovieSelected: boolean
 }
 
 
@@ -383,6 +384,7 @@ export interface IVisoreProps {
   removeFavSerieRequest: Function
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
+  relatedMovieSelected: Function
 }
 
 export interface IHighlightProps {
@@ -392,6 +394,13 @@ export interface IHighlightProps {
   searchSeries: Array<ISerie>
   getMovieInfoModalRequest: Function
   getSerieInfoModalRequest: Function
+  relatedMovieSelected: Function
+  favMovies: IFavMovie[]
+  favSeries: IFavMovie[]
+  getMovieFavoriteRequest: Function
+  removeFavMovieRequest: Function
+  getSerieFavoriteRequest: Function
+  removeFavSerieRequest: Function
 }
 
 export interface IModalProps {
@@ -474,6 +483,8 @@ export interface ISimilarProps {
   getMovieInfoModalRequest: Function
   getSerieInfoModalRequest: Function
   isMovieCatSelected: boolean
+  isRelatedMovieSelected: boolean
+  relatedMovieSelected: Function
 }
 
 export interface IMoreInfoProps {
@@ -584,6 +595,7 @@ export interface IFavorites {
   getMovieInfoModalRequest: Function
   getSerieInfoModalRequest: Function
   isMovieCatSelected: boolean
+  relatedMovieSelected: Function
 }
 
 export interface ISimilar {
@@ -635,6 +647,7 @@ export interface ITitlePageProps {
   serieInfoModal: IMovieInfoRes
   isMovieModalOpen: boolean
   isMovieCatSelected: boolean
+  isRelatedMovieSelected: boolean
 }
 
 export interface ITitleModalProps {

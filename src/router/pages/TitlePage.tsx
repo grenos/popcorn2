@@ -21,6 +21,7 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
   serieInfoModal,
   isMovieModalOpen,
   isMovieCatSelected,
+  isRelatedMovieSelected,
   history }): JSX.Element => {
 
   const [show, set] = useState(false)
@@ -49,7 +50,7 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
       {show => show && (props =>
         <div style={props}>
           <TitleModal
-            movieInfo={isMovieCatSelected ? movieInfoModal : serieInfoModal}
+            movieInfo={isRelatedMovieSelected ? movieInfoModal : serieInfoModal}
             isMovieModalOpen={isMovieModalOpen}
             show={show}
           />
@@ -70,7 +71,8 @@ const mapStateToProps = (state: any) => {
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     movieInfoModal: state.moviesReducer.movieInfoModal,
-    serieInfoModal: state.seriesReducer.serieInfoModal
+    serieInfoModal: state.seriesReducer.serieInfoModal,
+    isRelatedMovieSelected: state.uiReducer.isRelatedMovieSelected
   }
 }
 

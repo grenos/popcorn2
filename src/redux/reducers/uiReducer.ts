@@ -84,6 +84,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isConfirmModalOpen: action.toggle
       }
     }
+    case Types.IS_RELATED_MOVIE_SELECTED: {
+      return {
+        ...state,
+        isRelatedMovieSelected: action.toggle
+      }
+    }
     default: {
       return state
     }

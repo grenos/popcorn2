@@ -8,6 +8,7 @@ import {
   getMovieInfoModalRequest,
   getSerieInfoModalRequest
 } from '../../redux/actions/apiActions'
+import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
@@ -25,7 +26,8 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
   favSeries,
   getMovieInfoModalRequest,
   getSerieInfoModalRequest,
-  isMovieCatSelected
+  isMovieCatSelected,
+  relatedMovieSelected
 }): JSX.Element => {
 
   const { action_items,
@@ -54,15 +56,36 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
 
 
   const handleRemoveFavs = (id: number, genreId: number) => {
-    removeFavMovieRequest(id, genreId)
-    removeFavSerieRequest(id, genreId)
+
+    const movieIds: Array<number> = []
+    favMovies.map(item => {
+      movieIds.push(item.id)
+    })
+
+    if (movieIds.includes(id)) {
+      removeFavMovieRequest(id, genreId)
+    } else {
+      removeFavSerieRequest(id, genreId)
+    }
   }
 
-  //! bug here 
-  // on getSerieInfoModalRequest
+
   const handleLocaClick = (id: number, title: string): void => {
-    getMovieInfoModalRequest(id, title)
-    getSerieInfoModalRequest(id, title)
+
+    const movieIds: Array<number> = []
+    favMovies.map(item => {
+      movieIds.push(item.id)
+    })
+
+
+    if (movieIds.includes(id)) {
+      relatedMovieSelected(true)
+      getMovieInfoModalRequest(id, title)
+    } else {
+      relatedMovieSelected(false)
+      getSerieInfoModalRequest(id, title)
+    }
+
     //! called from saga instead
     // this.props.history.push(`/title/${makeDashesUrl(title)}`)
   }
@@ -596,7 +619,8 @@ export default withRouter(connect(mapStateToProps, {
   removeFavMovieRequest,
   removeFavSerieRequest,
   getMovieInfoModalRequest,
-  getSerieInfoModalRequest
+  getSerieInfoModalRequest,
+  relatedMovieSelected
 })(UnconnectedFavorites))
 
 
