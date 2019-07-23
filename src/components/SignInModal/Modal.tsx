@@ -7,6 +7,10 @@ import { Transition } from 'react-spring/renderprops.cjs'
 
 import Login from './LoginModal'
 import SignUp from './SignupModal'
+import ForgotPass from './ForgotPass'
+import SuccessModal from './SuccessModal'
+import PassRquest from './PassRquest'
+
 
 const modalRoot = document.getElementById('modal-root')
 
@@ -39,6 +43,19 @@ class Modal extends Component<INT.IModal> {
     } else if (modalType === 2) {
       ModalType = (
         <SignUp />
+      )
+    }
+    else if (modalType === 3) {
+      ModalType = (
+        <ForgotPass />
+      )
+    } else if (modalType === 4) {
+      ModalType = (
+        <SuccessModal />
+      )
+    } else if (modalType === 5) {
+      ModalType = (
+        <PassRquest />
       )
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { openAuthModal, getToggleMenuRequest, setAuthModalUI } from '../../redux/actions/uiActions'
 import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
@@ -14,6 +14,10 @@ type PreventDefault = React.FormEvent<HTMLFormElement>
 interface LocalState {
   email: string,
   password: string,
+  serverError: string
+  emailError: boolean,
+  passError: boolean,
+  show: boolean
 }
 
 class Login extends Component<INT.ILogin, LocalState> {
@@ -21,13 +25,19 @@ class Login extends Component<INT.ILogin, LocalState> {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      serverError: '',
+      show: false,
+      emailError: false,
+      passError: false,
     }
 
     this.handleClose = this.handleClose.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
+    this.handleForgotPass = this.handleForgotPass.bind(this)
+    this.handleSignUp = this.handleSignUp.bind(this)
   }
 
 
@@ -48,6 +58,16 @@ class Login extends Component<INT.ILogin, LocalState> {
     event.preventDefault()
     const { email, password } = this.state
 
+    // email
+    if (!isEmail(email)) {
+      this.setState({ emailError: true, show: true })
+    }
+
+    // small password
+    if (password.length < 8) {
+      this.setState({ passError: true, show: true })
+    }
+
     // success
     if (isEmail(email)
       && (password.length > 7)) {
@@ -59,12 +79,24 @@ class Login extends Component<INT.ILogin, LocalState> {
           this.props.userSignedIn(true),
           this.props.getToggleMenuRequest()
         ))
-        .catch(err => console.log(err))
+        .catch(err => {
+          this.setState({ serverError: err.message })
+          console.log(this.state.serverError);
+        })
     }
   }
 
+  handleForgotPass() {
+    this.props.setAuthModalUI(5)
+  }
+
+  handleSignUp() {
+    this.props.setAuthModalUI(2)
+  }
 
   render() {
+
+    const { emailError, passError, show, serverError } = this.state
 
     return (
       <div className="modal-inner">
@@ -76,31 +108,52 @@ class Login extends Component<INT.ILogin, LocalState> {
           <img src={logo} alt="logo" />
           <h3>Log In</h3>
         </div>
+
         <form onSubmit={this.handleLogin}>
           <div className="form-group">
+
             <label>
               Email:
               <input
                 type="text"
                 value={this.state.email}
                 onChange={this.handleEmail}
+                className={emailError ? 'error' : ''}
               />
+              <p className={emailError && show ? 'show' : ''} >Incorect email</p>
             </label>
+
             <label>
               Password:
               <input
                 type="text"
                 value={this.state.password}
                 onChange={this.handlePassword}
+                className={passError ? 'error' : ''}
               />
+              <p className={passError && show ? 'show' : ''} >At least 8 characters long</p>
             </label>
+
           </div>
           <input type="submit" value="Log In" />
+          {serverError && <div className="login-error"> <p>{serverError}</p> </div>}
         </form>
+        <div className="forgot-pass">
+          <p>Forgot password?</p> <span onClick={this.handleForgotPass}>Click here</span>
+        </div>
+        <div className="send-to-signup">
+          <p>Not have an account yet?</p> <span onClick={this.handleSignUp}>Sign Up</span>
+        </div>
       </div>
     )
   }
 }
 
 
-export default connect(null, { openAuthModal, saveUserInfo, userSignedIn, getToggleMenuRequest })(Login)
+export default connect(null, {
+  openAuthModal,
+  saveUserInfo,
+  userSignedIn,
+  getToggleMenuRequest,
+  setAuthModalUI
+})(Login)

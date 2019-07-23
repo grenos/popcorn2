@@ -451,12 +451,18 @@ export interface ILogin {
   saveUserInfo: Function
   userSignedIn: Function
   getToggleMenuRequest: Function
+  setAuthModalUI: Function
+}
+
+export interface ISuccessModal {
+  setAuthModalUI: Function
 }
 
 export interface IConfirmSignUp {
   isConfirmModalOpen: boolean
   openAuthModal: Function
   openConfirmModal: Function
+  setAuthModalUI: Function
   email: string
 }
 
@@ -464,6 +470,12 @@ export interface ISignUp {
   openAuthModal: Function
   makeSignUpGlobal: Function
   openConfirmModal: Function
+  isConfirmModalOpen: boolean
+  setAuthModalUI?: Function
+}
+
+export interface IPassReq {
+  setAuthModalUI: Function
   isConfirmModalOpen: boolean
 }
 

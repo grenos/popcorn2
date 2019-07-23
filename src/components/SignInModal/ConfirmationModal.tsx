@@ -4,7 +4,7 @@ import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import { Transition } from 'react-spring/renderprops.cjs'
 import { Auth } from 'aws-amplify'
-import { openAuthModal, openConfirmModal } from '../../redux/actions/uiActions'
+import { openAuthModal, openConfirmModal, setAuthModalUI } from '../../redux/actions/uiActions'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -31,13 +31,13 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 
   handleConfirm(event: PreventDefault): void {
     event.preventDefault()
-    const { email, openAuthModal, openConfirmModal } = this.props
+    const { email, openAuthModal, openConfirmModal, setAuthModalUI } = this.props
     const { confirmationCode } = this.state
 
     Auth.confirmSignUp(email, confirmationCode, {})
       .then(() => {
+        setAuthModalUI(1)
         openConfirmModal(false)
-        openAuthModal(false)
       })
       .catch(err => console.log(err.message));
   }
@@ -88,5 +88,6 @@ const mapStateToProps = (state: any) => {
 
 export default connect(mapStateToProps, {
   openAuthModal,
-  openConfirmModal
+  openConfirmModal,
+  setAuthModalUI
 })(ConfirmationModal)

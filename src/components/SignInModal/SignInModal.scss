@@ -1,6 +1,5 @@
 .modal-wrapper {
-  background: linear-gradient(to right,
-    rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(107, 10, 10, 0.4) 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(107, 10, 10, 0.4) 100%);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -61,11 +60,11 @@
             font-size: 12px;
             padding: 5px 0 0;
             opacity: 0;
-            transition: .2s;
+            transition: 0.2s;
 
             &.show {
               opacity: 1;
-              transition: .2s;
+              transition: 0.2s;
             }
           }
 
@@ -78,7 +77,7 @@
             color: #fff;
             padding: 10px 0;
             font-size: 16px;
-            transition: .2s;
+            transition: 0.2s;
 
             &.succes {
               box-shadow: inset 0 -10px 10px -10px rgba(88, 197, 73, 0.357);
@@ -86,7 +85,7 @@
             }
 
             &.error {
-              transition: .2s;
+              transition: 0.2s;
               box-shadow: inset 0 -10px 10px -10px rgba(197, 73, 73, 0.357);
               border-bottom: 1px solid rgba(216, 147, 147, 0.357);
             }
@@ -94,7 +93,7 @@
         }
       }
 
-      input[type=submit] {
+      input[type="submit"] {
         @include flex-box(row, null, center, center);
         background: rgba(136, 136, 136, 0.719);
         border: none;
@@ -106,17 +105,74 @@
         font-size: 16px;
         font-weight: bold;
         margin: 20px 0 0;
-        transition: .2s;
+        transition: 0.2s;
         cursor: pointer;
 
         &:hover {
           background: rgba(161, 161, 161, 0.719);
           font-size: 17px;
           box-shadow: 0px 0px 10px rgba(161, 161, 161, 0.164);
-          transition: .3s;
+          transition: 0.3s;
         }
       }
-
     }
+  }
+}
+
+.login-error {
+  color: red;
+  margin: 20px 0 -20px;
+}
+
+.forgot-pass {
+  @include flex-box(row, null, center, center);
+  width: 100%;
+  text-align: center;
+  p {
+    margin: 0 10px;
+  }
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      color: red;
+      transition: 0.3s;
+    }
+  }
+}
+
+.send-to-signup {
+  @include flex-box(row, null, center, center);
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  p {
+    margin: 0 10px;
+  }
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      color: red;
+      transition: 0.3s;
+    }
+  }
+}
+
+.forfot-pass-info {
+  @include flex-box(row, null, center, center);
+  width: 100%;
+  text-align: center;
+}
+
+.success-modal-message {
+  @include flex-box(column, null, center, center);
+  text-align: center;
+  h3 {
+    color: green;
+  }
+  p {
   }
 }
