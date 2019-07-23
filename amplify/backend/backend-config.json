@@ -11,5 +11,11 @@
 			"service": "S3AndCloudFront",
 			"providerPlugin": "awscloudformation"
 		}
+	},
+	"storage": {
+		"popcorn": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
 	}
 }
