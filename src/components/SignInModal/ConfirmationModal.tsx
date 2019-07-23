@@ -31,7 +31,7 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 
   handleConfirm(event: PreventDefault): void {
     event.preventDefault()
-    const { email, openAuthModal, openConfirmModal, setAuthModalUI } = this.props
+    const { email, openConfirmModal, setAuthModalUI } = this.props
     const { confirmationCode } = this.state
 
     Auth.confirmSignUp(email, confirmationCode, {})

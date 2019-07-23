@@ -12,7 +12,6 @@ import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
-import like from '../../media/img/like.png'
 import close from '../../media/img/close.png'
 import info from '../../media/img/info.png'
 
@@ -23,10 +22,8 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
   removeFavMovieRequest,
   removeFavSerieRequest,
   favMovies,
-  favSeries,
   getMovieInfoModalRequest,
   getSerieInfoModalRequest,
-  isMovieCatSelected,
   relatedMovieSelected
 }): JSX.Element => {
 
@@ -58,6 +55,7 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
   const handleRemoveFavs = (id: number, genreId: number) => {
 
     const movieIds: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
       movieIds.push(item.id)
     })
@@ -73,6 +71,7 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
   const handleLocaClick = (id: number, title: string): void => {
 
     const movieIds: Array<number> = []
+    // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
       movieIds.push(item.id)
     })

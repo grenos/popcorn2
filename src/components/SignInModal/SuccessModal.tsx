@@ -6,9 +6,6 @@ import logo from '../../media/img/logo.png'
 
 
 class SuccessModal extends Component<INT.ISuccessModal> {
-  constructor(props: INT.ISuccessModal) {
-    super(props);
-  }
 
   componentDidMount() {
     setTimeout(() => {
