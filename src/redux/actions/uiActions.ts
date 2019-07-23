@@ -19,7 +19,8 @@ export const Types: any = {
   IS_MORE_INFO_OPEN: 'IS_MORE_INFO_OPEN',
   IS_AUTH_MODAL_OPEN: 'IS_AUTH_MODAL_OPEN',
   IS_CONFIRM_MODAL_OPEN: 'IS_CONFIRM_MODAL_OPEN',
-  IS_RELATED_MOVIE_SELECTED: 'IS_RELATED_MOVIE_SELECTED'
+  IS_RELATED_MOVIE_SELECTED: 'IS_RELATED_MOVIE_SELECTED',
+  SET_AUTH_MODAL_UI: 'SET_AUTH_MODAL_UI'
 }
 
 
@@ -99,6 +100,11 @@ export const openConfirmModal = (toggle: boolean) => ({
 export const relatedMovieSelected = (toggle: boolean) => ({
   type: Types.IS_RELATED_MOVIE_SELECTED,
   toggle
+})
+
+export const setAuthModalUI = (TypeUi: number) => ({
+  type: Types.SET_AUTH_MODAL_UI,
+  TypeUi
 })
 
 

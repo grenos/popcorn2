@@ -90,6 +90,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isRelatedMovieSelected: action.toggle
       }
     }
+    case Types.SET_AUTH_MODAL_UI: {
+      return {
+        ...state,
+        isAuthModalUI: action.TypeUi
+      }
+    }
     default: {
       return state
     }

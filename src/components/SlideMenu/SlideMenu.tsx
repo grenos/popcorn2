@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Scrollbar from "react-scrollbars-custom";
 import * as INT from '../../helpers/interfaces'
@@ -8,7 +8,7 @@ import {
   getMovieGenresRequest,
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
-import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { openAuthModal, getToggleMenuRequest, setAuthModalUI } from '../../redux/actions/uiActions'
 import { userSignedIn, clearUserInfo } from '../../redux/actions/awsActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
@@ -36,11 +36,10 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   clearUserInfo,
   getToggleMenuRequest,
   userInfo,
-  isUserSignedIn
+  isUserSignedIn,
+  setAuthModalUI,
+  isAuthModalUI
 }): JSX.Element => {
-
-
-  const [modalType, setModalType] = useState<number>(0)
 
   const transition = useTransition(isMenuOpenProp, null, {
     from: { transform: `translate3d(-100%,0,0)` },
@@ -112,12 +111,12 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   }
 
   const handleLogin = () => {
-    setModalType(1)
+    setAuthModalUI(1)
     openAuthModal(true)
   }
 
   const handleSignup = () => {
-    setModalType(2)
+    setAuthModalUI(2)
     openAuthModal(true)
   }
 
@@ -154,7 +153,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
         transition.map(
           ({ item, key, props }) => (item &&
             <a.div className="nav-wrapper" style={props} key={key}>
-              <Modal modalType={modalType} />
+              <Modal modalType={isAuthModalUI} />
               <div className="menu-logo">
                 <img src={popcorn} alt="logo" />
                 <div className="signup">
@@ -189,7 +188,8 @@ const mapStateToProps = (state: any) => {
     serieGenres: state.seriesReducer.serieGenres,
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     userInfo: state.awsReducer.userInfo,
-    isUserSignedIn: state.awsReducer.isUserSignedIn
+    isUserSignedIn: state.awsReducer.isUserSignedIn,
+    isAuthModalUI: state.uiReducer.isAuthModalUI
   }
 }
 
@@ -202,7 +202,8 @@ export default withRouter(connect(mapStateToProps,
     openAuthModal,
     userSignedIn,
     clearUserInfo,
-    getToggleMenuRequest
+    getToggleMenuRequest,
+    setAuthModalUI
   }
 )(UnconnectedSlideMenu))
 

@@ -1,20 +1,22 @@
 import React from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
-import { getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
+import { getToggleMovieCatRequest, getToggleSerieCatRequest, setAuthModalUI } from '../../redux/actions/uiActions'
 import { clearMoviesByGenreState, clearSeriesByGenreState } from '../../redux/actions/apiActions'
 import { RouteComponentProps } from "react-router";
 import * as INT from '../../helpers/interfaces'
-// import tele from '../../media/img/television.png'
-// import film from '../../media/img/film.png'
-
+import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
 
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   clearMoviesByGenreState,
   clearSeriesByGenreState,
-  history
+  getToggleMenuRequest,
+  openAuthModal,
+  isUserSignedIn,
+  history,
+  setAuthModalUI
 }): JSX.Element => {
 
   const handleMoviesToggle = (): void => {
@@ -32,7 +34,15 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   }
 
   const handleMyFavorites = (): void => {
-    history.push('/favorites')
+    if (isUserSignedIn) {
+      history.push('/favorites')
+    } else {
+      getToggleMenuRequest(true)
+      setAuthModalUI(1)
+      setTimeout(() => {
+        openAuthModal(true)
+      }, 1000);
+    }
   }
 
   return (
@@ -68,10 +78,19 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   )
 }
 
-export default withRouter(connect(null, {
+const mapStateToProps = (state: any) => {
+  return {
+    isUserSignedIn: state.awsReducer.isUserSignedIn
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
   clearMoviesByGenreState,
-  clearSeriesByGenreState
+  clearSeriesByGenreState,
+  getToggleMenuRequest,
+  openAuthModal,
+  setAuthModalUI
 })(UnconnectedNavToggle))
 

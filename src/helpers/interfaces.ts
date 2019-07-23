@@ -88,6 +88,10 @@ export interface IToggleProps {
   getToggleSerieCatRequest: Function
   clearMoviesByGenreState: Function
   clearSeriesByGenreState: Function
+  getToggleMenuRequest: Function
+  openAuthModal: Function
+  isUserSignedIn: boolean
+  setAuthModalUI: Function
   store?: any
 }
 
@@ -306,6 +310,7 @@ export interface IUiState {
   readonly isAuthModalOpen: boolean
   readonly isConfirmModalOpen: boolean
   readonly isRelatedMovieSelected: boolean
+  readonly isAuthModalUI: number
 }
 
 
@@ -345,6 +350,8 @@ export interface IMenuProps {
   userInfo: any
   clearUserInfo: Function
   getToggleMenuRequest: Function
+  setAuthModalUI: Function
+  isAuthModalUI: number
 }
 
 export interface ITopResultsProps {

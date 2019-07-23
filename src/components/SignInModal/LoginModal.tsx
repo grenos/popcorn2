@@ -9,7 +9,6 @@ import isEmail from 'validator/lib/isEmail'
 import { Auth } from 'aws-amplify'
 
 
-
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
 interface LocalState {
