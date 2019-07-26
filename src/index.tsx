@@ -8,22 +8,25 @@ import Router from './router/Router'
 import "scroll-behavior-polyfill";
 import { PersistGate } from 'redux-persist/lib/integration/react'
 
-import Amplify, { Storage } from 'aws-amplify';
+// import Amplify, { Storage } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
+// import awsconfig from './aws-exports';
+// Amplify.configure(awsconfig);
 Amplify.configure(aws_exports);
 
 
-Storage.put('test.txt', 'Hello')
-  .then(result => console.log(result))
-  .catch(err => console.log(err));
+//! FOR USER AVATAR
+//! NOT IN USE YET
+// Storage.put('test.txt', 'Hello')
+//   .then(result => console.log(result))
+//   .catch(err => console.log(err));
 
-setTimeout(() => {
-  Storage.get('test.txt')
-    .then(result => console.log(result))
-    .catch(err => console.log(err));
-}, 3000);
+// setTimeout(() => {
+//   Storage.get('test.txt')
+//     .then(result => console.log(result))
+//     .catch(err => console.log(err));
+// }, 3000);
 
 
 // clear SessionStorage on refresh for pagination
