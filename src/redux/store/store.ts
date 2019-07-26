@@ -29,6 +29,8 @@ const authPersistConfig = {
   ]
 }
 
+// https://github.com/rt2zz/redux-persist/issues/826
+
 const pReducer = persistReducer(authPersistConfig, indexReducers(history))
 
 export const store: any = createStore(
