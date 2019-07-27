@@ -4,38 +4,16 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from '../sagas/indexSagas'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-// import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import { persistStore } from 'redux-persist'
+
 
 
 const sagaMiddleware = createSagaMiddleware()
-
 export const history = createBrowserHistory()
-
 export const middleware = [sagaMiddleware, routerMiddleware(history)]
 
-const authPersistConfig = {
-  key: 'awsReducer',
-  storage: storage,
-  blacklist: [
-    'router',
-    'moviesReducer',
-    'seriesReducer',
-    'movieGenresReducer',
-    'serieGenresReducer',
-    'uiReducer',
-    'favoritesReducer'
-  ]
-}
-
-// https://github.com/rt2zz/redux-persist/issues/826
-
-const pReducer = persistReducer(authPersistConfig, indexReducers(history))
-
 export const store: any = createStore(
-  // indexReducers(history),
-  pReducer,
+  indexReducers(history),
   compose(
     applyMiddleware(...middleware),
     (window as any).__REDUX_DEVTOOLS_EXTENSION__
