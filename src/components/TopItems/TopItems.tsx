@@ -74,12 +74,17 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }, [match.url, getToggleMovieCatRequest, getToggleSerieCatRequest, match.params.id])
 
   useEffect(() => {
+    console.log(match.params.id);
+
     // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
     return () => {
       if (match.url === '/') {
         sessionStorage.setItem('top_movies', JSON.stringify(movieCounter))
         sessionStorage.setItem('top_series', JSON.stringify(serieCounter))
-      } else if (match.url === `/genres/${match.params.id}`) {
+      } else if (
+        match.url === `/genres/films/${match.params.id}`
+        || match.url === `/genres/series/${match.params.id}`
+      ) {
         sessionStorage.setItem('genre_movies', JSON.stringify(genreMovieCounter))
         sessionStorage.setItem('genre_series', JSON.stringify(genreSerieCounter))
       } else if (match.url === '/results') {
@@ -93,7 +98,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     if (match.url === '/') {
       setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
       setSerieCounter(parseInt(sessionStorage.getItem('top_series') || `1`))
-    } else if (match.url === `/genres/${match.params.id}`) {
+    } else if (
+      match.url === `/genres/films/${match.params.id}`
+      || match.url === `/genres/series/${match.params.id}`
+    ) {
       setGenreMovieCounter(parseInt(sessionStorage.getItem('genre_movies') || `1`))
       setGenreSerieCounter(parseInt(sessionStorage.getItem('genre_series') || `1`))
     } else if (match.url === '/results') {

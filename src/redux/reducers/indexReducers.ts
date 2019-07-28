@@ -10,7 +10,7 @@ import { favoritesReducer } from './favoritesReducer'
 
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
-
+// import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 const authPersistConfig = {
   key: 'awsReducer',
@@ -65,6 +65,37 @@ const favSeriesPersistConfig = {
   ]
 }
 
+const movieGenresPersistConfig = {
+  key: 'movieGenresReducer',
+  storage: storage,
+  // stateReconciler: hardSet,
+  blacklist: [
+    'router',
+    'moviesReducer',
+    'seriesReducer',
+    'awsReducer',
+    'serieGenresReducer',
+    'uiReducer',
+    'favoritesReducer'
+  ]
+}
+
+const serieGenresPersistConfig = {
+  key: 'serieGenresReducer',
+  storage: storage,
+  // stateReconciler: hardSet,
+  blacklist: [
+    'router',
+    'moviesReducer',
+    'seriesReducer',
+    'movieGenresReducer',
+    'awsReducer',
+    'uiReducer',
+    'favoritesReducer'
+  ]
+}
+
+
 
 
 export default (history: any) => combineReducers({
@@ -72,8 +103,8 @@ export default (history: any) => combineReducers({
   awsReducer: persistReducer(authPersistConfig, awsReducer),
   moviesReducer: persistReducer(favMoviesPersistConfig, moviesReducer),
   seriesReducer: persistReducer(favSeriesPersistConfig, seriesReducer),
-  movieGenresReducer: movieGenresReducer,
-  serieGenresReducer: serieGenresReducer,
+  movieGenresReducer: persistReducer(movieGenresPersistConfig, movieGenresReducer),
+  serieGenresReducer: persistReducer(serieGenresPersistConfig, serieGenresReducer),
   uiReducer: uiReducer,
   favoritesReducer: persistReducer(favCatPersistConfig, favoritesReducer)
 })

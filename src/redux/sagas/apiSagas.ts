@@ -152,9 +152,6 @@ function* getMoviesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
   }
 }
 
-
-
-
 function* watchGetSeriesByGenreRequest() {
   yield takeLatest(actions.Types.GET_SERIE_BY_GENRE_REQUEST, getSeriesByGenre)
 }
