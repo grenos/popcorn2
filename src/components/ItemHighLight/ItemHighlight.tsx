@@ -13,6 +13,7 @@ import {
   removeFavSerieRequest
 } from '../../redux/actions/apiActions'
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
+import Scrollbar from 'react-scrollbars-custom'
 
 
 const URL = 'https://image.tmdb.org/t/p/original'
@@ -176,7 +177,12 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                       <div className="highlight-content">
                         <div className="info-wrapper-highlight">
                           <h3>{title}</h3>
-                          <p>{overview}</p>
+                          <Scrollbar
+                            noDefaultStyles
+                            momentum={true}
+                            style={{ height: 200, marginBottom: 20 }}>
+                            <p>{overview}</p>
+                          </Scrollbar>
                           <div className="cta">
                             <button onClick={() => handleGoToMovie(id, title)} data-test="cta-details">
                               Detials
@@ -200,7 +206,12 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                       <div className="highlight-content">
                         <div className="info-wrapper-highlight">
                           <h3>{name}</h3>
-                          <p>{overview}</p>
+                          <Scrollbar
+                            noDefaultStyles
+                            momentum={true}
+                            style={{ height: 200, marginBottom: 20 }}>
+                            <p>{overview}</p>
+                          </Scrollbar>
                           <div className="cta">
                             <button onClick={() => handleGoToSerie(id, name)} data-test="cta-details">
                               Detials

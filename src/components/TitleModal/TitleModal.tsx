@@ -2,7 +2,8 @@ import React from 'react'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg, reverseMe } from '../../helpers/helperFunctions'
 import logo from '../../media/img/logo.png'
-import YouTube from 'react-youtube';
+import YouTube from 'react-youtube'
+import Scrollbar from 'react-scrollbars-custom'
 import get from 'lodash.get'
 import internet from '../../media/img/internet.png'
 import popcorn from '../../media/img/popcorn.png'
@@ -72,7 +73,13 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
           />
         </div>
         <div className="main-window__info">
-          <p>{overview}</p>
+          <Scrollbar
+            noDefaultStyles
+            momentum={true}
+            style={{ height: 200, marginBottom: 20 }}
+          >
+            <p>{overview}</p>
+          </Scrollbar>
           {genres.map(({ id, name }) => <span key={id} className="title-genres">{name}{' '}</span>)}
           <ul>
             {runtime

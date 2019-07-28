@@ -36,7 +36,6 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
   ({
     id,
     backdrop_path,
-    poster_path,
     title,
     overview,
     isMovieModalOpen,
