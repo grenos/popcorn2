@@ -41,7 +41,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   favMovies,
   favSeries,
   removeFavMovieRequest,
-  removeFavSerieRequest
+  removeFavSerieRequest,
+  isUserSignedIn
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -232,6 +233,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       itemId.push(item.id);
     })
 
+
     if (itemId.includes(id)) {
       return <img src={liked} alt="remove to favorites" />
     } else {
@@ -280,7 +282,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                           </div>
                           <div className="heart"
                             onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
-                            {haandleFavMovieImg(movie.id)}
+                            {isUserSignedIn && haandleFavMovieImg(movie.id)}
                           </div>
                         </div>
                       </div>
@@ -328,7 +330,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                             <img src={chevron} alt="open modal" />
                           </div>
                           <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
-                            {haandleFavSerieImg(serie.id)}
+                            {isUserSignedIn && haandleFavSerieImg(serie.id)}
                           </div>
                         </div>
                       </div>
@@ -373,7 +375,8 @@ const mapStateToProps = (state: any) => {
     genreItemsActive: state.uiReducer.genreItemsActive,
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
     favMovies: state.moviesReducer.favMovies,
-    favSeries: state.seriesReducer.favSeries
+    favSeries: state.seriesReducer.favSeries,
+    isUserSignedIn: state.awsReducer.isUserSignedIn
   }
 }
 

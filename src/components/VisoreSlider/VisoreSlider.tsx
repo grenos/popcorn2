@@ -41,7 +41,8 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   removeFavSerieRequest,
   favMovies,
   favSeries,
-  relatedMovieSelected
+  relatedMovieSelected,
+  isUserSignedIn
 }): JSX.Element => {
 
   const handleGoToMovie = (id: number, title: string, ): void => {
@@ -59,9 +60,11 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   }
 
 
-  const handleMovieFavs = (id: number, poster: string, genreId: number) => {
+  const handleMovieFavs = (
+    id: number, poster: string, genreId: number, title: string
+  ) => {
     (favMovies.length === 0) &&
-      getMovieFavoriteRequest({ id, poster, genreId })
+      getMovieFavoriteRequest({ id, poster, genreId, title })
 
     if (favMovies.length !== 0) {
       let removedID: boolean = false
@@ -73,16 +76,18 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
             removedID = true
           } else {
             (i + 1 === favMovies.length) &&
-              getMovieFavoriteRequest({ id, poster, genreId })
+              getMovieFavoriteRequest({ id, poster, genreId, title })
           }
         }
       })
     }
   }
 
-  const handleSerieFavs = (id: number, poster: string, genreId: number): void => {
+  const handleSerieFavs = (
+    id: number, poster: string, genreId: number, name: string
+  ): void => {
     (favSeries.length === 0) &&
-      getSerieFavoriteRequest({ id, poster, genreId })
+      getSerieFavoriteRequest({ id, poster, genreId, name })
 
     if (favSeries.length !== 0) {
       let removedID: boolean = false
@@ -94,7 +99,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
             removedID = true
           } else {
             (i + 1 === favSeries.length) &&
-              getSerieFavoriteRequest({ id, poster, genreId })
+              getSerieFavoriteRequest({ id, poster, genreId, name })
           }
         }
       })
@@ -102,31 +107,57 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   }
 
 
-  const haandleFavMovieImg = (id: number): JSX.Element => {
-    let itemId: Array<number> = []
+  const haandleFavMovieImg = (
+    id: number, backdrop_path: string, genre_ids: any, ...rest: any
+  ): JSX.Element | null => {
+    let itemIdM: Array<number> = []
+    let itemIdS: Array<number> = []
     // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
-      itemId.push(item.id);
+      itemIdM.push(item.id);
     })
 
-    if (itemId.includes(id)) {
-      return <span>Remove from list</span>
-    } else {
-      return <span>Add to list</span>
-    }
-  }
-
-  const haandleFavSerieImg = (id: number): JSX.Element => {
-    let itemId: Array<number> = []
     // eslint-disable-next-line array-callback-return
     favSeries.map(item => {
-      itemId.push(item.id);
+      itemIdS.push(item.id);
     })
 
-    if (itemId.includes(id)) {
-      return <span>Remove from list</span>
+    if (isUserSignedIn) {
+      if (isMovieCatSelected) {
+        if (itemIdM.includes(id)) {
+          return (
+            <button
+              onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Remove from list</span>
+            </button>
+          )
+        } else {
+          return (
+            <button
+              onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Add to list</span>
+            </button>
+          )
+        }
+      } else {
+        if (itemIdS.includes(id)) {
+          return (
+            <button
+              onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Remove from list</span>
+            </button>
+          )
+        } else {
+          return (
+            <button
+              onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Add to list</span>
+            </button>
+          )
+        }
+      }
     } else {
-      return <span>Add to list</span>
+      return null
     }
   }
 
@@ -158,10 +189,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
                         <button onClick={() => handleGoToMovie(id, title)}>
                           Details
                         </button>
-                        <button
-                          onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0])}>
-                          {haandleFavMovieImg(id)}
-                        </button>
+                        {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
                       </div>
                     </div>
                   </div>
@@ -187,10 +215,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
                         <button onClick={() => handleGoToSerie(id, name)}>
                           Details
                         </button>
-                        <button
-                          onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0])}>
-                          {haandleFavSerieImg(id)}
-                        </button>
+                        {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
                       </div>
                     </div>
                   </div>
@@ -210,7 +235,8 @@ const mapStateToProps = (state: any) => {
     topMovies: state.moviesReducer.topMovies,
     topSeries: state.seriesReducer.topSeries,
     favMovies: state.moviesReducer.favMovies,
-    favSeries: state.seriesReducer.favSeries
+    favSeries: state.seriesReducer.favSeries,
+    isUserSignedIn: state.awsReducer.isUserSignedIn
   }
 }
 

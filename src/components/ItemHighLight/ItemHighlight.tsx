@@ -30,7 +30,8 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   getMovieFavoriteRequest,
   removeFavMovieRequest,
   getSerieFavoriteRequest,
-  removeFavSerieRequest
+  removeFavSerieRequest,
+  isUserSignedIn
 }): JSX.Element => {
 
   const handleGoToMovie = (id: number, title: string, ): void => {
@@ -95,33 +96,60 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
 
 
 
-  const haandleFavMovieImg = (id: number): JSX.Element => {
-    let itemId: Array<number> = []
+  const haandleFavMovieImg = (
+    id: number, backdrop_path: string, genre_ids: any, ...rest: any
+  ): JSX.Element | null => {
+    let itemIdM: Array<number> = []
+    let itemIdS: Array<number> = []
     // eslint-disable-next-line array-callback-return
     favMovies.map(item => {
-      itemId.push(item.id);
+      itemIdM.push(item.id);
     })
 
-    if (itemId.includes(id)) {
-      return <span>Remove from list</span>
-    } else {
-      return <span>Add to list</span>
-    }
-  }
-
-  const haandleFavSerieImg = (id: number): JSX.Element => {
-    let itemId: Array<number> = []
     // eslint-disable-next-line array-callback-return
     favSeries.map(item => {
-      itemId.push(item.id);
+      itemIdS.push(item.id);
     })
 
-    if (itemId.includes(id)) {
-      return <span>Remove from list</span>
+    if (isUserSignedIn) {
+      if (isMovieCatSelected) {
+        if (itemIdM.includes(id)) {
+          return (
+            <button
+              onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Remove from list</span>
+            </button>
+          )
+        } else {
+          return (
+            <button
+              onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Add to list</span>
+            </button>
+          )
+        }
+      } else {
+        if (itemIdS.includes(id)) {
+          return (
+            <button
+              onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Remove from list</span>
+            </button>
+          )
+        } else {
+          return (
+            <button
+              onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0], rest[0])}>
+              <span>Add to list</span>
+            </button>
+          )
+        }
+      }
     } else {
-      return <span>Add to list</span>
+      return null
     }
   }
+
 
   const animateContainer = useTransition(location.pathname.includes('/results'), null, {
     from: { opacity: 0 },
@@ -153,10 +181,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                             <button onClick={() => handleGoToMovie(id, title)} data-test="cta-details">
                               Detials
                             </button>
-                            <button
-                              onClick={() => handleMovieFavs(id, backdrop_path, genre_ids[0], title)}>
-                              {haandleFavMovieImg(id)}
-                            </button>
+                            {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
                           </div>
                         </div>
                       </div>
@@ -180,9 +205,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                             <button onClick={() => handleGoToSerie(id, name)} data-test="cta-details">
                               Detials
                             </button>
-                            <button onClick={() => handleSerieFavs(id, backdrop_path, genre_ids[0], name)}>
-                              {haandleFavSerieImg(id)}
-                            </button>
+                            {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
                           </div>
                         </div>
                       </div>
@@ -205,7 +228,8 @@ const mapStateToProps = (state: any) => {
     searchMovies: state.moviesReducer.searchMovies,
     searchSeries: state.seriesReducer.searchSeries,
     favMovies: state.moviesReducer.favMovies,
-    favSeries: state.seriesReducer.favSeries
+    favSeries: state.seriesReducer.favSeries,
+    isUserSignedIn: state.awsReducer.isUserSignedIn
   }
 }
 

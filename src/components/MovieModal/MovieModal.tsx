@@ -58,7 +58,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
     favMovies,
     favSeries,
     removeFavMovieRequest,
-    removeFavSerieRequest
+    removeFavSerieRequest,
+    isUserSignedIn
   }) => {
     const [videoPlayer, setVideoPlayer] = useState();
     const [togglePlayer, setTogglePlayer] = useState<boolean>(false);
@@ -249,33 +250,58 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
       }
     }
 
-    const haandleFavMovieImg = (id: number): JSX.Element => {
-      let itemId: Array<number> = [];
+    const haandleFavMovieImg = (id: number): JSX.Element | null => {
+      let itemIdM: Array<number> = [];
+      let itemIdS: Array<number> = [];
       // eslint-disable-next-line array-callback-return
       favMovies.map(item => {
-        itemId.push(item.id);
+        itemIdM.push(item.id);
       });
 
-      if (itemId.includes(id)) {
-        return <span>Remove from list</span>
-      } else {
-        return <span>Add to list</span>
-      }
-    }
-
-    const haandleFavSerieImg = (id: number): JSX.Element => {
-      let itemId: Array<number> = [];
       // eslint-disable-next-line array-callback-return
       favSeries.map(item => {
-        itemId.push(item.id);
+        itemIdS.push(item.id);
       });
 
-      if (itemId.includes(id)) {
-        return <span>Remove from list</span>
+      if (isUserSignedIn) {
+        if (isMovieCatSelected) {
+          if (itemIdM.includes(id)) {
+            return (
+              <button onClick={() =>
+                handleMovieFavs(id, backdrop_path, genres[0].id, title)}>
+                <span>Remove from list</span>
+              </button>
+            )
+          } else {
+            return (
+              <button onClick={() =>
+                handleMovieFavs(id, backdrop_path, genres[0].id, title)}>
+                <span>Add to list</span>
+              </button>
+            )
+          }
+        } else {
+          if (itemIdS.includes(id)) {
+            return (
+              <button onClick={() =>
+                handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}>
+                <span>Remove from list</span>
+              </button>
+            )
+          } else {
+            return (
+              <button onClick={() =>
+                handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}>
+                <span>Add to list</span>
+              </button>
+            )
+          }
+        }
       } else {
-        return <span>Add to list</span>
+        return null
       }
     }
+
 
     const { tagline, genres } = movieInfo;
     const movieVid: string = get(movieInfo, 'videos.results[0].key', '');
@@ -326,23 +352,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
                             ))}
                         </div>
                         <div className="cta">
-                          {isMovieCatSelected ? (
-                            <button
-                              onClick={() =>
-                                handleMovieFavs(id, backdrop_path, genres[0].id, title)
-                              }
-                            >
-                              {haandleFavMovieImg(id)}
-                            </button>
-                          ) : (
-                              <button
-                                onClick={() =>
-                                  handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)
-                                }
-                              >
-                                {haandleFavSerieImg(id)}
-                              </button>
-                            )}
+                          {haandleFavMovieImg(id)}
                         </div>
                         <div className="rel">
                           {(movieInfo.videos &&
@@ -480,7 +490,8 @@ const mapStateToProps = (state: any) => {
     isSimilarSectionOpen: state.uiReducer.isSimilarSectionOpen,
     isMoreInfoOpen: state.uiReducer.isMoreInfoOpen,
     favMovies: state.moviesReducer.favMovies,
-    favSeries: state.seriesReducer.favSeries
+    favSeries: state.seriesReducer.favSeries,
+    isUserSignedIn: state.awsReducer.isUserSignedIn
   };
 };
 

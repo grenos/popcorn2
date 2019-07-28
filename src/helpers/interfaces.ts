@@ -376,6 +376,7 @@ export interface ITopResultsProps {
   removeFavMovieRequest: Function
   getSerieFavoriteRequest: Function
   removeFavSerieRequest: Function
+  isUserSignedIn: boolean
 }
 
 export interface IVisoreProps {
@@ -392,6 +393,7 @@ export interface IVisoreProps {
   favMovies: IFavMovie[]
   favSeries: IFavMovie[]
   relatedMovieSelected: Function
+  isUserSignedIn: boolean
 }
 
 export interface IHighlightProps {
@@ -408,6 +410,7 @@ export interface IHighlightProps {
   removeFavMovieRequest: Function
   getSerieFavoriteRequest: Function
   removeFavSerieRequest: Function
+  isUserSignedIn: boolean
 }
 
 export interface IModalProps {
@@ -438,6 +441,7 @@ export interface IModalProps {
   favSeries: Array<IFavMovie>
   removeFavMovieRequest: Function
   removeFavSerieRequest: Function
+  isUserSignedIn: boolean
 }
 
 export interface IModal {
