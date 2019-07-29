@@ -49,8 +49,9 @@ export const getUserInputMoviesRequest = (inputValue: string) => ({
   inputValue,
   isLoading: true
 })
-export const getUserInputMoviesError = () => ({
-  type: Types.GET_USER_INPUT_MOVIES_ERROR
+export const getUserInputMoviesError = (error: any) => ({
+  type: Types.GET_USER_INPUT_MOVIES_ERROR,
+  error
 })
 export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
   type: Types.GET_USER_INPUT_MOVIES_SUCCESS,
