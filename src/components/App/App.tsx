@@ -6,6 +6,7 @@ import Nav from '../Nav/Nav'
 import * as INT from '../../helpers/interfaces'
 import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router"
+import Loader from '../Loader/Loader'
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 
@@ -38,8 +39,6 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps>
     setScrolled(scrolled)
   }
 
-  // test loader for now
-  const Loader = () => <div className="loader">loading</div>
 
   if (location.pathname.includes('/title/')) {
     return (
