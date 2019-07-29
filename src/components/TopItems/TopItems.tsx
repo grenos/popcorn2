@@ -74,8 +74,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }, [match.url, getToggleMovieCatRequest, getToggleSerieCatRequest, match.params.id])
 
   useEffect(() => {
-    console.log(match.params.id);
-
     // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
     return () => {
       if (match.url === '/') {
