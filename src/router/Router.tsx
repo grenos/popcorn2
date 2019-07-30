@@ -9,7 +9,8 @@ import SearchResultsPage from './pages/SearchResultsPage'
 import GenreItemsPageSeries from './pages/GenreItemsPageSeries'
 import TitlePage from './pages/TitlePage'
 import FavoritesPage from './pages/FavoritesPage'
-import ErrorPage from './pages/ErrorPage'
+import ApiCallError from '../components/Error/ApiCallError'
+import ErrorFof from '../components/Error/ErrorFof'
 
 
 const Router = () => {
@@ -25,7 +26,8 @@ const Router = () => {
           <Route path="/results" component={SearchResultsPage} />
           <Route path="/title/:title" component={TitlePage} />
           <Route path="/favorites" component={FavoritesPage} />
-          <Route component={ErrorPage} />
+          <Route path="/error" component={ApiCallError} />
+          <Route component={ErrorFof} />
         </Switch>
       </>
     </ConnectedRouter >

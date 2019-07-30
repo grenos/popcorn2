@@ -22,7 +22,7 @@ function* getUserInputMovies({ inputValue }: INT.IInputSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
@@ -41,7 +41,7 @@ function* getUserInputSeries({ inputValue }: INT.IInputSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
@@ -60,7 +60,9 @@ function* getMoviesInfo({ id }: INT.IMovieInfoSagaProps) {
       result: result.data
     } as INT.ISearchMovieInfoResults))
   } catch (e) {
-    console.log(e);
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
+    console.log(e)
   }
 }
 
@@ -74,6 +76,8 @@ function* getSeriesInfo({ id }: INT.IMovieInfoSagaProps) {
       result: result.data
     } as INT.ISearchMovieInfoResults))
   } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }
@@ -94,7 +98,7 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (error) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(error))
     console.log(error);
   }
@@ -113,7 +117,7 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (error) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(error))
     console.log(error);
   }
@@ -133,7 +137,9 @@ function* getMovieGenres() {
       result: result.data.genres
     } as INT.IGenresAction))
   } catch (e) {
-    console.log(e)
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
+    console.log(e);
   }
 }
 
@@ -147,7 +153,9 @@ function* getSerieGenres() {
       result: result.data.genres
     } as INT.IGenresAction))
   } catch (e) {
-    console.log(e)
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
+    console.log(e);
   }
 }
 
@@ -170,7 +178,7 @@ function* getMoviesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(true))
     console.log(e)
   }
@@ -191,7 +199,7 @@ function* getSeriesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
     yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    yield put(push(`/Error`))
+    yield put(push(`/error`))
     yield put(actionsUI.ErrorTopItemReq(true))
     console.log(e)
   }
@@ -209,6 +217,8 @@ function* getCastInfo({ id }: INT.IMovieInfoSagaProps) {
       result: result.data.cast
     } as INT.ISearchCastResults))
   } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }
@@ -228,6 +238,8 @@ function* getMoviesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
     yield put(push(`/title/${makeDashesUrl(title)}`))
     yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }
@@ -245,6 +257,8 @@ function* getSeriesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
     yield put(push(`/title/${makeDashesUrl(title)}`))
     yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }

@@ -22,4 +22,4 @@ export default connect(mapStateToProps, {})(ApiCallError)
 
 
 
-/* <img src="https://media.giphy.com/media/PmdohEH13efckDtOxM/giphy.gif" alt="error" /> */
+

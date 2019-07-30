@@ -6,8 +6,3 @@ import * as INT from '../../helpers/interfaces'
 import { Auth } from 'aws-amplify';
 import * as selectors from './selectors';
 
-
-// const awsSagas = [
-//   // fork(watchGetSignUpRequest)
-// ]
-// export default awsSagas

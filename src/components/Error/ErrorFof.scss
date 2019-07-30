@@ -1,0 +1,15 @@
+.fof-wrapper {
+  @include flex-box(row, null, center, center);
+  height: 100vh;
+  h1 {
+    color: #fff;
+    font-size: 40px;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  }
+  .fof-img-wrapper {
+    position: absolute;
+    bottom: 0;
+    img {
+    }
+  }
+}
