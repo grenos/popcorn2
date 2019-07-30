@@ -77,11 +77,14 @@ function* watchGetToggleMoviesRequest() {
 }
 function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getToggleMovies, page)
     yield put(actions.getToggleMoviesSuccess({
       result: result.data.results
     } as INT.ISearchMovies))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
     console.log(e);
   }
 }
@@ -91,11 +94,14 @@ function* watchGetToggleSeiresRequest() {
 }
 function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getToggleSeries, page)
     yield put(actions.getToggleSeriesSuccess({
       result: result.data.results
     } as INT.ISearchSeries))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
     console.log(e);
   }
 }

@@ -102,6 +102,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isFetching: action.toggle
       }
     }
+    case Types.IS_FETCHING_TOP_ITEMS: {
+      return {
+        ...state,
+        isFetchingTopItems: action.toggle
+      }
+    }
     default: {
       return state
     }

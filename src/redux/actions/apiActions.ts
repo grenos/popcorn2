@@ -46,17 +46,11 @@ export const Types: any = {
 
 export const getUserInputMoviesRequest = (inputValue: string) => ({
   type: Types.GET_USER_INPUT_MOVIES_REQUEST,
-  inputValue,
-  isLoading: true
-})
-export const getUserInputMoviesError = (error: any) => ({
-  type: Types.GET_USER_INPUT_MOVIES_ERROR,
-  error
+  inputValue
 })
 export const getUserInputMoviesSuccess = ({ result }: INT.ISearchMovies) => ({
   type: Types.GET_USER_INPUT_MOVIES_SUCCESS,
-  payload: result,
-  isLoading: false
+  payload: result
 })
 
 
@@ -69,6 +63,7 @@ export const getUserInputSeriesSuccess = ({ result }: INT.ISearchSeries) => ({
   type: Types.GET_USER_INPUT_SERIES_SUCCESS,
   payload: result
 })
+
 
 
 

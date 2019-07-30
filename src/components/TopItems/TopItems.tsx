@@ -14,6 +14,7 @@ import like from '../../media/img/like.png'
 import liked from '../../media/img/liked.png'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
+import Loader from '../Loader/Loader'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams {
@@ -42,7 +43,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   favSeries,
   removeFavMovieRequest,
   removeFavSerieRequest,
-  isUserSignedIn
+  isUserSignedIn,
+  isFetchingTopItems
 }): JSX.Element => {
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
@@ -361,13 +363,15 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderTitles = isMovieCatSelected ? renderMovies() : renderSeries()
 
-
   return (
     <div className="locandine-wrapper" data-test="component-locandine" style={{
       marginTop: TopItemsActive || SearchItemsActive ? '-11%' : '4%'
     }}>
       <div className="render-locandine-inner" >
         {renderTitles}
+      </div>
+      <div className="loader-wrapper">
+        {isFetchingTopItems && <Loader />}
       </div>
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
     </div>
@@ -382,7 +386,8 @@ const mapStateToProps = (state: any) => {
     isMovieModalOpen: state.uiReducer.isMovieModalOpen,
     favMovies: state.moviesReducer.favMovies,
     favSeries: state.seriesReducer.favSeries,
-    isUserSignedIn: state.awsReducer.isUserSignedIn
+    isUserSignedIn: state.awsReducer.isUserSignedIn,
+    isFetchingTopItems: state.uiReducer.isFetchingTopItems
   }
 }
 

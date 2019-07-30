@@ -312,6 +312,7 @@ export interface IUiState {
   readonly isRelatedMovieSelected: boolean
   readonly isAuthModalUI: number
   readonly isFetching: boolean
+  readonly isFetchingTopItems: boolean
 }
 
 
@@ -378,6 +379,7 @@ export interface ITopResultsProps {
   getSerieFavoriteRequest: Function
   removeFavSerieRequest: Function
   isUserSignedIn: boolean
+  isFetchingTopItems: boolean
 }
 
 export interface IVisoreProps {
