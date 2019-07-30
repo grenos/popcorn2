@@ -20,6 +20,8 @@ import Modal from '../SignInModal/Modal'
 import { Auth } from 'aws-amplify'
 import get from 'lodash.get'
 
+
+
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
   getMovieGenresRequest,
@@ -121,13 +123,15 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   }
 
   const handleSignOut = () => {
-    Auth.signOut()
-      .then(
-        getToggleMenuRequest(),
-        userSignedIn(false)
-      )
-      .catch(err => console.log(err));
-    clearUserInfo()
+    setTimeout(() => {
+      Auth.signOut()
+        .then(
+          getToggleMenuRequest(),
+          userSignedIn(false)
+        )
+        .catch(err => console.log(err));
+      clearUserInfo()
+    }, 1000)
   }
 
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
@@ -149,6 +153,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
 
   return (
     <div data-test="slide-menu">
+
       {
         transition.map(
           ({ item, key, props }) => (item &&

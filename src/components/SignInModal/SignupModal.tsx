@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import { openAuthModal, openConfirmModal } from '../../redux/actions/uiActions'
+import { openAuthModal, openConfirmModal, isFetchingRquest } from '../../redux/actions/uiActions'
 import { makeSignUpGlobal } from '../../redux/actions/awsActions'
 import { Transition } from 'react-spring/renderprops.cjs'
 import logo from '../../media/img/logo.png'
@@ -9,7 +9,7 @@ import close from '../../media/img/close.png'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
 import ConfirmationModal from './ConfirmationModal'
-
+import Loader from '../Loader/Loader'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -23,7 +23,8 @@ interface LocalState {
   emailError: boolean,
   passError: boolean,
   confirmPassError: boolean,
-  show: boolean
+  show: boolean,
+  serverError: string
 }
 
 class SignUp extends Component<INT.ISignUp, LocalState> {
@@ -39,7 +40,8 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
       emailError: false,
       passError: false,
       confirmPassError: false,
-      show: false
+      show: false,
+      serverError: '',
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -89,6 +91,7 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
   handleSignUp(event: PreventDefault): void {
     event.preventDefault()
     const { email, password, confirmPass, name } = this.state
+    const { isFetchingRquest, openConfirmModal } = this.props
 
     if (!name) {
       this.setState({ nameError: true, show: true })
@@ -118,19 +121,25 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
         password,
         name
       })
+      isFetchingRquest(true)
       Auth.signUp({
         username: email,
         password,
         attributes: { email, name, }
-      }).then(
-        this.props.openConfirmModal(true)
-      ).catch((err: any) => console.log(err))
+      }).then(() => {
+        isFetchingRquest(false)
+        openConfirmModal(true)
+      }).catch(err => {
+        isFetchingRquest(false)
+        this.setState({ serverError: err.message })
+        console.log(this.state.serverError);
+      })
     }
   }
 
   render() {
-    const { nameError, emailError, passError, confirmPassError, show } = this.state
-    const { isConfirmModalOpen } = this.props
+    const { nameError, emailError, passError, confirmPassError, show, serverError, password } = this.state
+    const { isConfirmModalOpen, isFetching } = this.props
 
     return (
       <>
@@ -178,7 +187,7 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
                   <label>
                     Password*
                     <input
-                      type="text"
+                      type="password"
                       value={this.state.password}
                       onChange={this.handlePassword}
                       className={passError ? 'error' : ''}
@@ -188,7 +197,7 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
                   <label>
                     Confirm Password*
                     <input
-                      type="text"
+                      type="password"
                       value={this.state.confirmPass}
                       onChange={this.handleConfirmPassword}
                       className={confirmPassError ? 'error' : ''}
@@ -196,12 +205,14 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
                     <p className={confirmPassError && show ? 'show' : ''} >Password doesn't match</p>
                   </label>
                 </div>
+                {isFetching && <Loader />}
                 <input type="submit" value="Sign Up" />
+                {serverError && <div className="login-error"> <p>{serverError}</p> </div>}
               </form>
             </div>
           )}
         </Transition>
-        <ConfirmationModal />
+        <ConfirmationModal password={password} />
       </>
     )
   }
@@ -212,11 +223,13 @@ const mapStateToProps = (state: any) => {
   return {
     isAuthModalOpen: state.uiReducer.isAuthModalOpen,
     isConfirmModalOpen: state.uiReducer.isConfirmModalOpen,
+    isFetching: state.uiReducer.isFetching,
   }
 }
 
 export default connect(mapStateToProps, {
   openAuthModal,
   makeSignUpGlobal,
-  openConfirmModal
+  openConfirmModal,
+  isFetchingRquest
 })(SignUp)

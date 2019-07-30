@@ -16,7 +16,8 @@ export const UI_STATE: INT.IUiState = {
   isAuthModalOpen: false,
   isConfirmModalOpen: false,
   isRelatedMovieSelected: false,
-  isAuthModalUI: 0
+  isAuthModalUI: 0,
+  isFetching: false
 }
 
 

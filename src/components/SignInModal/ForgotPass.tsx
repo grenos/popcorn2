@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import { openAuthModal, openConfirmModal, setAuthModalUI } from '../../redux/actions/uiActions'
-import { makeSignUpGlobal } from '../../redux/actions/awsActions'
+import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { Transition } from 'react-spring/renderprops.cjs'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
-
+import Loader from '../Loader/Loader'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -27,8 +26,8 @@ interface LocalState {
   serverError: string
 }
 
-class ForgotPass extends Component<INT.ISignUp, LocalState> {
-  constructor(props: INT.ISignUp) {
+class ForgotPass extends Component<INT.IForgotPass, LocalState> {
+  constructor(props: INT.IForgotPass) {
     super(props);
 
     this.state = {
@@ -85,6 +84,7 @@ class ForgotPass extends Component<INT.ISignUp, LocalState> {
   handleSignUp(event: PreventDefault): void {
     event.preventDefault()
     const { email, password, code } = this.state
+    const { isFetchingRquest } = this.props
 
     // email
     if (!isEmail(email)) {
@@ -100,23 +100,27 @@ class ForgotPass extends Component<INT.ISignUp, LocalState> {
     // success
     if (isEmail(email)
       && (password.length >= 8)) {
+      isFetchingRquest(true)
       Auth.forgotPasswordSubmit(
         email,
         code,
         password
-      ).then(
+      ).then(() => {
+        isFetchingRquest(false)
         // show success modal
         this.props.setAuthModalUI!(4)
-      ).catch((err: any) => {
-        this.setState({ serverError: err.message })
-        console.log(this.state.serverError);
       })
+        .catch((err: any) => {
+          isFetchingRquest(false)
+          this.setState({ serverError: err.message })
+          console.log(this.state.serverError);
+        })
     }
   }
 
   render() {
     const { emailError, passError, show, serverError } = this.state
-    const { isConfirmModalOpen } = this.props
+    const { isConfirmModalOpen, isFetching } = this.props
 
     return (
       <>
@@ -158,9 +162,9 @@ class ForgotPass extends Component<INT.ISignUp, LocalState> {
                 </div>
                 <div className="form-group">
                   <label>
-                    Password*
+                    New Password*
                     <input
-                      type="text"
+                      type="password"
                       value={this.state.password}
                       onChange={this.handlePassword}
                       className={passError ? 'error' : ''}
@@ -174,9 +178,10 @@ class ForgotPass extends Component<INT.ISignUp, LocalState> {
                       value={this.state.code}
                       onChange={this.handleSecretCode}
                     />
-                    <p className={passError && show ? 'show' : ''} ></p>
+                    <p className={serverError && show ? 'show' : ''} >Try Again</p>
                   </label>
                 </div>
+                {isFetching && <Loader />}
                 <input type="submit" value="Submit" />
                 {serverError && <div className="login-error"> <p>{serverError}</p> </div>}
               </form>
@@ -193,20 +198,15 @@ const mapStateToProps = (state: any) => {
   return {
     isAuthModalOpen: state.uiReducer.isAuthModalOpen,
     isConfirmModalOpen: state.uiReducer.isConfirmModalOpen,
+    isFetching: state.uiReducer.isFetching,
   }
 }
 
 export default connect(mapStateToProps, {
   openAuthModal,
-  makeSignUpGlobal,
   openConfirmModal,
-  setAuthModalUI
+  setAuthModalUI,
+  isFetchingRquest
 })(ForgotPass)
 
 
-
-
-// Auth.forgotPassword('vasilis.green@gmail.com')
-// .then()
-// .catch((err: any) => console.log(err)
-// )

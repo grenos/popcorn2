@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import { openAuthModal, openConfirmModal, setAuthModalUI } from '../../redux/actions/uiActions'
+import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { makeSignUpGlobal } from '../../redux/actions/awsActions'
 import { Transition } from 'react-spring/renderprops.cjs'
 import logo from '../../media/img/logo.png'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
-
+import Loader from '../Loader/Loader'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -46,6 +46,7 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
   handleSignUp(event: PreventDefault): void {
     event.preventDefault()
     const { email } = this.state
+    const { isFetchingRquest } = this.props
 
     // email
     if (!isEmail(email)) {
@@ -54,20 +55,24 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
 
     // success
     if (isEmail(email)) {
+      isFetchingRquest(true)
       Auth.forgotPassword(email)
-        .then(
+        .then(() => {
+          isFetchingRquest(false)
           // call password reset modal
           this.props.setAuthModalUI(3)
+        }
         ).catch((err: any) => {
+          isFetchingRquest(false)
           this.setState({ serverError: err.message })
-          console.log(this.state.serverError);
+          console.log(this.state.serverError)
         })
     }
   }
 
   render() {
     const { emailError, show, serverError } = this.state
-    const { isConfirmModalOpen } = this.props
+    const { isConfirmModalOpen, isFetching } = this.props
 
     return (
       <Transition
@@ -96,6 +101,7 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
                   <p className={emailError && show ? 'show' : ''} >Please fill in your email</p>
                 </label>
               </div>
+              {isFetching && <Loader />}
               <input type="submit" value="Submit" />
               {serverError && <div className="login-error"> <p>{serverError}</p> </div>}
             </form>
@@ -111,6 +117,7 @@ const mapStateToProps = (state: any) => {
   return {
     isAuthModalOpen: state.uiReducer.isAuthModalOpen,
     isConfirmModalOpen: state.uiReducer.isConfirmModalOpen,
+    isFetching: state.uiReducer.isFetching,
   }
 }
 
@@ -118,5 +125,6 @@ export default connect(mapStateToProps, {
   openAuthModal,
   makeSignUpGlobal,
   openConfirmModal,
-  setAuthModalUI
+  setAuthModalUI,
+  isFetchingRquest
 })(PassRquest)

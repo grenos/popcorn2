@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { openAuthModal, getToggleMenuRequest, setAuthModalUI } from '../../redux/actions/uiActions'
+import { openAuthModal, getToggleMenuRequest, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
 import isEmail from 'validator/lib/isEmail'
 import { Auth } from 'aws-amplify'
-
+import Loader from '../Loader/Loader'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -57,6 +57,7 @@ class Login extends Component<INT.ILogin, LocalState> {
   handleLogin(event: PreventDefault): void {
     event.preventDefault()
     const { email, password } = this.state
+    const { isFetchingRquest } = this.props
 
     // email
     if (!isEmail(email)) {
@@ -71,15 +72,17 @@ class Login extends Component<INT.ILogin, LocalState> {
     // success
     if (isEmail(email)
       && (password.length > 7)) {
+      isFetchingRquest(true)
       Auth.signIn(email, password)
-        .then(user => (
-          // eslint-disable-next-line no-sequences
-          this.props.openAuthModal(false),
-          this.props.saveUserInfo(user),
-          this.props.userSignedIn(true),
+        .then(user => {
+          isFetchingRquest(false)
+          this.props.openAuthModal(false)
+          this.props.saveUserInfo(user)
+          this.props.userSignedIn(true)
           this.props.getToggleMenuRequest()
-        ))
+        })
         .catch(err => {
+          isFetchingRquest(false)
           this.setState({ serverError: err.message })
           console.log(this.state.serverError);
         })
@@ -97,6 +100,7 @@ class Login extends Component<INT.ILogin, LocalState> {
   render() {
 
     const { emailError, passError, show, serverError } = this.state
+    const { isFetching } = this.props
 
     return (
       <div className="modal-inner">
@@ -126,7 +130,7 @@ class Login extends Component<INT.ILogin, LocalState> {
             <label>
               Password:
               <input
-                type="text"
+                type="password"
                 value={this.state.password}
                 onChange={this.handlePassword}
                 className={passError ? 'error' : ''}
@@ -135,6 +139,7 @@ class Login extends Component<INT.ILogin, LocalState> {
             </label>
 
           </div>
+          {isFetching && <Loader />}
           <input type="submit" value="Log In" />
           {serverError && <div className="login-error"> <p>{serverError}</p> </div>}
         </form>
@@ -150,10 +155,18 @@ class Login extends Component<INT.ILogin, LocalState> {
 }
 
 
-export default connect(null, {
+const mapStateToProps = (state: any) => {
+  return {
+    isFetching: state.uiReducer.isFetching,
+  }
+}
+
+
+export default connect(mapStateToProps, {
   openAuthModal,
   saveUserInfo,
   userSignedIn,
   getToggleMenuRequest,
-  setAuthModalUI
+  setAuthModalUI,
+  isFetchingRquest
 })(Login)

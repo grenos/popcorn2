@@ -311,6 +311,7 @@ export interface IUiState {
   readonly isConfirmModalOpen: boolean
   readonly isRelatedMovieSelected: boolean
   readonly isAuthModalUI: number
+  readonly isFetching: boolean
 }
 
 
@@ -456,6 +457,8 @@ export interface ILogin {
   userSignedIn: Function
   getToggleMenuRequest: Function
   setAuthModalUI: Function
+  isFetchingRquest: Function
+  isFetching: boolean
 }
 
 export interface ISuccessModal {
@@ -467,7 +470,13 @@ export interface IConfirmSignUp {
   openAuthModal: Function
   openConfirmModal: Function
   setAuthModalUI: Function
+  password: string
   email: string
+  isFetchingRquest: Function
+  isFetching: boolean
+  getToggleMenuRequest: Function
+  saveUserInfo: Function
+  userSignedIn: Function
 }
 
 export interface ISignUp {
@@ -476,11 +485,25 @@ export interface ISignUp {
   openConfirmModal: Function
   isConfirmModalOpen: boolean
   setAuthModalUI?: Function
+  isFetchingRquest: Function
+  isFetching: boolean
+}
+
+export interface IForgotPass {
+  openAuthModal: Function
+  openConfirmModal: Function
+  isConfirmModalOpen: boolean
+  setAuthModalUI?: Function
+  isFetchingRquest: Function
+  isFetching: boolean
 }
 
 export interface IPassReq {
   setAuthModalUI: Function
   isConfirmModalOpen: boolean
+  isFetchingRquest: Function
+  isFetching: boolean
+
 }
 
 export interface ISignupState {

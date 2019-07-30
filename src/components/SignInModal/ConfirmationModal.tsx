@@ -4,12 +4,16 @@ import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import { Transition } from 'react-spring/renderprops.cjs'
 import { Auth } from 'aws-amplify'
-import { openAuthModal, openConfirmModal, setAuthModalUI } from '../../redux/actions/uiActions'
+import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
+import Loader from '../Loader/Loader'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
 interface LocalState {
   confirmationCode: string,
+  serverErrorLogin: string,
+  serverErrorConfirm: string
 }
 
 class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
@@ -18,6 +22,8 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 
     this.state = {
       confirmationCode: '',
+      serverErrorLogin: '',
+      serverErrorConfirm: ''
     }
 
     this.handleConfirm = this.handleConfirm.bind(this)
@@ -31,19 +37,46 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
 
   handleConfirm(event: PreventDefault): void {
     event.preventDefault()
-    const { email, openConfirmModal, setAuthModalUI } = this.props
+    const {
+      email,
+      openConfirmModal,
+      password,
+      isFetchingRquest,
+      openAuthModal,
+      saveUserInfo,
+      userSignedIn,
+      getToggleMenuRequest
+    } = this.props
     const { confirmationCode } = this.state
 
     Auth.confirmSignUp(email, confirmationCode, {})
       .then(() => {
-        setAuthModalUI(1)
-        openConfirmModal(false)
+        isFetchingRquest(true)
+        Auth.signIn(email, password)
+          .then(user => {
+            isFetchingRquest(false)
+            openConfirmModal(false)
+            openAuthModal(false)
+            saveUserInfo(user)
+            userSignedIn(true)
+            getToggleMenuRequest()
+          })
+          .catch(err => {
+            isFetchingRquest(false)
+            this.setState({ serverErrorLogin: err.message })
+            console.log(this.state.serverErrorLogin);
+          })
       })
-      .catch(err => console.log(err.message));
+      .catch(err => {
+        isFetchingRquest(false)
+        this.setState({ serverErrorConfirm: err.message })
+        console.log(this.state.serverErrorConfirm);
+      })
   }
 
   render() {
-    const { isConfirmModalOpen } = this.props
+    const { isConfirmModalOpen, isFetching } = this.props
+    const { serverErrorLogin, serverErrorConfirm } = this.state
     return (
       <Transition
         delay={700}
@@ -68,7 +101,10 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
                   />
                 </label>
               </div>
+              {isFetching && <Loader />}
               <input type="submit" value="Confirm" />
+              {serverErrorLogin && <div className="login-error"> <p>{serverErrorLogin}</p> </div>}
+              {serverErrorConfirm && <div className="login-error"> <p>{serverErrorConfirm}</p> </div>}
             </form>
           </div>
         )}
@@ -81,13 +117,18 @@ const mapStateToProps = (state: any) => {
   return {
     isConfirmModalOpen: state.uiReducer.isConfirmModalOpen,
     isAuthModalOpen: state.uiReducer.isAuthModalOpen,
-    email: state.awsReducer.signup.email
+    email: state.awsReducer.signup.email,
+    isFetching: state.uiReducer.isFetching,
   }
 }
 
 
 export default connect(mapStateToProps, {
+  saveUserInfo,
+  userSignedIn,
+  getToggleMenuRequest,
   openAuthModal,
   openConfirmModal,
-  setAuthModalUI
+  setAuthModalUI,
+  isFetchingRquest
 })(ConfirmationModal)

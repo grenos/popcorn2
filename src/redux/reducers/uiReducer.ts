@@ -96,6 +96,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isAuthModalUI: action.TypeUi
       }
     }
+    case Types.IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.toggle
+      }
+    }
     default: {
       return state
     }

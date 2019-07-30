@@ -20,7 +20,8 @@ export const Types: any = {
   IS_AUTH_MODAL_OPEN: 'IS_AUTH_MODAL_OPEN',
   IS_CONFIRM_MODAL_OPEN: 'IS_CONFIRM_MODAL_OPEN',
   IS_RELATED_MOVIE_SELECTED: 'IS_RELATED_MOVIE_SELECTED',
-  SET_AUTH_MODAL_UI: 'SET_AUTH_MODAL_UI'
+  SET_AUTH_MODAL_UI: 'SET_AUTH_MODAL_UI',
+  IS_FETCHING: 'IS_FETCHING'
 }
 
 
@@ -108,3 +109,7 @@ export const setAuthModalUI = (TypeUi: number) => ({
 })
 
 
+export const isFetchingRquest = (toggle: boolean) => ({
+  type: Types.IS_FETCHING,
+  toggle
+})

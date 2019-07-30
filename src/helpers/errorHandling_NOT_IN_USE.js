@@ -45,8 +45,7 @@ export default function reduxHelper(actionName, fn) {
     }
   }
 
-  // we are not using arrow function, because there no arguments binding
-  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
   const action = function () {
     const args = arguments
     return dispatch => {
@@ -90,3 +89,22 @@ export default function reduxHelper(actionName, fn) {
     reducer
   }
 }
+
+
+
+
+export function middleware({ dispatch }) {
+  return next => action => {
+    if (typeof action === 'function') {
+      return action(dispatch)
+    }
+
+    return next(action)
+  }
+}
+
+
+
+// export const { loginAction, loginActionTypes, loginReducer } = reduxHelper('login', function(username, password) {
+//   return api.login('username', 'password')
+// })
