@@ -43,7 +43,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   favSeries,
   relatedMovieSelected,
   isUserSignedIn
-}): JSX.Element => {
+}): JSX.Element | null => {
 
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(TextTrackCueList)
@@ -161,72 +161,78 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     }
   }
 
-
-  return (
-    <Carousel {...params}
-      transitionMode="fade"
-      renderCenterLeftControls={() => null}
-      renderCenterRightControls={() => null}
-      renderBottomCenterControls={() => null}
-      data-test="visore-component"
-    >
-      {
-        isMovieCatSelected ?
-          topMovies.slice(0, 7).map(({ id, backdrop_path, title, overview, genre_ids }) => {
-            return (
-              <div
-                key={id}
-                className="slide-outer"
-                data-test="movie-slide"
-                style={{ backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }}
-              >
-                <div className="overlay-gallery-1">
-                  <div className="overlay-gallery-2">
-                    <div className="info-wrapper">
-                      <h3>{title}</h3>
-                      <p>{overview}</p>
-                      <div className="cta">
-                        <button onClick={() => handleGoToMovie(id, title)}>
-                          Details
-                        </button>
-                        {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
+  if (topMovies || topSeries) {
+    return (
+      <Carousel {...params}
+        transitionMode="fade"
+        renderCenterLeftControls={() => null}
+        renderCenterRightControls={() => null}
+        renderBottomCenterControls={() => null}
+        data-test="visore-component"
+      >
+        {
+          isMovieCatSelected ?
+            topMovies.slice(0, 7).map(({ id, backdrop_path, title, overview, genre_ids }) => {
+              return (
+                <div
+                  key={id}
+                  className="slide-outer"
+                  data-test="movie-slide"
+                  style={{ backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }}
+                >
+                  <div className="overlay-gallery-1">
+                    <div className="overlay-gallery-2">
+                      <div className="info-wrapper">
+                        <h3>{title}</h3>
+                        <p>{overview}</p>
+                        <div className="cta">
+                          <button onClick={() => handleGoToMovie(id, title)}>
+                            Details
+                          </button>
+                          {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
-          :
-          topSeries.slice(0, 7).map(({ id, backdrop_path, name, overview, genre_ids }) => {
-            return (
-              <div
-                key={id}
-                className="slide-outer"
-                data-test="serie-slide"
-                style={{ backgroundImage: `url(${URL + backdrop_path})` }}
-              >
-                <div className="overlay-gallery-1">
-                  <div className="overlay-gallery-2">
-                    <div className="info-wrapper">
-                      <h3>{name}</h3>
-                      <p>{overview}</p>
-                      <div className="cta">
-                        <button onClick={() => handleGoToSerie(id, name)}>
-                          Details
-                        </button>
-                        {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
+              )
+            })
+            :
+            topSeries.slice(0, 7).map(({ id, backdrop_path, name, overview, genre_ids }) => {
+              return (
+                <div
+                  key={id}
+                  className="slide-outer"
+                  data-test="serie-slide"
+                  style={{ backgroundImage: `url(${URL + backdrop_path})` }}
+                >
+                  <div className="overlay-gallery-1">
+                    <div className="overlay-gallery-2">
+                      <div className="info-wrapper">
+                        <h3>{name}</h3>
+                        <p>{overview}</p>
+                        <div className="cta">
+                          <button onClick={() => handleGoToSerie(id, name)}>
+                            Details
+                          </button>
+                          {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
+              )
+            })
 
-      }
-    </Carousel>
-  )
+        }
+      </Carousel>
+    )
+  } else {
+    return null
+  }
+
+
+
 }
 
 const mapStateToProps = (state: any) => {

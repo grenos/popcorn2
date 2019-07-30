@@ -14,11 +14,16 @@ function* watchGetUsersMoviesRequest() {
 }
 function* getUserInputMovies({ inputValue }: INT.IInputSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getUserInputMovies, inputValue)
     yield put(actions.getUserInputMoviesSuccess({
       result: result.data.results
     } as INT.ISearchMovies))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }
@@ -28,12 +33,16 @@ function* watchGetUsersSeriesRequest() {
 }
 function* getUserInputSeries({ inputValue }: INT.IInputSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getUserInputSeries, inputValue)
-
     yield put(actions.getUserInputSeriesSuccess({
       result: result.data.results
     } as INT.ISearchSeries))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
     console.log(e);
   }
 }
@@ -83,9 +92,11 @@ function* getToggleMovies({ payload: page }: INT.IToggleSagaProps) {
       result: result.data.results
     } as INT.ISearchMovies))
     yield put(actionsUI.isFetchingTopItemReq(false))
-  } catch (e) {
+  } catch (error) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    console.log(e);
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(error))
+    console.log(error);
   }
 }
 
@@ -100,9 +111,11 @@ function* getToggleSeries({ payload: page }: INT.IToggleSagaProps) {
       result: result.data.results
     } as INT.ISearchSeries))
     yield put(actionsUI.isFetchingTopItemReq(false))
-  } catch (e) {
+  } catch (error) {
     yield put(actionsUI.isFetchingTopItemReq(false))
-    console.log(e);
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(error))
+    console.log(error);
   }
 }
 
@@ -147,13 +160,18 @@ function* watchGetMoviesByGenreRequest() {
 }
 function* getMoviesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getMoviesByGenre, id, page)
     yield put(actions.getMoviesByGenreSuccess({
       result: result.data.results,
       id,
       name
     } as INT.ISearchMovies))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(true))
     console.log(e)
   }
 }
@@ -163,13 +181,18 @@ function* watchGetSeriesByGenreRequest() {
 }
 function* getSeriesByGenre({ id, page, name }: INT.IGetByGenreSagaProps) {
   try {
+    yield put(actionsUI.isFetchingTopItemReq(true))
     const result = yield call(api.getSeriesByGenre, id, page)
     yield put(actions.getSeriesByGenreSuccess({
       result: result.data.results,
       id,
       name
     } as INT.ISearchSeries))
+    yield put(actionsUI.isFetchingTopItemReq(false))
   } catch (e) {
+    yield put(actionsUI.isFetchingTopItemReq(false))
+    yield put(push(`/Error`))
+    yield put(actionsUI.ErrorTopItemReq(true))
     console.log(e)
   }
 }

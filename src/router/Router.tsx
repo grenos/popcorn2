@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from '../redux/store/store'
 import App from '../components/App/App'
@@ -9,6 +9,7 @@ import SearchResultsPage from './pages/SearchResultsPage'
 import GenreItemsPageSeries from './pages/GenreItemsPageSeries'
 import TitlePage from './pages/TitlePage'
 import FavoritesPage from './pages/FavoritesPage'
+import ErrorPage from './pages/ErrorPage'
 
 
 const Router = () => {
@@ -17,14 +18,17 @@ const Router = () => {
     <ConnectedRouter history={history}>
       <>
         <App />
-        <Route exact path="/" component={TopItemsPage} />
-        <Route exact path="/genres/films/:id" component={GenreItemsPage} />
-        <Route exact path="/genres/series/:id" component={GenreItemsPageSeries} />
-        <Route exact path="/results" component={SearchResultsPage} />
-        <Route exact path="/title/:title" component={TitlePage} />
-        <Route exact path="/favorites" component={FavoritesPage} />
+        <Switch>
+          <Route exact path="/" component={TopItemsPage} />
+          <Route path="/genres/films/:id" component={GenreItemsPage} />
+          <Route path="/genres/series/:id" component={GenreItemsPageSeries} />
+          <Route path="/results" component={SearchResultsPage} />
+          <Route path="/title/:title" component={TitlePage} />
+          <Route path="/favorites" component={FavoritesPage} />
+          <Route component={ErrorPage} />
+        </Switch>
       </>
-    </ConnectedRouter>
+    </ConnectedRouter >
   )
 }
 

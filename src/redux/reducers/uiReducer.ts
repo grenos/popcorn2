@@ -108,6 +108,12 @@ export default function uiReducer(state = UI_STATE, action: any) {
         isFetchingTopItems: action.toggle
       }
     }
+    case Types.IS_TOP_ITEM_ERROR: {
+      return {
+        ...state,
+        isTopItemError: action.error
+      }
+    }
     default: {
       return state
     }

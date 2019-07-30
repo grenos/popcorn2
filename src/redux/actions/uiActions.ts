@@ -22,7 +22,8 @@ export const Types: any = {
   IS_RELATED_MOVIE_SELECTED: 'IS_RELATED_MOVIE_SELECTED',
   SET_AUTH_MODAL_UI: 'SET_AUTH_MODAL_UI',
   IS_FETCHING: 'IS_FETCHING',
-  IS_FETCHING_TOP_ITEMS: 'IS_FETCHING_TOP_ITEMS'
+  IS_FETCHING_TOP_ITEMS: 'IS_FETCHING_TOP_ITEMS',
+  IS_TOP_ITEM_ERROR: 'IS_TOP_ITEM_ERROR'
 }
 
 
@@ -115,7 +116,13 @@ export const isFetchingRquest = (toggle: boolean) => ({
   toggle
 })
 
+
+
 export const isFetchingTopItemReq = (toggle: boolean) => ({
   type: Types.IS_FETCHING_TOP_ITEMS,
   toggle
+})
+export const ErrorTopItemReq = (error: any) => ({
+  type: Types.IS_TOP_ITEM_ERROR,
+  error
 })

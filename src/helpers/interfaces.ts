@@ -313,6 +313,7 @@ export interface IUiState {
   readonly isAuthModalUI: number
   readonly isFetching: boolean
   readonly isFetchingTopItems: boolean
+  readonly isTopItemError: any
 }
 
 
@@ -601,6 +602,7 @@ export interface ITopSearchResultsPage {
   getUserInputSeriesRequest: Function
   userHasTyped: string
   SearchItemsActive: Function
+  isFetchingTopItems: boolean
 }
 
 export interface IMenuPropSingle {
