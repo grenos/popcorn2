@@ -34,3 +34,23 @@
   @include flex-box(null, null, flex-end, center);
   height: 100%;
 }
+
+@media only screen and (max-width: 768px) {
+  .nav__type-toggle-container {
+    @include flex-box(null, null, flex-start, center);
+  }
+  .nav__img {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .nav {
+    @include flex-box(column, null, center, center);
+    height: 90px;
+  }
+
+  .nav__type-toggle-container {
+    width: 100%;
+  }
+}

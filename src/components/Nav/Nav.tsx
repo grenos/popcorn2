@@ -4,9 +4,11 @@ import SearchInput from '../SearchInput/SearchInput'
 import NavToggle from '../NavToggle/NavToggle'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
-
+import useWindowSize from '@rehooks/window-size';
 
 const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
+
+  let ww = useWindowSize();
 
   const animateHeader = useSpring<INT.IAnimateHeader>({
     background: scrolled > 30
@@ -27,14 +29,14 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
         <NavToggle />
       </div>
 
-      <animated.div
+      {(ww.innerWidth > 668) && <animated.div
         className="nav__logo"
         data-test="nav-logo">
         <img
           src={logo} alt="logo"
           className="nav__img"
         />
-      </animated.div>
+      </animated.div>}
 
       <div className="nav__search-inp">
         <SearchInput scrolled={scrolled} />

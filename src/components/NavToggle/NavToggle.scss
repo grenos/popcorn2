@@ -9,14 +9,12 @@
   cursor: pointer;
   color: #fff;
   font-size: 18px;
-  // font-weight: bold;
 }
 
 .toggle__img--tele {
   color: #fff;
   cursor: pointer;
   font-size: 18px;
-  // font-weight: bold;
 }
 
 .favorites-button {
@@ -24,5 +22,26 @@
   color: #fff;
   cursor: pointer;
   font-size: 18px;
-  // font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .favorites-button {
+    margin: 0px;
+  }
+
+  .toggle__img--film {
+    margin: 0px;
+  }
+
+  .nav__type-toggle {
+    @include flex-box(row, null, space-evenly, center);
+    margin: 12px 0 0;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .nav__type-toggle {
+    margin: 12px 0 5px;
+  }
 }

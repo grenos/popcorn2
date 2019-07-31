@@ -6,6 +6,8 @@ import { clearMoviesByGenreState, clearSeriesByGenreState } from '../../redux/ac
 import { RouteComponentProps } from "react-router";
 import * as INT from '../../helpers/interfaces'
 import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import useWindowSize from '@rehooks/window-size';
+
 
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
   getToggleMovieCatRequest,
@@ -18,6 +20,8 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
   history,
   setAuthModalUI
 }): JSX.Element => {
+
+  let ww = useWindowSize();
 
   const handleMoviesToggle = (): void => {
     getToggleMovieCatRequest(true)
@@ -71,7 +75,8 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
         className="favorites-button"
         onClick={handleMyFavorites}
       >
-        <p>My Favorites</p>
+        {ww.innerWidth > 768 ? <p>My Favorites</p> : <p>Favorites</p>}
+
       </div>
     </div>
 
