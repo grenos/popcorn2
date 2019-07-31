@@ -236,7 +236,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    searchMovies: state.moviesReducer.searchMovies,
+    searchMovies: state.searchMoviesReducer.searchMovies,
     searchSeries: state.seriesReducer.searchSeries,
     favMovies: state.moviesReducer.favMovies,
     favSeries: state.seriesReducer.favSeries,

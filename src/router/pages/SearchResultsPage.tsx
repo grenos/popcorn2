@@ -39,7 +39,7 @@ const SearchResultsPage: React.FC<INT.ITopSearchResultsPage> = ({
 const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
-    searchMovies: state.moviesReducer.searchMovies,
+    searchMovies: state.searchMoviesReducer.searchMovies,
     searchSeries: state.seriesReducer.searchSeries,
   }
 }

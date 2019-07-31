@@ -6,6 +6,7 @@ import uiReducer from './uiReducer'
 import awsReducer from './awsReducer'
 import movieGenresReducer from './movieGenresReducer'
 import serieGenresReducer from './serieGenresReducer'
+import searchMoviesReducer from './searchMoviesReducer'
 import { favoritesReducer } from './favoritesReducer'
 
 import storage from 'redux-persist/lib/storage'
@@ -17,6 +18,21 @@ const authPersistConfig = {
   storage: storage,
   blacklist: [
     'router',
+    'moviesReducer',
+    'seriesReducer',
+    'movieGenresReducer',
+    'serieGenresReducer',
+    'uiReducer',
+    'favoritesReducer'
+  ]
+}
+
+const searchMoviesPersistConfig = {
+  key: 'searchMoviesReducer',
+  storage: storage,
+  blacklist: [
+    'router',
+    'awsReducer',
     'moviesReducer',
     'seriesReducer',
     'movieGenresReducer',
@@ -44,7 +60,6 @@ const favMoviesPersistConfig = {
   key: 'favMovies',
   storage: storage,
   blacklist: [
-    'searchMovies',
     'topMovies',
     'movieGenres',
     'movieInfo',
@@ -57,7 +72,7 @@ const favSeriesPersistConfig = {
   key: 'favSeries',
   storage: storage,
   blacklist: [
-    'searchSeriesd',
+    'searchSeries',
     'topSeries',
     'serieGenres',
     'serieInfo',
@@ -111,6 +126,7 @@ const serieGenresPersistConfig = {
 export default (history: any) => combineReducers({
   router: connectRouter(history),
   awsReducer: persistReducer(authPersistConfig, awsReducer),
+  searchMoviesReducer: persistReducer(searchMoviesPersistConfig, searchMoviesReducer),
   moviesReducer: persistReducer(favMoviesPersistConfig, moviesReducer),
   seriesReducer: persistReducer(favSeriesPersistConfig, seriesReducer),
   movieGenresReducer: persistReducer(movieGenresPersistConfig, movieGenresReducer),

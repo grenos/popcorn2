@@ -216,13 +216,16 @@ export interface ISerie {
 }
 
 export interface IMoviesState {
-  readonly searchMovies: Array<IMovie>
   readonly topMovies: Array<IMovie>
   readonly movieGenres: IGenresResult[]
   readonly movieInfo: IMovieInfoRes | any
   readonly movieInfoModal: IMovieInfoRes | any
   readonly cast: ICast[]
   readonly favMovies: Array<IFavMovie>
+}
+
+export interface ISearchMoviesState {
+  readonly searchMovies: Array<IMovie>
 }
 
 export interface IFavMovie {
