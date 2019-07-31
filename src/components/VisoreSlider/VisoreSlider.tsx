@@ -216,8 +216,8 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
                   <div className="overlay-gallery-1">
                     <div className="overlay-gallery-2">
                       <div className="info-wrapper">
-                        <h3>{name}</h3>
-                        <p>{overview}</p>
+                        {ww.innerWidth > 668 ? <h3>{name}</h3> : null}
+                        {ww.innerWidth > 668 ? <p>{overview}</p> : null}
                         <div className="cta">
                           <button onClick={() => handleGoToSerie(id, name)}>
                             Details

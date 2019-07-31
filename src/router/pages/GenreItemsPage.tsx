@@ -113,7 +113,7 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 
 
   return (
-    <div>
+    <div style={{ paddingTop: '17%' }}>
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
         movies={genreCat}

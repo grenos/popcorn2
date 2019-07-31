@@ -263,3 +263,12 @@
     }
   }
 }
+
+@media only screen and (max-width: 375px) and (min-height: 812px) {
+  .locandine-wrapper .render-locandine-inner .row .locandina-outer {
+    height: 28vh;
+    a {
+      height: 28vh;
+    }
+  }
+}
