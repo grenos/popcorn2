@@ -35,7 +35,6 @@
       right: 0;
       bottom: 0;
       .info-wrapper {
-        border-radius: 5px;
         margin-bottom: 100px;
         background: linear-gradient(
           to right,
@@ -45,7 +44,7 @@
           rgba(0, 0, 0, 0.5) 100%
         );
         padding: 20px;
-        width: 35%;
+        width: 45%;
         h3 {
           font-size: 70px;
           color: #fff;
@@ -77,6 +76,115 @@
             &:hover {
               background: rgba(209, 209, 209, 0.4);
               transition: 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .slide-outer {
+    .overlay-gallery-1 {
+      .overlay-gallery-2 {
+        .info-wrapper {
+          h3 {
+            font-size: 55px;
+            color: #fff;
+            font-weight: bolder;
+            margin: 0 0 30px;
+          }
+          p {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .slide-outer {
+    height: 70vh;
+
+    .overlay-gallery-1 {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.8) 80%,
+        rgba(0, 0, 0, 0.9) 90%,
+        rgba(0, 0, 0, 1) 100%
+      );
+      .overlay-gallery-2 {
+        @include flex-box(row, wrap, center, flex-end);
+        .info-wrapper {
+          text-align: center;
+          margin-bottom: 50px;
+          padding: 10px 40px;
+          width: 100%;
+          h3 {
+            font-size: 50px;
+            color: #fff;
+            font-weight: bolder;
+            margin: 0 0 30px;
+          }
+          .cta {
+            @include flex-box(row, wrap, center, center);
+            button {
+              background: transparent;
+              border: 1px solid rgba(255, 255, 255, 0.808);
+              border-radius: 5px;
+              padding: 10px 30px;
+              font-size: 18px;
+              font-weight: bold;
+              color: #fff;
+              margin: 10px 20px;
+              &:hover {
+                background: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .slide-outer {
+    height: 70vh;
+
+    .overlay-gallery-1 {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.8) 80%,
+        rgba(0, 0, 0, 0.9) 90%,
+        rgba(0, 0, 0, 1) 100%
+      );
+      .overlay-gallery-2 {
+        @include flex-box(row, wrap, center, flex-end);
+        .info-wrapper {
+          margin-bottom: 50px;
+          padding: 0px;
+          width: 100%;
+          .cta {
+            @include flex-box(row, wrap, space-evenly, center);
+            button {
+              background: transparent;
+              border: 1px solid rgba(255, 255, 255, 0.808);
+              border-radius: 5px;
+              padding: 10px 30px;
+              font-size: 18px;
+              font-weight: bold;
+              color: #fff;
+              margin: 0;
+              &:hover {
+                background: transparent;
+              }
             }
           }
         }

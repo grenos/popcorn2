@@ -13,8 +13,10 @@ import {
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
+import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/original'
+const URL_MOB = 'https://image.tmdb.org/t/p/w500'
 
 const params = {
   autoplay: true,
@@ -44,6 +46,8 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   relatedMovieSelected,
   isUserSignedIn
 }): JSX.Element | null => {
+
+  let ww = useWindowSize();
 
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(TextTrackCueList)
@@ -172,19 +176,22 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
       >
         {
           isMovieCatSelected ?
-            topMovies.slice(0, 7).map(({ id, backdrop_path, title, overview, genre_ids }) => {
+            topMovies.slice(0, 7).map(({ id, backdrop_path, poster_path, title, overview, genre_ids }) => {
               return (
                 <div
                   key={id}
                   className="slide-outer"
                   data-test="movie-slide"
-                  style={{ backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }}
-                >
+                  style={
+                    ww.innerWidth > 668
+                      ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
+                      : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
+                  }>
                   <div className="overlay-gallery-1">
                     <div className="overlay-gallery-2">
                       <div className="info-wrapper">
-                        <h3>{title}</h3>
-                        <p>{overview}</p>
+                        {ww.innerWidth > 668 ? <h3>{title}</h3> : null}
+                        {ww.innerWidth > 668 ? <p>{overview}</p> : null}
                         <div className="cta">
                           <button onClick={() => handleGoToMovie(id, title)}>
                             Details
