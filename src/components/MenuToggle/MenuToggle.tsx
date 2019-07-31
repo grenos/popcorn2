@@ -4,14 +4,22 @@ import { useSpring, animated as a } from 'react-spring';
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
 import chevron from '../../media/img/chevron.png'
 import * as INT from '../../helpers/interfaces'
-
+import useWindowSize from '@rehooks/window-size';
 
 export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   getToggleMenuRequest, isMenuOpenProp }): JSX.Element => {
 
-  const btnAnimation = useSpring<INT.IAnimateToggle>({
+  let ww = useWindowSize();
+
+  const btnAnimationDesk = useSpring<INT.IAnimateToggle>({
     transform: isMenuOpenProp
       ? `translate3d(200px,0,0)`
+      : `translate3d(0px,0,0)`
+  })
+
+  const btnAnimationMob = useSpring<INT.IAnimateToggle>({
+    transform: isMenuOpenProp
+      ? `translate3d(280px,0,0)`
       : `translate3d(0px,0,0)`
   })
 
@@ -30,7 +38,11 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
       data-test="button-toggle"
       className="menu-button"
       onClick={makeBoolGlobal}
-      style={btnAnimation}
+      style={
+        ww.innerWidth > 668
+          ? btnAnimationDesk
+          : btnAnimationMob
+      }
       type="button"
     >
       <a.img src={chevron}

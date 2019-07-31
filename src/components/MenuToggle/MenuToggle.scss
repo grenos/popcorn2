@@ -20,3 +20,14 @@
   width: 20px;
   transform: rotate(180deg);
 }
+
+@media only screen and (max-width: 668px) {
+  .menu-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .menu-button img {
+    width: 15px;
+  }
+}
