@@ -18,19 +18,6 @@ import useWindowSize from '@rehooks/window-size';
 const URL = 'https://image.tmdb.org/t/p/original'
 const URL_MOB = 'https://image.tmdb.org/t/p/w500'
 
-const params = {
-  autoplay: true,
-  autoplayInterval: 6000,
-  dragging: false,
-  slideWidth: 1,
-  speed: 1500,
-  swiping: false,
-  width: '100%',
-  height: '100vh',
-  wrapAround: true,
-  pauseOnHover: false,
-}
-
 export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   isMovieCatSelected,
   topMovies,
@@ -48,6 +35,19 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
 }): JSX.Element | null => {
 
   let ww = useWindowSize();
+
+  const params = {
+    autoplay: true,
+    autoplayInterval: 6000,
+    dragging: false,
+    slideWidth: 1,
+    speed: 1500,
+    swiping: false,
+    width: '100%',
+    height: ww.innerWidth > 1024 ? '100vh' : '77vh',
+    wrapAround: true,
+    pauseOnHover: false,
+  }
 
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(TextTrackCueList)

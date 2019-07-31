@@ -15,6 +15,8 @@ import liked from '../../media/img/liked.png'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 import Loader from '../Loader/Loader'
+import useWindowSize from '@rehooks/window-size';
+
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams {
@@ -46,6 +48,23 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   isUserSignedIn,
   isFetchingTopItems
 }): JSX.Element => {
+
+  let ww = useWindowSize();
+
+  const [_WW, set_WW] = useState<number>(0)
+
+  useEffect(() => {
+    if (ww.innerWidth > 1024) {
+      // 7
+      set_WW(7)
+    } else if (ww.innerWidth >= 768) {
+      // 4
+      set_WW(4)
+    } else if (ww.innerWidth < 768) {
+      // 2
+      set_WW(2)
+    }
+  }, [ww.innerWidth])
 
   const [movieCounter, setMovieCounter] = useState<number>(1)
   const [serieCounter, setSerieCounter] = useState<number>(1)
@@ -266,7 +285,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderMovies = (): JSX.Element[] => {
     return (
-      chunk(movies, 7).map((arr: INT.IMovie[], index: number) => (
+      chunk(movies, _WW).map((arr: INT.IMovie[], index: number) => (
         <div key={index}>
           <div className="row">
             {
@@ -315,7 +334,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   const renderSeries = (): JSX.Element[] => {
     return (
-      chunk(series, 7).map((arr: INT.ISerie[], index: number) => (
+      chunk(series, _WW).map((arr: INT.ISerie[], index: number) => (
         <div key={index}>
           <div className="row">
             {
@@ -365,7 +384,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
   return (
     <div className="locandine-wrapper" data-test="component-locandine" style={{
-      marginTop: TopItemsActive || SearchItemsActive ? '-11%' : '4%'
+      marginTop:
+        TopItemsActive || SearchItemsActive
+          ? '-11%'
+          : '7%'
     }}>
       <div className="render-locandine-inner" >
         {renderTitles}
