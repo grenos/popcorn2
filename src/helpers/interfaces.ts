@@ -270,12 +270,15 @@ export interface IMoviesByGenre {
 
 
 export interface ISeriesState {
-  readonly searchSeries: Array<ISerie>
   readonly topSeries: Array<ISerie>
   readonly serieGenres: IGenresResult[]
   readonly serieInfo: IMovieInfoRes | any
   readonly serieInfoModal: IMovieInfoRes | any
   readonly favSeries: Array<IFavMovie>
+}
+
+export interface ISearchSeriesState {
+  readonly searchSeries: Array<ISerie>
 }
 
 export interface ISeriesByGenre {

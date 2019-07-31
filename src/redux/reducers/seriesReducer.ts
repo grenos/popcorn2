@@ -7,12 +7,6 @@ import { SERIES_STATE } from '../state/seriesState'
 
 export default function seriesReducer(state = SERIES_STATE, action: any) {
   switch (action.type) {
-    case Types.GET_USER_INPUT_SERIES_SUCCESS: {
-      return {
-        ...state,
-        searchSeries: action.payload
-      }
-    }
     case Types.GET_TOGGLE_SERIES_SUCCESS: {
       return {
         ...state,

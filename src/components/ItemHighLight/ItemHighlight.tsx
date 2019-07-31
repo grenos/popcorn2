@@ -237,7 +237,7 @@ const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     searchMovies: state.searchMoviesReducer.searchMovies,
-    searchSeries: state.seriesReducer.searchSeries,
+    searchSeries: state.searchSeriesReducer.searchSeries,
     favMovies: state.moviesReducer.favMovies,
     favSeries: state.seriesReducer.favSeries,
     isUserSignedIn: state.awsReducer.isUserSignedIn
