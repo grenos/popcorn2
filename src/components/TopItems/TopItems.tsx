@@ -3,8 +3,15 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
-import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
-import { getMovieFavoriteRequest, removeFavMovieRequest, getSerieFavoriteRequest, removeFavSerieRequest } from '../../redux/actions/apiActions'
+import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest, relatedMovieSelected } from '../../redux/actions/uiActions'
+import {
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest,
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest
+} from '../../redux/actions/apiActions'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
@@ -45,7 +52,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   removeFavMovieRequest,
   removeFavSerieRequest,
   isUserSignedIn,
-  isFetchingTopItems
+  isFetchingTopItems,
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest,
+  relatedMovieSelected
 }): JSX.Element => {
 
   let ww = useWindowSize();
@@ -171,10 +181,24 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
-  const handleModalStates = (id: number, index: number) => {
-    setSelectedId(id)
-    setSelectedIndex(index)
-    openMovieModalRequest(true)
+  const handleModalStates = (
+    id: number, index: number, ...rest: any
+  ) => {
+    if (ww.innerWidth <= 668) {
+      if (isMovieCatSelected) {
+        // open movie info modal
+        getMovieInfoModalRequest(id, rest[0])
+        relatedMovieSelected(true)
+      } else {
+        // open serie info modal
+        getSerieInfoModalRequest(id, rest[0])
+        relatedMovieSelected(false)
+      }
+    } else {
+      setSelectedId(id)
+      setSelectedIndex(index)
+      openMovieModalRequest(true)
+    }
   }
 
 
@@ -293,7 +317,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   <div className="locandina-outer" data-test="locandina-movie" >
                     <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
                     <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
+                      <div className="chevron" onClick={() => handleModalStates(movie.id, index, movie.title)}>
                         <img src={chevron} alt="open modal" />
                       </div>
                       <div className="heart"
@@ -330,7 +354,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   <div className="locandina-outer" data-test="locandina-serie" >
                     <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
                     <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
+                      <div className="chevron" onClick={() => handleModalStates(serie.id, index, serie.name)}>
                         <img src={chevron} alt="open modal" />
                       </div>
                       <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
@@ -395,6 +419,9 @@ export default withRouter(connect(mapStateToProps, {
   getMovieFavoriteRequest,
   removeFavMovieRequest,
   getSerieFavoriteRequest,
-  removeFavSerieRequest
+  removeFavSerieRequest,
+  getMovieInfoModalRequest,
+  getSerieInfoModalRequest,
+  relatedMovieSelected
 })(UnconnectedTopItems))
 

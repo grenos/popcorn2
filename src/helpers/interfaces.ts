@@ -401,6 +401,9 @@ export interface ITopResultsProps {
   removeFavSerieRequest: Function
   isUserSignedIn: boolean
   isFetchingTopItems: boolean
+  getMovieInfoModalRequest: Function
+  getSerieInfoModalRequest: Function
+  relatedMovieSelected: Function
 }
 
 export interface IVisoreProps {

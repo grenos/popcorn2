@@ -29,6 +29,7 @@ import volume from '../../media/img/volume.png';
 import mute from '../../media/img/mute.png';
 import YouTube from 'react-youtube';
 import get from 'lodash.get';
+import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/w1280';
 
@@ -60,6 +61,19 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
     removeFavSerieRequest,
     isUserSignedIn
   }) => {
+
+
+    let ww = useWindowSize();
+
+    const [_WW, set_WW] = useState<number>(0)
+
+    useEffect(() => {
+      if (ww.innerWidth <= 1366) {
+        set_WW(45)
+      }
+    }, [ww.innerWidth])
+
+
     const [videoPlayer, setVideoPlayer] = useState();
     const [togglePlayer, setTogglePlayer] = useState<boolean>(false);
     const [toggleMute, setToggleMute] = useState<boolean>(false);
@@ -340,7 +354,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
                         <Scrollbar
                           noDefaultStyles
                           momentum={true}
-                          style={{ height: 100, marginBottom: 40 }}
+                          style={{ height: _WW, marginBottom: 30 }}
                         >
                           <p data-test="modal-overview">{overview}</p>
                         </Scrollbar>

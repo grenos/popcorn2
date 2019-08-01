@@ -1,12 +1,12 @@
 
-import { takeLatest, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { takeLatest, call, fork, put, takeEvery, select } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import * as actions from '../actions/apiActions'
 import * as actionsUI from '../actions/uiActions'
 import * as api from '../api/apiCalls'
 import * as INT from '../../helpers/interfaces'
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-// import * as selectors from './selectors';
+import * as selectors from './selectors';
 
 
 function* watchGetUsersMoviesRequest() {
@@ -235,7 +235,13 @@ function* getMoviesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
     yield put(actions.getMovieInfoModalSuccess({
       result: result.data
     } as INT.ISearchMovieInfoResults))
-    yield put(push(`/title/${makeDashesUrl(title)}`))
+
+    const data = yield select(selectors.getInfoModalM)
+
+    if (data) {
+      yield put(push(`/title/${makeDashesUrl(title)}`))
+    }
+
     yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
     yield put(push(`/error`))
@@ -254,7 +260,13 @@ function* getSeriesInfoModal({ id, title }: INT.IMovieInfoSagaProps) {
     yield put(actions.getSerieInfoModalSuccess({
       result: result.data
     } as INT.ISearchMovieInfoResults))
-    yield put(push(`/title/${makeDashesUrl(title)}`))
+
+    const data = yield select(selectors.getInfoModalS)
+
+    if (data) {
+      yield put(push(`/title/${makeDashesUrl(title)}`))
+    }
+
     yield put(actionsUI.openSimilarSectionRequest(false))
   } catch (e) {
     yield put(push(`/error`))

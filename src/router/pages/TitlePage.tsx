@@ -20,7 +20,6 @@ const TitlePage: React.FC<INT.ITitlePageProps & RouteComponentProps> = ({
   movieInfoModal,
   serieInfoModal,
   isMovieModalOpen,
-  isMovieCatSelected,
   isRelatedMovieSelected,
   history }): JSX.Element => {
 

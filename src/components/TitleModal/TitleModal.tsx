@@ -8,6 +8,7 @@ import get from 'lodash.get'
 import internet from '../../media/img/internet.png'
 import popcorn from '../../media/img/popcorn.png'
 
+
 const URL = 'https://image.tmdb.org/t/p/original'
 
 const Options = {
@@ -29,12 +30,27 @@ const Options = {
 }
 
 interface IProducer { name: string }
+interface IGenres { id: number, name: string }
 
-const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpen }): JSX.Element => {
+const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element | null => {
 
-  let { backdrop_path, homepage, original_language, overview, release_date, runtime, tagline, title, videos, vote_average, created_by, first_air_date, episode_run_time, genres, name, number_of_seasons } = movieInfo
+  const backdrop_path: string = get(movieInfo, 'backdrop_path', '')
+  const homepage: string = get(movieInfo, 'homepage', '')
+  const original_language: string = get(movieInfo, 'original_language', '')
+  const overview: string = get(movieInfo, 'overview', '')
+  const release_date: string = get(movieInfo, 'release_date', '')
+  const runtime: any = get(movieInfo, 'runtime', '')
+  const tagline: string = get(movieInfo, 'tagline', '')
+  const title: string = get(movieInfo, 'title', '')
+  const movieVid: string = get(movieInfo, 'videos.results[0].key', '')
+  const vote_average: any = get(movieInfo, 'vote_average', '')
+  const created_by: [] = get(movieInfo, 'created_by', [])
+  const first_air_date: string = get(movieInfo, 'first_air_date', '')
+  const episode_run_time: [] = get(movieInfo, 'episode_run_time', [])
+  const genres: IGenres[] = get(movieInfo, 'genres', [])
+  const name: string = get(movieInfo, 'name', '')
+  const number_of_seasons: string = get(movieInfo, 'number_of_seasons', '')
 
-  const movieVid: string = get(videos, 'results[0].key', '')
 
   return (
     <div className="title-modal__wrapper" style={{
@@ -78,9 +94,9 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
             momentum={true}
             style={{ height: 200, marginBottom: 20 }}
           >
-            <p>{overview}</p>
+            {overview && <p>{overview}</p>}
           </Scrollbar>
-          {genres.map(({ id, name }) => <span key={id} className="title-genres">{name}{' '}</span>)}
+          {genres && genres.map(({ id, name }) => <span key={id} className="title-genres">{name}{' '}</span>)}
           <ul>
             {runtime
               ? <li>Runtime: <span>{runtime}</span></li>
@@ -109,6 +125,7 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, isMovieModalOpe
     </div>
   )
 }
+
 
 
 export default TitleModal
