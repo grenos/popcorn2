@@ -19,11 +19,17 @@
       height: 65vh;
       width: 100%;
       z-index: 4;
-      .video {
-        height: 65vh;
+
+      iframe {
+        width: 135%;
+        height: 135%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        left: 65%;
+        top: 50%;
         opacity: 0;
-        width: 65vw;
       }
+
       .fadein {
         opacity: 1;
         transition: 0.8s;

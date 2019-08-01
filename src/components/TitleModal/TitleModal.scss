@@ -97,3 +97,147 @@
     }
   }
 }
+
+@media only screen and (max-width: 1024px) {
+  .title-modal__wrapper {
+    .title-modal__header {
+      .header__title {
+        h3 {
+          font-size: 30px;
+        }
+
+        h5 {
+          font-size: 25px;
+        }
+      }
+    }
+
+    .title-modal__main-window {
+      @include flex-box(column, null, center, center);
+      height: auto;
+      margin: 3% 0 0;
+
+      .main-window__video {
+        flex: 1;
+
+        .video-container-title-page {
+          @include flex-box(null, null, center, center);
+          width: 100%;
+
+          .video-title-page {
+            height: 31.4vh;
+            width: 100vw;
+          }
+        }
+      }
+
+      .main-window__info {
+        flex: 1;
+        margin: 50px 0;
+        width: 100%;
+        padding: 0 150px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .title-modal__wrapper {
+    .title-modal__header {
+      .header__icons {
+        img {
+          left: 12%;
+        }
+      }
+      .header__title {
+        text-align: right;
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .title-modal__wrapper {
+    height: auto;
+    .title-modal__header {
+      @include flex-box(column, null, center, center);
+
+      .header__icons {
+        img {
+          width: 150px;
+          position: relative;
+          margin: 45px 0;
+        }
+      }
+
+      .header__title {
+        @include flex-box(column, null, center, center);
+        width: 100%;
+        text-align: center;
+
+        h3 {
+          font-size: 30px;
+          margin: 10px 0 10px;
+          padding: 0 30px;
+        }
+
+        h5 {
+          font-size: 20px;
+          margin: 10px 0 10px;
+          padding: 0 30px;
+        }
+      }
+    }
+
+    .title-modal__main-window {
+      @include flex-box(column, null, center, center);
+      height: auto;
+      margin: 3% 0 0;
+
+      .main-window__video {
+        flex: 1;
+
+        .video-container-title-page {
+          @include flex-box(null, null, center, center);
+          width: 100%;
+
+          .video-title-page {
+            height: auto;
+            width: 100vw;
+          }
+        }
+      }
+
+      .main-window__info {
+        flex: 1;
+        margin: 50px 0;
+        text-align: center;
+        width: 90%;
+        padding: 0;
+
+        .title-genres {
+          margin: 0 5px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+
+        ul {
+          margin-top: 40px;
+
+          li {
+            font-size: 18px;
+          }
+        }
+
+        img {
+          cursor: pointer;
+          width: 50px;
+          margin: 30px 0;
+        }
+      }
+    }
+  }
+}

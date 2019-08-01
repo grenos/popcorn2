@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg, reverseMe } from '../../helpers/helperFunctions'
 import logo from '../../media/img/logo.png'
@@ -7,7 +7,7 @@ import Scrollbar from 'react-scrollbars-custom'
 import get from 'lodash.get'
 import internet from '../../media/img/internet.png'
 import popcorn from '../../media/img/popcorn.png'
-
+import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -33,6 +33,24 @@ interface IProducer { name: string }
 interface IGenres { id: number, name: string }
 
 const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element | null => {
+
+  let ww = useWindowSize();
+  const [_WW, set_WW] = useState<number>(0)
+  const [bottomMargin, setbottomMargin] = useState<number>(0)
+
+  useEffect(() => {
+    if (ww.innerWidth > 1366) {
+      set_WW(130)
+      setbottomMargin(10)
+    } else if (ww.innerWidth <= 1366) {
+      set_WW(100)
+      setbottomMargin(40)
+    } else if (ww.innerWidth < 768) {
+      // 2
+      set_WW(145)
+      setbottomMargin(45)
+    }
+  }, [ww.innerWidth])
 
   const backdrop_path: string = get(movieInfo, 'backdrop_path', '')
   const homepage: string = get(movieInfo, 'homepage', '')
@@ -92,7 +110,7 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element
           <Scrollbar
             noDefaultStyles
             momentum={true}
-            style={{ height: 200, marginBottom: 20 }}
+            style={{ height: _WW, marginBottom: bottomMargin }}
           >
             {overview && <p>{overview}</p>}
           </Scrollbar>

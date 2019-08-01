@@ -62,7 +62,6 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
     isUserSignedIn
   }) => {
 
-
     let ww = useWindowSize();
 
     const [_WW, set_WW] = useState<number>(0)
@@ -70,6 +69,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
     useEffect(() => {
       if (ww.innerWidth <= 1366) {
         set_WW(45)
+      } else {
+        set_WW(160)
       }
     }, [ww.innerWidth])
 
