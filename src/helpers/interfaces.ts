@@ -53,12 +53,26 @@ export interface IAnimateHeader {
   boxShadow: number | string
 }
 
+export interface IAnimateHeaderHeight {
+  height: number | string
+  background: number | string
+  boxShadow: number | string
+}
+
 export interface IAnimateInputContainer {
   opacity: number
 }
 
 export interface IAnimateInput {
   borderWidth: number
+}
+
+export interface IAnimateInputHide {
+  transform: string
+}
+
+export interface IAnimateInputImg {
+  right: string
 }
 
 export interface IAnimateChevron {

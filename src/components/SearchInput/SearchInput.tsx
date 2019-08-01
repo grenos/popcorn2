@@ -7,6 +7,7 @@ import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redu
 import { userHasTypedRequest } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import { RouteComponentProps } from "react-router";
+import useWindowSize from '@rehooks/window-size';
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
@@ -19,6 +20,8 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   history,
   userHasTypedRequest
 }): JSX.Element => {
+
+  let ww = useWindowSize();
 
   const [change, setChange] = useState<string>('')
 
@@ -50,6 +53,19 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
     borderWidth: scrolled > 30 ? 1 : 0
   })
 
+  const animateHide = useSpring<INT.IAnimateInputHide>({
+    transform: scrolled > 30
+      ? 'translate3d(-200%, 0, 0)'
+      : 'translate3d(0%, 0, 0)'
+  })
+
+  const animateImg = useSpring<INT.IAnimateInputImg>({
+    right: scrolled > 30
+      ? '200%'
+      : '0%'
+  })
+
+
 
   return (
     <div
@@ -62,14 +78,23 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
         className="search-input__inp"
         data-test="search-input"
         placeholder="Search"
-        style={animateBorder}
+        style={
+          ww.innerWidth > 668
+            ? animateBorder
+            : animateHide
+        }
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         value={change}
       />
-      <img
+      <a.img
         src={search}
         alt="search"
+        style={
+          ww.innerWidth > 668
+            ? animateBorder
+            : animateImg
+        }
         className="search-input__img" />
     </div>
   )

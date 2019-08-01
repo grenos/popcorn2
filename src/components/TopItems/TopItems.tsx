@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest } from '../../redux/actions/uiActions'
 import { getMovieFavoriteRequest, removeFavMovieRequest, getSerieFavoriteRequest, removeFavSerieRequest } from '../../redux/actions/apiActions'
-import { Transition, config, animated as a } from 'react-spring/renderprops.cjs'
 import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
@@ -290,32 +289,20 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((movie: INT.IMovie, i) => (
-                <Transition
-                  native
-                  items={toggle}
-                  from={{ opacity: 0 }}
-                  enter={{ opacity: 1 }}
-                  leave={{ opacity: 0 }}
-                  config={config.stiff}
-                  key={movie.id}
-                >
-                  {(toggle: boolean) => toggle && (props =>
-                    <a.div className="loc-wrapper" style={props}>
-                      <div className="locandina-outer" data-test="locandina-movie" >
-                        <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
-                        <div className="overlay-gallery">
-                          <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
-                            <img src={chevron} alt="open modal" />
-                          </div>
-                          <div className="heart"
-                            onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
-                            {isUserSignedIn && haandleFavMovieImg(movie.id)}
-                          </div>
-                        </div>
+                <div className="loc-wrapper" key={i}>
+                  <div className="locandina-outer" data-test="locandina-movie" >
+                    <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                    <div className="overlay-gallery">
+                      <div className="chevron" onClick={() => handleModalStates(movie.id, index)}>
+                        <img src={chevron} alt="open modal" />
                       </div>
-                    </a.div>
-                  )}
-                </Transition>
+                      <div className="heart"
+                        onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
+                        {isUserSignedIn && haandleFavMovieImg(movie.id)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))
             }
           </div>
@@ -338,32 +325,20 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         <div key={index}>
           <div className="row">
             {
-              arr.map((serie: INT.ISerie) => (
-                <Transition
-                  native
-                  items={toggle}
-                  from={{ opacity: 0 }}
-                  enter={{ opacity: 1 }}
-                  leave={{ opacity: 0 }}
-                  config={config.stiff}
-                  key={serie.id}
-                >
-                  {(toggle: boolean) => toggle && (props =>
-                    <a.div className="loc-wrapper" style={props}>
-                      <div className="locandina-outer" data-test="locandina-serie" >
-                        <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
-                        <div className="overlay-gallery">
-                          <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
-                            <img src={chevron} alt="open modal" />
-                          </div>
-                          <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
-                            {isUserSignedIn && haandleFavSerieImg(serie.id)}
-                          </div>
-                        </div>
+              arr.map((serie: INT.ISerie, i) => (
+                <div className="loc-wrapper" key={i}>
+                  <div className="locandina-outer" data-test="locandina-serie" >
+                    <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                    <div className="overlay-gallery">
+                      <div className="chevron" onClick={() => handleModalStates(serie.id, index)}>
+                        <img src={chevron} alt="open modal" />
                       </div>
-                    </a.div>
-                  )}
-                </Transition>
+                      <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
+                        {isUserSignedIn && haandleFavSerieImg(serie.id)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))
             }
           </div>

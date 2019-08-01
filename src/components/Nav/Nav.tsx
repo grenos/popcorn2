@@ -19,10 +19,28 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
       : '0px 0px 10px 20px rgba(0, 0, 0, 0)'
   })
 
+  const animateHeaderHeight = useSpring<INT.IAnimateHeaderHeight>({
+    height: scrolled > 30
+      ? 50
+      : 90,
+    background: scrolled > 30
+      ? 'rgba(0, 0, 0, 1)'
+      : 'rgba(0, 0, 0, 0)',
+    boxShadow: scrolled > 30
+      ? '0px 0px 10px 20px rgba(0, 0, 0, 1)'
+      : '0px 0px 10px 20px rgba(0, 0, 0, 0)'
+  })
+
+
+
   return (
     <animated.div
       className="nav"
-      style={animateHeader}
+      style={
+        ww.innerWidth > 668
+          ? animateHeader
+          : animateHeaderHeight
+      }
       data-test="component-nav"
     >
       <div className="nav__type-toggle-container" >

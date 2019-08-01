@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useTransition, animated as a, config } from 'react-spring'
 import * as INT from '../../helpers/interfaces'
@@ -14,7 +14,7 @@ import {
 } from '../../redux/actions/apiActions'
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import Scrollbar from 'react-scrollbars-custom'
-
+import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
@@ -34,6 +34,21 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   removeFavSerieRequest,
   isUserSignedIn
 }): JSX.Element => {
+
+  let ww = useWindowSize();
+
+  const [_WW, set_WW] = useState<number>(0)
+
+  useEffect(() => {
+    if (ww.innerWidth > 1024) {
+      // 7
+      set_WW(110)
+    } else if (ww.innerWidth >= 768) {
+      // 4
+      set_WW(160)
+    }
+  }, [ww.innerWidth])
+
 
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(true)
@@ -166,23 +181,25 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
           ({ item, key, props }) => (item &&
             <a.div className="item-highlight" key={key} style={props} data-test="component-highlight">
               {isMovieCatSelected ?
-                searchMovies.slice(0, 1).map(({ id, backdrop_path, title, overview, genre_ids }) => {
+                searchMovies.slice(0, 1).map(({ id, backdrop_path, poster_path, title, overview, genre_ids }) => {
                   return (
                     <div
                       key={id}
                       className="highlight-outer"
                       data-test="movie-highlight-outer"
-                      style={{ backgroundImage: `url(${URL + backdrop_path})` }}
-                    >
+                      style={
+                        ww.innerWidth > 668
+                          ? { backgroundImage: `url(${URL + backdrop_path})` }
+                          : { backgroundImage: `url(${URL + poster_path})` }}>
                       <div className="highlight-content">
                         <div className="info-wrapper-highlight">
-                          <h3>{title}</h3>
-                          <Scrollbar
+                          {ww.innerWidth > 668 && <h3>{title}</h3>}
+                          {ww.innerWidth > 668 && <Scrollbar
                             noDefaultStyles
                             momentum={true}
-                            style={{ height: 200, marginBottom: 20 }}>
+                            style={{ height: _WW, marginBottom: 20 }}>
                             <p>{overview}</p>
-                          </Scrollbar>
+                          </Scrollbar>}
                           <div className="cta">
                             <button onClick={() => handleGoToMovie(id, title)} data-test="cta-details">
                               Detials
@@ -195,23 +212,25 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                   )
                 })
                 :
-                searchSeries.slice(0, 1).map(({ id, backdrop_path, name, overview, genre_ids }) => {
+                searchSeries.slice(0, 1).map(({ id, backdrop_path, poster_path, name, overview, genre_ids }) => {
                   return (
                     <div
                       key={id}
                       className="highlight-outer"
                       data-test="serie-highlight-outer"
-                      style={{ backgroundImage: `url(${URL + backdrop_path})` }}
-                    >
+                      style={
+                        ww.innerWidth > 668
+                          ? { backgroundImage: `url(${URL + backdrop_path})` }
+                          : { backgroundImage: `url(${URL + poster_path})` }}>
                       <div className="highlight-content">
                         <div className="info-wrapper-highlight">
-                          <h3>{name}</h3>
-                          <Scrollbar
+                          {ww.innerWidth > 668 && <h3>{name}</h3>}
+                          {ww.innerWidth > 668 && <Scrollbar
                             noDefaultStyles
                             momentum={true}
-                            style={{ height: 200, marginBottom: 20 }}>
+                            style={{ height: '10%', marginBottom: 20 }}>
                             <p>{overview}</p>
-                          </Scrollbar>
+                          </Scrollbar>}
                           <div className="cta">
                             <button onClick={() => handleGoToSerie(id, name)} data-test="cta-details">
                               Detials
