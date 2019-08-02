@@ -21,11 +21,11 @@
       z-index: 4;
 
       iframe {
-        width: 135%;
+        width: 90%;
         height: 135%;
         transform: translate(-50%, -50%);
         position: absolute;
-        left: 65%;
+        left: 70%;
         top: 50%;
         opacity: 0;
       }
@@ -214,8 +214,15 @@
     .modal-content {
       .video-container {
         margin-top: 27%;
-        .video {
+
+        iframe {
           width: 100vw;
+          height: 65vh;
+          transform: unset;
+          position: unset;
+          left: unset;
+          top: unset;
+          opacity: 0;
         }
       }
 

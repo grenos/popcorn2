@@ -5,6 +5,7 @@ import { getSeriesByGenreRequest } from '../../redux/actions/apiActions'
 import { genreItemsActive } from '../../redux/actions/uiActions'
 import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
+import useWindowSize from '@rehooks/window-size';
 
 
 import * as INT from '../../helpers/interfaces'
@@ -35,6 +36,8 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
   genreItemsActive,
   match
 }) => {
+
+  let ww = useWindowSize();
 
   const [genreCat, setGenreCat] = useState()
 
@@ -104,7 +107,11 @@ const GenreItemsPage: React.FC<INT.IGenreResultsPage & RouteComponentProps<Route
 
 
   return (
-    <div style={{ paddingTop: '17%' }}>
+    <div style={
+      ww.innerWidth > 668
+        ? { paddingTop: '0%' }
+        : { paddingTop: '17%' }
+    }>
       <TopItems
         isMovieCatSelected={isMovieCatSelected}
         series={genreCat}

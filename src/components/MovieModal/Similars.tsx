@@ -12,16 +12,27 @@ import popcorn from '../../media/img/popcorn.png'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
-const params = {
-  dragging: false,
-  swiping: false,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  height: '100%',
-  width: '100%',
-}
+// const params = {
+//   dragging: false,
+//   swiping: false,
+//   slidesToShow: 7,
+//   slidesToScroll: 7,
+//   height: '100%',
+//   width: '100%',
+// }
 
-interface LocalState { activeHover: number, toggleHover: boolean }
+interface LocalState {
+  activeHover: number,
+  toggleHover: boolean,
+  params: {
+    dragging: boolean,
+    swiping: boolean,
+    slidesToShow: number,
+    slidesToScroll: number,
+    height: string,
+    width: string
+  }
+}
 
 export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
 
@@ -30,12 +41,33 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
 
     this.state = {
       activeHover: 0,
-      toggleHover: false
+      toggleHover: false,
+      params: {
+        dragging: false,
+        swiping: false,
+        slidesToShow: 7,
+        slidesToScroll: 7,
+        height: '100%',
+        width: '100%',
+      }
     }
 
     this.handleCloseVideo = this.handleCloseVideo.bind(this)
     this.handleHover = this.handleHover.bind(this)
   }
+
+  componentDidMount() {
+    // get window width
+    // make if with window width and carousel params
+    // update params on state in here
+  }
+
+  componentDidUpdate() {
+    // get window width
+    // make if with window width and carousel params
+    // update params on state in here
+  }
+
 
   handleCloseVideo(): void {
     this.props.openSimilarSectionRequest(false)
@@ -70,7 +102,7 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     } else {
       return (
         <div className="similar-wrapper" style={animation} data-test="component-similars">
-          <Carousel {...params}>
+          <Carousel {...this.state.params}>
             {
               videos.results.map((video) => (
                 <div key={video.id} className="similar-item" onClick={() =>

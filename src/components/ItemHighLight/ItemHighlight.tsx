@@ -202,7 +202,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                           </Scrollbar>}
                           <div className="cta">
                             <button onClick={() => handleGoToMovie(id, title)} data-test="cta-details">
-                              Detials
+                              Details
                             </button>
                             {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
                           </div>
@@ -233,7 +233,7 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
                           </Scrollbar>}
                           <div className="cta">
                             <button onClick={() => handleGoToSerie(id, name)} data-test="cta-details">
-                              Detials
+                              Details
                             </button>
                             {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
                           </div>

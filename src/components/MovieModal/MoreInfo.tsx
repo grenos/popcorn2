@@ -33,41 +33,44 @@ export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps>{
             <h3>{original_title}</h3>
           </div>
           <div className="more-info-wrapper_inner">
-            <div className="more-info-wrapper__col">
-              <ul>
-                <li><a href={homepage}>Website</a></li>
-                <li><span>Original language:</span>
-                  {original_language}
-                </li>
-                <li><span>Status:</span>
-                  {status}
-                </li>
-                <li><span>Release date:</span>
-                  {release_date}
-                </li>
-                <li><span>Total Budget:</span>
-                  {budget}
-                </li>
-                <li><span>Total Revenue:</span>
-                  {revenue}
-                </li>
-                <li><span>Run Time:</span>
-                  {runtime}
-                  <span>min.</span>
-                </li>
-              </ul>
-            </div>
-            <div className="more-info-wrapper__col">
-              <ul>
-                <h5>Production Companies</h5>
-                {production_companies.map(({ id, name, }: Companies) => <li key={id}>{name}</li>)}
-              </ul>
+            <div className="wrapper-flex__ipads">
+              <div className="more-info-wrapper__col">
+                <ul>
+                  <li><a href={homepage}>Website</a></li>
+                  <li><span>Original language:</span>
+                    {original_language}
+                  </li>
+                  <li><span>Status:</span>
+                    {status}
+                  </li>
+                  <li><span>Release date:</span>
+                    {release_date}
+                  </li>
+                  <li><span>Total Budget:</span>
+                    {budget}
+                  </li>
+                  <li><span>Total Revenue:</span>
+                    {revenue}
+                  </li>
+                  <li><span>Run Time:</span>
+                    {runtime}
+                    <span>min.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="more-info-wrapper__col">
+                <ul>
+                  <h5>Production Companies</h5>
+                  {production_companies.map(({ id, name, }: Companies) => <li key={id}>{name}</li>)}
+                </ul>
 
-              <ul>
-                <h5>Production Countries</h5>
-                {production_countries && production_countries.map(({ name, }: Countries) => <li key={name}>{name}</li>)}
-              </ul>
+                <ul>
+                  <h5>Production Countries</h5>
+                  {production_countries && production_countries.map(({ name, }: Countries) => <li key={name}>{name}</li>)}
+                </ul>
+              </div>
             </div>
+
 
             <div className="more-info-wrapper__col--cast">
               <h5>Cast</h5>

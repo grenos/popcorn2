@@ -126,7 +126,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     setTimeout(() => {
       Auth.signOut()
         .then(
-          getToggleMenuRequest(),
+          getToggleMenuRequest(false),
           userSignedIn(false)
         )
         .catch(err => console.log(err));
@@ -140,12 +140,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     // if (location.pathname !== location.state.from) {
     getMoviesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
+    setTimeout(() => {
+      getToggleMenuRequest(false)
+    }, 400)
     // }
   }
 
   const handleSerieGenreClick = (id: number, page: number, name: string): void => {
     getSeriesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
+    setTimeout(() => {
+      getToggleMenuRequest(false)
+    }, 400)
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
