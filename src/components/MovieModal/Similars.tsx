@@ -12,27 +12,19 @@ import popcorn from '../../media/img/popcorn.png'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
-// const params = {
-//   dragging: false,
-//   swiping: false,
-//   slidesToShow: 7,
-//   slidesToScroll: 7,
-//   height: '100%',
-//   width: '100%',
-// }
 
 interface LocalState {
   activeHover: number,
   toggleHover: boolean,
-  params: {
-    dragging: boolean,
-    swiping: boolean,
-    slidesToShow: number,
-    slidesToScroll: number,
-    height: string,
-    width: string
-  }
+  dragging: boolean,
+  swiping: boolean,
+  slidesToShow: number,
+  slidesToScroll: number,
+  height: string,
+  width: string
+
 }
+
 
 export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
 
@@ -42,32 +34,42 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     this.state = {
       activeHover: 0,
       toggleHover: false,
-      params: {
-        dragging: false,
-        swiping: false,
-        slidesToShow: 7,
-        slidesToScroll: 7,
-        height: '100%',
-        width: '100%',
-      }
+      dragging: false,
+      swiping: false,
+      slidesToShow: 7,
+      slidesToScroll: 7,
+      height: '100%',
+      width: '100%',
     }
 
     this.handleCloseVideo = this.handleCloseVideo.bind(this)
     this.handleHover = this.handleHover.bind(this)
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
 
-  componentDidMount() {
-    // get window width
-    // make if with window width and carousel params
-    // update params on state in here
+  componentWillMount() {
+    window.addEventListener('resize', this.updateWindowDimensions)
+    this.updateWindowDimensions()
   }
 
-  componentDidUpdate() {
-    // get window width
-    // make if with window width and carousel params
-    // update params on state in here
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions)
   }
 
+  updateWindowDimensions() {
+    const ww = window.innerWidth
+    if (ww > 1024) {
+      this.setState({
+        slidesToShow: 7,
+        slidesToScroll: 7,
+      })
+    } else {
+      this.setState({
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      })
+    }
+  }
 
   handleCloseVideo(): void {
     this.props.openSimilarSectionRequest(false)
@@ -95,14 +97,15 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
 
   render() {
     let { videos, animation } = this.props
-    let { toggleHover, activeHover } = this.state
+    let { toggleHover, activeHover, dragging, swiping, slidesToShow, slidesToScroll, height, width } = this.state
+
 
     if (videos === undefined) {
       return null
     } else {
       return (
         <div className="similar-wrapper" style={animation} data-test="component-similars">
-          <Carousel {...this.state.params}>
+          <Carousel {...{ dragging, swiping, slidesToShow, slidesToScroll, height, width }}>
             {
               videos.results.map((video) => (
                 <div key={video.id} className="similar-item" onClick={() =>
@@ -133,6 +136,9 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     }
   }
 }
+
+
+
 
 
 const mapStateToProps = (state: any) => {

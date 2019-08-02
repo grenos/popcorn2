@@ -355,7 +355,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(
                         <Scrollbar
                           noDefaultStyles
                           momentum={true}
-                          style={{ height: _WW, marginBottom: 30 }}
+                          style={{ height: _WW }}
                         >
                           <p data-test="modal-overview">{overview}</p>
                         </Scrollbar>
