@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
@@ -6,8 +6,27 @@ import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
 import close from '../../media/img/close.png'
 import { useCssClass } from '../../helpers/hooks'
+import useWindowSize from '@rehooks/window-size';
 
 export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
+
+  let ww = useWindowSize();
+  const [slides, setSlides] = useState<number>(0)
+  const [drag, setDrag] = useState<boolean>(false)
+  const [swipe, setSwipe] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (ww.innerWidth <= 1024) {
+      setSlides(1)
+      setDrag(true)
+      setSwipe(true)
+    } else {
+      setSlides(3)
+      setDrag(false)
+      setSwipe(false)
+    }
+  }, [ww.innerWidth])
+
 
   const Options = {
     // @ts-ignore
@@ -26,11 +45,12 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
     }
   }
 
+
   const params = {
-    dragging: false,
-    swiping: false,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    dragging: drag,
+    swiping: swipe,
+    slidesToShow: slides || 1,
+    slidesToScroll: slides || 1,
     height: '100%',
     width: '100%',
   }

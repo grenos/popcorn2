@@ -61,3 +61,36 @@
     }
   }
 }
+
+@media only screen and (max-width: 1024px) {
+  .thumb-wrapper-no-slider {
+    @include flex-box(column, null, center, center);
+    // padding: 40px 0;
+    overflow: auto;
+
+    .thumb-inner-no-slider {
+      @include flex-box(column, null, center, center);
+      height: auto;
+      width: 100%;
+
+      .thumb-container-no-slider {
+        @include flex-box(null, null, center, center);
+        height: 30vh;
+        width: 100%;
+
+        .thumb-no-slider {
+          width: 100%;
+        }
+        .thumb-no-slider-duo {
+          width: 100%;
+        }
+        .thumb-no-slider-solo {
+          width: 100%;
+        }
+      }
+      .thumb-info-no-slider {
+        color: #fff;
+      }
+    }
+  }
+}
