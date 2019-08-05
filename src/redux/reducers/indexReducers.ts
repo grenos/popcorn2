@@ -98,45 +98,45 @@ const favSeriesPersistConfig = {
   ]
 }
 
-const movieGenresPersistConfig = {
-  key: 'movieGenresReducer',
-  storage: storage,
-  blacklist: [
-    'action',
-    'adventure',
-    'animation',
-    'comedy',
-    'crime',
-    'documentary',
-    'drama',
-    'family',
-    'fantasy',
-    'history',
-    'horror',
-    'music',
-    'mystery',
-    'romance',
-    'science_fiction',
-    'tv_movie',
-    'thriller',
-    'war',
-    'western',
-  ]
-}
+// const movieGenresPersistConfig = {
+//   key: 'movieGenresReducer',
+//   storage: storage,
+//   blacklist: [
+//     'action',
+//     'adventure',
+//     'animation',
+//     'comedy',
+//     'crime',
+//     'documentary',
+//     'drama',
+//     'family',
+//     'fantasy',
+//     'history',
+//     'horror',
+//     'music',
+//     'mystery',
+//     'romance',
+//     'science_fiction',
+//     'tv_movie',
+//     'thriller',
+//     'war',
+//     'western',
+//   ]
+// }
 
-const serieGenresPersistConfig = {
-  key: 'serieGenresReducer',
-  storage: storage,
-  blacklist: [
-    'router',
-    'moviesReducer',
-    'seriesReducer',
-    'movieGenresReducer',
-    'awsReducer',
-    'uiReducer',
-    'favoritesReducer'
-  ]
-}
+// const serieGenresPersistConfig = {
+//   key: 'serieGenresReducer',
+//   storage: storage,
+//   blacklist: [
+//     'router',
+//     'moviesReducer',
+//     'seriesReducer',
+//     'movieGenresReducer',
+//     'awsReducer',
+//     'uiReducer',
+//     'favoritesReducer'
+//   ]
+// }
 
 
 
@@ -148,8 +148,8 @@ export default (history: any) => combineReducers({
   searchSeriesReducer: persistReducer(searchSeriesPersistConfig, searchSeriesReducer),
   moviesReducer: persistReducer(favMoviesPersistConfig, moviesReducer),
   seriesReducer: persistReducer(favSeriesPersistConfig, seriesReducer),
-  movieGenresReducer: persistReducer(movieGenresPersistConfig, movieGenresReducer),
-  serieGenresReducer: persistReducer(serieGenresPersistConfig, serieGenresReducer),
-  uiReducer: uiReducer,
+  movieGenresReducer,
+  serieGenresReducer,
+  uiReducer,
   favoritesReducer: persistReducer(favCatPersistConfig, favoritesReducer)
 })
