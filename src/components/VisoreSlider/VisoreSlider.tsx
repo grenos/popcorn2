@@ -14,6 +14,8 @@ import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import popcorn from '../../media/img/popcorn.png'
 import useWindowSize from '@rehooks/window-size';
+import CatchAll from '../../components/Error/CatchAll'
+
 
 const URL = 'https://image.tmdb.org/t/p/original'
 const URL_MOB = 'https://image.tmdb.org/t/p/w500'
@@ -178,56 +180,62 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
           isMovieCatSelected ?
             topMovies.slice(0, 7).map(({ id, backdrop_path, poster_path, title, overview, genre_ids }) => {
               return (
-                <div
-                  key={id}
-                  className="slide-outer"
-                  data-test="movie-slide"
-                  style={
-                    ww.innerWidth > 668
-                      ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
-                      : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
-                  }>
-                  <div className="overlay-gallery-1">
-                    <div className="overlay-gallery-2">
-                      <div className="info-wrapper">
-                        {ww.innerWidth > 668 ? <h3>{title}</h3> : null}
-                        {ww.innerWidth > 668 ? <p>{overview}</p> : null}
-                        <div className="cta">
-                          <button onClick={() => handleGoToMovie(id, title)}>
-                            Details
+                <CatchAll key={id}>
+                  <div
+                    className="slide-outer"
+                    data-test="movie-slide"
+                    style={
+                      ww.innerWidth > 668
+                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
+                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
+                    }>
+                    <div className="overlay-gallery-1">
+                      <div className="overlay-gallery-2">
+                        <div className="info-wrapper">
+                          {ww.innerWidth > 668 ? <h3>{title}</h3> : null}
+                          {ww.innerWidth > 668 ? <p>{overview}</p> : null}
+                          <div className="cta">
+                            <button onClick={() => handleGoToMovie(id, title)}>
+                              Details
                           </button>
-                          {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
+                            {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </CatchAll>
               )
             })
             :
-            topSeries.slice(0, 7).map(({ id, backdrop_path, name, overview, genre_ids }) => {
+            topSeries.slice(0, 7).map(({ id, backdrop_path, poster_path, name, overview, genre_ids }) => {
               return (
-                <div
-                  key={id}
-                  className="slide-outer"
-                  data-test="serie-slide"
-                  style={{ backgroundImage: `url(${URL + backdrop_path})` }}
-                >
-                  <div className="overlay-gallery-1">
-                    <div className="overlay-gallery-2">
-                      <div className="info-wrapper">
-                        {ww.innerWidth > 668 ? <h3>{name}</h3> : null}
-                        {ww.innerWidth > 668 ? <p>{overview}</p> : null}
-                        <div className="cta">
-                          <button onClick={() => handleGoToSerie(id, name)}>
-                            Details
+                <CatchAll key={id}>
+                  <div
+                    className="slide-outer"
+                    data-test="serie-slide"
+                    style={
+                      ww.innerWidth > 668
+                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
+                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
+                    }>
+                    >
+                    <div className="overlay-gallery-1">
+                      <div className="overlay-gallery-2">
+                        <div className="info-wrapper">
+                          {ww.innerWidth > 668 ? <h3>{name}</h3> : null}
+                          {ww.innerWidth > 668 ? <p>{overview}</p> : null}
+                          <div className="cta">
+                            <button onClick={() => handleGoToSerie(id, name)}>
+                              Details
                           </button>
-                          {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
+                            {haandleFavMovieImg(id, backdrop_path, genre_ids, name)}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </CatchAll>
               )
             })
 

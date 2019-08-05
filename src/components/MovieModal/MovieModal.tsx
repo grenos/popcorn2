@@ -30,6 +30,7 @@ import mute from '../../media/img/mute.png';
 import YouTube from 'react-youtube';
 import get from 'lodash.get';
 import useWindowSize from '@rehooks/window-size';
+import CatchAll from '../../components/Error/CatchAll'
 
 const URL = 'https://image.tmdb.org/t/p/w1280';
 
@@ -337,14 +338,18 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 className="modal-content"
                 style={{ ...fadeContent, ...fadeOnHide }}
               >
-                <YouTube
-                  videoId={isMovieCatSelected ? movieVid : serieVid}
-                  className={`video ${videoActive ? 'fadein' : null}`}
-                  containerClassName="video-container"
-                  // @ts-ignore
-                  opts={Options}
-                  onReady={onReady}
-                />
+
+                <CatchAll>
+                  <YouTube
+                    videoId={isMovieCatSelected ? movieVid : serieVid}
+                    className={`video ${videoActive ? 'fadein' : null}`}
+                    containerClassName="video-container"
+                    // @ts-ignore
+                    opts={Options}
+                    onReady={onReady}
+                  />
+                </CatchAll>
+
 
                 <div className="info-wrapper-modal">
                   <div className="sizer">
@@ -433,15 +438,17 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 {isVideoSectionOpen =>
                   isVideoSectionOpen &&
                   (props => (
-                    <RelatedItems
-                      videos={
-                        isMovieCatSelected
-                          ? movieInfo.videos
-                          : serieInfo.videos
-                      }
-                      animation={props}
-                      data-test="related-modal"
-                    />
+                    <CatchAll>
+                      <RelatedItems
+                        videos={
+                          isMovieCatSelected
+                            ? movieInfo.videos
+                            : serieInfo.videos
+                        }
+                        animation={props}
+                        data-test="related-modal"
+                      />
+                    </CatchAll>
                   ))
                 }
               </Transition>
@@ -455,15 +462,17 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 {isSimilarSectionOpen =>
                   isSimilarSectionOpen &&
                   (props => (
-                    <Similars
-                      videos={
-                        isMovieCatSelected
-                          ? movieInfo.similar
-                          : serieInfo.similar
-                      }
-                      animation={props}
-                      data-test="similar-modal"
-                    />
+                    <CatchAll>
+                      <Similars
+                        videos={
+                          isMovieCatSelected
+                            ? movieInfo.similar
+                            : serieInfo.similar
+                        }
+                        animation={props}
+                        data-test="similar-modal"
+                      />
+                    </CatchAll>
                   ))
                 }
               </Transition>
@@ -477,11 +486,13 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 {isMoreInfoOpen =>
                   isMoreInfoOpen &&
                   (props => (
-                    <MoreInfo
-                      info={isMovieCatSelected ? movieInfo : serieInfo}
-                      animation={props}
-                      data-test="moreInfo-modal"
-                    />
+                    <CatchAll>
+                      <MoreInfo
+                        info={isMovieCatSelected ? movieInfo : serieInfo}
+                        animation={props}
+                        data-test="moreInfo-modal"
+                      />
+                    </CatchAll>
                   ))
                 }
               </Transition>

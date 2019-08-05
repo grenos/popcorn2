@@ -27,7 +27,7 @@ import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 import Loader from '../Loader/Loader'
 import useWindowSize from '@rehooks/window-size';
-
+import CatchAll from '../../components/Error/CatchAll'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 interface RouteParams {
@@ -318,20 +318,22 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((movie: INT.IMovie, i) => (
-                <div className="loc-wrapper" key={i}>
-                  <div className="locandina-outer" data-test="locandina-movie" >
-                    <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
-                    <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(movie.id, index, movie.title)}>
-                        <img src={chevron} alt="open modal" />
-                      </div>
-                      <div className="heart"
-                        onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
-                        {isUserSignedIn && haandleFavMovieImg(movie.id)}
+                <CatchAll key={i}>
+                  <div className="loc-wrapper" >
+                    <div className="locandina-outer" data-test="locandina-movie" >
+                      <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                      <div className="overlay-gallery">
+                        <div className="chevron" onClick={() => handleModalStates(movie.id, index, movie.title)}>
+                          <img src={chevron} alt="open modal" />
+                        </div>
+                        <div className="heart"
+                          onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
+                          {isUserSignedIn && haandleFavMovieImg(movie.id)}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </CatchAll>
               ))
             }
           </div>
@@ -355,19 +357,21 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <div className="row">
             {
               arr.map((serie: INT.ISerie, i) => (
-                <div className="loc-wrapper" key={i}>
-                  <div className="locandina-outer" data-test="locandina-serie" >
-                    <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
-                    <div className="overlay-gallery">
-                      <div className="chevron" onClick={() => handleModalStates(serie.id, index, serie.name)}>
-                        <img src={chevron} alt="open modal" />
-                      </div>
-                      <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
-                        {isUserSignedIn && haandleFavSerieImg(serie.id)}
+                <CatchAll key={i}>
+                  <div className="loc-wrapper" key={i}>
+                    <div className="locandina-outer" data-test="locandina-serie" >
+                      <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                      <div className="overlay-gallery">
+                        <div className="chevron" onClick={() => handleModalStates(serie.id, index, serie.name)}>
+                          <img src={chevron} alt="open modal" />
+                        </div>
+                        <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
+                          {isUserSignedIn && haandleFavSerieImg(serie.id)}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </CatchAll>
               ))
             }
           </div>

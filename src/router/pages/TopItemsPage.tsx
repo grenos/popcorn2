@@ -32,6 +32,7 @@ const TopItemsPage: React.FC<INT.ITopResultsPage> = ({
         getMovies={getToggleMoviesRequest}
         getSeries={getToggleSeriesRequest}
       />
+
     </div >
   )
 }
