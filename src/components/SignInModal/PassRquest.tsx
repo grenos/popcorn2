@@ -19,6 +19,15 @@ interface LocalState {
   serverError: string
 }
 
+/**
+ * Opens on forgot password request (insert only email)
+ * @class
+ * @param {function} setAuthModalUI - Action set Auth modal
+ * @param {bool} isConfirmModalOpen - used for Animation
+ * @param {function} isFetchingRquest - Action
+ * @param {bool} isFetching - used for spinner
+ * @returns {JSX.Element}
+ */
 class PassRquest extends Component<INT.IPassReq, LocalState> {
   constructor(props: INT.IPassReq) {
     super(props);
