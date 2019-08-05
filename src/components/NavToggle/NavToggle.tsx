@@ -8,7 +8,20 @@ import * as INT from '../../helpers/interfaces'
 import { openAuthModal, getToggleMenuRequest } from '../../redux/actions/uiActions'
 import useWindowSize from '@rehooks/window-size';
 
-
+/**
+ * toggles bwtween movies and series, also main parent of Auth modals
+ * @function
+ * @param {function} getToggleMovieCatRequest ACTION makes movies selected category
+ * @param {function} getToggleSerieCatRequest ACTION makes series selected category
+ * @param {function} clearMoviesByGenreState ACTION  
+ * @param {function} clearSeriesByGenreState ACTION 
+ * @param {function} getToggleMenuRequest ACTION opens slide menu (in case user is not signed in)
+ * @param {function} openAuthModal ACTION 
+ * @param {bool} isUserSignedIn 
+ * @param {object} history - to push to new page - Router
+ * @param {function} setAuthModalUI - ACTION sets which Auth modal should be displayed
+ * @returns {JSX.Element} 
+ */
 export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentProps> = ({
   getToggleMovieCatRequest,
   getToggleSerieCatRequest,
@@ -37,6 +50,8 @@ export const UnconnectedNavToggle: React.FC<INT.IToggleProps & RouteComponentPro
     history.push('/')
   }
 
+  // if user is signed on click goes to favorites
+  // if not opens sign in modal
   const handleMyFavorites = (): void => {
     if (isUserSignedIn) {
       history.push('/favorites')

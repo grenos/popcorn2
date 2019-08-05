@@ -9,6 +9,15 @@ import Scrollbar from "react-scrollbars-custom"
 interface Companies { id: number, name: string }
 interface Countries { index: number, name: string }
 
+/**
+ * more info panel displays more info on selected item
+ * @class
+ * @param {function} openMoreInfoRequest - Action used to close paneò
+ * @param {object} info - more info for item object
+ * @param {object} animation - animation passed from parent
+ * @param {arrray} cast - cast array for selected item
+ * @returns {JSX.Element} - Rendered Component 
+ */
 export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps>{
 
   constructor(props: INT.IMoreInfoProps) {

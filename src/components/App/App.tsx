@@ -9,6 +9,13 @@ import { RouteComponentProps } from "react-router"
 const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 
+/**
+ * App component listens to scroll position for various animations
+ * @function
+ * @param {boolean} isMenuOpenProp - is slide menu open from Redux
+ * @param {object} location - location object from router
+ * @returns {JSX.Element} - Rendered Component (null if location === /title/)
+ */
 
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({
   isMenuOpenProp,

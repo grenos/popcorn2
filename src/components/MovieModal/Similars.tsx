@@ -25,7 +25,22 @@ interface LocalState {
 
 }
 
-
+/**
+ *  similar panel displays similar items
+ * @class
+ * @param {function} openSimilarSectionRequest - Action to close similars panel
+ * @param {array} videos - NOT VIDEOS but similar movies array of objects
+ * @param {object} animation passed from parent
+ * @param {object} history passed from Router
+ * @param {object} location passed from Router
+ * @param {object} match passed from Router
+ * @param {function} getMovieInfoModalRequest Action to open item title modal 
+ * @param {function} getSerieInfoModalRequest Action to open item title modal
+ * @param {bool} isMovieCatSelected
+ * @param {bool} isRelatedMovieSelected
+ * @param {function} relatedMovieSelected set to 'true' to opencorrect title modal (false for series)
+ * @returns {JSX.Element} - Rendered Component
+ */
 export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & RouteComponentProps, LocalState>{
 
   constructor(props: INT.ISimilarProps) {
@@ -47,15 +62,14 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
 
+  // listens to window resize for correct number of locandine
   componentWillMount() {
     window.addEventListener('resize', this.updateWindowDimensions)
     this.updateWindowDimensions()
   }
-
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
   }
-
   updateWindowDimensions() {
     const ww = window.innerWidth
     if (ww > 1024) {
@@ -71,16 +85,19 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
     }
   }
 
+
   handleCloseVideo(): void {
     this.props.openSimilarSectionRequest(false)
   }
 
+  // for adding / removing class on hover
   handleHover(id: number): void {
     this.setState({ activeHover: id, })
     this.setState(prevState => ({
       toggleHover: !prevState.toggleHover
     }))
   }
+
 
   handleLocaClick(id: number, title: string): void {
     if (this.props.isMovieCatSelected) {

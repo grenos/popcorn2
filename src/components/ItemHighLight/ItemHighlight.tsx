@@ -18,6 +18,26 @@ import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/original'
 
+
+/**
+ * FAvorites component displays categorised favorites
+ * @function
+ * @param {bool} isMovieCatSelected - self explenatory
+ * @param {arrray} searchMovies - Search results of input
+ * @param {arrray} searchSeries - Search results of input
+ * @param {function} getMovieInfoModalRequest -  Opens title page Action
+ * @param {function} getSerieInfoModalRequest - Opens title page Action
+ * @param {bool} relatedMovieSelected - Action to set to 'true' to render correct title modal
+ * @param {arrray} favSeries - Arrys of object to control against favArrays
+ * @param {arrray} favMovies - Arrys of object to control against favArrays
+ * @param {function} getMovieFavoriteRequest - Action adds item to favorites
+ * @param {function} removeFavMovieRequest - Action removes item from favorites
+ * @param {function} getSerieFavoriteRequest - Action removes item from favorites
+ * @param {function} removeFavSerieRequest - Action removes item from favorites
+ * @param {bool} isUserSignedIn - check if user is signed in
+ * @param {object} location - Location object taken from Router
+ * @returns {JSX.Element} - Rendered Component 
+ */
 export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteComponentProps> = ({
   isMovieCatSelected,
   location,
@@ -50,6 +70,11 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   }, [ww.innerWidth])
 
 
+  /**
+   * gets data for the action to open title modal
+   * @param {number} id 
+   * @param {string} title 
+   */
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(true)
     getMovieInfoModalRequest(id, title)
@@ -57,6 +82,11 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
     // history.push(`/title/${makeDashesUrl(title)}`)
   }
 
+  /**
+   * gets data for the action to open title modal
+   * @param {number} id 
+   * @param {string} title 
+   */
   const handleGoToSerie = (id: number, name: string, ): void => {
     relatedMovieSelected(false)
     getSerieInfoModalRequest(id, name)
@@ -64,6 +94,13 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
     // history.push(`/title/${makeDashesUrl(name)}`)
   }
 
+  /**
+   * checks if favorite item exist in state and adds or remove it depending on status
+   * @param {number} id - data for the Action
+   * @param {string} poster - data for the Action
+   * @param {number} genreId - data for the Action
+   * @param {string} title - data for the Action
+   */
   const handleMovieFavs = (
     id: number, poster: string, genreId: number, title: string
   ) => {
@@ -87,6 +124,13 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
     }
   }
 
+  /**
+   * checks if favorite item exist in state and adds or remove it depending on status
+   * @param {number} id - data for the Action
+   * @param {string} poster - data for the Action
+   * @param {number} genreId - data for the Action
+   * @param {string} title - data for the Action
+   */
   const handleSerieFavs = (
     id: number, poster: string, genreId: number, name: string
   ): void => {
@@ -111,7 +155,14 @@ export const UnconnectedItemHighlight: React.FC<INT.IHighlightProps & RouteCompo
   }
 
 
-
+  /**
+   * checks if item is already in favorites and renderes right button/heart element
+   * @param {number} id 
+   * @param {string} backdrop_path 
+   * @param {number} genre_ids 
+   * @param {string} rest - title OR name of film/serie
+   * @returns {JSX.Element} - Right element to render
+   */
   const haandleFavMovieImg = (
     id: number, backdrop_path: string, genre_ids: any, ...rest: any
   ): JSX.Element | null => {

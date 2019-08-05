@@ -6,6 +6,11 @@ import chevron from '../../media/img/chevron.png'
 import * as INT from '../../helpers/interfaces'
 import useWindowSize from '@rehooks/window-size';
 
+/**
+ * slide menu toggler
+ * @param {function} getToggleMenuRequest - sets true/false Action
+ * @param {bool} isMenuOpenProp gets true/false Action
+ */
 export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
   getToggleMenuRequest, isMenuOpenProp }): JSX.Element => {
 

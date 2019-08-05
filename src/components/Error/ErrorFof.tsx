@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * ErrorFof component displays on 404 page
+ * @function
+ * @returns {JSX.Element} - Rendered Component 
+ */
 const ErrorFof = () => {
   return (
     <div className="fof-wrapper">

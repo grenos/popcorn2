@@ -5,6 +5,11 @@ interface LocalState {
   info: any
 }
 
+/**
+ * CatchAll component use componentDidCatch for individual module errors
+ * @class
+ * @returns {JSX.Element} - Rendered Component 
+ */
 class CatchAll extends Component<{}, LocalState> {
   constructor(props: any) {
     super(props)

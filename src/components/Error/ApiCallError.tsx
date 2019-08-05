@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+
+/**
+ * ADisplays error message generated from saga
+ * @function
+ * @param {object} isTopItemError - error object from Redux
+ * @returns {JSX.Element} 
+ */
 const ApiCallError = ({ isTopItemError }: any) => {
-
-
 
   return (
     <div className="net-error-wrapper">

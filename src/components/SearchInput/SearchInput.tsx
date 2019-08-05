@@ -11,6 +11,18 @@ import useWindowSize from '@rehooks/window-size';
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 
+/**
+ *  search input gets user input and sends to action to make api call 
+ * @function
+ * @param {number} scrolled
+ * @param {function} getUserInputMoviesRequest - Action calls api with user input
+ * @param {function} getUserInputSeriesRequest - Action calls api with user input
+ * @param {bool} isMovieCatSelected 
+ * @param {bool} isSerieCatSelected
+ * @param {object} history - to push to new page
+ * @param {string} userHasTypedRequest - not used
+ * @returns {JSX.Element}
+ */
 export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentProps> = ({
   scrolled,
   getUserInputMoviesRequest,
@@ -26,9 +38,9 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   const [change, setChange] = useState<string>('')
 
   useEffect((): void => {
-    if (isMovieCatSelected && scrolled < 30) {
+    if (isMovieCatSelected) {
       setChange('')
-    } else if (isSerieCatSelected && scrolled < 30) {
+    } else if (isSerieCatSelected) {
       setChange('')
     }
   }, [scrolled, isMovieCatSelected, isSerieCatSelected])

@@ -500,7 +500,6 @@ export interface IConfirmSignUp {
   isConfirmModalOpen: boolean
   openAuthModal: Function
   openConfirmModal: Function
-  setAuthModalUI: Function
   password: string
   email: string
   isFetchingRquest: Function
@@ -522,7 +521,6 @@ export interface ISignUp {
 
 export interface IForgotPass {
   openAuthModal: Function
-  openConfirmModal: Function
   isConfirmModalOpen: boolean
   setAuthModalUI?: Function
   isFetchingRquest: Function

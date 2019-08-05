@@ -8,6 +8,13 @@ import close from '../../media/img/close.png'
 import { useCssClass } from '../../helpers/hooks'
 import useWindowSize from '@rehooks/window-size';
 
+/**
+ * related videos modal panel
+ * @function
+ * @param {array} videos - similar videos passed from parent
+ * @param {function} openVideoSectionRequest - Action used to close panel
+ * @param {object} animation object with animation passed from parent 
+ */
 export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, animation }: INT.IRelatedVidProps): JSX.Element | null => {
 
   let ww = useWindowSize();
@@ -15,6 +22,7 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
   const [drag, setDrag] = useState<boolean>(false)
   const [swipe, setSwipe] = useState<boolean>(false)
 
+  // set number of slides depending on window width
   useEffect(() => {
     if (ww.innerWidth <= 1024) {
       setSlides(1)
@@ -55,13 +63,14 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
     width: '100%',
   }
 
+  // custom hook - change class name depending on videos array length
   const { CssClass } = useCssClass(videos.results.length)
 
   const handleCloseVideo = (): void => {
     openVideoSectionRequest(false)
   }
 
-
+  // if videos is less than 4 use flex else use carousel plugin
   if (videos === undefined) {
     return null
   } else if (videos.results.length < 4) {

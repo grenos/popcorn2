@@ -17,6 +17,18 @@ import info from '../../media/img/info.png'
 
 const URL = 'https://image.tmdb.org/t/p/w500'
 
+/**
+ * FAvorites component displays categorised favorites
+ * @function
+ * @param {object} favArrays - Object with categorised favorite Arrays - from Redux
+ * @param {arrray} favMovies - Arrya of object to control against favArrays
+ * @param {function} removeFavMovieRequest - Remove Favorite Movie Action
+ * @param {function} removeFavSerieRequest -  Remove favorite serie Action
+ * @param {function} getMovieInfoModalRequest - Action passes id to open correct title modal
+ * @param {function} getSerieInfoModalRequest - Action passes id to open correct title modal
+ * @param {bool} relatedMovieSelected - Action to set to 'true' to render correct title modal
+ * @returns {JSX.Element} - Rendered Component 
+ */
 export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps> = ({
   favArrays,
   removeFavMovieRequest,

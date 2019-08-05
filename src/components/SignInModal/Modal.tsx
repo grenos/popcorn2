@@ -12,8 +12,17 @@ import SuccessModal from './SuccessModal'
 import PassRquest from './PassRquest'
 
 
+// create portal in here
 const modalRoot = document.getElementById('modal-root')
 
+/**
+ * Parent component of all Auth modals - selects modal type for other modals
+ * @class
+ * @param {number} modalType - 1-5 auth modal type
+ * @param {bool} isAuthModalOpen this
+ * @param {function} openAuthModal unused
+ * @returns {JSX:Element}
+ */
 class Modal extends Component<INT.IModal> {
   el: HTMLDivElement
   constructor(props: INT.IModal) {
@@ -36,6 +45,7 @@ class Modal extends Component<INT.IModal> {
     let ModalType: JSX.Element
     const { isAuthModalOpen, modalType } = this.props
 
+    // renders diferent modal based on value
     if (modalType === 1) {
       ModalType = (
         <Login />

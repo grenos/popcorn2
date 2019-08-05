@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
+import { openAuthModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { Transition } from 'react-spring/renderprops.cjs'
 import logo from '../../media/img/logo.png'
 import close from '../../media/img/close.png'
@@ -15,30 +15,32 @@ type PreventDefault = React.FormEvent<HTMLFormElement>
 interface LocalState {
   email: string,
   password: string,
-  confirmPass: string,
-  name: string,
-  nameError: boolean,
   emailError: boolean,
   passError: boolean,
-  confirmPassError: boolean,
   show: boolean
   code: any
   serverError: string
 }
 
+/**
+ * confirm new password with secret code
+ * @class
+  * @param {Function} openAuthModal Action - to close modal
+  * @param {boolean} isConfirmModalOpen used for animation
+  * @param {Function} setAuthModalUI Action - on submit success open success component modal
+  * @param {Function} isFetchingRquest Action - set to true for loading spinner
+  * @param {boolean} isFetching 
+ * @returns {JSX.Element} - Rendered Component 
+ */
 class ForgotPass extends Component<INT.IForgotPass, LocalState> {
   constructor(props: INT.IForgotPass) {
     super(props);
 
     this.state = {
-      name: '',
       email: '',
       password: '',
-      confirmPass: '',
-      nameError: false,
       emailError: false,
       passError: false,
-      confirmPassError: false,
       show: false,
       code: '',
       serverError: ''
@@ -204,7 +206,6 @@ const mapStateToProps = (state: any) => {
 
 export default connect(mapStateToProps, {
   openAuthModal,
-  openConfirmModal,
   setAuthModalUI,
   isFetchingRquest
 })(ForgotPass)

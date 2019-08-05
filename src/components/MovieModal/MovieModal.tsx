@@ -34,6 +34,36 @@ import CatchAll from '../../components/Error/CatchAll'
 
 const URL = 'https://image.tmdb.org/t/p/w1280';
 
+/**
+ * Modal menu opens when a locandina is clicked
+ * @function
+ * @param {number} id 
+ * @param {string} backdrop_path 
+ * @param {string} title 
+ * @param {string} overview 
+ * @param {bool} isMovieModalOpen 
+ * @param {function} openMovieModalRequest Action
+ * @param {function} getMovieInfoRequest Action gets more info about selected item
+ * @param {function} getSerieInfoRequest Action gets more info about selected item
+ * @param {bool} isMovieCatSelected 
+ * @param {object} movieInfo from State - more saved for selected item
+ * @param {object} serieInfo from State - more saved for selected item
+ * @param {function} openVideoSectionRequest Action opens otherVideos modal panel
+ * @param {bool} isVideoSectionOpen
+ * @param {function} openSimilarSectionRequest Action opens similar items panel
+ * @param {bool} isSimilarSectionOpen
+ * @param {function} openMoreInfoRequest Action opens more info panel
+ * @param {bool} isMoreInfoOpen
+ * @param {function} getCastRequest Action get cast for more info panel
+ * @param {function} getSerieFavoriteRequest Action add item to favorites
+ * @param {function} getMovieFavoriteRequest Action add item to favorites
+ * @param {array} favMovies from State - favorites
+ * @param {array} favSeries from State - favorites
+ * @param {function} removeFavMovieRequest Action removie item from favosites
+ * @param {function} removeFavSerieRequest Action removie item from favosites
+ * @param {bool} isUserSignedIn 
+ * @returns {JSX.Element} - Rendered Component 
+ */
 export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
   id,
   backdrop_path,
@@ -81,6 +111,9 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const ref = useRef<HTMLDivElement>(null);
 
+  /**
+   * auto scroll modal on full view when locandina is clicked to open
+   */
   const handleScroll = useCallback((): void => {
     const nav: number = 60;
     if (ref.current) {
@@ -117,6 +150,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   const [videoActive, setVideoActive] = useState<boolean>(false);
 
+  // set video event to state to access later
   const onReady = (event: any): void => {
     const player = event.target;
     setVideoPlayer(player);
@@ -143,6 +177,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   };
 
+  // resets values on modal when another locandina is clicked
   const resetModalsOnLocChange = (): void => {
     openVideoSectionRequest(false);
     openSimilarSectionRequest(false);
@@ -154,6 +189,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // closes modal
   const handleHighlightToggle = (): void => {
     openMovieModalRequest(false);
   };
@@ -167,6 +203,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   };
 
+  // pause video if any of the other modal panels are open
+  // unpause when the are closed
   useEffect(() => {
     if (videoPlayer !== undefined) {
       if (isMovieModalOpen) {
@@ -177,6 +215,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVideoSectionOpen, isSimilarSectionOpen, isMoreInfoOpen, videoPlayer]);
+
 
   const handlePlay = (): void => {
     setTogglePlayer(togglePlayer => !togglePlayer);
@@ -212,6 +251,13 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   };
 
+  /**
+ * checks if favorite item exist in state and adds or remove it depending on status
+ * @param {number} id - data for the Action
+ * @param {string} poster - data for the Action
+ * @param {number} genreId - data for the Action
+ * @param {string} title - data for the Action
+ */
   const handleMovieFavs = (
     id: number,
     poster: string,
@@ -238,6 +284,13 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     }
   }
 
+  /**
+ * checks if favorite item exist in state and adds or remove it depending on status
+ * @param {number} id - data for the Action
+ * @param {string} poster - data for the Action
+ * @param {number} genreId - data for the Action
+ * @param {string} title - data for the Action
+ */
   const handleSerieFavs = (
     id: number,
     poster: string,
@@ -263,7 +316,11 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
       });
     }
   }
-
+  /**
+   * checks if item is already in favorites and renderes right button/heart element
+   * @param {number} id 
+   * @returns {JSX.Element} - Right element to render
+   */
   const haandleFavMovieImg = (id: number): JSX.Element | null => {
     let itemIdM: Array<number> = [];
     let itemIdS: Array<number> = [];

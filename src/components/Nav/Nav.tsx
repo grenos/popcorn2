@@ -6,6 +6,13 @@ import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import useWindowSize from '@rehooks/window-size';
 
+
+/**
+ * nav component hides some of its elements based on pathname and window width
+ * @function
+ * @param {number} scrolled - passed from parent (App)
+ * @param {object} location - passed from Router to get current location
+ */
 const Nav: React.FC<INT.INavProps> = ({ scrolled, location }): JSX.Element => {
 
   let ww = useWindowSize();
@@ -38,22 +45,20 @@ const Nav: React.FC<INT.INavProps> = ({ scrolled, location }): JSX.Element => {
   })
 
 
+  // hide search inout on favorites page
   useEffect(() => {
-
     if (location.pathname === '/favorites') {
       setShowSearch(false)
     } else {
       setShowSearch(true)
     }
-
     return () => {
       if (location.pathname === '/favorites') {
         setShowSearch(false)
       } else {
         setShowSearch(true)
       }
-    };
-
+    }
   }, [location])
 
   return (

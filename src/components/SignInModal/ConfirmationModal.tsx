@@ -4,7 +4,7 @@ import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import { Transition } from 'react-spring/renderprops.cjs'
 import { Auth } from 'aws-amplify'
-import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest, getToggleMenuRequest } from '../../redux/actions/uiActions'
+import { openAuthModal, openConfirmModal, isFetchingRquest, getToggleMenuRequest } from '../../redux/actions/uiActions'
 import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
 import Loader from '../Loader/Loader'
 
@@ -16,6 +16,22 @@ interface LocalState {
   serverErrorConfirm: string
 }
 
+
+/**
+ * Confirm Signup Coponent (it signs you up after registration confirmation)
+ * @class
+  * @param {boolean} isConfirmModalOpen - used for animation
+  * @param {Function} openAuthModal - Action closes modal after confirm success
+  * @param {Function} openConfirmModal - Action closes modal after confirm success
+  * @param {string} password - send to AWS
+  * @param {string} email - send to AWS
+  * @param {Function} isFetchingRquest - Action to show spinner
+  * @param {boolean} isFetching - show spinner
+  * @param {Function} getToggleMenuRequest - Action close slise menu after confirm email success
+  * @param {Function} saveUserInfo - Action save user info to store 
+  * @param {Function} userSignedIn - Action set to true on success
+ * @returns {JSX.Element} - Rendered Component 
+ */
 class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
   constructor(props: INT.IConfirmSignUp) {
     super(props)
@@ -30,10 +46,10 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
     this.handlePassword = this.handlePassword.bind(this)
   }
 
-
   handlePassword(e: InputVal): void {
     this.setState({ confirmationCode: e.target.value })
   }
+
 
   handleConfirm(event: PreventDefault): void {
     event.preventDefault()
@@ -48,6 +64,7 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
       getToggleMenuRequest
     } = this.props
     const { confirmationCode } = this.state
+
 
     Auth.confirmSignUp(email, confirmationCode, {})
       .then(() => {
@@ -129,6 +146,5 @@ export default connect(mapStateToProps, {
   getToggleMenuRequest,
   openAuthModal,
   openConfirmModal,
-  setAuthModalUI,
   isFetchingRquest
 })(ConfirmationModal)

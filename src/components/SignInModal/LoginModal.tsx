@@ -20,6 +20,18 @@ interface LocalState {
   show: boolean
 }
 
+/**
+ * FAvorites component displays categorised favorites
+  * @class
+  * @param {function} openAuthModal Action - to close modal
+  * @param {function} saveUserInfo Action -  save user info to store
+  * @param {function} userSignedIn Action -  set to true on signin success
+  * @param {function} getToggleMenuRequest Action - close slide menu
+  * @param {function} setAuthModalUI Action - set Auth modal 
+  * @param {function} isFetchingRquest Action 
+  * @param {bool} isFetching
+  * @returns {JSX.Element} - Rendered Component 
+ */
 class Login extends Component<INT.ILogin, LocalState> {
   constructor(props: INT.ILogin) {
     super(props);
