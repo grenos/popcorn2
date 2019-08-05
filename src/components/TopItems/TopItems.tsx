@@ -3,7 +3,12 @@ import * as INT from '../../helpers/interfaces'
 import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
-import { openMovieModalRequest, getToggleMovieCatRequest, getToggleSerieCatRequest, relatedMovieSelected } from '../../redux/actions/uiActions'
+import {
+  openMovieModalRequest,
+  getToggleMovieCatRequest,
+  getToggleSerieCatRequest,
+  relatedMovieSelected
+} from '../../redux/actions/uiActions'
 import {
   getMovieFavoriteRequest,
   removeFavMovieRequest,

@@ -12,8 +12,7 @@ const SlideMenu = lazy(() => import('components/SlideMenu/SlideMenu'))
 
 export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps> = ({
   isMenuOpenProp,
-  location,
-  userSignedIn
+  location
 }): JSX.Element | null => {
 
   const [scrolled, setScrolled] = useState<number>(0);
@@ -48,7 +47,7 @@ export const UnconnectedApp: React.FC<INT.IMenuPropSingle & RouteComponentProps>
   } else {
     return (
       <>
-        < Nav scrolled={scrolled} />
+        < Nav scrolled={scrolled} location={location} />
         <Suspense fallback={<Loader />}>
           <SlideMenu />
         </Suspense>

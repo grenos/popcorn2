@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchInput'
 import NavToggle from '../NavToggle/NavToggle'
@@ -6,9 +6,15 @@ import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 import useWindowSize from '@rehooks/window-size';
 
-const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
+const Nav: React.FC<INT.INavProps> = ({ scrolled, location }): JSX.Element => {
 
   let ww = useWindowSize();
+  const [showSearch, setShowSearch] = useState<boolean>(true)
+
+
+  const transition = useSpring({
+    transform: showSearch ? `translate3d(0%,0,0)` : `translate3d(150%,0,0)`
+  })
 
   const animateHeader = useSpring<INT.IAnimateHeader>({
     background: scrolled > 30
@@ -32,6 +38,23 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
   })
 
 
+  useEffect(() => {
+
+    if (location.pathname === '/favorites') {
+      setShowSearch(false)
+    } else {
+      setShowSearch(true)
+    }
+
+    return () => {
+      if (location.pathname === '/favorites') {
+        setShowSearch(false)
+      } else {
+        setShowSearch(true)
+      }
+    };
+
+  }, [location])
 
   return (
     <animated.div
@@ -56,9 +79,10 @@ const Nav: React.FC<INT.IScrollProps> = ({ scrolled }): JSX.Element => {
         />
       </animated.div>}
 
-      <div className="nav__search-inp">
+      {<animated.div className="nav__search-inp" style={transition}>
         <SearchInput scrolled={scrolled} />
-      </div>
+      </animated.div>}
+
     </animated.div >
   )
 }

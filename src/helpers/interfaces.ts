@@ -33,6 +33,11 @@ export interface IScrollProps {
   scrolled: number
 }
 
+export interface INavProps {
+  location: any
+  scrolled: number
+}
+
 export interface IAnimateLogo {
   transform: number | string
   opacity: number
