@@ -4,16 +4,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import { history } from '../redux/store/store'
 import Loader from '../components/Loader/Loader'
 
-
 import App from '../components/App/App'
 import TopItemsPage from './pages/TopItemsPage'
-// import GenreItemsPage from './pages/GenreItemsPage'
-// import SearchResultsPage from './pages/SearchResultsPage'
-// import GenreItemsPageSeries from './pages/GenreItemsPageSeries'
-// import TitlePage from './pages/TitlePage'
-// import FavoritesPage from './pages/FavoritesPage'
-// import ApiCallError from '../components/Error/ApiCallError'
-// import ErrorFof from '../components/Error/ErrorFof'
 
 const GenreItemsPage = lazy(() => import('./pages/GenreItemsPage'))
 const SearchResultsPage = lazy(() => import('./pages/SearchResultsPage'))
