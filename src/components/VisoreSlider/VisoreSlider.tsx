@@ -16,10 +16,28 @@ import popcorn from '../../media/img/popcorn.png'
 import useWindowSize from '@rehooks/window-size';
 import CatchAll from '../../components/Error/CatchAll'
 
-
 const URL = 'https://image.tmdb.org/t/p/original'
 const URL_MOB = 'https://image.tmdb.org/t/p/w500'
 
+
+/**
+ * Visore slider get the first 7 items from movie/serie array to display 
+ * @function
+ * @param {bool} isMovieCatSelected
+ * @param {array} topMovies - gets the first 7 items from movie/serie array to display
+ * @param {array} topSeries - gets the first 7 items from movie/serie array to display
+ * @param {function} getMovieInfoModalRequest ACTION - calls api to get item info for the title page
+ * @param {function} getSerieInfoModalRequest ACTION - calls api to get item info for the title page
+ * @param {function} getMovieFavoriteRequest Action - add item to favorites
+ * @param {function} removeFavMovieRequest Action - remove item from favorites
+ * @param {function} getSerieFavoriteRequest Action - add item to favorites
+ * @param {function} removeFavSerieRequest Action - remove item from favorites
+ * @param {array} favMovies array of favorites 
+ * @param {array} favSeries array of favorites 
+ * @param {bool} relatedMovieSelected set to true to render correct movie on title page (false for serie)
+ * @param {bool} isUserSignedIn
+ * @returns {JSX.Element}
+ */
 export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   isMovieCatSelected,
   topMovies,
@@ -51,6 +69,12 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     pauseOnHover: false,
   }
 
+  /**
+   * calls action to go to title page
+   * @function
+   * @param id 
+   * @param title 
+   */
   const handleGoToMovie = (id: number, title: string, ): void => {
     relatedMovieSelected(TextTrackCueList)
     getMovieInfoModalRequest(id, title)
@@ -58,6 +82,12 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     // history.push(`/title/${makeDashesUrl(title)}`)
   }
 
+  /**
+   * calls action to go to title page
+   * @function
+   * @param id 
+   * @param title 
+   */
   const handleGoToSerie = (id: number, name: string, ): void => {
     relatedMovieSelected(false)
     getSerieInfoModalRequest(id, name)
@@ -65,10 +95,18 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     // history.push(`/title/${makeDashesUrl(name)}`)
   }
 
-
+  /**
+   * checks if item exists in favorites If NO adds it / if YES removes it
+   * @function
+   * @param {number} id 
+   * @param {string} poster 
+   * @param {number} genreId 
+   * @param {string} title 
+   */
   const handleMovieFavs = (
     id: number, poster: string, genreId: number, title: string
   ) => {
+    // on first load to avoid "length of undefined"
     (favMovies.length === 0) &&
       getMovieFavoriteRequest({ id, poster, genreId, title })
 
@@ -89,9 +127,18 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     }
   }
 
+  /**
+  * checks if item exists in favorites If NO adds it / if YES removes it
+  * @function
+  * @param {number} id 
+  * @param {string} poster 
+  * @param {number} genreId 
+  * @param {string} title 
+  */
   const handleSerieFavs = (
     id: number, poster: string, genreId: number, name: string
   ): void => {
+    // on first load to avoid "length of undefined"
     (favSeries.length === 0) &&
       getSerieFavoriteRequest({ id, poster, genreId, name })
 
@@ -113,8 +160,17 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
   }
 
 
+  /**
+   * Checks if passed id exists on favorites array 
+   * @function
+   * @param {number} id
+   * @param {string} backdrop_path
+   * @param {Array} genre_ids
+   * @param {array} rest - movie title and serie name
+   * @returns {(JSX.Element | null)} - Returns correct element depending on user status (signin)
+   */
   const haandleFavMovieImg = (
-    id: number, backdrop_path: string, genre_ids: any, ...rest: any
+    id: number, backdrop_path: string, genre_ids: Array<number>, ...rest: Array<string>
   ): JSX.Element | null => {
     let itemIdM: Array<number> = []
     let itemIdS: Array<number> = []
@@ -167,6 +223,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
     }
   }
 
+  // first seven items of array displayed here
   if (topMovies || topSeries) {
     return (
       <Carousel {...params}

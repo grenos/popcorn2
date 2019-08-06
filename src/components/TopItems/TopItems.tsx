@@ -34,6 +34,37 @@ interface RouteParams {
   name: any; id: string, param2?: string
 }
 
+/**
+ * Top Items Component - Main component - displays locandine and modal for all pages
+ * @function
+ * @param {bool} isMovieCatSelected - 
+ * @param {array} movies - **GENERIC NAME** - check respective router pages to see array passed
+ * @param {array} series - **GENERIC NAME** - check respective router pages to see array passed
+ * @param {function} getMovies - **GENERIC NAME** - ACTION check respective router pages to see function passed
+ * @param {function} getSeries - **GENERIC NAME** - ACTION check respective router pages to see function passed
+ * @param {number} moviesId - Genre id - used to call next pages of genre top items
+ * @param {number} seriesId - Genre id - used to call next pages of genre top items
+ * @param {object} location -  check current page and router state to determine genre counter for pagination
+ * @param {object} history -  used to push new state to router
+ * @param {object} match -  to determine current page to set top item OR genre counter
+ * @param {bool} TopItemsActive - used for styling purposes
+ * @param {function} openMovieModalRequest - ACTION open movie modal on locandina click
+ * @param {function} getToggleMovieCatRequest - ACTION makes movies selected category
+ * @param {function} getToggleSerieCatRequest - ACTION makes series selected category
+ * @param {bool} SearchItemsActive - used for styling purposes
+ * @param {function} getMovieFavoriteRequest - ACTION adds movie to favorites
+ * @param {function} getSerieFavoriteRequest - ACTION adds serie to favorites
+ * @param {array} favMovies - get array of favorites 
+ * @param {array} favSeries - get array of favorites  
+ * @param {function} removeFavMovieRequest - ACTION remove movie from favorites
+ * @param {function} removeFavSerieRequest - ACTION remove serie from favorites
+ * @param {bool} isUserSignedIn - chekc if user is signed in (to render elements or not)
+ * @param {bool} isFetchingTopItems - used for spinner in TopItems (different from isFetching which is used in AWS)
+ * @param {function} getMovieInfoModalRequest - ACTION on locandina click if mobile opens title page instead of movie modal
+ * @param {function} getSerieInfoModalRequest - ACTION on locandina click if mobile opens title page instead of movie modal
+ * @param {bool} relatedMovieSelected ACTION - set to true to display correct movie on title page (set to false to display correct serie)
+ * @returns {JSX.Element}
+ */
 export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponentProps<RouteParams>> = React.memo(({
   isMovieCatSelected,
   movies,
@@ -86,18 +117,22 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const [genreMovieCounter, setGenreMovieCounter] = useState<number>(1)
   const [genreSerieCounter, setGenreSerieCounter] = useState<number>(1)
 
+
+  // used for comparisson to display correct modal info on locandina click
   const [selectedId, setSelectedId] = useState<number>(0)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
-  const [toggle, setToggle] = useState<boolean>(false)
 
-  useEffect(() => {
-    setToggle(toggle => !toggle)
-    return () => {
-      setToggle(toggle => !toggle)
-    }
-  }, [toggle, setToggle])
+  // const [toggle, setToggle] = useState<boolean>(false)
+  // useEffect(() => {
+  //   setToggle(toggle => !toggle)
+  //   return () => {
+  //     setToggle(toggle => !toggle)
+  //   }
+  // }, [toggle, setToggle])
 
+
+  // dont remember why i used it
   useEffect(() => {
     if (match.url === `/genres/films/${match.params.id}`) {
       getToggleMovieCatRequest(true)
@@ -108,6 +143,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }, [match.url, getToggleMovieCatRequest, getToggleSerieCatRequest, match.params.id])
 
+  // sets counter on sessionStorage 
+  // so in return to previous page it remebers pagination
   useEffect(() => {
     // this needs to be on the return (C.D.U.) otherwise pagination doesnt work
     return () => {
@@ -127,6 +164,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieCounter, serieCounter, genreMovieCounter, genreSerieCounter, match.url])
 
+  // gets counter's info from sessionstorage for pagination
   useEffect(() => {
     if (match.url === '/') {
       setMovieCounter(parseInt(sessionStorage.getItem('top_movies') || `1`))
@@ -143,6 +181,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, [])
 
+  // controls browser history 
+  // to set correct counter for pagination
   const handlePagination = (): void => {
     if (isMovieCatSelected) {
       if (match.url === '/') {
@@ -186,16 +226,25 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
+
+  /**
+   * if desktop goes to last else and opens modal
+   * if mobile opens title page instaed
+   * @function
+   * @param {number} id 
+   * @param {number }index 
+   * @param {string} rest - its movie title and serie name
+   */
   const handleModalStates = (
-    id: number, index: number, ...rest: any
+    id: number, index: number, ...rest: Array<string>
   ) => {
     if (ww.innerWidth <= 668) {
       if (isMovieCatSelected) {
-        // open movie info modal
+        // open movie title page
         getMovieInfoModalRequest(id, rest[0])
         relatedMovieSelected(true)
       } else {
-        // open serie info modal
+        // open serie ititle page
         getSerieInfoModalRequest(id, rest[0])
         relatedMovieSelected(false)
       }
@@ -207,6 +256,16 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
+  /**
+   * Function that return the movie modal component
+   * @param {number} id 
+   * @param {string} backdrop_path 
+   * @param {string} title 
+   * @param {string} overview 
+   * @param {number} index 
+   * @param {string} poster_path 
+   * @returns {JSX.Element | null} 
+   */
   const handleModal = (
     id: number,
     backdrop_path: string,
@@ -232,12 +291,20 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
+  /**
+   * checks if item exists in favorites If NO adds it / if YES removes it
+   * @function
+   * @param {number} id 
+   * @param {string} poster 
+   * @param {number} genreId 
+   * @param {string} title 
+   */
   const handleMovieFavs = (
     id: number, poster: string, genreId: number, title: string
   ) => {
+    // on first load to avoid "length of undefined"
     (favMovies.length === 0) &&
       getMovieFavoriteRequest({ id, poster, genreId, title })
-
 
     if (favMovies.length !== 0) {
       let removedID: boolean = false
@@ -256,9 +323,18 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     }
   }
 
+  /**
+   * checks if item exists in favorites If NO adds it / if YES removes it
+   * @function
+   * @param {number} id 
+   * @param {string} poster 
+   * @param {number} genreId 
+   * @param {string} title 
+   */
   const handleSerieFavs = (
     id: number, poster: string, genreId: number, name: string
   ): void => {
+    // on first load to avoid "length of undefined"
     (favSeries.length === 0) &&
       getSerieFavoriteRequest({ id, poster, genreId, name })
 
@@ -311,6 +387,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
+  // uses lodash/chunk to seperate top items to smaller arrays
+  // so every row is consisted of maximum 7 items
+  // and the movie modal opens bellow every row for the selected locandina
   const renderMovies = (): JSX.Element[] => {
     return (
       chunk(movies, _WW).map((arr: INT.IMovie[], index: number) => (
@@ -350,6 +429,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     )
   }
 
+  // uses lodash/chunk to seperate top items to smaller arrays
+  // so every row is consisted of maximum 7 items
+  // and the movie modal opens bellow every row for the selected locandina
   const renderSeries = (): JSX.Element[] => {
     return (
       chunk(series, _WW).map((arr: INT.ISerie[], index: number) => (
