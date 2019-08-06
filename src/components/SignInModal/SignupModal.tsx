@@ -27,6 +27,17 @@ interface LocalState {
   serverError: string
 }
 
+/**
+  *  Sign Up component 
+  * @class
+  * @param {function} openAuthModal - Action used to close modal
+  * @param {function} makeSignUpGlobal - Action sends signup data to store
+  * @param {function} openConfirmModal - Action opens confirmation modal on signup success
+  * @param {bool} isConfirmModalOpen  used for animation
+  * @param {function} isFetchingRquest - Action for spinner
+  * @param {bool} isFetching for spinner
+  * @returns {JSX.Element}
+ */
 class SignUp extends Component<INT.ISignUp, LocalState> {
   constructor(props: INT.ISignUp) {
     super(props);

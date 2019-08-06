@@ -21,7 +21,29 @@ import { Auth } from 'aws-amplify'
 import get from 'lodash.get'
 
 
-
+/**
+ * 
+ * @function
+ * @param {bool} isMenuOpenProp - used for animation
+ * @param {function} getMovieGenresRequest - Action called on mount (gets all genres)
+ * @param {function} getSerieGenresRequest - Action called on mount (gets all genres)
+ * @param {array} movieGenres - aray of objects (genres to print)
+ * @param {array} serieGenres - aray of objects (genres to print)
+ * @param {bool} isMovieCatSelected 
+ * @param {function} getMoviesByGenreRequest - Action gets first page of genre selected
+ * @param {function} getSeriesByGenreRequest - Action gets first page of genre selected
+ * @param {object} location - sets url history state to current genre page
+ * @param {object} history - push to genre page
+ * @param {function} openAuthModal - Action open auth modal
+ * @param {function} userSignedIn - Action sets to false on logout
+ * @param {function} clearUserInfo - Action clear user info from state on logout
+ * @param {function} getToggleMenuRequest - Action close slide menu on logout
+ * @param {object} userInfo - gets userInfo from state to display name once user is logged in
+ * @param {bool} isUserSignedIn - used as toggle to display signin / login info 
+ * @param {function} setAuthModalUI - choose auth modal to display 
+ * @param {number} isAuthModalUI - passes to child type of auth modal to display
+ * @returns {JSX.Element}
+ */
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
   isMenuOpenProp,
   getMovieGenresRequest,
@@ -57,6 +79,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
       : getSerieGenresRequest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMovieCatSelected, getMovieGenresRequest, getSerieGenresRequest])
+
 
   const renderMovieGenres = (): JSX.Element => {
     return (
@@ -134,10 +157,18 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     }, 1000)
   }
 
+  /**
+   * handles clicked genre actions
+   * @function
+   * @param {number} id - to make api call 
+   * @param {number} page - always he first page
+   * @param {string} name - to be displayed as URL
+   */
   const handleMovieGenreClick = (id: number, page: number, name: string): void => {
     //! not sure if useful keep here for now
     // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
     // if (location.pathname !== location.state.from) {
+
     getMoviesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
     setTimeout(() => {
@@ -146,6 +177,13 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
     // }
   }
 
+  /**
+ * handles clicked genre actions
+ * @function
+ * @param {number} id - to make api call 
+ * @param {number} page - always he first page
+ * @param {string} name - to be displayed as URL
+ */
   const handleSerieGenreClick = (id: number, page: number, name: string): void => {
     getSeriesByGenreRequest(id, page, makeDashesUrl(name))
     history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })

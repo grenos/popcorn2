@@ -32,6 +32,11 @@ const Options = {
 interface IProducer { name: string }
 interface IGenres { id: number, name: string }
 
+/**
+ * Displays selected item page/modal
+ * @function
+ * @param {object} movieInfo Contains selected item info
+ */
 const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element | null => {
 
   let ww = useWindowSize();
@@ -52,6 +57,8 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element
     }
   }, [ww.innerWidth])
 
+  // get everything with lodash/get to avoid loading page 
+  // before mounting component
   const backdrop_path: string = get(movieInfo, 'backdrop_path', '')
   const homepage: string = get(movieInfo, 'homepage', '')
   const original_language: string = get(movieInfo, 'original_language', '')

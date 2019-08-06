@@ -4,7 +4,12 @@ import { setAuthModalUI } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import logo from '../../media/img/logo.png'
 
-
+/**
+ * Succes Component (Shown after password change)
+ * @class
+ * @param {function} setAuthModalUI - Action returns back to sign up modal after 3 seconds
+ * @returns {JSX.Element}
+ */
 class SuccessModal extends Component<INT.ISuccessModal> {
 
   componentDidMount() {
