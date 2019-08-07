@@ -339,14 +339,16 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
         if (itemIdM.includes(id)) {
           return (
             <button onClick={() =>
-              handleMovieFavs(id, backdrop_path, genres[0].id, title)}>
+              handleMovieFavs(id, backdrop_path, genres[0].id, title)}
+              data-test="remove-cta">
               <span>Remove from list</span>
             </button>
           )
         } else {
           return (
             <button onClick={() =>
-              handleMovieFavs(id, backdrop_path, genres[0].id, title)}>
+              handleMovieFavs(id, backdrop_path, genres[0].id, title)}
+              data-test="add-cta">
               <span>Add to list</span>
             </button>
           )
@@ -355,14 +357,16 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
         if (itemIdS.includes(id)) {
           return (
             <button onClick={() =>
-              handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}>
+              handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}
+              data-test="remove-cta-serie">
               <span>Remove from list</span>
             </button>
           )
         } else {
           return (
             <button onClick={() =>
-              handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}>
+              handleSerieFavs(serieInfo.id, serieInfo.backdrop_path, serieInfo.genres[0].id, serieInfo.name)}
+              data-test="add-cta-serie">
               <span>Add to list</span>
             </button>
           )

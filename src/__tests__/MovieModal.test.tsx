@@ -15,6 +15,11 @@ describe('<UnconnectedMovieModal />', () => {
   let openVideoSectionRequestMock: any
   let openSimilarSectionRequestMock: any
   let openMoreInfoRequestMock: any
+  let getCastRequestMock: any
+  let getSerieFavoriteRequestMock: any
+  let getMovieFavoriteRequestMock: any
+  let removeFavMovieRequestMock: any
+  let removeFavSerieRequestMock: any
 
   beforeEach(() => {
     openMovieModalRequestMock = jest.fn()
@@ -23,11 +28,18 @@ describe('<UnconnectedMovieModal />', () => {
     openVideoSectionRequestMock = jest.fn()
     openSimilarSectionRequestMock = jest.fn()
     openMoreInfoRequestMock = jest.fn()
+    getCastRequestMock = jest.fn()
+    getSerieFavoriteRequestMock = jest.fn()
+    getMovieFavoriteRequestMock = jest.fn()
+    removeFavMovieRequestMock = jest.fn()
+    removeFavSerieRequestMock = jest.fn()
 
     setup = (testProps: any = {}) => {
       const userProps = {
+        id: 666,
         title: 'matrix',
         overview: 'Lorem, ipsum',
+        backdrop_path: 'lorem.jpg',
         movieInfo: {
           genres: [{ id: 32, name: 'action' }],
           tagline: 'its a movie ok?',
@@ -44,6 +56,9 @@ describe('<UnconnectedMovieModal />', () => {
         serieInfo: {
           genres: [{ id: 32, name: 'action' }],
           tagline: 'its a movie ok?',
+          name: 'GOT',
+          backdrop_path: 'poster.jpg',
+          id: 21,
           videos: {
             results: [
               { id: 345, key: 'fdfgdfg', name: 'just a title' },
@@ -54,6 +69,10 @@ describe('<UnconnectedMovieModal />', () => {
           }
         },
 
+        favMovies: [{ id: 666, genreId: 32 }],
+        favSeries: [{ id: 666, genreId: 32 }],
+
+        isUserSignedIn: true,
         isMovieCatSelected: true,
         isMovieModalOpen: true,
         isVideoSectionOpen: false,
@@ -65,7 +84,12 @@ describe('<UnconnectedMovieModal />', () => {
         getSerieInfoRequest: getSerieInfoRequestMock,
         openVideoSectionRequest: openVideoSectionRequestMock,
         openSimilarSectionRequest: openSimilarSectionRequestMock,
-        openMoreInfoRequest: openMoreInfoRequestMock
+        openMoreInfoRequest: openMoreInfoRequestMock,
+        getCastRequest: getCastRequestMock,
+        getSerieFavoriteRequest: getSerieFavoriteRequestMock,
+        getMovieFavoriteRequest: getMovieFavoriteRequestMock,
+        removeFavMovieRequest: removeFavMovieRequestMock,
+        removeFavSerieRequest: removeFavSerieRequestMock
       }
 
       const props = { ...userProps, ...testProps }
@@ -114,38 +138,86 @@ describe('<UnconnectedMovieModal />', () => {
   })
 
 
-  test('should test click handlers onload', () => {
-    setup({})
-
-    // on mount
+  test('should test action calls on mount', () => {
+    setup()
     expect(openVideoSectionRequestMock).toHaveBeenCalledTimes(1)
     expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(1)
     expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(1)
+  })
 
-
+  test('should test close btn', () => {
+    setup()
     const close = wrapper.find('.close')
     close.simulate('click')
     expect(openMovieModalRequestMock).toHaveBeenCalledTimes(1)
     expect(openMovieModalRequestMock).toHaveBeenCalledWith(false)
     expect(getMovieInfoRequestMock).toHaveBeenCalledTimes(1)
+  })
 
+  test('should test related videos button', () => {
+    setup()
     const videosBtn = findByTestAttr(wrapper, 'videosBtn')
     videosBtn.simulate('click')
     // why is it called twice?
     expect(openVideoSectionRequestMock).toHaveBeenCalledTimes(2)
 
+  })
+
+  test('should test related items button', () => {
+    setup()
     const relatedBtn = findByTestAttr(wrapper, 'relatedBtn')
     relatedBtn.simulate('click')
     // why is it called twice?
     expect(openSimilarSectionRequestMock).toHaveBeenCalledTimes(2)
+  })
 
-    const infoBtn = findByTestAttr(wrapper, 'relatedBtn')
+  test('should test more info button', () => {
+    setup()
+    const infoBtn = findByTestAttr(wrapper, 'infoBtn')
     infoBtn.simulate('click')
-    expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(1)
+    // why is it called twice?
+    expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(2)
+    expect(openMoreInfoRequestMock).toHaveBeenCalledWith(true)
+    expect(getCastRequestMock).toHaveBeenCalledTimes(1)
+    expect(getCastRequestMock).toHaveBeenCalledWith(666)
+  })
 
-
+  test('should test button if series category selected', () => {
     setup({ isMovieCatSelected: false })
     expect(getSerieInfoRequestMock).toHaveBeenCalledTimes(1)
+  })
+
+  test('should test remove from favorites Action', () => {
+    setup()
+    const removeFromFav = findByTestAttr(wrapper, 'remove-cta')
+    removeFromFav.simulate('click')
+    expect(removeFavMovieRequestMock).toHaveBeenCalledTimes(1)
+    expect(removeFavMovieRequestMock).toHaveBeenCalledWith(666, 32)
+  })
+
+
+  test('should test add to favorites Action', () => {
+    setup({ favMovies: [{ id: 1 }] })
+    const addToFav = findByTestAttr(wrapper, 'add-cta')
+    addToFav.simulate('click')
+    expect(getMovieFavoriteRequestMock).toHaveBeenCalledTimes(1)
+    expect(getMovieFavoriteRequestMock).toHaveBeenCalledWith({ "genreId": 32, "id": 666, "poster": "lorem.jpg", "title": "matrix" })
+  })
+
+
+  // test('should remove favorite serie', () => {
+  //   setup({ isMovieCatSelected: false })
+  //   const removeFromFavSerie = findByTestAttr(wrapper, 'remove-cta-serie')
+  //   removeFromFavSerie.simulate('click')
+  //   expect(removeFavSerieRequestMock).toHaveBeenCalledTimes(1)
+  // })
+
+  test('should test add favorite serie', () => {
+    setup({ isMovieCatSelected: false, favSeries: [{ id: 1 }] })
+    const removeFromFavSerie = findByTestAttr(wrapper, 'add-cta-serie')
+    removeFromFavSerie.simulate('click')
+    expect(getSerieFavoriteRequestMock).toHaveBeenCalledTimes(1)
+    expect(getSerieFavoriteRequestMock).toHaveBeenCalledWith({ "genreId": 32, "id": 21, "name": "GOT", "poster": "poster.jpg" })
   })
 
 })
