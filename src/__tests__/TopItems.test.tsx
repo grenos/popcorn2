@@ -73,17 +73,5 @@ describe('<UnconnectedToItems />', () => {
     const component = findByTestAttr(wrapper, 'locandina-serie')
     expect(component.length).toBe(1)
   })
-
-  test('should open modal', () => {
-    // setup()
-    // const locandina = wrapper.find('.loc-wrapper').last()
-    // expect(openMovieModalRequestMock).toHaveBeenCalledTimes(0)
-    // locandina.simulate('click')
-
-    // const modal = wrapper.find('MovieModal')
-    // // const modal = findByTestAttr(wrapper, 'component-modal')
-    // expect(modal.length).toBe(1)
-    // expect(openMovieModalRequestMock).toHaveBeenCalledTimes(1)
-  })
 })
 
