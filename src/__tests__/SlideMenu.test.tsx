@@ -1,7 +1,7 @@
 import React from 'react'
 import Enzyme, { shallow, mount } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import { findByTestAttr } from '../helpers/testUtils'
+import { findByTestAttr, storeFactory } from '../helpers/testUtils'
 import { UnconnectedSlideMenu } from '../components/SlideMenu/SlideMenu'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
@@ -13,33 +13,6 @@ const mountWithRouter = (UnconnectedSlideMenu: any) =>
   mount(<Router>{UnconnectedSlideMenu}</Router>);
 
 
-test('should render component', () => {
-  const getMoviesByGenreRequestMock = jest.fn()
-  const getSeriesByGenreRequestMock = jest.fn()
-  const getMovieGenresRequestMock = jest.fn()
-  const getSerieGenresRequestMock = jest.fn()
-
-  const userProps = {
-    isMenuOpenProp: false,
-    movieGenres: [{ id: 28, name: 'Action' }],
-    serieGenres: [{ id: 10759, name: '"Action & Adventure"' }],
-    isMovieCatSelected: false,
-    location: location,
-    history: history
-  }
-
-  const Mocks = {
-    getMoviesByGenreRequest: getMoviesByGenreRequestMock,
-    getSeriesByGenreRequest: getSeriesByGenreRequestMock,
-    getMovieGenresRequest: getMovieGenresRequestMock,
-    getSerieGenresRequest: getSerieGenresRequestMock
-  }
-  const props = { ...Mocks, ...userProps }
-
-  const wrapper = shallow(<UnconnectedSlideMenu {...props} />)
-  const component = findByTestAttr(wrapper, 'slide-menu')
-  expect(component.length).toBe(1)
-})
 
 
 describe('<UnconnectedSlideMenu />', () => {
@@ -49,75 +22,77 @@ describe('<UnconnectedSlideMenu />', () => {
   let getMovieGenresRequestMock: any
   let getSerieGenresRequestMock: any
   let setup: any
+  let openAuthModalMock: any
+  let userSignedInMock: any
+  let clearUserInfoMock: any
+  let getToggleMenuRequestMock: any
+  let setAuthModalUIMock: any
 
   beforeEach(() => {
     getMoviesByGenreRequestMock = jest.fn()
     getSeriesByGenreRequestMock = jest.fn()
     getMovieGenresRequestMock = jest.fn()
     getSerieGenresRequestMock = jest.fn()
+    openAuthModalMock = jest.fn()
+    userSignedInMock = jest.fn()
+    clearUserInfoMock = jest.fn()
+    getToggleMenuRequestMock = jest.fn()
+    setAuthModalUIMock = jest.fn()
 
-    setup = (testProps: any = {}) => {
+    setup = (initialState: any = {}, testProps: any = {}) => {
       const userProps = {
-        isMenuOpenProp: false,
+        isMenuOpenProp: true,
         movieGenres: { id: 28, name: 'Action' },
         serieGenres: { id: 10759, name: '"Action & Adventure"' },
-        isMovieCatSelected: false,
-        location: location,
-        history: history
+        isMovieCatSelected: true,
+        location,
+        history,
+        userInfo: { attrubutes: { name: 'vas' } },
+        isUserSignedIn: true,
+        isAuthModalUI: 1
       }
 
       const Mocks = {
         getMoviesByGenreRequest: getMoviesByGenreRequestMock,
         getSeriesByGenreRequest: getSeriesByGenreRequestMock,
         getMovieGenresRequest: getMovieGenresRequestMock,
-        getSerieGenresRequest: getSerieGenresRequestMock
+        getSerieGenresRequest: getSerieGenresRequestMock,
+        userSignedIn: userSignedInMock,
+        clearUserInfo: clearUserInfoMock,
+        getToggleMenuRequest: getToggleMenuRequestMock,
+        setAuthModalUI: setAuthModalUIMock,
+        openAuthModal: openAuthModalMock
       }
+
+      const store = storeFactory(initialState)
       const props = { ...Mocks, ...userProps, ...testProps }
 
-      wrapper = mountWithRouter(<UnconnectedSlideMenu {...props} />)
+      wrapper = shallow(<UnconnectedSlideMenu store={store} {...props} />)
       return wrapper
     }
   })
 
+
+  test('should render component', () => {
+    setup()
+    const component = findByTestAttr(wrapper, 'slide-menu')
+    expect(component.length).toBe(1)
+  })
+
   test('should test if isMenuOpen prop open menu', () => {
-    const wrapper = setup({ isMenuOpenProp: true })
-    expect(wrapper.find('.nav-wrapper').first().length).toBe(1)
+    setup()
+    expect(wrapper.find('.nav-wrapper').length).toBe(1)
   })
 
   test('should test if isMovieCatSelected prop renders MovieGenres', () => {
-    const wrapper = setup({ isMovieCatSelected: true, isMenuOpenProp: true })
+    setup()
     expect(wrapper.find('#movie-genres').length).toBe(1)
   })
 
   test('should test if not isSerieCatSelected prop renders SerieGenres', () => {
-    const wrapper = setup({ isMenuOpenProp: true })
+    setup({}, { isMovieCatSelected: false })
+
     expect(wrapper.find('#serie-genres').length).toBe(1)
-  })
-
-  test('should test if getMoviesByGenreRequest gets called', () => {
-    const wrapper = setup({ isMenuOpenProp: true, isMovieCatSelected: true })
-    const list = findByTestAttr(wrapper, 'movie-genres-list-items').last()
-
-    list.simulate('click')
-    const getMoviesByGenreRequest = getMoviesByGenreRequestMock.mock.calls.length
-    expect(getMoviesByGenreRequest).toBe(1)
-    expect(getMoviesByGenreRequestMock).toHaveBeenCalledWith(28, 1, 'Action')
-  })
-
-  test('should test if getSeriesByGenreRequest gets called', () => {
-    const wrapper = setup({ isMenuOpenProp: true })
-    const list = findByTestAttr(wrapper, 'serie-genres-list-items').last()
-
-    list.simulate('click')
-    const getSeriesByGenreRequest = getSeriesByGenreRequestMock.mock.calls.length
-    expect(getSeriesByGenreRequest).toBe(1)
-    expect(getSeriesByGenreRequestMock).toHaveBeenCalledWith(10759, 1, '"Action_&_Adventure"')
-  })
-
-  test('should call getMovieGenresRequest', () => {
-    setup({ isMovieCatSelected: true })
-    const getMovieGenresRequest = getMovieGenresRequestMock.mock.calls.length
-    expect(getMovieGenresRequest).toBe(1)
   })
 })
 

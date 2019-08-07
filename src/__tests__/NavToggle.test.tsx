@@ -21,62 +21,106 @@ describe('should call action creators', () => {
   let clearMoviesByGenreStateMock: any
   let clearSeriesByGenreStateMock: any
   let wrapper: any
+  let setup: any
+  let setAuthModalUIMock: any
+  let openAuthModalMock: any
+  let getToggleMenuRequestMock: any
 
   beforeEach(() => {
     getToggleMovieCatRequestMock = jest.fn()
     getToggleSerieCatRequestMock = jest.fn()
     clearMoviesByGenreStateMock = jest.fn()
     clearSeriesByGenreStateMock = jest.fn()
+    setAuthModalUIMock = jest.fn()
+    openAuthModalMock = jest.fn()
+    getToggleMenuRequestMock = jest.fn()
 
-    const props = {
-      getToggleMovieCatRequest: getToggleMovieCatRequestMock,
-      getToggleSerieCatRequest: getToggleSerieCatRequestMock,
-      clearMoviesByGenreState: clearMoviesByGenreStateMock,
-      clearSeriesByGenreState: clearSeriesByGenreStateMock,
-      history: history
+    setup = (testProps: any = {}) => {
+      const userProps = {
+        getToggleMovieCatRequest: getToggleMovieCatRequestMock,
+        getToggleSerieCatRequest: getToggleSerieCatRequestMock,
+        clearMoviesByGenreState: clearMoviesByGenreStateMock,
+        clearSeriesByGenreState: clearSeriesByGenreStateMock,
+        setAuthModalUI: setAuthModalUIMock,
+        openAuthModal: openAuthModalMock,
+        getToggleMenuRequest: getToggleMenuRequestMock,
+        history: history,
+        isUserSignedIn: false
+      }
+
+      const props = { ...userProps, ...testProps }
+      wrapper = mountWithRouter(<UnconnectedNavToggle {...props} />)
+      return wrapper
     }
-    wrapper = mountWithRouter(<UnconnectedNavToggle {...props} />)
 
-    const toggleFilms = findByTestAttr(wrapper, 'toggle-film')
-    toggleFilms.simulate('click')
-    const toggleSeries = findByTestAttr(wrapper, 'toggle-serie')
-    toggleSeries.simulate('click')
   })
 
   test('should render toggle component', () => {
+    setup()
     const component = findByTestAttr(wrapper, 'nav-toggle').last()
+    console.log(component.debug());
+
     expect(component.length).toBe(1)
   })
 
-  test('should call getToggleMoviesRequest action', () => {
-    const movieToggleCallCount = getToggleMovieCatRequestMock.mock.calls.length
-    expect(movieToggleCallCount).toBe(2)
+  test('should render text links', () => {
+    setup()
+    const toggleFilms = findByTestAttr(wrapper, 'toggle-film')
+    const toggleSeries = findByTestAttr(wrapper, 'toggle-serie')
+    const favorites = findByTestAttr(wrapper, 'favorites-button')
+
+    expect(toggleFilms.text()).toEqual('Movies')
+    expect(toggleSeries.text()).toEqual('Series')
+    expect(favorites.text()).toEqual('My Favorites')
+  })
+
+
+  test('should handle movies button click', () => {
+    setup()
+    const toggleFilms = findByTestAttr(wrapper, 'toggle-film')
+
+    expect(getToggleMovieCatRequestMock.mock.calls.length).toBe(0)
+    expect(getToggleSerieCatRequestMock.mock.calls.length).toBe(0)
+
+    toggleFilms.simulate('click')
+
+    expect(getToggleMovieCatRequestMock.mock.calls.length).toBe(1)
     expect(getToggleMovieCatRequestMock).toHaveBeenCalledWith(true)
-    expect(getToggleMovieCatRequestMock).toHaveBeenCalledWith(false)
-  })
-
-  test('should call getToggleSeriesRequest action', () => {
-    const serieToggleCallCount = getToggleSerieCatRequestMock.mock.calls.length
-    expect(serieToggleCallCount).toBe(2)
-    expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(true)
+    expect(getToggleSerieCatRequestMock.mock.calls.length).toBe(1)
     expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(false)
+    expect(clearSeriesByGenreStateMock.mock.calls.length).toBe(1)
   })
 
-  test('should call clearMoviesByGenreState action', () => {
-    const clearMoviesByGenreStateCount = clearMoviesByGenreStateMock.mock.calls.length
-    expect(clearMoviesByGenreStateCount).toBe(1)
-    expect(clearMoviesByGenreStateMock).toHaveBeenCalledWith()
+  test('should handle series button click', () => {
+    setup()
+    const toggleSeries = findByTestAttr(wrapper, 'toggle-serie')
+
+    expect(getToggleMovieCatRequestMock.mock.calls.length).toBe(0)
+    expect(getToggleSerieCatRequestMock.mock.calls.length).toBe(0)
+
+    toggleSeries.simulate('click')
+
+    expect(getToggleMovieCatRequestMock.mock.calls.length).toBe(1)
+    expect(getToggleMovieCatRequestMock).toHaveBeenCalledWith(false)
+    expect(getToggleSerieCatRequestMock.mock.calls.length).toBe(1)
+    expect(getToggleSerieCatRequestMock).toHaveBeenCalledWith(true)
+    expect(clearMoviesByGenreStateMock.mock.calls.length).toBe(1)
+
   })
 
-  test('should call clearSeriesByGenreState action', () => {
-    const clearSeriesByGenreStateCount = clearSeriesByGenreStateMock.mock.calls.length
-    expect(clearSeriesByGenreStateCount).toBe(1)
-    expect(clearSeriesByGenreStateMock).toHaveBeenCalledWith()
+  test('should handle favorites button click', () => {
+    setup()
+    jest.useFakeTimers()
+
+    const favorites = findByTestAttr(wrapper, 'favorites-button')
+    favorites.simulate('click')
+
+    expect(getToggleMenuRequestMock).toHaveBeenCalledTimes(1)
+    expect(getToggleMenuRequestMock).toHaveBeenCalledWith(true)
+    expect(setAuthModalUIMock).toHaveBeenCalledTimes(1)
+    expect(setAuthModalUIMock).toHaveBeenCalledWith(1)
+
+    expect(setTimeout).toHaveBeenCalledTimes(1)
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000)
   })
-
-  test('should call history.push', () => {
-
-  })
-
-
-});
+})

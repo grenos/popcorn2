@@ -30,6 +30,7 @@ describe('<UnconnectedMoreInfo />', () => {
           runtime: 654,
           status: 'released',
           spoken_languages: [{ name: 'usa' }],
+          cast: [{ name: 'vasilis green' }]
         },
         animation: false,
         openMoreInfoRequest: openMoreInfoRequestMock,
@@ -81,5 +82,13 @@ describe('<UnconnectedMoreInfo />', () => {
     expect(openMoreInfoRequestMock).toHaveBeenCalledTimes(1)
     expect(openMoreInfoRequestMock).toHaveBeenCalledWith(false)
   })
+
+
+  test('should print cast', () => {
+    setup()
+    const cast = wrapper.find('.more-info-wrapper__col--cast span')
+    expect(cast.length).toBe(1)
+  })
+
 })
 

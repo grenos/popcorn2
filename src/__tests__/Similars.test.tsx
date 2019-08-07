@@ -17,11 +17,13 @@ describe('<UnconnectedSimilarItems />', () => {
   let history: any
   let location: any
   let match: any
+  let relatedMovieSelectedMock: any
 
   beforeEach(() => {
     openSimilarSectionRequestMock = jest.fn()
     getMovieInfoModalRequestMock = jest.fn()
     getSerieInfoModalRequestMock = jest.fn()
+    relatedMovieSelectedMock = jest.fn()
 
     history = createMemoryHistory()
     location = createLocation({
@@ -38,12 +40,14 @@ describe('<UnconnectedSimilarItems />', () => {
       url: "/genres/Family",
     }
 
-    setup = () => {
+    setup = (testProps: any = {}) => {
       const userProps = {
         isMovieCatSelected: true,
+        isRelatedMovieSelected: true,
         openSimilarSectionRequest: openSimilarSectionRequestMock,
         getMovieInfoModalRequest: getMovieInfoModalRequestMock,
         getSerieInfoModalRequest: getSerieInfoModalRequestMock,
+        relatedMovieSelected: relatedMovieSelectedMock,
         videos: {
           results: [
             { id: 3434, title: 'matrix', poster_path: 'gdfgd.jpg' },
@@ -51,12 +55,12 @@ describe('<UnconnectedSimilarItems />', () => {
           ]
         },
         animation: false,
-        history: history,
-        location: location,
-        match: match,
+        history,
+        location,
+        match,
       }
 
-      const props = { ...userProps }
+      const props = { ...userProps, ...testProps }
       wrapper = shallow(<UnconnectedSimilarItems {...props} />)
       return wrapper
     }
@@ -92,13 +96,26 @@ describe('<UnconnectedSimilarItems />', () => {
     const loc1 = wrapper.find('.similar-item').at(0)
     loc1.simulate('click')
     expect(getMovieInfoModalRequestMock).toHaveBeenCalledTimes(1)
+    expect(getMovieInfoModalRequestMock).toHaveBeenCalledWith(3434, 'matrix')
+    expect(relatedMovieSelectedMock).toHaveBeenCalledTimes(1)
+    expect(relatedMovieSelectedMock).toHaveBeenCalledWith(true)
   })
 
   test('should call action to call serie data', () => {
-    setup({ isMovieCatSelected: false })
+    setup({
+      isMovieCatSelected: false, videos: {
+        results: [
+          { id: 3434, name: 'matrix' },
+          { id: 65, name: 'matrix 2' }
+        ]
+      },
+    })
     const loc2 = wrapper.find('.similar-item').at(0)
     loc2.simulate('click')
-    expect(getMovieInfoModalRequestMock).toHaveBeenCalledTimes(1)
+    expect(getSerieInfoModalRequestMock).toHaveBeenCalledTimes(1)
+    expect(getSerieInfoModalRequestMock).toHaveBeenCalledWith(3434, 'matrix')
+    expect(relatedMovieSelectedMock).toHaveBeenCalledTimes(1)
+    expect(relatedMovieSelectedMock).toHaveBeenCalledWith(false)
   })
 
   test('should close modal', () => {

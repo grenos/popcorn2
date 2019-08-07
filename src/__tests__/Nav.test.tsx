@@ -9,7 +9,7 @@ import Nav from '../components/Nav/Nav'
 
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
-const defaultProps = { scrolled: 100 }
+const defaultProps = { scrolled: 100, location: { pathname: '/favorites' } }
 
 const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props }

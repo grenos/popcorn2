@@ -75,9 +75,13 @@ describe('<UnconnectedSearchInput>', () => {
 
   test('should call getUserInputMoviesRequest action onKeyUp with userInput value', () => {
     act(() => {
-      findByTestAttr(wrapper, 'search-input').last().props().onChange({ target: { value: userInput } })
-      findByTestAttr(wrapper, 'search-input').last().props().onKeyUp(userInput)
+      findByTestAttr(wrapper, 'search-input')
+        .last().props().onChange({ target: { value: userInput } })
+
+      findByTestAttr(wrapper, 'search-input')
+        .last().props().onKeyUp(userInput)
     })
+
     expect(getUserInputMovieRequestMock).toHaveBeenCalledTimes(1)
     expect(getUserInputMovieRequestMock).toHaveBeenCalledWith(userInput)
   })

@@ -54,6 +54,7 @@ describe('<UnconnectedRelatedItems />', () => {
     expect(carousel.length).toBe(0)
   })
 
+  // because we fake pass 4 videos here in test
   test('should have 4 youtube players', () => {
     setup()
     const youtube = wrapper.find('YouTube')
