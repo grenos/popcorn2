@@ -273,7 +273,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
       favMovies.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            removeFavMovieRequest(item.id, item.genreId);
+            removeFavMovieRequest(id, genreId);
             removedID = true;
           } else {
             i + 1 === favMovies.length &&
@@ -306,7 +306,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
       favSeries.map((item, i) => {
         if (!removedID) {
           if (item.id === id) {
-            removeFavSerieRequest(item.id, item.genreId);
+            removeFavSerieRequest(id, genreId);
             removedID = true;
           } else {
             i + 1 === favSeries.length &&
@@ -316,6 +316,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
       });
     }
   }
+
   /**
    * checks if item is already in favorites and renderes right button/heart element
    * @param {number} id 

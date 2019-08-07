@@ -57,8 +57,8 @@ describe('<UnconnectedMovieModal />', () => {
           genres: [{ id: 32, name: 'action' }],
           tagline: 'its a movie ok?',
           name: 'GOT',
+          id: 666,
           backdrop_path: 'poster.jpg',
-          id: 21,
           videos: {
             results: [
               { id: 345, key: 'fdfgdfg', name: 'just a title' },
@@ -69,8 +69,8 @@ describe('<UnconnectedMovieModal />', () => {
           }
         },
 
-        favMovies: [{ id: 666, genreId: 32 }],
-        favSeries: [{ id: 666, genreId: 32 }],
+        favMovies: [{ id: 666 }],
+        favSeries: [{ id: 666 }],
 
         isUserSignedIn: true,
         isMovieCatSelected: true,
@@ -189,36 +189,61 @@ describe('<UnconnectedMovieModal />', () => {
 
   test('should test remove from favorites Action', () => {
     setup()
+    // for remove button to appear the id passed (from component props)
+    // has to be equal with an id found inside the favMovies array
     const removeFromFav = findByTestAttr(wrapper, 'remove-cta')
     removeFromFav.simulate('click')
     expect(removeFavMovieRequestMock).toHaveBeenCalledTimes(1)
+    // on click calls the handleMovieFavs
+    // which removes the favorite and passes id '666' and genreId '32'
+    // genreId is passed from movieInfo via props to component
     expect(removeFavMovieRequestMock).toHaveBeenCalledWith(666, 32)
   })
 
 
   test('should test add to favorites Action', () => {
     setup({ favMovies: [{ id: 1 }] })
+    // for add button to appear the id passed (from component props)
+    // needs to be different from id found inside favMovies array
     const addToFav = findByTestAttr(wrapper, 'add-cta')
     addToFav.simulate('click')
     expect(getMovieFavoriteRequestMock).toHaveBeenCalledTimes(1)
-    expect(getMovieFavoriteRequestMock).toHaveBeenCalledWith({ "genreId": 32, "id": 666, "poster": "lorem.jpg", "title": "matrix" })
+    // on click calls the handleMovieFavs
+    // which adds to favs passing these 4 arguments 
+    // all taken from movieInfo and passed to the function
+    expect(getMovieFavoriteRequestMock).toHaveBeenCalledWith(
+      { "genreId": 32, "id": 666, "poster": "lorem.jpg", "title": "matrix" }
+    )
   })
 
+  // same as movie buttons above
+  test('should remove favorite serie', () => {
+    setup({ isMovieCatSelected: false })
+    const removeFromFavSerie = findByTestAttr(wrapper, 'remove-cta-serie')
+    removeFromFavSerie.simulate('click')
+    expect(removeFavSerieRequestMock).toHaveBeenCalledTimes(1)
+    expect(removeFavSerieRequestMock).toHaveBeenCalledWith(666, 32)
+  })
 
-  // test('should remove favorite serie', () => {
-  //   setup({ isMovieCatSelected: false })
-  //   const removeFromFavSerie = findByTestAttr(wrapper, 'remove-cta-serie')
-  //   removeFromFavSerie.simulate('click')
-  //   expect(removeFavSerieRequestMock).toHaveBeenCalledTimes(1)
-  // })
-
+  // same as movie buttons above
   test('should test add favorite serie', () => {
     setup({ isMovieCatSelected: false, favSeries: [{ id: 1 }] })
     const removeFromFavSerie = findByTestAttr(wrapper, 'add-cta-serie')
     removeFromFavSerie.simulate('click')
     expect(getSerieFavoriteRequestMock).toHaveBeenCalledTimes(1)
-    expect(getSerieFavoriteRequestMock).toHaveBeenCalledWith({ "genreId": 32, "id": 21, "name": "GOT", "poster": "poster.jpg" })
+    expect(getSerieFavoriteRequestMock).toHaveBeenCalledWith({ "genreId": 32, "id": 666, "name": "GOT", "poster": "poster.jpg" })
   })
+
+  test('should NOT render buttons if user is NOT signed in', () => {
+    setup({ isUserSignedIn: false })
+    const removeFromFav = findByTestAttr(wrapper, 'remove-cta')
+    expect(removeFromFav.length).toBe(0)
+
+    setup({ isUserSignedIn: false, isMovieCatSelected: false })
+    const removeFromFavSerie = findByTestAttr(wrapper, 'remove-cta-serie')
+    expect(removeFromFavSerie.length).toBe(0)
+  })
+
 
 })
 
