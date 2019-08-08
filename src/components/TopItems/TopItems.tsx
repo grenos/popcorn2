@@ -28,8 +28,10 @@ import MovieModal from '../MovieModal/MovieModal'
 import Loader from '../Loader/Loader'
 import useWindowSize from '@rehooks/window-size';
 import CatchAll from '../../components/Error/CatchAll'
+import BodyVisore from '../BodyVisore/BodyVisore'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
+const URLBG = 'https://image.tmdb.org/t/p/original'
 interface RouteParams {
   name: any; id: string, param2?: string
 }
@@ -121,7 +123,6 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   // used for comparisson to display correct modal info on locandina click
   const [selectedId, setSelectedId] = useState<number>(0)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
-
 
   // const [toggle, setToggle] = useState<boolean>(false)
   // useEffect(() => {
@@ -236,7 +237,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
    * @param {string} rest - its movie title and serie name
    */
   const handleModalStates = (
-    id: number, index: number, ...rest: Array<string>
+    id: number,
+    indexMainChunk: number,
+    indexRowChunk: number,
+    ...rest: Array<string>
   ) => {
     if (ww.innerWidth <= 668) {
       if (isMovieCatSelected) {
@@ -250,7 +254,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       }
     } else {
       setSelectedId(id)
-      setSelectedIndex(index)
+      // each chunk makes the rows to start with the same index
+      // and this bugs the movie modal order
+      // so we give an extreme number to avoid having the same row numbers 
+      setSelectedIndex(indexMainChunk + indexRowChunk * 100)
       openMovieModalRequest(true)
     }
   }
@@ -271,10 +278,17 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     backdrop_path: string,
     title: string,
     overview: string,
-    index: number,
+    indexRowChunk: number,
+    indexMainChunk: number,
     poster_path: string
   ): JSX.Element | null => {
-    if (id === selectedId && index === selectedIndex) {
+
+    // each chunk makes the rows to start with the same index
+    // and this bugs the movie modal order
+    // so we give an extreme number to avoid having the same row numbers 
+    const newIndex = indexRowChunk + indexMainChunk * 100
+
+    if (id === selectedId && newIndex === selectedIndex) {
       return (
         <MovieModal
           id={id}
@@ -387,45 +401,96 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   }
 
 
+  const handleLastItemMovie = (
+    indexLastChunk: number,
+    indexMainChunk: number,
+    id: number,
+    backdrop_path: string,
+    title: string,
+    overview: string
+  ) => {
+    if (indexLastChunk === indexMainChunk) {
+      return <BodyVisore
+        id={id}
+        backdrop_path={backdrop_path}
+        title={title}
+        overview={overview}
+        key={id}
+      />
+    } else {
+      return null
+    }
+  }
+
+  const handleLastItemSerie = (
+    indexLastChunk: number,
+    indexMainChunk: number,
+    id: number,
+    backdrop_path: string,
+    title: string,
+    overview: string
+  ) => {
+    if (indexLastChunk === indexMainChunk) {
+      return <BodyVisore
+        id={id}
+        backdrop_path={backdrop_path}
+        title={title}
+        overview={overview}
+        key={id}
+      />
+    } else {
+      return null
+    }
+  }
+
+
   // uses lodash/chunk to seperate top items to smaller arrays
   // so every row is consisted of maximum 7 items
   // and the movie modal opens bellow every row for the selected locandina
   const renderMovies = (): JSX.Element[] => {
     return (
-      chunk(movies, _WW).map((arr: INT.IMovie[], index: number) => (
-        <div key={index}>
-          <div className="row">
-            {
-              arr.map((movie: INT.IMovie, i) => (
-                <CatchAll key={i}>
-                  <div className="loc-wrapper" >
-                    <div className="locandina-outer" data-test="locandina-movie" >
-                      <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
-                      <div className="overlay-gallery">
-                        <div className="chevron" onClick={() => handleModalStates(movie.id, index, movie.title)}>
-                          <img src={chevron} alt="open modal" />
-                        </div>
-                        <div className="heart"
-                          onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
-                          {isUserSignedIn && haandleFavMovieImg(movie.id)}
+
+      chunk(movies, 43).map((mainChunk: INT.IMovie[], indexMainChunk: number) => (
+        <div key={indexMainChunk} className="big-chunk">
+          {chunk(mainChunk.slice(0, 42), _WW).map((arr: INT.IMovie[], indexRowChunk: number) => (
+            <div key={indexRowChunk}>
+              <div className="row">
+                {arr.map((movie: INT.IMovie, i) => (
+                  <CatchAll key={i}>
+                    <div className="loc-wrapper" >
+                      <div className="locandina-outer" data-test="locandina-movie" >
+                        <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                        <div className="overlay-gallery">
+                          <div className="chevron" onClick={() => handleModalStates(movie.id, indexRowChunk, indexMainChunk, movie.title)}>
+                            <img src={chevron} alt="open modal" />
+                          </div>
+                          <div className="heart"
+                            onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
+                            {isUserSignedIn && haandleFavMovieImg(movie.id)}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CatchAll>
-              ))
-            }
-          </div>
-          {
-            movies!.map(({ id, backdrop_path, title, overview, poster_path }) => {
-              return (
-                handleModal(id, backdrop_path, title, overview, index, poster_path)
-              )
-            })
-          }
+                  </CatchAll>
+                ))}
+              </div>
+              {movies!.map(({ id, backdrop_path, title, overview, poster_path }) => {
+                return (
+                  handleModal(id, backdrop_path, title, overview, indexRowChunk, indexMainChunk, poster_path)
+                )
+              })}
+            </div>
+          ))}
+          <>
+            {chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
+              finalItem.slice(42, 43).map((last: INT.IMovie) => {
+                return handleLastItemMovie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.title, last.overview)
+              })
+            ))}
+          </>
         </div>
-      )
-      )
+      ))
+
     )
   }
 
@@ -434,35 +499,46 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   // and the movie modal opens bellow every row for the selected locandina
   const renderSeries = (): JSX.Element[] => {
     return (
-      chunk(series, _WW).map((arr: INT.ISerie[], index: number) => (
-        <div key={index}>
-          <div className="row">
-            {
-              arr.map((serie: INT.ISerie, i) => (
-                <CatchAll key={i}>
-                  <div className="loc-wrapper" key={i}>
-                    <div className="locandina-outer" data-test="locandina-serie" >
-                      <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
-                      <div className="overlay-gallery">
-                        <div className="chevron" onClick={() => handleModalStates(serie.id, index, serie.name)}>
-                          <img src={chevron} alt="open modal" />
-                        </div>
-                        <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
-                          {isUserSignedIn && haandleFavSerieImg(serie.id)}
+      chunk(series, 43).map((mainChunk: INT.ISerie[], indexMainChunk: number) => (
+        <div key={indexMainChunk} className="big-chunk">
+          {chunk(mainChunk.slice(0, 42), _WW).map((arr: INT.ISerie[], indexRowChunk: number) => (
+            <div key={indexRowChunk}>
+              <div className="row">
+                {
+                  arr.map((serie: INT.ISerie, i) => (
+                    <CatchAll key={i}>
+                      <div className="loc-wrapper" key={i}>
+                        <div className="locandina-outer" data-test="locandina-serie" >
+                          <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                          <div className="overlay-gallery">
+                            <div className="chevron" onClick={() => handleModalStates(serie.id, indexRowChunk, indexMainChunk, serie.name)}>
+                              <img src={chevron} alt="open modal" />
+                            </div>
+                            <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
+                              {isUserSignedIn && haandleFavSerieImg(serie.id)}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </CatchAll>
-              ))
-            }
-          </div>
-          {
-            series!.map(({ id, backdrop_path, name, overview, poster_path }) => {
-              return (
-                handleModal(id, backdrop_path, name, overview, index, poster_path)
-              )
-            })
+                    </CatchAll>
+                  ))
+                }
+              </div>
+              {
+                series!.map(({ id, backdrop_path, name, overview, poster_path }) => {
+                  return (
+                    handleModal(id, backdrop_path, name, overview, indexRowChunk, indexMainChunk, poster_path)
+                  )
+                })}
+            </div>
+          ))}
+          <>
+            {chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
+              finalItem.slice(42, 43).map((last: INT.ISerie) => {
+                return handleLastItemSerie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.name, last.overview)
+              })
+            ))}
+          </>
           }
         </div>
       )

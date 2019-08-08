@@ -3,96 +3,98 @@
   padding: 0 0 5%;
 
   .render-locandine-inner {
-    .row {
-      @include flex-box(row, wrap, flex-start, center);
-      padding: 0 60px;
+    .big-chunk {
+      .row {
+        @include flex-box(row, wrap, flex-start, center);
+        padding: 0 60px;
 
-      .loc-wrapper {
-        background-color: rgb(17, 0, 6);
-        transition: 0.3s;
-        z-index: 0;
-        margin: 10px;
+        .loc-wrapper {
+          background-color: rgb(17, 0, 6);
+          transition: 0.3s;
+          z-index: 0;
+          margin: 10px;
 
-        &:hover {
-          z-index: 1;
-          transform: scale(1.05);
-          transform-origin: center;
-          transition: all 0.4s 0.2s;
-          transition-property: transform;
-        }
-
-        @include otherEach(7) {
           &:hover {
             z-index: 1;
             transform: scale(1.05);
-            transform-origin: left;
-          }
-        }
-
-        @include each(7) {
-          &:hover {
-            z-index: 1;
-            transform: scale(1.05);
-            transform-origin: right;
-          }
-        }
-      }
-
-      .locandina-outer {
-        @include flex-box(column, null, center, center);
-        flex-basis: calc(14.28% - 38px);
-        width: calc(14.28vw - 38px);
-        height: 360px;
-        position: relative;
-        cursor: pointer;
-        border-radius: 5px;
-
-        a {
-          height: 360px;
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 5px;
-        }
-
-        .overlay-gallery {
-          @include flex-box(column, null, flex-end, center);
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.6) 100%);
-          z-index: 2;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          opacity: 0;
-          transition: opacity 0.4s;
-          border-radius: 5px;
-
-          &:hover {
-            opacity: 1;
-            transition: opacity 0.6s 0.2s;
+            transform-origin: center;
+            transition: all 0.4s 0.2s;
+            transition-property: transform;
           }
 
-          .chevron {
-            padding: 20px 20px 0;
-
-            img {
-              // margin-bottom: 5px;
-              width: 30px;
-              transform: rotate(270deg);
+          @include otherEach(7) {
+            &:hover {
+              z-index: 1;
+              transform: scale(1.05);
+              transform-origin: left;
             }
           }
 
-          .heart {
+          @include each(7) {
+            &:hover {
+              z-index: 1;
+              transform: scale(1.05);
+              transform-origin: right;
+            }
+          }
+        }
+
+        .locandina-outer {
+          @include flex-box(column, null, center, center);
+          flex-basis: calc(14.28% - 38px);
+          width: calc(14.28vw - 38px);
+          height: 360px;
+          position: relative;
+          cursor: pointer;
+          border-radius: 5px;
+
+          a {
+            height: 360px;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+          }
+
+          .overlay-gallery {
+            @include flex-box(column, null, flex-end, center);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 2;
             position: absolute;
             top: 0;
+            bottom: 0;
+            left: 0;
             right: 0;
-            margin: -10px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 5px;
 
-            img {
-              width: 30px;
+            &:hover {
+              opacity: 1;
+              transition: opacity 0.6s 0.2s;
+            }
+
+            .chevron {
+              padding: 20px 20px 0;
+
+              img {
+                // margin-bottom: 5px;
+                width: 30px;
+                transform: rotate(270deg);
+              }
+            }
+
+            .heart {
+              position: absolute;
+              top: 0;
+              right: 0;
+              margin: -10px;
+
+              img {
+                width: 30px;
+              }
             }
           }
         }
@@ -106,7 +108,7 @@
 }
 
 @media only screen and (max-width: 1680px) {
-  .locandine-wrapper .render-locandine-inner .row .locandina-outer {
+  .locandine-wrapper .render-locandine-inner .big-chunk .row .locandina-outer {
     height: 300px;
     a {
       height: 300px;
@@ -115,7 +117,7 @@
 }
 
 @media only screen and (max-width: 1366px) {
-  .locandine-wrapper .render-locandine-inner .row .locandina-outer {
+  .locandine-wrapper .render-locandine-inner .big-chunk .row .locandina-outer {
     height: 230px;
     a {
       height: 230px;
@@ -124,7 +126,7 @@
 }
 
 @media only screen and (max-width: 1280px) {
-  .locandine-wrapper .render-locandine-inner .row .locandina-outer {
+  .locandine-wrapper .render-locandine-inner .big-chunk .row .locandina-outer {
     height: 200px;
     a {
       height: 200px;
@@ -135,49 +137,51 @@
 @media only screen and (max-width: 1024px) {
   .locandine-wrapper {
     .render-locandine-inner {
-      .row {
-        .loc-wrapper {
-          &:hover {
-            transform: scale(1);
-          }
-
-          @include otherEach(7) {
+      .big-chunk {
+        .row {
+          .loc-wrapper {
             &:hover {
               transform: scale(1);
             }
-          }
 
-          @include each(7) {
-            &:hover {
-              transform: scale(1);
-            }
-          }
-        }
-
-        .locandina-outer {
-          flex-basis: calc(23.82% - 38px);
-          width: calc(23.82vw - 38px);
-          height: 280px;
-
-          a {
-            height: 280px;
-          }
-
-          .overlay-gallery {
-            opacity: 1;
-
-            &:hover {
-              opacity: 1;
-            }
-
-            .chevron {
-              img {
-                width: 20px;
+            @include otherEach(7) {
+              &:hover {
+                transform: scale(1);
               }
             }
 
-            .heart {
-              margin: 5px;
+            @include each(7) {
+              &:hover {
+                transform: scale(1);
+              }
+            }
+          }
+
+          .locandina-outer {
+            flex-basis: calc(23.82% - 38px);
+            width: calc(23.82vw - 38px);
+            height: 280px;
+
+            a {
+              height: 280px;
+            }
+
+            .overlay-gallery {
+              opacity: 1;
+
+              &:hover {
+                opacity: 1;
+              }
+
+              .chevron {
+                img {
+                  width: 20px;
+                }
+              }
+
+              .heart {
+                margin: 5px;
+              }
             }
           }
         }
@@ -189,33 +193,35 @@
 @media only screen and (max-width: 768px) {
   .locandine-wrapper {
     .render-locandine-inner {
-      .row {
-        .locandina-outer {
-          flex-basis: calc(23.43% - 38px);
-          width: calc(23.43vw - 38px);
-          height: 200px;
-
-          a {
+      .big-chunk {
+        .row {
+          .locandina-outer {
+            flex-basis: calc(23.43% - 38px);
+            width: calc(23.43vw - 38px);
             height: 200px;
-          }
 
-          .overlay-gallery {
-            opacity: 1;
+            a {
+              height: 200px;
+            }
 
-            &:hover {
+            .overlay-gallery {
               opacity: 1;
-            }
 
-            .chevron {
-              img {
-                width: 20px;
+              &:hover {
+                opacity: 1;
               }
-            }
 
-            .heart {
-              margin: 5px;
-              img {
-                width: 20px;
+              .chevron {
+                img {
+                  width: 20px;
+                }
+              }
+
+              .heart {
+                margin: 5px;
+                img {
+                  width: 20px;
+                }
               }
             }
           }
@@ -228,34 +234,36 @@
 @media only screen and (max-width: 668px) {
   .locandine-wrapper {
     .render-locandine-inner {
-      .row {
-        padding: 0 20px;
-        .locandina-outer {
-          flex-basis: calc(49.43% - 38px);
-          width: calc(49.43vw - 38px);
-          height: 32vh;
-
-          a {
+      .big-chunk {
+        .row {
+          padding: 0 20px;
+          .locandina-outer {
+            flex-basis: calc(49.43% - 38px);
+            width: calc(49.43vw - 38px);
             height: 32vh;
-          }
 
-          .overlay-gallery {
-            opacity: 1;
+            a {
+              height: 32vh;
+            }
 
-            &:hover {
+            .overlay-gallery {
               opacity: 1;
-            }
 
-            .chevron {
-              img {
-                width: 20px;
+              &:hover {
+                opacity: 1;
               }
-            }
 
-            .heart {
-              margin: 5px;
-              img {
-                width: 20px;
+              .chevron {
+                img {
+                  width: 20px;
+                }
+              }
+
+              .heart {
+                margin: 5px;
+                img {
+                  width: 20px;
+                }
               }
             }
           }
@@ -266,7 +274,7 @@
 }
 
 @media only screen and (max-width: 375px) and (min-height: 812px) {
-  .locandine-wrapper .render-locandine-inner .row .locandina-outer {
+  .locandine-wrapper .render-locandine-inner .big-chunk .row .locandina-outer {
     height: 28vh;
     a {
       height: 28vh;
