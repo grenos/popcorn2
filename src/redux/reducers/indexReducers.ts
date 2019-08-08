@@ -9,7 +9,7 @@ import serieGenresReducer from './serieGenresReducer'
 import searchMoviesReducer from './searchMoviesReducer'
 import searchSeriesReducer from './searchSeriesReducer'
 import { favoritesReducer } from './favoritesReducer'
-
+import bodyVisoreReducer from './bodyVisoreReducer'
 
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
@@ -110,5 +110,6 @@ export default (history: any) => combineReducers({
   movieGenresReducer,
   serieGenresReducer,
   uiReducer,
+  bodyVisoreReducer,
   favoritesReducer: persistReducer(favCatPersistConfig, favoritesReducer)
 })

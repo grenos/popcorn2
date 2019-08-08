@@ -505,6 +505,58 @@ function* removeFromSerieFav({ id, genreId }: any) {
 
 
 
+function* watchGetMovieInfoRequest_BODY_VISORE() {
+  yield takeLatest(actions.Types.GET_BODY_VISORE_MOVIE_INFO_REQUEST, getMoviesInfoBodyVisore)
+}
+/**
+ * handles indivisual item info for body visore
+ * @generator
+ * @param {number} id - id of selected item
+ * @yields {function} API call - getMovieInfo @returns {result}
+ * @yields {function} Action - getBodyVisoreMovieInfoSuccess - store to state
+ * @yields {function} PUSH - push to network error page
+ * @yields {function} Action - ErrorTopItemReq store error info to state
+ */
+function* getMoviesInfoBodyVisore({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getMovieInfo, id)
+    yield put(actions.getBodyVisoreMovieInfoSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
+    console.log(e)
+  }
+}
+
+function* watchGetSerieInfoRequest_BODY_VISORE() {
+  yield takeLatest(actions.Types.GET_BODY_VISORE_SERIE_INFO_REQUEST, getSeriesInfoBodyVisore)
+}
+/**
+ * handles indivisual item info
+ * @generator
+ * @param {number} id - id of selected item
+ * @yields {function} API call - getSerieInfo @returns {result}
+ * @yields {function} Action - getBodyVisoreSerieInfoSuccess - store to state
+ * @yields {function} PUSH - push to network error page
+ * @yields {function} Action - ErrorTopItemReq store error info to state
+ */
+function* getSeriesInfoBodyVisore({ id }: INT.IMovieInfoSagaProps) {
+  try {
+    const result = yield call(api.getSerieInfo, id)
+    yield put(actions.getBodyVisoreSerieInfoSuccess({
+      result: result.data
+    } as INT.ISearchMovieInfoResults))
+  } catch (e) {
+    yield put(push(`/error`))
+    yield put(actionsUI.ErrorTopItemReq(e))
+    console.log(e);
+  }
+}
+
+
+
 
 
 
@@ -526,6 +578,8 @@ const apiSagas = [
   fork(watchGetMovieFavoriteRequest),
   fork(watchGetSerieFavoriteRequest),
   fork(watchRemoveFavMovieRequest),
-  fork(watchRemoveFavSerieRequest)
+  fork(watchRemoveFavSerieRequest),
+  fork(watchGetMovieInfoRequest_BODY_VISORE),
+  fork(watchGetSerieInfoRequest_BODY_VISORE),
 ]
 export default apiSagas

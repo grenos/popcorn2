@@ -39,7 +39,13 @@ export const Types: any = {
   REMOVE_FAV_SERIE_REQUEST: 'REMOVE_FAV_SERIE_REQUEST',
   REMOVE_FAV_SERIE_SUCCESS: 'REMOVE_FAV_SERIE_SUCCESS',
   CATEGORIZE_FAV_ARRAYS: 'CATEGORIZE_FAV_ARRAYS',
-  REMOVE_FAV_CATEGORIES_SUCCESS: 'REMOVE_FAV_CATEGORIES_SUCCESS'
+  REMOVE_FAV_CATEGORIES_SUCCESS: 'REMOVE_FAV_CATEGORIES_SUCCESS',
+
+  GET_BODY_VISORE_MOVIE_INFO_REQUEST: 'GET_BODY_VISORE_MOVIE_INFO_REQUEST',
+  GET_BODY_VISORE_MOVIE_INFO_SUCCESS: 'GET_BODY_VISORE_MOVIE_INFO_SUCCESS',
+
+  GET_BODY_VISORE_SERIE_INFO_REQUEST: 'GET_BODY_VISORE_SERIE_INFO_REQUEST',
+  GET_BODY_VISORE_SERIE_INFO_SUCCESS: 'GET_BODY_VISORE_SERIE_INFO_SUCCESS',
 }
 
 
@@ -150,7 +156,6 @@ export const getMovieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults)
   id
 })
 
-
 export const getSerieInfoRequest = (id: number): INT.ISearchMovieInfo => ({
   type: Types.GET_SERIE_INFO_REQUEST,
   id
@@ -160,6 +165,33 @@ export const getSerieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults)
   payload: result,
   id
 })
+
+
+
+
+
+
+export const getBodyVisoreMovieInfoReq = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_BODY_VISORE_MOVIE_INFO_REQUEST,
+  id
+})
+export const getBodyVisoreMovieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_BODY_VISORE_MOVIE_INFO_SUCCESS,
+  result,
+  id
+})
+
+export const getBodyVisoreSerieInfoReq = (id: number): INT.ISearchMovieInfo => ({
+  type: Types.GET_BODY_VISORE_SERIE_INFO_REQUEST,
+  id
+})
+export const getBodyVisoreSerieInfoSuccess = ({ result, id }: INT.ISearchMovieInfoResults) => ({
+  type: Types.GET_BODY_VISORE_SERIE_INFO_SUCCESS,
+  result,
+  id
+})
+
+
 
 
 export const getCastRequest = (id: number): INT.ISearchMovieInfo => ({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as INT from '../../helpers/interfaces'
-import { Waypoint } from 'react-waypoint';
+import { Waypoint } from 'react-waypoint'
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom"
 import {
@@ -31,7 +31,7 @@ import CatchAll from '../../components/Error/CatchAll'
 import BodyVisore from '../BodyVisore/BodyVisore'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
-const URLBG = 'https://image.tmdb.org/t/p/original'
+
 interface RouteParams {
   name: any; id: string, param2?: string
 }
@@ -564,6 +564,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
       <Waypoint onEnter={handlePagination} fireOnRapidScroll={true} topOffset="-50%" />
     </div>
   )
+
 })
 
 const mapStateToProps = (state: any) => {

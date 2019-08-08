@@ -6,12 +6,17 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  .last-item__title {
-    font-size: 50px;
-    color: #fff;
+  .last-item__video-wrapper {
   }
-  .last-item__overview {
-    font-size: 20px;
-    color: #fff;
+
+  .last-item__info-wrapper {
+    .last-item__title {
+      font-size: 50px;
+      color: #fff;
+    }
+    .last-item__overview {
+      font-size: 20px;
+      color: #fff;
+    }
   }
 }
