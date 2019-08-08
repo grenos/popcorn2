@@ -1,4 +1,5 @@
 import { Types } from '../actions/apiActions'
+import { Types as TypesUI } from '../actions/uiActions'
 import { MOVIE_GENRE_STATE } from '../state/movieGenreState'
 // import * as INT from '../../helpers/interfaces'
 
@@ -143,6 +144,30 @@ export default function movieGenresReducer(state = MOVIE_GENRE_STATE, action: an
         default: {
           return state
         }
+      }
+
+    case TypesUI.CLEAR_MOVIE_GENRES_STATE:
+      return {
+        ...state,
+        action: [],
+        adventure: [],
+        animation: [],
+        comedy: [],
+        crime: [],
+        documentary: [],
+        drama: [],
+        family: [],
+        fantasy: [],
+        history: [],
+        horror: [],
+        music: [],
+        mystery: [],
+        romance: [],
+        science_fiction: [],
+        tv_movie: [],
+        thriller: [],
+        war: [],
+        western: [],
       }
 
     default: {

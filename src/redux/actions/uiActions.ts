@@ -23,7 +23,9 @@ export const Types: any = {
   SET_AUTH_MODAL_UI: 'SET_AUTH_MODAL_UI',
   IS_FETCHING: 'IS_FETCHING',
   IS_FETCHING_TOP_ITEMS: 'IS_FETCHING_TOP_ITEMS',
-  IS_TOP_ITEM_ERROR: 'IS_TOP_ITEM_ERROR'
+  IS_TOP_ITEM_ERROR: 'IS_TOP_ITEM_ERROR',
+  CLEAR_MOVIE_GENRES_STATE: 'CLEAR_MOVIE_GENRES_STATE',
+  CLEAR_SERIE_GENRES_STATE: 'CLEAR_SERIE_GENRES_STATE'
 }
 
 
@@ -125,4 +127,14 @@ export const isFetchingTopItemReq = (toggle: boolean) => ({
 export const ErrorTopItemReq = (error: any) => ({
   type: Types.IS_TOP_ITEM_ERROR,
   error
+})
+
+
+
+
+export const clearMovieGenresState = () => ({
+  type: Types.CLEAR_MOVIE_GENRES_STATE
+})
+export const clearSerieGenresState = () => ({
+  type: Types.CLEAR_SERIE_GENRES_STATE
 })

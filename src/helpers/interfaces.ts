@@ -380,6 +380,8 @@ export interface IMenuProps {
   getToggleMenuRequest: Function
   setAuthModalUI: Function
   isAuthModalUI: number
+  clearMovieGenresState: Function
+  clearSerieGenresState: Function
 }
 
 export interface ITopResultsProps {

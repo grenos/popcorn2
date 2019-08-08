@@ -1,4 +1,5 @@
 import { Types } from '../actions/apiActions'
+import { Types as TypesUI } from '../actions/uiActions'
 import { SERIES_GENRES_STATE } from '../state/seriesGenreState'
 // import * as INT from '../../helpers/interfaces'
 
@@ -126,6 +127,27 @@ export default function seriesReducer(state = SERIES_GENRES_STATE, action: any) 
         default: {
           return state
         }
+      }
+
+    case TypesUI.CLEAR_SERIE_GENRES_STATE:
+      return {
+        ...state,
+        action_adventure: [],
+        animation: [],
+        comedy: [],
+        crime: [],
+        documentary: [],
+        drama: [],
+        family: [],
+        kids: [],
+        mystery: [],
+        news: [],
+        reality: [],
+        scifi_fantasy: [],
+        soap: [],
+        talk: [],
+        war_politics: [],
+        western: [],
       }
 
     default: {

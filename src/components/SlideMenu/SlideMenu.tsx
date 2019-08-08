@@ -8,7 +8,7 @@ import {
   getMovieGenresRequest,
   getSerieGenresRequest
 } from '../../redux/actions/apiActions'
-import { openAuthModal, getToggleMenuRequest, setAuthModalUI } from '../../redux/actions/uiActions'
+import { openAuthModal, getToggleMenuRequest, setAuthModalUI, clearMovieGenresState, clearSerieGenresState } from '../../redux/actions/uiActions'
 import { userSignedIn, clearUserInfo } from '../../redux/actions/awsActions'
 import { useTransition, animated as a } from 'react-spring'
 import { Trail } from 'react-spring/renderprops.cjs';
@@ -42,6 +42,8 @@ import get from 'lodash.get'
  * @param {bool} isUserSignedIn - used as toggle to display signin / login info 
  * @param {function} setAuthModalUI - choose auth modal to display 
  * @param {number} isAuthModalUI - passes to child type of auth modal to display
+ * @param {function} clearMovieGenresState - clear entire genre state on new category
+ * @param {function} clearSerieGenresState - clear entire genre state on new category
  * @returns {JSX.Element}
  */
 export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps> = ({
@@ -62,7 +64,9 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
   userInfo,
   isUserSignedIn,
   setAuthModalUI,
-  isAuthModalUI
+  isAuthModalUI,
+  clearMovieGenresState,
+  clearSerieGenresState
 }): JSX.Element => {
 
   const transition = useTransition(isMenuOpenProp, null, {
@@ -162,34 +166,48 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
    * @function
    * @param {number} id - to make api call 
    * @param {number} page - always he first page
-   * @param {string} name - to be displayed as URL
+   * @param {string} name - genre name - to be displayed at url
    */
-  const handleMovieGenreClick = (id: number, page: number, name: string): void => {
-    //! not sure if useful keep here for now
-    // history.push({ pathname: `/genres/${name}`, state: { from: location.pathname } })
-    // if (location.pathname !== location.state.from) {
-
-    getMoviesByGenreRequest(id, page, makeDashesUrl(name))
-    history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
-    setTimeout(() => {
-      getToggleMenuRequest(false)
-    }, 400)
-    // }
+  const handleMovieGenreClick = (id: number, page: number, name: string): void | null => {
+    // check if user is already at current genre page
+    // if yes do not call again on genre name click
+    if (location.pathname === `/genres/films/${name}`) {
+      return null
+    } else {
+      clearMovieGenresState()
+      getMoviesByGenreRequest(id, page, makeDashesUrl(name))
+      history.push({ pathname: `/genres/films/${makeDashesUrl(name)}`, state: { from: location.pathname } })
+      setTimeout(() => {
+        getToggleMenuRequest(false)
+      }, 400)
+    }
   }
+
 
   /**
  * handles clicked genre actions
  * @function
  * @param {number} id - to make api call 
  * @param {number} page - always he first page
- * @param {string} name - to be displayed as URL
+ * @param {string} name - genre name - to be displayed at url
  */
-  const handleSerieGenreClick = (id: number, page: number, name: string): void => {
-    getSeriesByGenreRequest(id, page, makeDashesUrl(name))
-    history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
-    setTimeout(() => {
-      getToggleMenuRequest(false)
-    }, 400)
+  const handleSerieGenreClick = (id: number, page: number, name: string): void | null => {
+    // check if user is already at current genre page
+    // if yes do not call again on genre name click
+    if (location.pathname === `/genres/series/${name}`) {
+      return null
+    } else {
+      clearSerieGenresState()
+      getSeriesByGenreRequest(id, page, makeDashesUrl(name))
+      // push new history state here 
+      // to know when we come from another genre page (on TopItems conponent)
+      // so we can reset the counter
+      history.push({ pathname: `/genres/series/${makeDashesUrl(name)}`, state: { from: location.pathname } })
+      setTimeout(() => {
+        getToggleMenuRequest(false)
+      }, 400)
+
+    }
   }
 
   const renderList = isMovieCatSelected ? renderMovieGenres() : renderSerieGenres()
@@ -252,7 +270,9 @@ export default withRouter(connect(mapStateToProps,
     userSignedIn,
     clearUserInfo,
     getToggleMenuRequest,
-    setAuthModalUI
+    setAuthModalUI,
+    clearMovieGenresState,
+    clearSerieGenresState
   }
 )(UnconnectedSlideMenu))
 

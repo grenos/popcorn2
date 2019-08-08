@@ -10,6 +10,7 @@ import searchMoviesReducer from './searchMoviesReducer'
 import searchSeriesReducer from './searchSeriesReducer'
 import { favoritesReducer } from './favoritesReducer'
 
+
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 
@@ -97,48 +98,6 @@ const favSeriesPersistConfig = {
     'serieInfoModal'
   ]
 }
-
-// const movieGenresPersistConfig = {
-//   key: 'movieGenresReducer',
-//   storage: storage,
-//   blacklist: [
-//     'action',
-//     'adventure',
-//     'animation',
-//     'comedy',
-//     'crime',
-//     'documentary',
-//     'drama',
-//     'family',
-//     'fantasy',
-//     'history',
-//     'horror',
-//     'music',
-//     'mystery',
-//     'romance',
-//     'science_fiction',
-//     'tv_movie',
-//     'thriller',
-//     'war',
-//     'western',
-//   ]
-// }
-
-// const serieGenresPersistConfig = {
-//   key: 'serieGenresReducer',
-//   storage: storage,
-//   blacklist: [
-//     'router',
-//     'moviesReducer',
-//     'seriesReducer',
-//     'movieGenresReducer',
-//     'awsReducer',
-//     'uiReducer',
-//     'favoritesReducer'
-//   ]
-// }
-
-
 
 
 export default (history: any) => combineReducers({
