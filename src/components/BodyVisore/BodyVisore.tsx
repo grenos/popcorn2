@@ -6,6 +6,7 @@ import { filterNoImg } from '../../helpers/helperFunctions'
 import { getBodyVisoreMovieInfoReq, getBodyVisoreSerieInfoReq } from '../../redux/actions/apiActions'
 import YouTube from 'react-youtube';
 import get from 'lodash.get';
+import { useInView } from 'react-intersection-observer'
 
 const URLBG = 'https://image.tmdb.org/t/p/original'
 
@@ -19,6 +20,7 @@ interface props {
   movie_body_visore_info: any
 }
 
+
 const BodyVisore = ({
   id,
   backdrop_path,
@@ -28,6 +30,12 @@ const BodyVisore = ({
   isMovieCatSelected,
   movie_body_visore_info
 }: props) => {
+
+
+  const [ref, inView] = useInView({
+    threshold: 0,
+  })
+
 
   useEffect(() => {
     if (isMovieCatSelected) {
@@ -71,8 +79,6 @@ const BodyVisore = ({
   const onReady = (event: any): void => {
     const player = event.target
     setVideoPlayer(player)
-    // setVideoActive(videoActive => !videoActive);
-
 
 
     // videoPlayer.unMute();
@@ -90,29 +96,20 @@ const BodyVisore = ({
   const handleVideoStatus = (id: number) => {
     if (activeHover === id && toggleHover) {
       videoPlayer.pauseVideo()
+      videoPlayer.mute()
     } else {
       videoPlayer.playVideo()
+      videoPlayer.unMute()
     }
   }
 
-  // const handlePauseOnStart = () => {
-  //   if (videoPlayer !== undefined) {
-  //     videoPlayer.setLoop(true)
-  //     if (videoPlayer.getCurrentTime() > 3) {
-  //       videoPlayer.pauseVideo()
-  //     }
-  //   }
-  // }
-  // useEffect(() => {
-  //   // handlePauseOnStart()
 
-  //   if (videoPlayer !== undefined) {
-  //     videoPlayer.setLoop(true)
-  //     if (videoPlayer.getCurrentTime() > 3) {
-  //       videoPlayer.pauseVideo()
-  //     }
-  //   }
-  // }, [videoPlayer])
+  useEffect(() => {
+    if (videoPlayer !== undefined) {
+      videoPlayer.pauseVideo()
+      videoPlayer.mute()
+    }
+  }, [videoPlayer])
 
 
   const handlePrintVideo = (id: number, movie_body_visore_info: any): any => {
@@ -139,7 +136,7 @@ const BodyVisore = ({
 
 
   return (
-    <div className="last-item-wrapper" key={id}
+    <div className="last-item-wrapper" key={id} ref={ref}
       style={{ backgroundImage: `url(${filterNoImg(URLBG, backdrop_path, popcorn)})` }}>
       <div className={
         activeHover === id
