@@ -1,15 +1,45 @@
 .last-item-wrapper {
-  margin: 50px 0;
+  margin: 20px 0;
   height: 60vh;
   width: 100%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  @include flex-box(row, null, center, center);
+  position: relative;
+  overflow: hidden;
 
   .last-item__video-wrapper {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.4s;
+
+    &.active {
+      opacity: 1;
+      transition: 0.4s;
+    }
+
+    .last-item-video-container {
+      iframe {
+        width: 100%;
+        height: 173%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+      }
+      .last-item-video {
+      }
+    }
   }
 
   .last-item__info-wrapper {
+    z-index: 50;
     .last-item__title {
       font-size: 50px;
       color: #fff;

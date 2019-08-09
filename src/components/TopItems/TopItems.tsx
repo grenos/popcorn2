@@ -445,6 +445,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
 
   // uses lodash/chunk to seperate top items to smaller arrays
+  // first chunk is for the body visore last item
   // so every row is consisted of maximum 7 items
   // and the movie modal opens bellow every row for the selected locandina
   const renderMovies = (): JSX.Element[] => {
