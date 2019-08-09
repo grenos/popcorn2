@@ -8,6 +8,23 @@
   @include flex-box(row, null, center, center);
   position: relative;
   overflow: hidden;
+  opacity: 1;
+  transition: 0.4s;
+
+  &.show {
+    opacity: 0;
+    transition: 0.4s;
+  }
+
+  .overlay-handler {
+    z-index: 22;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+  }
 
   .last-item__video-wrapper {
     width: 100%;
@@ -33,13 +50,12 @@
         left: 50%;
         top: 50%;
       }
-      .last-item-video {
-      }
     }
   }
 
   .last-item__info-wrapper {
-    z-index: 50;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 20;
     .last-item__title {
       font-size: 50px;
       color: #fff;

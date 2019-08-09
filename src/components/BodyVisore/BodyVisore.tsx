@@ -33,7 +33,7 @@ const BodyVisore = ({
 
 
   const [ref, inView] = useInView({
-    threshold: 0,
+    threshold: 0.2,
   })
 
 
@@ -112,6 +112,12 @@ const BodyVisore = ({
   }, [videoPlayer])
 
 
+  const handleOnClick = (id: number) => {
+    // maybe better to use cta?
+    console.log('this click will send to modal');
+  }
+
+
   const handlePrintVideo = (id: number, movie_body_visore_info: any): any => {
     let print: any
     movie_body_visore_info.map((item: any) => {
@@ -125,7 +131,6 @@ const BodyVisore = ({
           // @ts-ignore
           opts={Options}
           onReady={onReady}
-
         />
       }
       return print
@@ -136,22 +141,31 @@ const BodyVisore = ({
 
 
   return (
-    <div className="last-item-wrapper" key={id} ref={ref}
+    <div
+      className={inView ? 'last-item-wrapper' : 'last-item-wrapper show'}
+      key={id}
+      ref={ref}
       style={{ backgroundImage: `url(${filterNoImg(URLBG, backdrop_path, popcorn)})` }}>
+
+      <div className="overlay-handler"
+        onMouseEnter={() => handleHover(id)}
+        onMouseLeave={() => handleHover(id)}
+        onClick={() => handleOnClick(id)}>
+      </div>
+
       <div className={
         activeHover === id
           && toggleHover
           ? 'last-item__video-wrapper active'
-          : 'last-item__video-wrapper'}
-        onMouseEnter={() => handleHover(id)}
-        onMouseLeave={() => handleHover(id)}
-      >
+          : 'last-item__video-wrapper'}>
         {handlePrintVideo(id, movie_body_visore_info)}
       </div>
+
       <div className="last-item__info-wrapper">
         <h1 className="last-item__title">{title}</h1>
         <p className="last-item__overview">{overview}</p>
       </div>
+
     </div>
   )
 }
