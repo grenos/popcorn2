@@ -76,7 +76,7 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
    * @param title 
    */
   const handleGoToMovie = (id: number, title: string, ): void => {
-    relatedMovieSelected(TextTrackCueList)
+    relatedMovieSelected(true)
     getMovieInfoModalRequest(id, title)
     //! called from saga
     // history.push(`/title/${makeDashesUrl(title)}`)

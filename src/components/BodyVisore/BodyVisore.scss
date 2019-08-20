@@ -5,7 +5,6 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  @include flex-box(row, null, center, center);
   position: relative;
   overflow: hidden;
   opacity: 1;
@@ -24,6 +23,65 @@
     bottom: 0;
     left: 0;
     cursor: pointer;
+    @include flex-box(row, null, flex-end, center);
+
+    .last-item__info-wrapper {
+      width: 25%;
+      height: 100%;
+      z-index: 20;
+      @include flex-box(column, null, center, flex-start);
+      padding: 0 20px;
+
+      .last-item__title {
+        font-size: 50px;
+        font-weight: bold;
+        color: #fff;
+        margin: 0 0 30px 0;
+      }
+
+      .last-item__overview {
+        font-size: 18px;
+        line-height: 22px;
+        color: #fff;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 0 30px 0;
+      }
+
+      .last-item__genres-wrapper {
+        @include flex-box(row, wrap, center, center);
+        margin: 0 0 30px 0;
+        .last-item__genres {
+          font-size: 20px;
+          font-style: italic;
+          font-weight: bold;
+          color: #fff;
+          margin: 0 3px;
+        }
+      }
+
+      .last-item__cta {
+        @include flex-box(row, wrap, flex-start, center);
+        button {
+          cursor: pointer;
+          background: rgba(0, 0, 0, 0.6);
+          border: none;
+          border-radius: 5px;
+          padding: 10px 30px;
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+          margin: 0 20px 0 0;
+          transition: 0.3s;
+          &:hover {
+            background: rgba(209, 209, 209, 0.4);
+            transition: 0.3s;
+          }
+        }
+      }
+    }
   }
 
   .last-item__video-wrapper {
@@ -50,19 +108,6 @@
         left: 50%;
         top: 50%;
       }
-    }
-  }
-
-  .last-item__info-wrapper {
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 20;
-    .last-item__title {
-      font-size: 50px;
-      color: #fff;
-    }
-    .last-item__overview {
-      font-size: 20px;
-      color: #fff;
     }
   }
 }
