@@ -7,7 +7,11 @@ import {
   getBodyVisoreMovieInfoReq,
   getBodyVisoreSerieInfoReq,
   getMovieInfoModalRequest,
-  getSerieInfoModalRequest
+  getSerieInfoModalRequest,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest,
 } from '../../redux/actions/apiActions'
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import YouTube from 'react-youtube';
@@ -29,6 +33,14 @@ interface props {
   isMovieCatSelected: boolean
   movie_body_visore_info: any
   serie_body_visore_info: any
+  genre_ids: any
+  getMovieFavoriteRequest: Function
+  removeFavMovieRequest: Function
+  getSerieFavoriteRequest: Function
+  removeFavSerieRequest: Function
+  favMovies: any
+  favSeries: any
+  isUserSignedIn: any
 }
 
 const BodyVisore = ({
@@ -43,7 +55,15 @@ const BodyVisore = ({
   isMovieCatSelected,
   relatedMovieSelected,
   movie_body_visore_info,
-  serie_body_visore_info
+  serie_body_visore_info,
+  genre_ids,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest,
+  favMovies,
+  favSeries,
+  isUserSignedIn
 }: props) => {
 
 
@@ -91,12 +111,6 @@ const BodyVisore = ({
   const onReady = (event: any): void => {
     const player = event.target
     setVideoPlayer(player)
-
-
-    // videoPlayer.unMute();
-    // videoPlayer.mute();
-    // videoPlayer.pauseVideo()
-    // videoPlayer.playVideo();
   }
 
   const handleHover = (id: number) => {
@@ -151,23 +165,11 @@ const BodyVisore = ({
   }
 
 
-  const handlePrintGenres = (id: number, visoreInfo: any): any => {
-    let print: any = []
-    visoreInfo && visoreInfo.map((item: any) => item.genres.map((genre: any) => {
-      if (id === item.id) {
-        print.push(genre.name)
-      }
-    }
-    ))
-    return print
-  }
-
-
   /**
    * calls action to go to title page
    * @function
-   * @param id 
-   * @param title 
+   * @param {number} id 
+   * @param {string} title 
    */
   const handleGoToMovie = (id: number, title: string, ): void => {
     if (isMovieCatSelected) {
@@ -181,27 +183,94 @@ const BodyVisore = ({
     // history.push(`/title/${makeDashesUrl(title)}`)
   }
 
-   /**
-   * Checks if passed id exists on favorites array 
+
+  /**
+   * checks if item exists in favorites If NO adds it / if YES removes it
    * @function
-   * @param {number} id
-   * @param {string} backdrop_path
-   * @param {Array} genre_ids
-   * @param {array} rest - movie title and serie name
-   * @returns {(JSX.Element | null)} - Returns correct element depending on user status (signin)
+   * @param {number} id 
+   * @param {string} poster 
+   * @param {number} genreId 
+   * @param {string} title 
    */
+  const handleMovieFavs = (
+    id: number, poster: string, genreId: number, title: string
+  ) => {
+    // on first load to avoid "length of undefined"
+    (favMovies.length === 0) &&
+      getMovieFavoriteRequest({ id, poster, genreId, title })
+
+    if (favMovies.length !== 0) {
+      let removedID: boolean = false
+      // eslint-disable-next-line array-callback-return
+      favMovies.map((item: any, i: number) => {
+        if (!removedID) {
+          if (item.id === id) {
+            removeFavMovieRequest(item.id, item.genreId)
+            removedID = true
+          } else {
+            (i + 1 === favMovies.length) &&
+              getMovieFavoriteRequest({ id, poster, genreId, title })
+          }
+        }
+      })
+    }
+  }
+
+  /**
+  * checks if item exists in favorites If NO adds it / if YES removes it
+  * @function
+  * @param {number} id 
+  * @param {string} poster 
+  * @param {number} genreId 
+  * @param {string} title 
+  */
+  const handleSerieFavs = (
+    id: number, poster: string, genreId: number, name: string
+  ): void => {
+    // on first load to avoid "length of undefined"
+    (favSeries.length === 0) &&
+      getSerieFavoriteRequest({ id, poster, genreId, name })
+
+    if (favSeries.length !== 0) {
+      let removedID: boolean = false
+      // eslint-disable-next-line array-callback-return
+      favSeries.map((item: any, i: number) => {
+        if (!removedID) {
+          if (item.id === id) {
+            removeFavSerieRequest(item.id, item.genreId)
+            removedID = true
+          } else {
+            (i + 1 === favSeries.length) &&
+              getSerieFavoriteRequest({ id, poster, genreId, name })
+          }
+        }
+      })
+    }
+  }
+
+
+
+  /**
+  * Checks if passed id exists on favorites array 
+  * @function
+  * @param {number} id
+  * @param {string} backdrop_path
+  * @param {Array} genre_ids
+  * @param {array} rest - movie title and serie name
+  * @returns {(JSX.Element | null)} - Returns correct element depending on user status (signin)
+  */
   const haandleFavMovieImg = (
     id: number, backdrop_path: string, genre_ids: Array<number>, ...rest: Array<string>
-  ): JSX.Element | null => {
+  ) => {
     let itemIdM: Array<number> = []
     let itemIdS: Array<number> = []
     // eslint-disable-next-line array-callback-return
-    favMovies.map(item => {
+    favMovies.map((item: any) => {
       itemIdM.push(item.id);
     })
 
     // eslint-disable-next-line array-callback-return
-    favSeries.map(item => {
+    favSeries.map((item: any) => {
       itemIdS.push(item.id);
     })
 
@@ -262,15 +331,17 @@ const BodyVisore = ({
           <h1 className="last-item__title">{title}</h1>
           <p className="last-item__overview">{overview}</p>
           <div className="last-item__genres-wrapper">
-            {handlePrintGenres(id, isMovieCatSelected ? movie_body_visore_info : null).map((gen: any, i: number) => (
-              <p key={i} className="last-item__genres">{gen}</p>
-            ))}
+            {movie_body_visore_info && movie_body_visore_info.map((item: any) => item.genres.map((genre: any, i: number) => {
+              if (id === item.id) {
+                return <p key={i} className="last-item__genres">{genre.name}</p>
+              }
+            }))}
           </div>
           <div className="last-item__cta">
             <button onClick={() => handleGoToMovie(id, title)}>
               Details
             </button>
-            {/* {haandleFavMovieImg(id, backdrop_path, genre_ids, title)} */}
+            {haandleFavMovieImg(id, backdrop_path, genre_ids, title)}
           </div>
         </div>
       </div>
@@ -290,7 +361,10 @@ const mapStateToProps = (state: any) => {
   return {
     isMovieCatSelected: state.uiReducer.isMovieCatSelected,
     movie_body_visore_info: state.bodyVisoreReducer.movie_body_visore_info,
-    serie_body_visore_info: state.bodyVisoreReducer.serie_body_visore_info
+    serie_body_visore_info: state.bodyVisoreReducer.serie_body_visore_info,
+    favMovies: state.moviesReducer.favMovies,
+    favSeries: state.seriesReducer.favSeries,
+    isUserSignedIn: state.awsReducer.isUserSignedIn,
   }
 }
 
@@ -299,7 +373,11 @@ export default connect(mapStateToProps, {
   getBodyVisoreSerieInfoReq,
   relatedMovieSelected,
   getMovieInfoModalRequest,
-  getSerieInfoModalRequest
+  getSerieInfoModalRequest,
+  getMovieFavoriteRequest,
+  removeFavMovieRequest,
+  getSerieFavoriteRequest,
+  removeFavSerieRequest,
 })(BodyVisore)
 
 

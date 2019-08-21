@@ -29,6 +29,8 @@ import Loader from '../Loader/Loader'
 import useWindowSize from '@rehooks/window-size';
 import CatchAll from '../../components/Error/CatchAll'
 import BodyVisore from '../BodyVisore/BodyVisore'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -407,7 +409,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     id: number,
     backdrop_path: string,
     title: string,
-    overview: string
+    overview: string,
+    genre_ids: any
   ) => {
     if (indexLastChunk === indexMainChunk) {
       return <BodyVisore
@@ -416,6 +419,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         title={title}
         overview={overview}
         key={id}
+        genre_ids={genre_ids}
       />
     } else {
       return null
@@ -428,7 +432,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     id: number,
     backdrop_path: string,
     title: string,
-    overview: string
+    overview: string,
+    genre_ids: any
   ) => {
     if (indexLastChunk === indexMainChunk) {
       return <BodyVisore
@@ -437,6 +442,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
         title={title}
         overview={overview}
         key={id}
+        genre_ids={genre_ids}
       />
     } else {
       return null
@@ -460,7 +466,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   <CatchAll key={i}>
                     <div className="loc-wrapper" >
                       <div className="locandina-outer" data-test="locandina-movie" >
-                        <img src={filterNoImg(URL, movie.poster_path, popcorn)} alt={`${movie.title}`} />
+                        <LazyLoadImage alt={movie.title} src={filterNoImg(URL, movie.poster_path, popcorn)} />
                         <div className="overlay-gallery">
                           <div className="chevron" onClick={() => handleModalStates(movie.id, indexRowChunk, indexMainChunk, movie.title)}>
                             <img src={chevron} alt="open modal" />
@@ -485,7 +491,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <>
             {chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.IMovie) => {
-                return handleLastItemMovie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.title, last.overview)
+                return handleLastItemMovie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.title, last.overview, last.genre_ids)
               })
             ))}
           </>
@@ -510,7 +516,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                     <CatchAll key={i}>
                       <div className="loc-wrapper" key={i}>
                         <div className="locandina-outer" data-test="locandina-serie" >
-                          <img src={filterNoImg(URL, serie.poster_path, popcorn)} alt={`${serie.name}`} />
+                          <LazyLoadImage alt={serie.name} src={filterNoImg(URL, serie.poster_path, popcorn)} />
                           <div className="overlay-gallery">
                             <div className="chevron" onClick={() => handleModalStates(serie.id, indexRowChunk, indexMainChunk, serie.name)}>
                               <img src={chevron} alt="open modal" />
@@ -536,7 +542,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
           <>
             {chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.ISerie) => {
-                return handleLastItemSerie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.name, last.overview)
+                return handleLastItemSerie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.name, last.overview, last.genre_ids)
               })
             ))}
           </>
