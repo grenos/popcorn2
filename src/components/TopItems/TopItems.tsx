@@ -501,7 +501,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           ))}
           <>
-            {_WW > 1279 && chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
+            {_winWidth < 1279 && chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.IMovie) => {
                 return handleLastItemMovie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.title, last.overview, last.genre_ids)
               })
@@ -552,7 +552,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           ))}
           <>
-            {_WW > 1279 && chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
+            {(_winWidth < 1279) && chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.ISerie) => {
                 return handleLastItemSerie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.name, last.overview, last.genre_ids)
               })
