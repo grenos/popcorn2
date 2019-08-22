@@ -8,6 +8,7 @@ import logo from '../../media/img/logo.png'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
 import Loader from '../Loader/Loader'
+import close from '../../media/img/close.png'
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -26,6 +27,7 @@ interface LocalState {
  * @param {bool} isConfirmModalOpen - used for Animation
  * @param {function} isFetchingRquest - Action
  * @param {bool} isFetching - used for spinner
+ * @param {function} openAuthModal - close modal Action 
  * @returns {JSX.Element}
  */
 class PassRquest extends Component<INT.IPassReq, LocalState> {
@@ -41,7 +43,13 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
 
     this.handleSignUp = this.handleSignUp.bind(this)
     this.handleEmail = this.handleEmail.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
+
+  handleClose(): void {
+    this.props.openAuthModal(false)
+  }
+
 
   handleEmail(e: InputVal): void {
     this.setState({
@@ -50,7 +58,6 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
       show: false
     })
   }
-
 
   handleSignUp(event: PreventDefault): void {
     event.preventDefault()
@@ -92,6 +99,10 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
       >
         {isConfirmModalOpen => isConfirmModalOpen && (animVal =>
           <div className="modal-inner" style={animVal}>
+            <img src={close}
+              alt="close modal"
+              className="close-log-modal"
+              onClick={this.handleClose} />
             <div className="logo-title">
               <img src={logo} alt="logo" />
               <h3>Forgot Password</h3>

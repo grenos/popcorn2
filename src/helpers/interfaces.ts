@@ -534,7 +534,7 @@ export interface IPassReq {
   isConfirmModalOpen: boolean
   isFetchingRquest: Function
   isFetching: boolean
-
+  openAuthModal: Function
 }
 
 export interface ISignupState {
@@ -732,4 +732,27 @@ export interface ITitleModalProps {
   movieInfo: IMovieInfoRes
   isMovieModalOpen: boolean
   show: boolean
+}
+
+export interface IBodyVisore {
+  id: number
+  backdrop_path: string
+  title: string
+  overview: string
+  getBodyVisoreMovieInfoReq: Function
+  getBodyVisoreSerieInfoReq: Function
+  relatedMovieSelected: Function
+  getMovieInfoModalRequest: Function
+  getSerieInfoModalRequest: Function
+  isMovieCatSelected: boolean
+  movie_body_visore_info: any
+  serie_body_visore_info: any
+  genre_ids: any
+  getMovieFavoriteRequest: Function
+  removeFavMovieRequest: Function
+  getSerieFavoriteRequest: Function
+  removeFavSerieRequest: Function
+  favMovies: any
+  favSeries: any
+  isUserSignedIn: any
 }

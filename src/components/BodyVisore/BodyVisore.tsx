@@ -20,28 +20,33 @@ import { useInView } from 'react-intersection-observer'
 
 const URLBG = 'https://image.tmdb.org/t/p/original'
 
-interface props {
-  id: number
-  backdrop_path: string
-  title: string
-  overview: string
-  getBodyVisoreMovieInfoReq: Function
-  getBodyVisoreSerieInfoReq: Function
-  relatedMovieSelected: Function
-  getMovieInfoModalRequest: Function
-  getSerieInfoModalRequest: Function
-  isMovieCatSelected: boolean
-  movie_body_visore_info: any
-  serie_body_visore_info: any
-  genre_ids: any
-  getMovieFavoriteRequest: Function
-  removeFavMovieRequest: Function
-  getSerieFavoriteRequest: Function
-  removeFavSerieRequest: Function
-  favMovies: any
-  favSeries: any
-  isUserSignedIn: any
-}
+
+
+/**
+ * BodyVisore Component
+ * @function
+ * @param {number} id - passed from parent (id of each visore when loaded)
+ * @param {stringList} backdrop_path - passed from parent
+ * @param {string} title - passed from parent
+ * @param {string} overview - passed from parent
+ * @param {function} getBodyVisoreMovieInfoReq - Action to get more item info (Api Call)
+ * @param {function} getBodyVisoreSerieInfoReq - Action to get more item info (Api Call)
+ * @param {function} getMovieInfoModalRequest - Opens title page - ACTION
+ * @param {function} getSerieInfoModalRequest - Opens title page - ACTION
+ * @param {boolean} isMovieCatSelected 
+ * @param {boolean} relatedMovieSelected - Is used to sseperate which info to use for Title Page
+ * @param {array} movie_body_visore_info - body visore item info (happens on top items component)
+ * @param {array} serie_body_visore_info - body visore item info (happens on top items component)
+ * @param {array} genre_ids - genre ids of current BodyVisore
+ * @param {function} getMovieFavoriteRequest - add to facorites
+ * @param {function} removeFavMovieRequest - remove from favorites
+ * @param {function} getSerieFavoriteRequest - add to facorites
+ * @param {function} removeFavSerieRequest - remove from favorites
+ * @param {array} favMovies - array to compare favorites (for add to list button)
+ * @param {array} favSeries - rray to compare favorites (for add to list button)
+ * @param {boolean} isUserSignedIn - to check if should render button
+ * @returns {JSX.Element}
+ */
 
 const BodyVisore = ({
   id,
@@ -64,21 +69,21 @@ const BodyVisore = ({
   favMovies,
   favSeries,
   isUserSignedIn
-}: props) => {
+}: INT.IBodyVisore): JSX.Element => {
 
-
+  // checks when visore is on screen for animation
   const [ref, inView] = useInView({
     threshold: 0.2,
   })
 
-
+  // calls api on load to get more info on video
   useEffect(() => {
     if (isMovieCatSelected) {
       getBodyVisoreMovieInfoReq(id)
     } else {
       getBodyVisoreSerieInfoReq(id)
     }
-  }, [isMovieCatSelected, getBodyVisoreMovieInfoReq, id])
+  }, [isMovieCatSelected, getBodyVisoreMovieInfoReq, getBodyVisoreSerieInfoReq, id])
 
 
   const [videoPlayer, setVideoPlayer] = useState()
@@ -113,12 +118,14 @@ const BodyVisore = ({
     setVideoPlayer(player)
   }
 
+  // set actual hovered visore id on state to
   const handleHover = (id: number) => {
     setActiveHover(id)
     setToggleHover(toggleHover => !toggleHover)
     handleVideoStatus(id)
   }
 
+  // select correct visore on hover
   const handleVideoStatus = (id: number) => {
     if (activeHover === id && toggleHover) {
       videoPlayer.pauseVideo()
@@ -129,7 +136,7 @@ const BodyVisore = ({
     }
   }
 
-
+  // do on load
   useEffect(() => {
     if (videoPlayer !== undefined) {
       videoPlayer.pauseVideo()
@@ -138,15 +145,17 @@ const BodyVisore = ({
   }, [videoPlayer])
 
 
-  const handleAddToFavs = (id: number) => {
-    // maybe better to use cta?
-    console.log('this click will send to modal');
-  }
-
-
-  const handlePrintVideo = (id: number, visoreInfo: any): any => {
+  /**
+   * handlePrintVideo - prints Youtube player
+   * @function
+   * @param {number} id - passed down from parent (topItems)
+   * @param {IMovieInfoRes} visoreInfo - IMovieInfoRes - on component load from api call
+   * @returns {JSX.Element} - print variable
+   */
+  const handlePrintVideo = (id: number, visoreInfo: INT.IMovieInfoRes[]): any => {
     let print: any
-    visoreInfo.map((item: any) => {
+    // eslint-disable-next-line array-callback-return
+    visoreInfo.map((item: INT.IMovieInfoRes) => {
       const videoId: string = get(item, 'videos.results[0].key', '')
 
       if (id === item.id) {
@@ -159,7 +168,6 @@ const BodyVisore = ({
           onReady={onReady}
         />
       }
-      return print
     })
     return print
   }
@@ -168,8 +176,8 @@ const BodyVisore = ({
   /**
    * calls action to go to title page
    * @function
-   * @param {number} id 
-   * @param {string} title 
+   * @param {number} id - passed down from parent (topItems)
+   * @param {string} title - passed down from parent (topItems)
    */
   const handleGoToMovie = (id: number, title: string, ): void => {
     if (isMovieCatSelected) {
@@ -265,12 +273,12 @@ const BodyVisore = ({
     let itemIdM: Array<number> = []
     let itemIdS: Array<number> = []
     // eslint-disable-next-line array-callback-return
-    favMovies.map((item: any) => {
+    favMovies.map((item: INT.IFavMovie) => {
       itemIdM.push(item.id);
     })
 
     // eslint-disable-next-line array-callback-return
-    favSeries.map((item: any) => {
+    favSeries.map((item: INT.IFavMovie) => {
       itemIdS.push(item.id);
     })
 
@@ -315,7 +323,6 @@ const BodyVisore = ({
 
 
 
-
   return (
     <div
       className={inView ? 'last-item-wrapper' : 'last-item-wrapper show'}
@@ -325,13 +332,13 @@ const BodyVisore = ({
 
       <div className="overlay-handler"
         onMouseEnter={() => handleHover(id)}
-        onMouseLeave={() => handleHover(id)}
-        onClick={() => handleAddToFavs(id)}>
+        onMouseLeave={() => handleHover(id)}>
         <div className="last-item__info-wrapper">
           <h1 className="last-item__title">{title}</h1>
           <p className="last-item__overview">{overview}</p>
           <div className="last-item__genres-wrapper">
-            {movie_body_visore_info && movie_body_visore_info.map((item: any) => item.genres.map((genre: any, i: number) => {
+            {/* eslint-disable-next-line array-callback-return */}
+            {movie_body_visore_info && movie_body_visore_info.map((item: INT.IMovieInfoRes) => item.genres.map((genre: INT.IGenres, i: number) => {
               if (id === item.id) {
                 return <p key={i} className="last-item__genres">{genre.name}</p>
               }
