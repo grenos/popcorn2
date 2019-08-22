@@ -124,6 +124,7 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
     isMovieCatSelected ? getMovieInfoRequest(id) : getSerieInfoRequest(id);
   }, [getMovieInfoRequest, getSerieInfoRequest, id, isMovieCatSelected]);
 
+  // @ts-ignore
   const transitionMount = useTransition(isMovieModalOpen, null, {
     from: { height: `0vh`, opacity: 0 },
     enter: { height: `65vh`, opacity: 1 },
