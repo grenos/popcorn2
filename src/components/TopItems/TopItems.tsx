@@ -101,7 +101,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   let ww = useWindowSize();
 
   const [_WW, set_WW] = useState<number>(0)
-
+  // chunk for rows
   useEffect(() => {
     if (ww.innerWidth > 1024) {
       // 7
@@ -112,6 +112,17 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     } else if (ww.innerWidth < 768) {
       // 2
       set_WW(2)
+    }
+  }, [ww.innerWidth])
+
+
+  const [_winWidth, set_winWidth] = useState<number>(0)
+  // chunk for body visore
+  useEffect(() => {
+    if (ww.innerWidth > 1279) {
+      set_winWidth(43)
+    } else if (ww.innerWidth < 1025) {
+      set_winWidth(8)
     }
   }, [ww.innerWidth])
 
@@ -457,7 +468,8 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   const renderMovies = (): JSX.Element[] => {
     return (
 
-      chunk(movies, 43).map((mainChunk: INT.IMovie[], indexMainChunk: number) => (
+      // bad hack (chunk must be canceled on touch)
+      chunk(movies, _winWidth).map((mainChunk: INT.IMovie[], indexMainChunk: number) => (
         <div key={indexMainChunk} className="big-chunk">
           {chunk(mainChunk.slice(0, 42), _WW).map((arr: INT.IMovie[], indexRowChunk: number) => (
             <div key={indexRowChunk}>
@@ -489,7 +501,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           ))}
           <>
-            {chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
+            {_WW > 1279 && chunk(movies, 43).map((finalItem: INT.IMovie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.IMovie) => {
                 return handleLastItemMovie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.title, last.overview, last.genre_ids)
               })
@@ -506,7 +518,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
   // and the movie modal opens bellow every row for the selected locandina
   const renderSeries = (): JSX.Element[] => {
     return (
-      chunk(series, 43).map((mainChunk: INT.ISerie[], indexMainChunk: number) => (
+      chunk(series, _winWidth).map((mainChunk: INT.ISerie[], indexMainChunk: number) => (
         <div key={indexMainChunk} className="big-chunk">
           {chunk(mainChunk.slice(0, 42), _WW).map((arr: INT.ISerie[], indexRowChunk: number) => (
             <div key={indexRowChunk}>
@@ -540,7 +552,7 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
             </div>
           ))}
           <>
-            {chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
+            {_WW > 1279 && chunk(series, 43).map((finalItem: INT.ISerie[], indexLastChunk: number) => (
               finalItem.slice(42, 43).map((last: INT.ISerie) => {
                 return handleLastItemSerie(indexLastChunk, indexMainChunk, last.id, last.backdrop_path, last.name, last.overview, last.genre_ids)
               })
