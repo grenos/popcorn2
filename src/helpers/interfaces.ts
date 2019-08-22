@@ -745,14 +745,15 @@ export interface IBodyVisore {
   getMovieInfoModalRequest: Function
   getSerieInfoModalRequest: Function
   isMovieCatSelected: boolean
-  movie_body_visore_info: any
-  serie_body_visore_info: any
+  movie_body_visore_info: IMovieInfoRes[]
+  serie_body_visore_info: IMovieInfoRes[]
   genre_ids: any
   getMovieFavoriteRequest: Function
   removeFavMovieRequest: Function
   getSerieFavoriteRequest: Function
   removeFavSerieRequest: Function
-  favMovies: any
-  favSeries: any
-  isUserSignedIn: any
+  favMovies: Array<IFavMovie>
+  favSeries: Array<IFavMovie>
+  isUserSignedIn: boolean
+  openMovieModalRequest: Function
 }

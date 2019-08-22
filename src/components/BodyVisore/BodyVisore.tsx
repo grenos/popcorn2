@@ -13,13 +13,13 @@ import {
   getSerieFavoriteRequest,
   removeFavSerieRequest,
 } from '../../redux/actions/apiActions'
-import { relatedMovieSelected } from '../../redux/actions/uiActions'
+import { relatedMovieSelected, openMovieModalRequest } from '../../redux/actions/uiActions'
 import YouTube from 'react-youtube';
 import get from 'lodash.get';
 import { useInView } from 'react-intersection-observer'
+import useWindowSize from '@rehooks/window-size'
 
 const URLBG = 'https://image.tmdb.org/t/p/original'
-
 
 
 /**
@@ -48,7 +48,7 @@ const URLBG = 'https://image.tmdb.org/t/p/original'
  * @returns {JSX.Element}
  */
 
-const BodyVisore = ({
+const BodyVisore: React.FC<INT.IBodyVisore> = ({
   id,
   backdrop_path,
   title,
@@ -68,8 +68,11 @@ const BodyVisore = ({
   removeFavSerieRequest,
   favMovies,
   favSeries,
-  isUserSignedIn
-}: INT.IBodyVisore): JSX.Element => {
+  isUserSignedIn,
+  openMovieModalRequest
+}): JSX.Element => {
+
+  let ww = useWindowSize();
 
   // checks when visore is on screen for animation
   const [ref, inView] = useInView({
@@ -136,6 +139,7 @@ const BodyVisore = ({
       if (videoPlayer !== undefined) {
         videoPlayer.playVideo()
         videoPlayer.unMute()
+        ww.innerWidth > 1023 && openMovieModalRequest(false)
       }
     }
   }
@@ -389,6 +393,7 @@ export default connect(mapStateToProps, {
   removeFavMovieRequest,
   getSerieFavoriteRequest,
   removeFavSerieRequest,
+  openMovieModalRequest
 })(BodyVisore)
 
 

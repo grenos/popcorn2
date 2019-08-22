@@ -26,11 +26,10 @@ import liked from '../../media/img/liked.png'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 import Loader from '../Loader/Loader'
-import useWindowSize from '@rehooks/window-size';
+import useWindowSize from '@rehooks/window-size'
 import CatchAll from '../../components/Error/CatchAll'
 import BodyVisore from '../BodyVisore/BodyVisore'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
