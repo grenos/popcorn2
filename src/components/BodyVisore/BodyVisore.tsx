@@ -128,11 +128,15 @@ const BodyVisore = ({
   // select correct visore on hover
   const handleVideoStatus = (id: number) => {
     if (activeHover === id && toggleHover) {
-      videoPlayer.pauseVideo()
-      videoPlayer.mute()
+      if (videoPlayer !== undefined) {
+        videoPlayer.pauseVideo()
+        videoPlayer.mute()
+      }
     } else {
-      videoPlayer.playVideo()
-      videoPlayer.unMute()
+      if (videoPlayer !== undefined) {
+        videoPlayer.playVideo()
+        videoPlayer.unMute()
+      }
     }
   }
 
