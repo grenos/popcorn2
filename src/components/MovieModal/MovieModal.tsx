@@ -387,8 +387,11 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
 
   return (
     <div className="item-modal" ref={ref} data-test="component-modal">
+      {/* @ts-ignore */}
       {transitionMount.map(
+        // @ts-ignore
         ({ item, key, props }) =>
+          // @ts-ignore
           item && (
             <a.div
               key={key}
