@@ -1,6 +1,5 @@
 {
   "name": "popcorn2",
-  "version": "1.0",
   "engines": {
     "node": "8.11.1"
   },
