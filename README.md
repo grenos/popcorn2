@@ -24,10 +24,10 @@ Enzyme
 This project is in version 1.0
 
 ## Todo
-[] Reformat components 
-[] Split Components 
-[] Finish Testing 
-[] Add Server support for favorites
+- [] Reformat components 
+- [] Split Components 
+- [] Finish Testing 
+- [] Add Server support for favorites
 ...
 
 ### `yarn start` 
