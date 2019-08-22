@@ -1,6 +1,9 @@
 {
   "name": "popcorn2",
-  "version": "0.1.0",
+  "version": "1.0",
+  "engines": {
+    "node": "8.11.1"
+  },
   "private": false,
   "dependencies": {
     "@rehooks/component-size": "^1.0.2",
