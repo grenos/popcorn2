@@ -3,7 +3,7 @@ import { useSpring, animated } from 'react-spring'
 import SearchInput from '../SearchInput/SearchInput'
 import NavToggle from '../NavToggle/NavToggle'
 import * as INT from '../../helpers/interfaces'
-import logo from '../../media/img/logo.png'
+import IMG from '../../media/img/index'
 import useWindowSize from '@rehooks/window-size';
 
 
@@ -79,7 +79,7 @@ const Nav: React.FC<INT.INavProps> = ({ scrolled, location }): JSX.Element => {
         className="nav__logo"
         data-test="nav-logo">
         <img
-          src={logo} alt="logo"
+          src={String(IMG.logo)} alt="logo"
           className="nav__img"
         />
       </animated.div>}

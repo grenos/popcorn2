@@ -11,9 +11,7 @@ import {
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
 import { filterNoImg } from '../../helpers/helperFunctions'
-import popcorn from '../../media/img/popcorn.png'
-import close from '../../media/img/close.png'
-import info from '../../media/img/info.png'
+import IMG from '../../media/img/index'
 
 const URL = 'https://image.tmdb.org/t/p/w500'
 
@@ -112,15 +110,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -135,15 +133,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -158,15 +156,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -181,15 +179,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -204,15 +202,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -227,15 +225,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -250,15 +248,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -273,15 +271,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -296,15 +294,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -319,15 +317,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -342,15 +340,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -365,15 +363,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -388,15 +386,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -411,15 +409,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -434,15 +432,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -457,15 +455,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -480,15 +478,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -503,15 +501,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -526,15 +524,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -549,15 +547,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -572,15 +570,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )
@@ -595,15 +593,15 @@ export const UnconnectedFavorites: React.FC<INT.IFavorites & RouteComponentProps
             return (
               <div className="favorites__loc-wraper" key={item.id}>
                 <div className="favorites__loc-img">
-                  <img src={filterNoImg(URL, item.poster, popcorn)} alt="" />
+                  <img src={filterNoImg(URL, item.poster, String(IMG.popcorn))} alt="" />
                 </div>
                 <div className="favorites__heart"
                   onClick={() => handleRemoveFavs(item.id, item.genreId)}>
-                  <img src={close} alt="remove to favorites" />
+                  <img src={String(IMG.close)} alt="remove to favorites" />
                 </div>
                 <div className="favorites__info"
                   onClick={() => handleLocaClick(item.id, item.title)}>
-                  <img src={info} alt="item info" />
+                  <img src={String(IMG.info)} alt="item info" />
                 </div>
               </div>
             )

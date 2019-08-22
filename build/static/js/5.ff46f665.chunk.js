@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{412:function(e,a,r){"use strict";r.r(a);var t=r(0),n=r.n(t);a.default=function(){return n.a.createElement("div",{className:"fof-wrapper"},n.a.createElement("h1",null,"Error 404!"),n.a.createElement("div",{className:"fof-img-wrapper"},n.a.createElement("img",{src:"https://media.giphy.com/media/PmdohEH13efckDtOxM/giphy.gif",alt:"error"})))}}}]);
+//# sourceMappingURL=5.ff46f665.chunk.js.map

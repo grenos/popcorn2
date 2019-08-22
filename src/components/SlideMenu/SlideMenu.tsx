@@ -15,7 +15,7 @@ import { Trail } from 'react-spring/renderprops.cjs';
 import { withRouter } from "react-router-dom"
 import { RouteComponentProps } from "react-router";
 import { makeDashesUrl } from '../../helpers/helperFunctions'
-import popcorn from '../../media/img/popcorn.png'
+import IMG from '../../media/img/index'
 import Modal from '../SignInModal/Modal'
 import { Auth } from 'aws-amplify'
 import get from 'lodash.get'
@@ -222,7 +222,7 @@ export const UnconnectedSlideMenu: React.FC<INT.IMenuProps & RouteComponentProps
             <a.div className="nav-wrapper" style={props} key={key}>
               <Modal modalType={isAuthModalUI} />
               <div className="menu-logo">
-                <img src={popcorn} alt="logo" />
+                <img src={String(IMG.popcorn)} alt="logo" />
                 <div className="signup">
                   <div>
                     {isUserSignedIn ? null : <p onClick={handleLogin}>Log In</p>}

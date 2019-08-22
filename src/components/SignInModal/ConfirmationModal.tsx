@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
-import logo from '../../media/img/logo.png'
+import IMG from '../../media/img/index'
 import { Transition } from 'react-spring/renderprops.cjs'
 import { Auth } from 'aws-amplify'
 import { openAuthModal, openConfirmModal, isFetchingRquest, getToggleMenuRequest } from '../../redux/actions/uiActions'
@@ -104,7 +104,7 @@ class ConfirmationModal extends Component<INT.IConfirmSignUp, LocalState> {
         {isConfirmModalOpen => isConfirmModalOpen && (animVal =>
           <div className="modal-inner" style={{ ...animVal }}>
             <div className="logo-title">
-              <img src={logo} alt="logo" />
+              <img src={String(IMG.logo)} alt="logo" />
               <h3>Confirm Account</h3>
             </div>
             <form onSubmit={this.handleConfirm}>

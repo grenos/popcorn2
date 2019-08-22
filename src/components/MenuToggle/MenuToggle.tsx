@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring';
 import { getToggleMenuRequest } from '../../redux/actions/uiActions'
-import chevron from '../../media/img/chevron.png'
+import IMG from '../../media/img/index'
 import * as INT from '../../helpers/interfaces'
 import useWindowSize from '@rehooks/window-size';
 
@@ -50,7 +50,7 @@ export const UnconnectedMenuToggle: React.FC<INT.IToggleMenuProps> = ({
       }
       type="button"
     >
-      <a.img src={chevron}
+      <a.img src={String(IMG.chevron)}
         data-test="img-toggle"
         alt="Open Menu"
         style={imgAnimation}

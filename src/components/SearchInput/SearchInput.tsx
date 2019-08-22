@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useSpring, animated as a } from 'react-spring'
 import { withRouter } from "react-router-dom"
-import search from '../../media/img/search.png'
+import IMG from '../../media/img/index'
 import { getUserInputMoviesRequest, getUserInputSeriesRequest } from '../../redux/actions/apiActions'
 import { userHasTypedRequest } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
@@ -100,7 +100,7 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
         value={change}
       />
       <a.img
-        src={search}
+        src={String(IMG.search)}
         alt="search"
         style={
           ww.innerWidth > 668

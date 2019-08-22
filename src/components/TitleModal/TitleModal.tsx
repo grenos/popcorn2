@@ -5,8 +5,7 @@ import logo from '../../media/img/logo.png'
 import YouTube from 'react-youtube'
 import Scrollbar from 'react-scrollbars-custom'
 import get from 'lodash.get'
-import internet from '../../media/img/internet.png'
-import popcorn from '../../media/img/popcorn.png'
+import IMG from '../../media/img/index'
 import useWindowSize from '@rehooks/window-size';
 
 const URL = 'https://image.tmdb.org/t/p/original'
@@ -85,7 +84,7 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element
         rgba(0, 0, 0, 0.75) 64%, 
         rgba(0, 0, 0, 0.65) 79%, 
         rgba(0, 0, 0, 0) 100%), 
-        url(${filterNoImg(URL, backdrop_path, popcorn)})`
+        url(${filterNoImg(URL, backdrop_path, String(IMG.popcorn))})`
     }}>
       <div className="title-modal__header">
         <div className="header__icons">
@@ -143,7 +142,7 @@ const TitleModal: React.FC<INT.ITitleModalProps> = ({ movieInfo, }): JSX.Element
             }
           </ul>
           <a href={homepage} target="_blank" rel="noopener noreferrer">
-            <img src={internet} alt="internet" />
+            <img src={String(IMG.internet)} alt="internet" />
           </a>
         </div>
       </div>

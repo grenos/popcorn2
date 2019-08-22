@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { openAuthModal, getToggleMenuRequest, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { saveUserInfo, userSignedIn } from '../../redux/actions/awsActions'
 import * as INT from '../../helpers/interfaces'
-import logo from '../../media/img/logo.png'
-import close from '../../media/img/close.png'
+import IMG from '../../media/img/index'
 import isEmail from 'validator/lib/isEmail'
 import { Auth } from 'aws-amplify'
 import Loader from '../Loader/Loader'
@@ -116,12 +115,12 @@ class Login extends Component<INT.ILogin, LocalState> {
 
     return (
       <div className="modal-inner">
-        <img src={close}
+        <img src={String(IMG.close)}
           alt="close modal"
           className="close-log-modal"
           onClick={this.handleClose} />
         <div className="logo-title">
-          <img src={logo} alt="logo" />
+          <img src={String(IMG.logo)} alt="logo" />
           <h3>Log In</h3>
         </div>
 

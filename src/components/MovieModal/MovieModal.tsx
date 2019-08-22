@@ -22,11 +22,7 @@ import Scrollbar from 'react-scrollbars-custom';
 import RelatedItems from './RelatedItems';
 import Similars from './Similars';
 import MoreInfo from './MoreInfo';
-import close from '../../media/img/close.png';
-import play from '../../media/img/play.png';
-import pause from '../../media/img/pause.png';
-import volume from '../../media/img/volume.png';
-import mute from '../../media/img/mute.png';
+import IMG from '../../media/img/index'
 import YouTube from 'react-youtube';
 import get from 'lodash.get';
 import useWindowSize from '@rehooks/window-size';
@@ -469,11 +465,11 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                 </div>
               </a.div>
               <div className="close" onClick={handleHighlightToggle}>
-                <img src={close} alt="close modal" />
+                <img src={String(IMG.close)} alt="close modal" />
               </div>
               <div className="mute" onClick={handleVolume}>
                 <img
-                  src={toggleMute ? volume : mute}
+                  src={toggleMute ? String(IMG.volume) : String(IMG.mute)}
                   alt="volume mute button"
                 />
               </div>
@@ -484,8 +480,8 @@ export const UnconnectedMovieModal: React.FC<INT.IModalProps> = React.memo(({
                       isVideoSectionOpen ||
                       isSimilarSectionOpen ||
                       isMoreInfoOpen
-                      ? play
-                      : pause
+                      ? String(IMG.play)
+                      : String(IMG.pause)
                   }
                   alt="pplay pause button"
                 />

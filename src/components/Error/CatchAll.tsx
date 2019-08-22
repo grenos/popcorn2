@@ -30,7 +30,7 @@ class CatchAll extends Component<{}, LocalState> {
 
   render() {
     if (this.state.error) {
-      return <h1>Ops! Something went wrong.</h1>
+      return <h1 style={{ color: 'white' }}>Ops! Something went wrong.</h1>
     }
     return this.props.children
   }

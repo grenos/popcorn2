@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { openMoreInfoRequest } from '../../redux/actions/uiActions'
-import close from '../../media/img/close.png'
+import IMG from '../../media/img/index'
 import Scrollbar from "react-scrollbars-custom"
 
 
@@ -89,7 +89,7 @@ export class UnconnectedMoreInfo extends Component<INT.IMoreInfoProps>{
             </div>
           </div>
           <div className="close" onClick={this.handleCloseVideo}>
-            <img src={close} alt="close" />
+            <img src={String(IMG.close)} alt="close" />
           </div>
         </div>
       )

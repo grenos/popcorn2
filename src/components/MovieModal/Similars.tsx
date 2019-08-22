@@ -7,8 +7,8 @@ import { filterNoImg } from '../../helpers/helperFunctions'
 import * as INT from '../../helpers/interfaces'
 import { getMovieInfoModalRequest, getSerieInfoModalRequest } from '../../redux/actions/apiActions'
 import { openSimilarSectionRequest, relatedMovieSelected } from '../../redux/actions/uiActions'
-import close from '../../media/img/close.png'
-import popcorn from '../../media/img/popcorn.png'
+import IMG from '../../media/img/index'
+
 
 const URL = 'https://image.tmdb.org/t/p/w500/'
 
@@ -138,7 +138,7 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
                     onMouseLeave={() => this.handleHover(video.id)}
                   >
                     <div className="img-overlay"></div>
-                    <img src={filterNoImg(URL, video.poster_path, popcorn)}
+                    <img src={filterNoImg(URL, video.poster_path, String(IMG.popcorn))}
                       alt={`${this.props.isMovieCatSelected ? video.title : video.name}`} />
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export class UnconnectedSimilarItems extends Component<INT.ISimilarProps & Route
             }
           </Carousel>
           <div className="close" onClick={this.handleCloseVideo}>
-            <img src={close} alt="close" />
+            <img src={String(IMG.close)} alt="close" />
           </div>
         </div>
       )

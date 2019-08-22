@@ -17,12 +17,9 @@ import {
   getMovieInfoModalRequest,
   getSerieInfoModalRequest
 } from '../../redux/actions/apiActions'
-import popcorn from '../../media/img/popcorn.png'
 import { filterNoImg } from '../../helpers/helperFunctions'
 import { RouteComponentProps } from "react-router"
-import chevron from '../../media/img/chevron.png'
-import like from '../../media/img/like.png'
-import liked from '../../media/img/liked.png'
+import IMG from '../../media/img/index'
 import chunk from 'lodash.chunk'
 import MovieModal from '../MovieModal/MovieModal'
 import Loader from '../Loader/Loader'
@@ -392,9 +389,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
 
 
     if (itemId.includes(id)) {
-      return <img src={liked} alt="remove to favorites" />
+      return <img src={String(IMG.liked)} alt="remove to favorites" />
     } else {
-      return <img src={like} alt="add to favorites" />
+      return <img src={String(IMG.like)} alt="add to favorites" />
     }
   }
 
@@ -406,9 +403,9 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
     })
 
     if (itemId.includes(id)) {
-      return <img src={liked} alt="remove to favorites" />
+      return <img src={String(IMG.liked)} alt="remove to favorites" />
     } else {
-      return <img src={like} alt="add to favorites" />
+      return <img src={String(IMG.like)} alt="add to favorites" />
     }
   }
 
@@ -477,10 +474,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                   <CatchAll key={i}>
                     <div className="loc-wrapper" >
                       <div className="locandina-outer" data-test="locandina-movie" >
-                        <LazyLoadImage alt={movie.title} src={filterNoImg(URL, movie.poster_path, popcorn)} />
+                        <LazyLoadImage alt={movie.title} src={filterNoImg(URL, movie.poster_path, String(IMG.popcorn))} />
                         <div className="overlay-gallery">
                           <div className="chevron" onClick={() => handleModalStates(movie.id, indexRowChunk, indexMainChunk, movie.title)}>
-                            <img src={chevron} alt="open modal" />
+                            <img src={String(IMG.chevron)} alt="open modal" />
                           </div>
                           <div className="heart"
                             onClick={() => handleMovieFavs(movie.id, movie.backdrop_path, movie.genre_ids[0], movie.title)}>
@@ -527,10 +524,10 @@ export const UnconnectedTopItems: React.FC<INT.ITopResultsProps & RouteComponent
                     <CatchAll key={i}>
                       <div className="loc-wrapper" key={i}>
                         <div className="locandina-outer" data-test="locandina-serie" >
-                          <LazyLoadImage alt={serie.name} src={filterNoImg(URL, serie.poster_path, popcorn)} />
+                          <LazyLoadImage alt={serie.name} src={filterNoImg(URL, serie.poster_path, String(IMG.popcorn))} />
                           <div className="overlay-gallery">
                             <div className="chevron" onClick={() => handleModalStates(serie.id, indexRowChunk, indexMainChunk, serie.name)}>
-                              <img src={chevron} alt="open modal" />
+                              <img src={String(IMG.chevron)} alt="open modal" />
                             </div>
                             <div className="heart" onClick={() => handleSerieFavs(serie.id, serie.backdrop_path, serie.genre_ids[0], serie.name)}>
                               {isUserSignedIn && haandleFavSerieImg(serie.id)}

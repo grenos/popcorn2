@@ -4,7 +4,7 @@ import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
 import * as INT from '../../helpers/interfaces'
 import { openVideoSectionRequest } from '../../redux/actions/uiActions'
-import close from '../../media/img/close.png'
+import IMG from '../../media/img/index'
 import { useCssClass } from '../../helpers/hooks'
 import useWindowSize from '@rehooks/window-size';
 
@@ -89,7 +89,7 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
           </div>
         ))}
         <div className="close" onClick={handleCloseVideo}>
-          <img src={close} alt="close" />
+          <img src={String(IMG.close)} alt="close" />
         </div>
       </div>
     )
@@ -111,7 +111,7 @@ export const UnconnectedRelatedItems = ({ videos, openVideoSectionRequest, anima
           ))}
         </Carousel>
         <div className="close" onClick={handleCloseVideo}>
-          <img src={close} alt="close" />
+          <img src={String(IMG.close)} alt="close" />
         </div>
       </div>
     )

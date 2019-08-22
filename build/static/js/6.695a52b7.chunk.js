@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{411:function(e,r,n){"use strict";n.r(r);var t=n(0),o=n.n(t),a=n(16);r.default=Object(a.c)(function(e){return{isTopItemError:e.uiReducer.isTopItemError}},{})(function(e){var r=e.isTopItemError;return o.a.createElement("div",{className:"net-error-wrapper"},o.a.createElement("h1",null,r.message))})}}]);
-//# sourceMappingURL=6.695a52b7.chunk.js.map

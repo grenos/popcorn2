@@ -4,8 +4,7 @@ import * as INT from '../../helpers/interfaces'
 import { openAuthModal, openConfirmModal, isFetchingRquest } from '../../redux/actions/uiActions'
 import { makeSignUpGlobal } from '../../redux/actions/awsActions'
 import { Transition } from 'react-spring/renderprops.cjs'
-import logo from '../../media/img/logo.png'
-import close from '../../media/img/close.png'
+import IMG from '../../media/img/index'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
 import ConfirmationModal from './ConfirmationModal'
@@ -162,12 +161,12 @@ class SignUp extends Component<INT.ISignUp, LocalState> {
         >
           {isConfirmModalOpen => isConfirmModalOpen && (animVal =>
             <div className="modal-inner" style={animVal}>
-              <img src={close}
+              <img src={String(IMG.close)}
                 alt="close modal"
                 className="close-log-modal"
                 onClick={this.handleClose} />
               <div className="logo-title">
-                <img src={logo} alt="logo" />
+                <img src={String(IMG.logo)} alt="logo" />
                 <h3>Sign Up</h3>
               </div>
 

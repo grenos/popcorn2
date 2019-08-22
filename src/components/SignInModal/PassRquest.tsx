@@ -4,11 +4,11 @@ import * as INT from '../../helpers/interfaces'
 import { openAuthModal, openConfirmModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { makeSignUpGlobal } from '../../redux/actions/awsActions'
 import { Transition } from 'react-spring/renderprops.cjs'
-import logo from '../../media/img/logo.png'
+import IMG from '../../media/img/index'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
 import Loader from '../Loader/Loader'
-import close from '../../media/img/close.png'
+
 
 type InputVal = React.ChangeEvent<HTMLInputElement>
 type PreventDefault = React.FormEvent<HTMLFormElement>
@@ -99,12 +99,12 @@ class PassRquest extends Component<INT.IPassReq, LocalState> {
       >
         {isConfirmModalOpen => isConfirmModalOpen && (animVal =>
           <div className="modal-inner" style={animVal}>
-            <img src={close}
+            <img src={String(IMG.close)}
               alt="close modal"
               className="close-log-modal"
               onClick={this.handleClose} />
             <div className="logo-title">
-              <img src={logo} alt="logo" />
+              <img src={String(IMG.logo)} alt="logo" />
               <h3>Forgot Password</h3>
             </div>
 

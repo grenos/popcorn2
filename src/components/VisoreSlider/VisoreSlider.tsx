@@ -12,7 +12,7 @@ import {
 } from '../../redux/actions/apiActions'
 import { relatedMovieSelected } from '../../redux/actions/uiActions'
 import { filterNoImg } from '../../helpers/helperFunctions'
-import popcorn from '../../media/img/popcorn.png'
+import IMG from '../../media/img/index'
 import useWindowSize from '@rehooks/window-size';
 import CatchAll from '../../components/Error/CatchAll'
 
@@ -243,8 +243,8 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
                     data-test="movie-slide"
                     style={
                       ww.innerWidth > 668
-                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
-                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
+                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, String(IMG.popcorn))})` }
+                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, String(IMG.popcorn))})` }
                     }>
                     <div className="overlay-gallery-1">
                       <div className="overlay-gallery-2">
@@ -273,8 +273,8 @@ export const UnconnectedVisoreSlider: React.FC<INT.IVisoreProps> = ({
                     data-test="serie-slide"
                     style={
                       ww.innerWidth > 668
-                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, popcorn)})` }
-                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, popcorn)})` }
+                        ? { backgroundImage: `url(${filterNoImg(URL, backdrop_path, String(IMG.popcorn))})` }
+                        : { backgroundImage: `url(${filterNoImg(URL_MOB, poster_path, String(IMG.popcorn))})` }
                     }>
                     >
                     <div className="overlay-gallery-1">

@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import * as INT from '../../helpers/interfaces'
 import { openAuthModal, setAuthModalUI, isFetchingRquest } from '../../redux/actions/uiActions'
 import { Transition } from 'react-spring/renderprops.cjs'
-import logo from '../../media/img/logo.png'
-import close from '../../media/img/close.png'
+import IMG from '../../media/img/index'
 import isEmail from 'validator/lib/isEmail';
 import { Auth } from 'aws-amplify';
 import Loader from '../Loader/Loader'
@@ -134,12 +133,12 @@ class ForgotPass extends Component<INT.IForgotPass, LocalState> {
         >
           {isConfirmModalOpen => isConfirmModalOpen && (animVal =>
             <div className="modal-inner" style={animVal}>
-              <img src={close}
+              <img src={String(IMG.close)}
                 alt="close modal"
                 className="close-log-modal"
                 onClick={this.handleClose} />
               <div className="logo-title">
-                <img src={logo} alt="logo" />
+                <img src={String(IMG.logo)} alt="logo" />
                 <h3>Confirm Password</h3>
               </div>
 

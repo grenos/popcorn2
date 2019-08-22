@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthModalUI } from '../../redux/actions/uiActions'
 import * as INT from '../../helpers/interfaces'
-import logo from '../../media/img/logo.png'
+import IMG from '../../media/img/index'
 
 /**
  * Succes Component (Shown after password change)
@@ -23,7 +23,7 @@ class SuccessModal extends Component<INT.ISuccessModal> {
     return (
       <div className="modal-inner">
         <div className="logo-title">
-          <img src={logo} alt="logo" />
+          <img src={String(IMG.logo)} alt="logo" />
         </div>
 
         <div className="success-modal-message">
