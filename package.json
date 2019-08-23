@@ -57,8 +57,8 @@
     "validator": "^11.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "serve": "node server/server.js",
+    "serve": "react-scripts start",
+    "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
