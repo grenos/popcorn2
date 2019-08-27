@@ -176,3 +176,33 @@
     margin: 20px 0;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .modal-wrapper {
+    .modal-inner {
+      max-width: 500px;
+    }
+  }
+}
+
+@media only screen and (max-width: 668px) {
+  .modal-wrapper {
+    .modal-inner {
+      max-width: 350px;
+      margin-left: 0px;
+      padding: 10% 0;
+
+      form {
+        .form-group {
+          @include flex-box(column, null, center, center);
+
+          label {
+            input {
+              width: 280px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

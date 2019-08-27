@@ -49,19 +49,32 @@ class Login extends Component<INT.ILogin, LocalState> {
     this.handlePassword = this.handlePassword.bind(this)
     this.handleForgotPass = this.handleForgotPass.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
+    this.clearEmailErrors = this.clearEmailErrors.bind(this)
+    this.clearPassErrors = this.clearPassErrors.bind(this)
   }
 
+  clearEmailErrors() {
+    if (this.state.email.length === 0) {
+      this.setState({ emailError: false, show: false })
+    }
+  }
+
+  clearPassErrors() {
+    if (this.state.password.length === 0) {
+      this.setState({ passError: false, show: false })
+    }
+  }
 
   handleClose(): void {
     this.props.openAuthModal(false)
   }
 
   handleEmail(e: InputVal): void {
-    this.setState({ email: e.target.value })
+    this.setState({ email: e.target.value }, this!.clearEmailErrors)
   }
 
   handlePassword(e: InputVal): void {
-    this.setState({ password: e.target.value })
+    this.setState({ password: e.target.value }, this!.clearPassErrors)
   }
 
 

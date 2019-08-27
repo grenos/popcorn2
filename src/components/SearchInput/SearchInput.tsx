@@ -66,13 +66,13 @@ export const UnconnectedSearchInput: React.FC<INT.IInputProps & RouteComponentPr
   })
 
   const animateHide = useSpring<INT.IAnimateInputHide>({
-    transform: scrolled > 30
+    transform: (scrolled > 30) && (history.location.pathname !== '/favorites')
       ? 'translate3d(-200%, 0, 0)'
       : 'translate3d(0%, 0, 0)'
   })
 
   const animateImg = useSpring<INT.IAnimateInputImg>({
-    right: scrolled > 30
+    right: (scrolled > 30) && (history.location.pathname !== '/favorites')
       ? '200%'
       : '0%'
   })
