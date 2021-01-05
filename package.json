@@ -23,7 +23,7 @@
     "array-each-slice": "^1.0.1",
     "aws-amplify": "^1.1.30",
     "aws-amplify-react": "^2.3.10",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "chunk": "0.0.2",
     "connected-react-router": "^6.5.0",
     "express": "^4.16.4",
